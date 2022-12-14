@@ -1,0 +1,23 @@
+Package: sleepIPD_analysis
+Title: Analysis for the Pooled Sleep and Physical Activity Study
+Version: 0.0.0.9000
+Authors@R: 
+    person("Taren", "Sanders", 
+            email = "taren.sanders@acu.edu.au", 
+            role = c("aut", "cre"),
+            comment = c(ORCID = "0000-0002-4504-6008"))
+Description: This package contains the analysis code for the pooled sleep and physical activity study.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
+Suggests: 
+    fnmate (>= 0.0.6),
+    httpgd,
+    languageserver,
+    lintr,
+    styler,
+    tflow (>= 0.3.7)
+Remotes:  
+    MilesMcBain/tflow,
+    MilesMcBain/fnmate
