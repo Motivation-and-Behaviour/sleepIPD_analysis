@@ -1,0 +1,26 @@
+---
+title: "Untitled Draft"
+author: "Report Author"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r load-targets, include=FALSE}
+
+```
+
+# Introduction
+
+
+# Methods
+
+
+# Results
+
+# Discussion
+
+# Conclusion
