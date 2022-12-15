@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.1",
+    "Version": "4.2.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -653,6 +653,18 @@
         "ellipsis",
         "fastmap",
         "rlang"
+      ]
+    },
+    "htmlwidgets": {
+      "Package": "htmlwidgets",
+      "Version": "1.5.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "76147821cd3fcd8c4b04e1ef0498e7fb",
+      "Requirements": [
+        "htmltools",
+        "jsonlite",
+        "yaml"
       ]
     },
     "httpgd": {
@@ -1329,14 +1341,14 @@
       "Package": "tflow",
       "Version": "0.3.7",
       "Source": "GitHub",
-      "RemoteType": "github",
       "Remotes": "milesmcbain/fnmate, milesmcbain/capsule, milesmcbain/atcursor",
+      "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "tflow",
       "RemoteUsername": "milesmcbain",
       "RemoteRef": "HEAD",
       "RemoteSha": "30cb6850ee7f69d462619f066ff739dc19ff1e7c",
-      "Hash": "efcb7871e272b233b0636868753f435e",
+      "Hash": "3f1d5b21b29558efb464092bf3ffe7f9",
       "Requirements": [
         "atcursor",
         "cli",
@@ -1448,6 +1460,19 @@
         "glue",
         "lifecycle",
         "rlang"
+      ]
+    },
+    "visNetwork": {
+      "Package": "visNetwork",
+      "Version": "2.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3e48b097e8d9a91ecced2ed4817a678d",
+      "Requirements": [
+        "htmltools",
+        "htmlwidgets",
+        "jsonlite",
+        "magrittr"
       ]
     },
     "vroom": {

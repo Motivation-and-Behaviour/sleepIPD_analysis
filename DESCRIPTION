@@ -17,7 +17,8 @@ Suggests:
     languageserver,
     lintr,
     styler,
-    tflow (>= 0.3.7)
-Remotes:  
+    tflow (>= 0.3.7),
+    visNetwork
+Remotes: 
     MilesMcBain/tflow,
     MilesMcBain/fnmate
