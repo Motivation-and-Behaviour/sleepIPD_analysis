@@ -15,3 +15,7 @@ create_distinct <- function(df) {
       readr::write_csv(file.path("temp", paste0(.x, ".csv", collapse = "")))
   )
 }
+
+load_packages <- function() {
+  invisible(source("./packages.R"))
+}

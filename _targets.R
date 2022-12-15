@@ -1,8 +1,6 @@
-# Packages
-source("./packages.R")
-
-# Load functions
+# Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
+load_packages()
 
 # Pipeline
 list(
