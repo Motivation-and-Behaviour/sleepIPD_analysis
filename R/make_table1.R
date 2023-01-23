@@ -10,6 +10,5 @@
 make_table1 <- function(data_clean) {
   # targets::tar_make()
   # d <- targets::tar_load(data_clean)
-  names(d)
-
+  names(data_clean)
 }
