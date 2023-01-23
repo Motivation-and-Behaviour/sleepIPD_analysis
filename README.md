@@ -22,7 +22,7 @@ renv::restore()
 Data for the project are stored in cloudstor. To save `targets` checking the data every time, the data are downloaded to the `data` folder using the `fetch_data()` function. You will need to authenticate [`cloudstoR`](https://cran.r-project.org/package=cloudstoR) to access your cloudstor account if you have not used it before.
 
 1. Load the `fetch_data()` function (`devtools::load_all()` will work)
-2. Run `fetch_data()` to download the data to the `data` folder
+2. Run `fetch_data()` to download the data to the `data` folder (you may need to change base_folder: fetch_data(base_folder = "Shared/Motivation and Behaviour Program/Pooled Sleep Study")
 
 ### Running the Pipeline
 
