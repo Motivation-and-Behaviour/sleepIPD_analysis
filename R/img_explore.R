@@ -20,10 +20,25 @@ make_lineplot <- function(clean_data, x, y, title = NULL){
 
 }
 
-img_explore <- function(){
+#' create_img_list
 
-  data.frame(x = "sleepefficiency", "")
+make_explore_img_list <- function(data_clean){
 
+  input <- expand.grid(exercise_vars = c("pa_volume", "pa_intensity"),
+              sleep_vars = c("sleep_duration", "sleep_efficiency","sleep_onset","sleep_regularity"),
+              stringsAsFactors = FALSE)
 
+  input$lab <- glue::glue("{input$exercise_vars} by {input$sleep_vars}")
 
+  img_list <- lapply(seq_len(nrow(input)), function(i){
+
+    make_lineplot(
+      data_clean,
+      x = input$exercise_vars[i],
+      y = input$sleep_vars[i]
+    )
+  })
+
+names(img_list) <- input$lab
+  img_list
 }

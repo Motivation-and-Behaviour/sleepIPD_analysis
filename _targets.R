@@ -25,7 +25,7 @@ list(
   tar_target(model_diagnostics, make_model_diagnostics(model_list)),
 
   # Figure
-
+  tar_target(explore_img, make_explore_img_list(data_clean)),
   tar_target(purdy_pictures, produce_purdy_pictures()),
 
   # Output manuscript
