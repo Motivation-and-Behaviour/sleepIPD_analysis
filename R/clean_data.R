@@ -30,7 +30,7 @@ clean_data <- function(data_joined) {
     ) %>%
     mutate(across(c(
       pa_volume, pa_intensity, sleep_duration, sleep_efficiency, sleep_onset,
-      sleep_wakeup, sleep_regularity, age, n_valid_hours
+      sleep_wakeup, sleep_regularity, age, n_valid_hours, weight
     ), as.numeric)) %>%
     # Filter for OK data
     # TODO: Decision rules for this
