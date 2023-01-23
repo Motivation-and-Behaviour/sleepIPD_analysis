@@ -1,8 +1,10 @@
 ## library() calls go here
 library(cloudstoR)
 library(dplyr)
+library(janitor)
 library(purrr)
 library(readr)
 library(targets)
 library(tarchetypes)
 library(rmarkdown)
+library(janitor)

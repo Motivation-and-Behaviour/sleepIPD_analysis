@@ -17,8 +17,10 @@ list(
   tar_target(data_joined, bind_rows(data_raw), pattern = map(data_raw)),
   tar_target(data_clean, clean_data(data_joined)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
+
   tar_target(table_1, make_table1(data_holdout)),
   tar_target(data_imp, make_data_imp(data_holdout)),
+
 
   # Modelling targets
   tar_target(model_list, make_model_list(data_imp)),
