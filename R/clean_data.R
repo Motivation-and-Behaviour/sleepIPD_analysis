@@ -9,6 +9,7 @@
 #' @export
 clean_data <- function(data_joined) {
   data_joined %>%
+    clean_names() %>%
     # Remove problem studies
     # TODO: Remove when data are fixed
     filter(!studyid %in%
@@ -17,7 +18,7 @@ clean_data <- function(data_joined) {
       )) %>%
     # Rename data
     rename(
-      pa_volume = ACC_day_mg,
+      pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
       sleep_duration = dur_spt_sleep_min, # TODO: confirm
       sleep_efficiency = sleep_efficiency,
@@ -25,10 +26,14 @@ clean_data <- function(data_joined) {
       sleep_wakeup = wakeup_p5,
       sleep_onset_time = sleeponset_ts_p5,
       sleep_wakeup_time = wakeup_ts_p5,
-      sleep_regularity = SleepRegularityIndex
-    ) %>% janitor::clean_names() %>%
+      sleep_regularity = sleep_regularity_index
+    ) %>%
+    mutate(across(c(
+      pa_volume, pa_intensity, sleep_duration, sleep_efficiency, sleep_onset,
+      sleep_wakeup, sleep_regularity, age, n_valid_hours
+    ), as.numeric)) %>%
     # Filter for OK data
     # TODO: Decision rules for this
-    filter((`N valid hours` > 10) &
+    filter((n_valid_hours > 10) &
       (is.na(sleep_duration) | sleep_duration > 300))
 }
