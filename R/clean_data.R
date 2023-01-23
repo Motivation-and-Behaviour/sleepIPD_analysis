@@ -29,5 +29,6 @@ clean_data <- function(data_joined) {
     ) %>%
     # Filter for OK data
     # TODO: Decision rules for this
-    filter((is.na(sleep_duration) | sleep_duration > 300))
+    filter((`N valid hours` > 10) &
+      (is.na(sleep_duration) | sleep_duration > 300))
 }
