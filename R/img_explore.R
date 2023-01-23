@@ -7,16 +7,26 @@
 #' @param x x-variable
 #' @param y y-varaible
 
-make_lineplot <- function(clean_data, x, y, title = NULL){
+make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL){
+
+  if(is.null(path)) stop("argument path must be supplied")
 
   require(ggplot2)
 
-  clean_data |>
+  p <- clean_data |>
     ggplot(ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
-    geom_point() +
+    geom_point(alpha = .2) +
     geom_smooth() +
+    geom_density2d(alpha = .5, colour = "grey") +
     labs(title = title) +
     figure_theme()
+
+  filename <-  glue::glue("Figures/{path}")
+
+  ggsave(plot = p, filename = filename,
+         height = 10, width = 12, units = "cm", dpi = 300)
+
+  return(filename)
 
 }
 
@@ -38,14 +48,16 @@ make_explore_img_list <- function(data_clean){
 
   input <- rbind(input, additional_input)
 
-  input$lab <- glue::glue("{input$x_var} by {input$y_var}")
+  input$lab <- glue::glue("{input$y_var} by {input$x_var}")
 
   img_list <- lapply(seq_len(nrow(input)), function(i){
 
     make_lineplot(
       data_clean,
       x = input$x_var[i],
-      y = input$y_var[i]
+      y = input$y_var[i],
+      title = input$lab[i],
+      path = paste0("explore/",input$lab[i], ".jpg")
     )
   })
 
