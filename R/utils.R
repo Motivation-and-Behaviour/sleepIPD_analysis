@@ -19,3 +19,18 @@ create_distinct <- function(df) {
 load_packages <- function() {
   invisible(source("./packages.R"))
 }
+
+#' figure_theme
+#'
+#' Attractive ggplot2 theme defaults
+
+figure_theme <- function(){
+
+    ggplot2::theme_bw() +
+      ggplot2::theme(
+        text = ggplot2::element_text(family = "serif"),
+        strip.text.y = ggplot2::element_text(angle = 0),
+        strip.background.y = ggplot2::element_blank()
+      )
+
+}
