@@ -12,7 +12,7 @@
 #' @export
 fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                        cloudstor_pwd = Sys.getenv("CLOUD_PASS"),
-                       base_folder = "Motivation and Behaviour Program/Pooled Sleep Study", # nolint
+                       base_folder = Sys.getenv("CLOUDSTOR_MB", unset = "Motivation and Behaviour Program/Pooled Sleep Study"), # nolint
                        files = c(
                          "100 ISCOLE/100_ISCOLE.csv",
                          "101 Pedro/101_Pedro.csv",
