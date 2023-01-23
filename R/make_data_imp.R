@@ -11,13 +11,8 @@
 
 make_data_imp <- function(data, n_imps = 3) {
 
-  NULL
-  # data <- janitor::clean_names(data)
-  # data <- data[sample(seq_len(nrow(data)), 2000),]
-  #
-  #
-  # require(mice)
-  # imps <- mice(data, remove.collinear=FALSE)
-  #
-  # imps
+  require(mice)
+  imps <- mice(data, m = n_imps)
+
+  imps
 }
