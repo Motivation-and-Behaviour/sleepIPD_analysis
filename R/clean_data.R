@@ -26,7 +26,7 @@ clean_data <- function(data_joined) {
       sleep_onset_time = sleeponset_ts_p5,
       sleep_wakeup_time = wakeup_ts_p5,
       sleep_regularity = SleepRegularityIndex
-    ) %>%
+    ) %>% janitor::clean_names() %>%
     # Filter for OK data
     # TODO: Decision rules for this
     filter((is.na(sleep_duration) | sleep_duration > 300))
