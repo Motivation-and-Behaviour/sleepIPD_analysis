@@ -4,11 +4,11 @@
 #'
 #' @title
 #' @param data_holdout
-#' @return
-#' @author conig
+#' @return gt object with table1
+#' @author noetel
 #' @export
-make_table1 <- function(data_holdout) {
-
-  NULL
-
+make_table1 <- function(data_clean) {
+  # targets::tar_make()
+  # d <- targets::tar_load(data_clean)
+  names(data_clean)
 }
