@@ -21,13 +21,11 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 
   m <- eval(parse(text = glue::glue("with(data_imp, lm(formula = {formula}))")))
 
-  with(data_imp, lm(sleep_duration ~ pa_intensity))
-
   m_pooled <- pool(m)
   pool_summary <- data.table(summary(m_pooled))
 
   pool_summary <- pool_summary[!grepl("studyid",pool_summary$term),]
-  pool_summary <- pool_summary[!grepl("measurementday",pool_summary$term),]
+  pool_summary <- pool_summary[!grepl("measurement_day",pool_summary$term),]
   pool_summary <- pool_summary[!grepl("participant_id",pool_summary$term),]
 
   crit.val <- qnorm(1 - 0.05 / 2)
