@@ -295,6 +295,14 @@
         "tibble"
       ]
     },
+    "chron": {
+      "Package": "chron",
+      "Version": "2.3-58",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c199244c7fb95c291e301ba8a48293d8",
+      "Requirements": []
+    },
     "cli": {
       "Package": "cli",
       "Version": "3.4.1",
@@ -1260,6 +1268,23 @@
       "Requirements": [
         "Matrix",
         "nlme"
+      ]
+    },
+    "mice": {
+      "Package": "mice",
+      "Version": "3.15.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4eff3178ca2dc520156ddf58f9413231",
+      "Requirements": [
+        "Rcpp",
+        "broom",
+        "cpp11",
+        "dplyr",
+        "generics",
+        "lattice",
+        "rlang",
+        "tidyr"
       ]
     },
     "mime": {
