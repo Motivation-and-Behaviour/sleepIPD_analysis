@@ -12,7 +12,7 @@
 
 model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 
-  formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + studyid + measurement_day + participant_id")
+  formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + studyid + measurement_day # + participant_id")
   formula <- gsub("\\#.*", "", formula)
 
   m <- eval(parse(text = glue::glue("with(data_imp, lm(formula = {formula}))")))
@@ -54,13 +54,14 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 #' Plot an effects display for a RQ1 model
 #' @param model a list delivered by model_builder_RQ1
 #' @param terms character. variables to plot
+#' @param engine ggeffects function
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
-plot_effects_RQ1 <- function(model, terms){
+plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict){
 
   model$model$analyses |>
     lapply(function(m){
-      ggeffects::ggpredict(m, terms = terms)
+      engine(m, terms = terms)
     }) |>
     ggeffects::pool_predictions() |>
     plot() +

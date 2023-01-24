@@ -9,14 +9,41 @@
 #' @export
 make_model_list <- function(data_imp) {
 
-  input <- expand.grid(x_var = c("pa_volume", "pa_intensity"),
-                       y_var = c("sleep_duration", "sleep_efficiency","sleep_onset","sleep_regularity"),
-                       stringsAsFactors = FALSE)
+  sleep_vars <- c("sleep_duration",
+                  "sleep_efficiency",
+                  "sleep_onset",
+                  "sleep_regularity")
 
-  target_vars <- c(input$x_var, input$y_var)
+  PA_vars <- c("pa_volume", "pa_intensity")
 
-  additional_input <- expand.grid(
-    x_var = c("age", "weight"),
-    y_var = target_vars)
 
+
+  instructions <- list(
+    "sleep_duration" = paste0(PA_vars, " * age_cat"),
+    "sleep_efficiency" = PA_vars,
+    sleep_onset = PA_vars,
+    sleep_regularity = PA_vars,
+    "pa_volume" = sleep_vars,
+    "pa_intensity" = sleep_vars
+  )
+
+  require(future.apply)
+
+  plan(multisession, workers = availableCores() - 4)
+
+  out <- future_lapply(
+    seq_len(length(instructions)),
+    FUN = function(i) {
+      model_builder_RQ1(
+        data_imp,
+        outcome = names(instructions)[i],
+        predictors = instructions[[i]],
+        table_only = FALSE
+      )
+
+    }
+  )
+
+  names(out) <- names(instructions)
+  out
 }
