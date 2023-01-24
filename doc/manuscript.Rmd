@@ -8,7 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_knit$set(root.dir = "..")
-setwd("..")
+#setwd("..")
 source("R/utils.R")
 source("R/model_builder_RQ1.R")
 ```
