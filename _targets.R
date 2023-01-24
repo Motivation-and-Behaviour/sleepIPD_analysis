@@ -26,7 +26,9 @@ list(
   tar_target(model_list, make_model_list(data_imp)),
   tar_target(model_diagnostics, make_model_diagnostics(model_list)),
 
-  # Figure
+  # Figures
+  tar_target(explore_img, make_explore_img_list(data_holdout)),
+
   tar_target(purdy_pictures, produce_purdy_pictures()),
 
   # Output manuscript

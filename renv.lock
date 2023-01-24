@@ -723,6 +723,7 @@
         "rstudioapi"
       ]
     },
+
     "ggeffects": {
       "Package": "ggeffects",
       "Version": "1.1.4",
@@ -739,6 +740,7 @@
         "insight"
       ]
     },
+
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.4.0",
@@ -904,10 +906,10 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.7",
+      "Version": "1.6.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "13fdc650c853fffbffee66b2a5b9fdbf",
+      "Hash": "08e611aee165b27f8ff18770285fb535",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -964,6 +966,7 @@
       "Hash": "63e5c0b19f7a78e13cda42e1c3b03549",
       "Requirements": []
     },
+
     "isoband": {
       "Package": "isoband",
       "Version": "0.2.7",
@@ -1207,6 +1210,7 @@
         "tidyr"
       ]
     },
+
     "mime": {
       "Package": "mime",
       "Version": "0.12",
@@ -1480,10 +1484,10 @@
     },
     "ragg": {
       "Package": "ragg",
-      "Version": "1.2.4",
+      "Version": "1.2.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0db17bd5a1d4abfec76487b6f5dd957b",
+      "Hash": "690bc058ea2b1b8a407d3cfe3dce3ef9",
       "Requirements": [
         "systemfonts",
         "textshaping"
@@ -1755,10 +1759,10 @@
     },
     "shiny": {
       "Package": "shiny",
-      "Version": "1.7.3",
+      "Version": "1.7.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "fe12df67fdb3b1142325cc54f100cc06",
+      "Hash": "c2eae3d8c670fa9dfa35a12066f4a1d5",
       "Requirements": [
         "R6",
         "bslib",
