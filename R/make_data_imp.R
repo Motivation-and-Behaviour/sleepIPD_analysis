@@ -10,8 +10,6 @@
 #' @export
 
 make_data_imp <- function(data, n_imps = 3) {
-
-  require(mice)
   imps <- mice(data, m = n_imps)
 
   imps
