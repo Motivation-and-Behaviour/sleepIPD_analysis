@@ -1,3 +1,7 @@
+# Allow multible R sessions to be used
+library(future)
+plan("multisession")
+
 # Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
 load_packages()
