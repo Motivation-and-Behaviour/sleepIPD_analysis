@@ -46,7 +46,7 @@ clean_data <- function(data_joined) {
     mutate(across(c(studyid, sex, ethnicity,
     ses, sleep_medications, sleep_conditions,
     country, city, season, accelerometer_wear_location,
-    weekday_x, ethnicity, accelerometer_model
+    weekday_x, accelerometer_model
     ), as.factor)) %>%
 
     # convert calendar_date to date
@@ -82,12 +82,15 @@ clean_data <- function(data_joined) {
             sleep_onset_time = chron(times = sleep_onset_time),
             sleep_wakeup_time = chron(times = sleep_wakeup_time)) %>%
             select(-measurementday)
+
+
+  table(d$ses)
   # read in sleep conditions harmonisation data
   sleep_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
   sheet = "Sleep conditions",
   col_types = "c",
   range = "A1:C50") %>%
-  remove_empty() %>%
+  remove_empty(which = "rows") %>%
   clean_names() %>%
   mutate(studyid = as.numeric(studyid))
   
@@ -101,7 +104,7 @@ clean_data <- function(data_joined) {
     left_join(sleep_refactors,
               by = c("studyid" = "studyid",
               "sleep_conditions" = "sleep_conditions")) %>%
-    mutate(sleep_conditions = harmonized) %>%
+    mutate(sleep_conditions = as.factor(harmonized)) %>%
     select(-harmonized)
   
   # do the same thing for ses
@@ -109,7 +112,7 @@ clean_data <- function(data_joined) {
   sheet = "SES",
   col_types = "c",
   range = "A1:C100") %>%
-  remove_empty() %>%
+  remove_empty(which = "rows") %>%
   clean_names() %>%
   mutate(studyid = as.numeric(studyid),
   ses = str_to_title(ses))
@@ -119,6 +122,24 @@ clean_data <- function(data_joined) {
               "ses" = "ses")) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
-  unique(d$ses)
+
+  # removing some variables we can't harmonise
+  d <- d %>% select(-sleep_medications,
+  -ethnicity,
+  -maturational_status)
+
+  # Clean the country names
+  d <- d %>% mutate(country = str_to_title(country),
+  country = case_when(
+    country == "España" ~ "Spain",
+    country == "Españ" ~ "Spain",
+    country == "Marruecos" ~ "Morocco",
+    country == "Rumania" ~ "Romania",
+    country == "Ucrania" ~ "Ukraine",
+    country == "Chechia" ~ "Czech Republic",
+    TRUE ~ country
+  ),
+  country = as.factor(country))
+
   return(d)
 }
