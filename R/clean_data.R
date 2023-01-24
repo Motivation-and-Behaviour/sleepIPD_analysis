@@ -33,7 +33,7 @@ clean_data <- function(data_joined) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      -city, pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
+      pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
       sleep_onset, sleep_wakeup, sleep_onset_time, sleep_wakeup_time,
       sleep_regularity
     ) %>%
@@ -47,7 +47,7 @@ clean_data <- function(data_joined) {
     # convert charcter variables to factors
     mutate(across(c(studyid, sex, ethnicity,
     ses, sleep_medications, sleep_conditions,
-    country, city, season, accelerometer_wear_location,
+    country, season, accelerometer_wear_location,
     weekday_x, accelerometer_model
     ), as.factor)) %>%
     # convert calendar_date to date
