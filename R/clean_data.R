@@ -9,7 +9,7 @@
 #' @export
 clean_data <- function(data_joined) {
   #tar_load(data_joined)
-  data_joined %>%
+  d <- data_joined %>%
     clean_names() %>%
     # Remove problem studies
     # TODO: Remove when data are fixed
@@ -82,5 +82,43 @@ clean_data <- function(data_joined) {
             sleep_onset_time = chron(times = sleep_onset_time),
             sleep_wakeup_time = chron(times = sleep_wakeup_time)) %>%
             select(-measurementday)
+  # read in sleep conditions harmonisation data
+  sleep_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
+  sheet = "Sleep conditions",
+  col_types = "c",
+  range = "A1:C50") %>%
+  remove_empty() %>%
+  clean_names() %>%
+  mutate(studyid = as.numeric(studyid))
+  
+  # change study_id to a number to match against harmonisation sheet
+  d <- d %>% mutate(studyid = parse_number(as.character(studyid)))
 
+  d$sleep_conditions[d$studyid == 110 & is.na(d$sleep_conditions)] <- "No sleep apnea" 
+  # when sleep_conditions matches column 2,
+  # and studyid matches column 1, replace with column 3
+  d <- d %>%
+    left_join(sleep_refactors,
+              by = c("studyid" = "studyid",
+              "sleep_conditions" = "sleep_conditions")) %>%
+    mutate(sleep_conditions = harmonized) %>%
+    select(-harmonized)
+  
+  # do the same thing for ses
+  ses_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
+  sheet = "SES",
+  col_types = "c",
+  range = "A1:C100") %>%
+  remove_empty() %>%
+  clean_names() %>%
+  mutate(studyid = as.numeric(studyid),
+  ses = str_to_title(ses))
+  d <- d %>%
+    left_join(ses_refactors,
+              by = c("studyid" = "studyid",
+              "ses" = "ses")) %>%
+    mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
+    select(-harmonized)
+  unique(d$ses)
+  return(d)
 }
