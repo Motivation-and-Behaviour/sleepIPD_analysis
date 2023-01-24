@@ -21,6 +21,7 @@ load_packages <- function() {
 }
 
 
+
 #' figure_theme
 #'
 #' Attractive ggplot2 theme defaults

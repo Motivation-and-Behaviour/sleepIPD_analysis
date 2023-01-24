@@ -63,4 +63,5 @@ make_explore_img_list <- function(data_clean){
 
 names(img_list) <- input$lab
   img_list
+  
 }
