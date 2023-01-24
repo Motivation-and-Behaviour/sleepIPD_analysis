@@ -9,6 +9,7 @@
 #' @export
 clean_data <- function(data_joined) {
   # tar_load(data_joined)
+  data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
     clean_names() %>%
     # Remove problem studies
@@ -85,7 +86,7 @@ clean_data <- function(data_joined) {
     select(-measurementday)
   # read in sleep conditions harmonisation data
   sleep_refactors <-
-    googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
+    googlesheets4::read_sheet(data_gsheet,
       sheet = "Sleep conditions",
       col_types = "c",
       range = "A1:C50"
@@ -111,11 +112,12 @@ clean_data <- function(data_joined) {
     select(-harmonized)
 
   # do the same thing for ses
-  ses_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
-    sheet = "SES",
-    col_types = "c",
-    range = "A1:C100"
-  ) %>%
+  ses_refactors <-
+    googlesheets4::read_sheet(data_gsheet,
+      sheet = "SES",
+      col_types = "c",
+      range = "A1:C100"
+    ) %>%
     remove_empty(which = "rows") %>%
     clean_names() %>%
     mutate(
@@ -131,6 +133,5 @@ clean_data <- function(data_joined) {
     ) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
-  unique(d$ses)
   return(d)
 }
