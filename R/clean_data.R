@@ -45,10 +45,10 @@ clean_data <- function(data_joined) {
       maturational_status
     ), as.numeric)) %>%
     # convert charcter variables to factors
-    mutate(across(c(
-      studyid, sex, ethnicity, ses, sleep_medications, sleep_conditions,
-      country, season, accelerometer_wear_location,
-      weekday_x, ethnicity, accelerometer_model
+    mutate(across(c(studyid, sex, ethnicity,
+    ses, sleep_medications, sleep_conditions,
+    country, city, season, accelerometer_wear_location,
+    weekday_x, accelerometer_model
     ), as.factor)) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
@@ -103,12 +103,9 @@ clean_data <- function(data_joined) {
   # and studyid matches column 1, replace with column 3
   d <- d %>%
     left_join(sleep_refactors,
-      by = c(
-        "studyid" = "studyid",
-        "sleep_conditions" = "sleep_conditions"
-      )
-    ) %>%
-    mutate(sleep_conditions = harmonized) %>%
+              by = c("studyid" = "studyid",
+              "sleep_conditions" = "sleep_conditions")) %>%
+    mutate(sleep_conditions = as.factor(harmonized)) %>%
     select(-harmonized)
 
   # do the same thing for ses
@@ -133,5 +130,24 @@ clean_data <- function(data_joined) {
     ) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
+
+  # removing some variables we can't harmonise
+  d <- d %>% select(-sleep_medications,
+  -ethnicity,
+  -maturational_status)
+
+  # Clean the country names
+  d <- d %>% mutate(country = str_to_title(country),
+  country = case_when(
+    country == "España" ~ "Spain",
+    country == "Españ" ~ "Spain",
+    country == "Marruecos" ~ "Morocco",
+    country == "Rumania" ~ "Romania",
+    country == "Ucrania" ~ "Ukraine",
+    country == "Chechia" ~ "Czech Republic",
+    TRUE ~ country
+  ),
+  country = as.factor(country))
+
   return(d)
 }
