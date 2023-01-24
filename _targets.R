@@ -22,6 +22,13 @@ list(
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
   # Modelling targets
+
+  tar_target(rq1_example_model,
+             model_builder_RQ1(data_imp,
+                               outcome = "sleep_duration",
+             predictors = c("pa_volume", "pa_intensity"),
+             table_only = FALSE)),
+
   tar_target(model_list, make_model_list(data_imp)),
   tar_target(model_diagnostics, make_model_diagnostics(model_list)),
 
