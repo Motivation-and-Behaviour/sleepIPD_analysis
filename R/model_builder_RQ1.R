@@ -12,10 +12,6 @@
 
 model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 
-  require(data.table)
-  require(papaja)
-  require(mice)
-
   formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + studyid + measurement_day + participant_id")
   formula <- gsub("\\#.*", "", formula)
 
