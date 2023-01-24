@@ -45,16 +45,12 @@ clean_data <- function(data_joined) {
       maturational_status
     ), as.numeric)) %>%
     # convert charcter variables to factors
-<<<<<<< HEAD
-    mutate(across(c(studyid, sex, ethnicity, sleep_medications, sleep_conditions,
-    country, season, accelerometer_wear_location,
-    weekday_x, ethnicity,
-=======
+
     mutate(across(c(
       studyid, sex, ethnicity, ses, sleep_medications, sleep_conditions,
       country, season, accelerometer_wear_location,
       weekday_x, ethnicity, accelerometer_model
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
+
     ), as.factor)) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
@@ -65,10 +61,7 @@ clean_data <- function(data_joined) {
     filter((n_valid_hours > 10) &
       (is.na(sleep_duration) | sleep_duration > 300)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
-<<<<<<< HEAD
 
-=======
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
@@ -95,15 +88,7 @@ clean_data <- function(data_joined) {
     ) %>%
     select(-measurementday)
   # read in sleep conditions harmonisation data
-<<<<<<< HEAD
-  sleep_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
-  sheet = "Sleep conditions",
-  col_types = "c",
-  range = "A1:C50") %>%
-  remove_empty() %>%
-  clean_names() %>%
-  mutate(studyid = as.numeric(studyid))
-=======
+
   sleep_refactors <-
     googlesheets4::read_sheet(data_gsheet,
       sheet = "Sleep conditions",
@@ -113,7 +98,6 @@ clean_data <- function(data_joined) {
     remove_empty(which = "rows") %>%
     clean_names() %>%
     mutate(studyid = as.numeric(studyid))
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
 
   # change study_id to a number to match against harmonisation sheet
   d <- d %>% mutate(studyid = parse_number(as.character(studyid)))
@@ -153,12 +137,9 @@ clean_data <- function(data_joined) {
     ) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
-<<<<<<< HEAD
 
   d$age_cat <- cut(d$age, breaks = c(0, 18, 35, 65, 100), labels = c("0-18 years", "19-35 years", "36-65 years", "65+ years"))
 
   d
-=======
-  return(d)
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
+
 }

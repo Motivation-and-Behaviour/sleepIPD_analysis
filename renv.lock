@@ -200,7 +200,7 @@
         "bit"
       ]
     },
-<<<<<<< HEAD
+
     "bookdown": {
       "Package": "bookdown",
       "Version": "0.32",
@@ -220,8 +220,8 @@
         "rmarkdown",
         "tinytex",
         "xfun",
-        "yaml"
-=======
+        "yaml"]
+    },
     "blob": {
       "Package": "blob",
       "Version": "1.2.3",
@@ -231,7 +231,7 @@
       "Requirements": [
         "rlang",
         "vctrs"
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
+
       ]
     },
     "brew": {
@@ -250,6 +250,7 @@
       "Hash": "976cf154dfb043c012d87cddd8bca363",
       "Requirements": []
     },
+
     "broom": {
       "Package": "broom",
       "Version": "1.0.2",
@@ -323,15 +324,12 @@
       "Version": "2.3-58",
       "Source": "Repository",
       "Repository": "CRAN",
-<<<<<<< HEAD
       "RemoteType": "standard",
       "RemotePkgRef": "chron",
       "RemoteRef": "chron",
       "RemoteRepos": "https://cloud.r-project.org",
       "RemotePkgPlatform": "x86_64-w64-mingw32",
       "RemoteSha": "2.3-58",
-=======
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
       "Hash": "c199244c7fb95c291e301ba8a48293d8",
       "Requirements": []
     },
@@ -1335,10 +1333,7 @@
         "nlme"
       ]
     },
-<<<<<<< HEAD
 
-=======
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
     "mice": {
       "Package": "mice",
       "Version": "3.15.0",
@@ -1356,10 +1351,7 @@
         "tidyr"
       ]
     },
-<<<<<<< HEAD
 
-=======
->>>>>>> 4ebac882b925c24e7d7d3ca6484c09edad2f4446
     "mime": {
       "Package": "mime",
       "Version": "0.12",
