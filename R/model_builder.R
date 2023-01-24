@@ -16,6 +16,7 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
   require(papaja)
 
   formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + factor(studyid) + factor(measurementday) + factor(participant_id)")
+  formula <- gsub("\\#.*", "", formula)
 
   m <- eval(parse(text = glue::glue("with(data_imp, lm(formula = {formula}))")))
 
@@ -23,7 +24,7 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
   pool_summary <- data.table(summary(m_pooled))
 
   pool_summary <- pool_summary[!grepl("studyid",pool_summary$term),]
-  pool_summary <- pool_summary[!grepl("night_number",pool_summary$term),]
+  pool_summary <- pool_summary[!grepl("measurementday",pool_summary$term),]
   pool_summary <- pool_summary[!grepl("participant_id",pool_summary$term),]
 
   crit.val <- qnorm(1 - 0.05 / 2)
@@ -43,7 +44,7 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
     )
   ]
 
-  if(table_only) return(rabby)
+  if(table_only) return(tabby)
 
   list(model = m,
        pooled_model = pool(m),
