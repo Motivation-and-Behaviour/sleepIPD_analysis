@@ -35,5 +35,6 @@ clean_data <- function(data_joined) {
     # Filter for OK data
     # TODO: Decision rules for this
     filter((n_valid_hours > 10) &
-      (is.na(sleep_duration) | sleep_duration > 300))
+      (is.na(sleep_duration) | sleep_duration > 300)) %>%
+    remove_outliers(ignore_cols = c("age"))
 }
