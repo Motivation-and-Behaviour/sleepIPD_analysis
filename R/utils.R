@@ -36,3 +36,25 @@ figure_theme <- function(){
       )
 
 }
+
+#' APA_style for gt
+
+apa_style <- function(x) {
+  x |>
+    opt_table_lines(extent = "none")|>
+    tab_options(
+      heading.border.bottom.width = 2,
+      heading.border.bottom.color = "black",
+      heading.border.bottom.style = "solid",
+      heading.title.font.size = 12,
+      table.font.size = 12,
+      heading.subtitle.font.size = 12,
+      table_body.border.bottom.color = "black",
+      table_body.border.bottom.width = 1,
+      table_body.border.bottom.style = "solid",
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.style = "solid",
+      column_labels.border.bottom.width = 1
+    ) |>
+    opt_table_font(font = "times")
+}

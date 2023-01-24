@@ -22,7 +22,14 @@ make_data_imp <- function(data, n_imps = 3) {
   pred[, colnames(pred) %in% dont_imp] <- 0
 
   # Run imps with better settings
-  imps <- futuremice(data, m = n_imps, predictorMatrix = pred, method = meth, n.core = parallel::detectCores() - 1)
+  imps <-
+    futuremice(
+      data,
+      m = n_imps,
+      predictorMatrix = pred,
+      method = meth,
+      n.core = parallel::detectCores() - 1
+    )
 
   imps
 }

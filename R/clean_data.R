@@ -138,7 +138,7 @@ clean_data <- function(data_joined) {
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
 
-  d$age_cat <- cut(d$age, breaks = c(0, 18, 35, 65, 100), labels = c("0-18 years", "19-35 years", "36-65 years", "65+ years"))
+  d$age_cat <- cut(d$age, breaks = c(0, 11,  18, 35, 65, 100), labels = c("0-11 years","12-18 years", "19-35 years", "36-65 years", "65+ years"))
 
   d
 
