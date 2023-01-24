@@ -83,8 +83,6 @@ clean_data <- function(data_joined) {
             sleep_wakeup_time = chron(times = sleep_wakeup_time)) %>%
             select(-measurementday)
 
-
-  table(d$ses)
   # read in sleep conditions harmonisation data
   sleep_refactors <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274",
   sheet = "Sleep conditions",

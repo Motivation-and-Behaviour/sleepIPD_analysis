@@ -22,7 +22,7 @@ make_table1 <- function(data_clean) {
     sleep_conditions, country, season, studyid, participant_id) %>%
     mutate(studyid = as.factor(studyid))
   # Tabulate the number of observations
-  observations_tab_one <- tableone::CreateTableOne(data = d,
+  observations_tab_one <- tableone::CreateTableOne(data = select(d, -studyid, -participant_id),
   includeNA = TRUE)
   write_obs <- print(observations_tab_one,
   quote = FALSE, noSpaces = TRUE, printToggle = FALSE)
