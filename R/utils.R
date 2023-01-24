@@ -20,6 +20,8 @@ load_packages <- function() {
   invisible(source("./packages.R"))
 }
 
+
+
 #' figure_theme
 #'
 #' Attractive ggplot2 theme defaults
