@@ -43,10 +43,9 @@ clean_data <- function(data_joined) {
     ), as.numeric)) %>%
 
     # convert charcter variables to factors
-    mutate(across(c(studyid, sex, ethnicity,
-    ses, sleep_medications, sleep_conditions,
-    country, city, season, accelerometer_wear_location,
-    weekday_x, ethnicity, accelerometer_model
+    mutate(across(c(studyid, sex, ethnicity, sleep_medications, sleep_conditions,
+    country, season, accelerometer_wear_location,
+    weekday_x, ethnicity,
     ), as.factor)) %>%
 
     # convert calendar_date to date
@@ -62,7 +61,7 @@ clean_data <- function(data_joined) {
     filter((n_valid_hours > 10) &
       (is.na(sleep_duration) | sleep_duration > 300)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
-    
+
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
