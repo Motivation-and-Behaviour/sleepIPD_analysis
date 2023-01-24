@@ -30,12 +30,9 @@ list(
   tar_target(model_list, make_model_list(data_imp)),
   tar_target(model_diagnostics, make_model_diagnostics(model_list)),
 
-<<<<<<< HEAD
-  # Figure
-=======
   # Figures
   tar_target(explore_img, make_explore_img_list(data_holdout)),
->>>>>>> 19f41c377aae734674d9ab201c3c6194fc4ba24b
+
   tar_target(purdy_pictures, produce_purdy_pictures()),
 
   # Output manuscript
