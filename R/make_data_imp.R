@@ -3,12 +3,16 @@
 #' .. content for \details{} ..
 #'
 #' @title
-#' @param data_imp
+#' @param data data holdout or clean data
+#' @param n_imps number of imputations
 #' @return
 #' @author conig
 #' @export
-make_data_imp <- function(data_imp) {
 
-  NULL
+make_data_imp <- function(data, n_imps = 3) {
 
+  require(mice)
+  imps <- mice(data, m = n_imps)
+
+  imps
 }
