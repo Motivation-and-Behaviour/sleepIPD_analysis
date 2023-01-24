@@ -15,7 +15,7 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
   require(data.table)
   require(papaja)
 
-  formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + factor(studyid) + factor(measurementday) + factor(participant_id)")
+  formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + studyid + measurementday + participant_id")
   formula <- gsub("\\#.*", "", formula)
 
   m <- eval(parse(text = glue::glue("with(data_imp, lm(formula = {formula}))")))
@@ -49,5 +49,20 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
   list(model = m,
        pooled_model = pool(m),
        table = tabby)
+
+}
+
+#' plot_effects_RQ1
+#'
+#' Plot an effects display for a RQ1 model
+
+plot_effects_RQ1 <- function(model, terms){
+
+  model$model$analyses |>
+    lapply(function(m){
+      ggeffects::ggpredict(m, terms = terms)
+    }) |>
+    ggeffects::pool_predictions() |>
+    plot()
 
 }
