@@ -119,15 +119,16 @@ clean_data <- function(data_joined) {
     clean_names() %>%
     mutate(
       studyid = as.numeric(studyid),
-      ses = str_to_title(ses)
+      ses = tolower(ses)
     )
   d <- d %>%
+    mutate(ses = tolower(ses)) %>%
     left_join(ses_refactors,
       by = c(
         "studyid" = "studyid",
         "ses" = "ses"
       )
-    ) %>%
+    ) %>% 
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
 
@@ -144,7 +145,7 @@ clean_data <- function(data_joined) {
     country == "Marruecos" ~ "Morocco",
     country == "Rumania" ~ "Romania",
     country == "Ucrania" ~ "Ukraine",
-    country == "Chechia" ~ "Czech Republic",
+    country == "Czechia" ~ "Czech Republic",
     TRUE ~ country
   ),
   country = as.factor(country))
