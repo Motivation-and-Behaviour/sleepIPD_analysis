@@ -138,9 +138,8 @@ clean_data <- function(data_joined) {
 
   # removing some variables we can't harmonise
   d <- d %>% select(-sleep_medications,
-  -ethnicity,
-  -maturational_status) %>%
-    dplyr::rename(ethnicity = ethinicity)
+  -ethinicity,
+  -maturational_status)
 
   # Clean the country names
   d <- d %>% mutate(country = str_to_title(country),
@@ -153,7 +152,7 @@ clean_data <- function(data_joined) {
     country == "Czechia" ~ "Czech Republic",
     TRUE ~ country
   ))
-  
+
   d$city[d$studyid == 105] <- "Prague"
   d$city[d$studyid == 117] <- "Madrid"
   d$country[d$studyid == 117] <- "Spain"
@@ -188,7 +187,7 @@ clean_data <- function(data_joined) {
 
   unique(d$studyid[is.na(d$city)])
   unique(d$studyid[is.na(d$country)])
-  
+
   d <- d %>% mutate(country = as.factor(country),
                     location = paste(city, country, sep = ", "))
 
@@ -210,13 +209,13 @@ clean_data <- function(data_joined) {
                     getSunlightTimes(data = .,
                                     keep = c("sunrise", "sunset"))
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
-  d <- d %>% left_join(distinct(sunlight), 
+  d <- d %>% left_join(distinct(sunlight),
                     by = c("calendar_date" = "date",
                     "lat", "lon"))
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
   d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
   select(-lat, -lon, -sunrise, -sunset, -location)
-  
+
   # remove 106 hours because it could be anywhere in Aus
   d$daylight_hours[d$studyid == 106] <- NA
 

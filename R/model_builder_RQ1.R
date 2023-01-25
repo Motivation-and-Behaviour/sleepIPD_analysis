@@ -14,7 +14,7 @@ model_builder_RQ1 <-
   function(data_imp,
            outcome,
            predictors,
-           control_vars = c(),
+           control_vars = c("ses", "sex", "scale(bmi)"),
            table_only = TRUE) {
 
     formula <-
@@ -51,7 +51,7 @@ model_builder_RQ1 <-
           i = i + 1
       }
 
-      if(!conv) warning("No convergence with any optimizer")
+      if(!conv) stop("No convergence with any optimizer:" , cat(...))
 
       mod
     }

@@ -16,7 +16,7 @@ make_model_list <- function(data_imp) {
 
   PA_vars <- c("pa_volume", "pa_intensity")
 
-  control_vars <- c("ethnicity", "ses", "sex", "bmi")
+  control_vars <- c("ethnicity","ses", "sex", "bmi")
 
   instructions <- list(
     "sleep_duration" = c("pa_volume * age + I(pa_volume^2) * age"),
