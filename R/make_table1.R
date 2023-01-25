@@ -48,6 +48,6 @@ make_table1 <- function(data_clean) {
     missing_text = "NA") %>%
     as_gt() %>%
     gtsave("tables/participants_table_one.html")
-
+  return(NULL)
   return(list(observations_tab_one, participants_table_one))
 }

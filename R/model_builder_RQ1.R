@@ -29,7 +29,7 @@ model_builder_RQ1 <-
     m <-
       eval(parse(text = glue::glue(
         "with(data = data_imp, glmmTMB::glmmTMB(formula = {formula},
-        control = glmmTMBControl(optCtrl=list(iter.max=1e3,eval.max=1e3))))"
+        control = glmmTMBControl(optCtrl=list(iter.max=1e4,eval.max=1e4))))"
       )))
 
     m_pooled <- pool(m)
