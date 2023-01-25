@@ -31,9 +31,8 @@ tar_load(model_list)
 # Results
 
 ```{r out.width="100%"}
-
 model_list[[1]] |> 
-  plot_effects_RQ1(terms = c("pa_volume", "age_cat")) +
+  plot_effects_RQ1(terms = c("pa_volume", "age[11,18,35,65]"), return_data = FALSE) +
   facet_grid(cols = vars(group))
 ```
 

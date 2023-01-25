@@ -55,15 +55,21 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 #' @param model a list delivered by model_builder_RQ1
 #' @param terms character. variables to plot
 #' @param engine ggeffects function
+#' @param return_data if TRUE only data is returned
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
-plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict){
+plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, return_data = FALSE){
 
-  model$model$analyses |>
-    lapply(function(m){
+
+  effects <- model$model$analyses |>
+    lapply(function(m) {
       engine(m, terms = terms)
     }) |>
-    ggeffects::pool_predictions() |>
+    ggeffects::pool_predictions()
+
+  if (return_data)
+    return(effects)
+  effects |>
     plot() +
     figure_theme()
 

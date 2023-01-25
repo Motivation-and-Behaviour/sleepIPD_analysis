@@ -33,7 +33,7 @@ clean_data <- function(data_joined) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      -city, pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
+      pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
       sleep_onset, sleep_wakeup, sleep_onset_time, sleep_wakeup_time,
       sleep_regularity
     ) %>%
@@ -45,12 +45,10 @@ clean_data <- function(data_joined) {
       maturational_status
     ), as.numeric)) %>%
     # convert charcter variables to factors
-
-    mutate(across(c(
-      studyid, sex, ethnicity, ses, sleep_medications, sleep_conditions,
-      country, season, accelerometer_wear_location,
-      weekday_x, ethnicity, accelerometer_model
-
+    mutate(across(c(studyid, sex, ethnicity,
+    ses, sleep_medications, sleep_conditions,
+    country, season, accelerometer_wear_location,
+    weekday_x, accelerometer_model
     ), as.factor)) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
@@ -107,12 +105,9 @@ clean_data <- function(data_joined) {
   # and studyid matches column 1, replace with column 3
   d <- d %>%
     left_join(sleep_refactors,
-      by = c(
-        "studyid" = "studyid",
-        "sleep_conditions" = "sleep_conditions"
-      )
-    ) %>%
-    mutate(sleep_conditions = harmonized) %>%
+              by = c("studyid" = "studyid",
+              "sleep_conditions" = "sleep_conditions")) %>%
+    mutate(sleep_conditions = as.factor(harmonized)) %>%
     select(-harmonized)
 
   # do the same thing for ses
@@ -126,9 +121,10 @@ clean_data <- function(data_joined) {
     clean_names() %>%
     mutate(
       studyid = as.numeric(studyid),
-      ses = str_to_title(ses)
+      ses = tolower(ses)
     )
   d <- d %>%
+    mutate(ses = tolower(ses)) %>%
     left_join(ses_refactors,
       by = c(
         "studyid" = "studyid",
@@ -140,6 +136,24 @@ clean_data <- function(data_joined) {
 
   d$age_cat <- cut(d$age, breaks = c(0, 11,  18, 35, 65, 100), labels = c("0-11 years","12-18 years", "19-35 years", "36-65 years", "65+ years"))
 
-  d
+  # removing some variables we can't harmonise
+  d <- d %>% select(-sleep_medications,
+  -ethnicity,
+  -maturational_status)
 
+  # Clean the country names
+  d <- d %>% mutate(country = str_to_title(country),
+  country = case_when(
+    country == "España" ~ "Spain",
+    country == "Españ" ~ "Spain",
+    country == "Marruecos" ~ "Morocco",
+    country == "Rumania" ~ "Romania",
+    country == "Ucrania" ~ "Ukraine",
+    country == "Czechia" ~ "Czech Republic",
+    TRUE ~ country
+  ),
+  country = as.factor(country))
+
+  return(d)
+>>>>>>> 216da52d4c6ea77d4e6bdb2508b4df53f204c68d
 }

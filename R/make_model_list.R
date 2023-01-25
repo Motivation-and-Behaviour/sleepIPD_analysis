@@ -16,10 +16,10 @@ make_model_list <- function(data_imp) {
 
   PA_vars <- c("pa_volume", "pa_intensity")
 
-
+  control_vars <- c()
 
   instructions <- list(
-    "sleep_duration" = paste0(PA_vars, " * age_cat"),
+    "sleep_duration" = " pa_volume*age + I(pa_volume^2) * age",
     "sleep_efficiency" = PA_vars,
     sleep_onset = PA_vars,
     sleep_regularity = PA_vars,
