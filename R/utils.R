@@ -36,3 +36,34 @@ figure_theme <- function(){
       )
 
 }
+
+#' convert dates to seasons
+#' @param date a date
+#' @param lat latitude
+#' @return a season
+#' 
+
+get_season <- function(date, lat){
+  if (lat > 0) {
+    if (month(date) %in% c(3:5)) {
+      "spring"
+    } else if (month(date) %in% c(6:8)) {
+      "summer"
+    } else if (month(date) %in% c(9:11)) {
+      "autumn"
+    } else {
+      "winter"
+    }
+  } else {
+    if (month(date) %in% c(3:5)) {
+      "autumn"
+    } else if (month(date) %in% c(6:8)) {
+      "winter"
+    } else if (month(date) %in% c(9:11)) {
+      "spring"
+    } else {
+      "summer"
+    }
+  }
+}
+
