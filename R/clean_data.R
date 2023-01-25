@@ -8,6 +8,7 @@
 #' @author
 #' @export
 clean_data <- function(data_joined) {
+  # rm(list = ls())
   # tar_load(data_joined)
   data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
@@ -55,9 +56,11 @@ clean_data <- function(data_joined) {
     # Add participant ID using the study and filename
     mutate(participant_id = paste(as.numeric(studyid), filename, sep = "_")) %>%
     # Filter for OK data
-    # TODO: Decision rules for this
-    filter((n_valid_hours > 10) &
-      (is.na(sleep_duration) | sleep_duration > 300)) %>%
+    
+    # Decision rules for this
+    mutate(eligible = (n_valid_hours > 10) &
+                        (is.na(sleep_duration) |
+                          sleep_duration > 300)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
     # recalculate measurement day by getting the minimum
     # date for each person
@@ -78,6 +81,8 @@ clean_data <- function(data_joined) {
         measurementday,
         measurement_day
       ),
+      # remove implausible heights
+      height = ifelse(height > 30, height, NA),
       # also calculate bmi
       bmi = weight / ((height / 100)^2),
       sleep_onset_time = chron(times = sleep_onset_time),
@@ -138,8 +143,8 @@ clean_data <- function(data_joined) {
   -maturational_status)
 
   # Clean the country names
-  d <- d %>% mutate(country = str_to_title(country),
-  country = case_when(
+  d <- d %>% mutate(country = str_to_title(country)) %>%
+  mutate(country = case_when(
     country == "España" ~ "Spain",
     country == "Españ" ~ "Spain",
     country == "Marruecos" ~ "Morocco",
@@ -154,18 +159,22 @@ clean_data <- function(data_joined) {
   d$country[d$studyid == 117] <- "Spain"
 
   # 101 Pedro Lausanne Switzerland
+
   d$city[d$studyid == 101] <- "Lausanne"
   d$country[d$studyid == 101] <- "Switzerland"
 
   # 104 Bruno Florianópolis Brazil
+
   d$city[d$studyid == 104] <- "Florianópolis"
   d$country[d$studyid == 104] <- "Brazil"
 
   # 112 Jesus Seville, Spain
+
   d$city[d$studyid == 112] <- "Seville"
   d$country[d$studyid == 112] <- "Spain"
 
   # 103 Dunedin, New Zealand
+
   d$city[d$studyid == 103] <- "Dunedin"
   d$country[d$studyid == 103] <- "New Zealand"
 
@@ -181,12 +190,12 @@ clean_data <- function(data_joined) {
   d$city[d$studyid == 118] <- "Sydney"
   d$country[d$studyid == 118] <- "Australia"
 
-  unique(d$studyid[is.na(d$city)])
-  unique(d$studyid[is.na(d$country)])
+  #unique(d$studyid[is.na(d$city)])
+  #unique(d$studyid[is.na(d$country)])
   
   d <- d %>% mutate(country = as.factor(country),
                     location = paste(city, country, sep = ", "))
-
+  
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
   # Saved these results as csv to avoid api calls
@@ -204,13 +213,17 @@ clean_data <- function(data_joined) {
   sunlight <- d %>% rename(date = calendar_date) %>%
                     getSunlightTimes(data = .,
                                     keep = c("sunrise", "sunset"))
+  
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
+  
   d <- d %>% left_join(distinct(sunlight), 
                     by = c("calendar_date" = "date",
                     "lat", "lon"))
+  
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
+
   d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
-  select(-lat, -lon, -sunrise, -sunset, -location)
+         select(-lat, -lon, -sunrise, -sunset, -location)
   
   # remove 106 hours because it could be anywhere in Aus
   d$daylight_hours[d$studyid == 106] <- NA
