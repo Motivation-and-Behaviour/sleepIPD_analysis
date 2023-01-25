@@ -152,8 +152,73 @@ clean_data <- function(data_joined) {
     country == "Ucrania" ~ "Ukraine",
     country == "Czechia" ~ "Czech Republic",
     TRUE ~ country
-  ),
-  country = as.factor(country))
+  ))
+  
+  d$city[d$studyid == 105] <- "Prague"
+  d$city[d$studyid == 117] <- "Madrid"
+  d$country[d$studyid == 117] <- "Spain"
+
+  # 101 Pedro Lausanne Switzerland
+  d$city[d$studyid == 101] <- "Lausanne"
+  d$country[d$studyid == 101] <- "Switzerland"
+
+  # 104 Bruno Florianópolis Brazil
+  d$city[d$studyid == 104] <- "Florianópolis"
+  d$country[d$studyid == 104] <- "Brazil"
+
+  # 112 Jesus Seville, Spain
+  d$city[d$studyid == 112] <- "Seville"
+  d$country[d$studyid == 112] <- "Spain"
+
+  # 103 Dunedin, New Zealand
+  d$city[d$studyid == 103] <- "Dunedin"
+  d$country[d$studyid == 103] <- "New Zealand"
+
+  # 106 Cannot determine: Recruitment state(s)	ACT,NSW,NT,QLD,SA,TAS,WA,VIC
+
+  # 108
+  d$city[d$studyid == 108] <- "Sydney"
+  d$country[d$studyid == 108] <- "Australia"
+  # 110
+  d$city[d$studyid == 110] <- "Southwest Finland"
+  d$country[d$studyid == 110] <- "Finland"
+  # 118
+  d$city[d$studyid == 118] <- "Sydney"
+  d$country[d$studyid == 118] <- "Australia"
+
+  unique(d$studyid[is.na(d$city)])
+  unique(d$studyid[is.na(d$country)])
+  
+  d <- d %>% mutate(country = as.factor(country),
+                    location = paste(city, country, sep = ", "))
+
+  locations <- unique(d$location)
+  locations <- locations[!is.na(locations)]
+  # Saved these results as csv to avoid api calls
+  # library(ggmap)
+  # rawlatlong <- sapply(locations, geocode)
+  # latlong <- t(rawlatlong)
+  # latlong <- as.data.frame(latlong)
+  # latlong$location <- rownames(latlong)
+  # latlong <- apply(latlong, 2, as.character)
+  # write.csv(latlong, "latlong.csv")
+  latlong <- read.csv("latlong.csv") %>% select(-X)
+  d <- d %>% left_join(latlong, by = "location")
+
+  # use suncalc to find sunrise and sunset times
+  sunlight <- d %>% rename(date = calendar_date) %>%
+                    getSunlightTimes(data = .,
+                                    keep = c("sunrise", "sunset"))
+  sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
+  d <- d %>% left_join(distinct(sunlight), 
+                    by = c("calendar_date" = "date",
+                    "lat", "lon"))
+  d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
+  d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
+  select(-lat, -lon, -sunrise, -sunset, -location)
+  
+  # remove 106 hours because it could be anywhere in Aus
+  d$daylight_hours[d$studyid == 106] <- NA
 
   d
 }
