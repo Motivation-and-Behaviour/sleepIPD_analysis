@@ -154,6 +154,5 @@ clean_data <- function(data_joined) {
   ),
   country = as.factor(country))
 
-  return(d)
->>>>>>> 216da52d4c6ea77d4e6bdb2508b4df53f204c68d
+  d
 }
