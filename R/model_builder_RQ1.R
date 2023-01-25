@@ -26,11 +26,44 @@ model_builder_RQ1 <-
     formula <- gsub("\\+  \\+", "+", formula)
     # formula <- gsub("\\#.*", "", formula)
 
-    m <-
-      eval(parse(text = glue::glue(
-        "with(data = data_imp, glmmTMB::glmmTMB(formula = {formula},
-        control = glmmTMBControl(optCtrl=list(iter.max=1e4,eval.max=1e4))))"
-      )))
+    fit_model <- function(..., data){
+      require(optimx)
+      require(lme4)
+      require(dfoptim)
+
+      conv <- FALSE
+      exhausted <- FALSE
+      i <- 1
+      meth.tab <- lme4:::meth.tab.0
+      meth.tab[!duplicated(meth.tab[,1]),]
+      while(!conv & i <= nrow(meth.tab)) {
+        mod <- lme4::lmer(
+          ...,
+          data,
+          control = lmerControl(
+            optimizer = meth.tab[i, 1]
+          ))
+
+          if (performance::check_convergence(mod) & !performance::check_singularity(mod)){
+            conv <- TRUE
+            return(mod)
+          }
+          i = i + 1
+      }
+
+      if(!conv) warning("No convergence with any optimizer")
+
+      mod
+    }
+
+    imp_list <- complete(data_imp, "all")
+
+    m <- lapply(imp_list, function(x){
+
+      fit_model(formula = eval(parse(text = formula)), data = x)
+
+    })
+
 
     m_pooled <- pool(m)
     pool_summary <- data.table(summary(m_pooled))
@@ -75,7 +108,7 @@ model_builder_RQ1 <-
 
 plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, return_data = FALSE){
 
-  effects <- model$model$analyses |>
+  effects <- model$model |>
     lapply(function(m) {
       engine(m, terms = terms)
     }) |>

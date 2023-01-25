@@ -37,7 +37,6 @@ figure_theme <- function(){
 
 }
 
-<<<<<<< HEAD
 #' APA_style for gt
 
 apa_style <- function(x) {
@@ -59,12 +58,11 @@ apa_style <- function(x) {
     ) |>
     opt_table_font(font = "times")
 }
-=======
 #' convert dates to seasons
 #' @param date a date
 #' @param lat latitude
 #' @return a season
-#' 
+#'
 
 get_season <- function(date, lat){
   if (lat > 0) {
@@ -90,4 +88,3 @@ get_season <- function(date, lat){
   }
 }
 
->>>>>>> a83a09992bc920db3cf705a4e616615510e50fe2

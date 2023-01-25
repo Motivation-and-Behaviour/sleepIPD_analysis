@@ -19,11 +19,8 @@ library(ggeffects)
 library(gt)
 library(gtsummary)
 library(languageserver)
-<<<<<<< HEAD
 library(glmmTMB)
 library(broom.mixed)
-=======
 library(lubridate)
 library(suncalc)
 library(labelled)
->>>>>>> a83a09992bc920db3cf705a4e616615510e50fe2
