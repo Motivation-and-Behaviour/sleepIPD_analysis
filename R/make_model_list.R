@@ -16,22 +16,18 @@ make_model_list <- function(data_imp) {
 
   PA_vars <- c("pa_volume", "pa_intensity")
 
-  control_vars <- c()
+  control_vars <- c("ethnicity", "ses", "sex", "bmi")
 
   instructions <- list(
-    "sleep_duration" = " pa_volume*age + I(pa_volume^2) * age",
-    "sleep_efficiency" = PA_vars,
-    sleep_onset = PA_vars,
-    sleep_regularity = PA_vars,
-    "pa_volume" = sleep_vars,
-    "pa_intensity" = sleep_vars
+    "sleep_duration" = c("pa_volume * age + I(pa_volume^2) * age"),
+    "sleep_efficiency" = c(PA_vars, control_vars),
+    sleep_onset = c(PA_vars, control_vars),
+    sleep_regularity = c(PA_vars, control_vars),
+    "pa_volume" = c(sleep_vars, control_vars),
+    "pa_intensity" = c(control_vars,sleep_vars)
   )
 
-  require(future.apply)
-
-  plan(multisession, workers = availableCores() - 4)
-
-  out <- future_lapply(
+  out <- lapply(
     seq_len(length(instructions)),
     FUN = function(i) {
       model_builder_RQ1(

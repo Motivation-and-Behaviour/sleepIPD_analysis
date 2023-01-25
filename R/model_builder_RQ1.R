@@ -10,44 +10,59 @@
 
 #' @test-arguments outcome = "sleep_duration" predictors = c("pa_volume", "pa_intensity")
 
-model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
+model_builder_RQ1 <-
+  function(data_imp,
+           outcome,
+           predictors,
+           control_vars = c(),
+           table_only = TRUE) {
 
-  formula <- glue::glue("{outcome} ~ {paste(predictors, collapse = ' + ')} + studyid + measurement_day # + participant_id")
-  formula <- gsub("\\#.*", "", formula)
+    formula <-
+      glue::glue(
+        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + (1|participant_id) + (1|measurement_day)"
+      )
 
-  m <- eval(parse(text = glue::glue("with(data_imp, lm(formula = {formula}))")))
 
-  m_pooled <- pool(m)
-  pool_summary <- data.table(summary(m_pooled))
+    formula <- gsub("\\+  \\+", "+", formula)
+    # formula <- gsub("\\#.*", "", formula)
 
-  pool_summary <- pool_summary[!grepl("studyid",pool_summary$term),]
-  pool_summary <- pool_summary[!grepl("measurement_day",pool_summary$term),]
-  pool_summary <- pool_summary[!grepl("participant_id",pool_summary$term),]
+    m <-
+      eval(parse(text = glue::glue(
+        "with(data = data_imp, glmmTMB::glmmTMB(formula = {formula},
+        control = glmmTMBControl(optCtrl=list(iter.max=1e3,eval.max=1e3))))"
+      )))
 
-  crit.val <- qnorm(1 - 0.05 / 2)
+    m_pooled <- pool(m)
+    pool_summary <- data.table(summary(m_pooled))
 
-  pool_summary$lower <- print_num(with(pool_summary, estimate - crit.val * std.error))
-  pool_summary$upper <- print_num(with(pool_summary, estimate + crit.val * std.error))
+    crit.val <- qnorm(1 - 0.05 / 2)
 
-  tabby <- data.table(pool_summary)[
-    ,
-    list(
-      term = term,
-    b = with(pool_summary, glue::glue("{print_num(estimate)} [95% CI {lower}, {upper}]")),
-    se = print_num(std.error),
-    t = print_num(statistic),
-     p = print_p(p.value)
+    pool_summary$lower <-
+      print_num(with(pool_summary, estimate - crit.val * std.error))
+    pool_summary$upper <-
+      print_num(with(pool_summary, estimate + crit.val * std.error))
 
-    )
-  ]
+    tabby <- data.table(pool_summary)[,
+                                      list(
+                                        term = term,
+                                        b = with(
+                                          pool_summary,
+                                          glue::glue("{print_num(estimate)} [95% CI {lower}, {upper}]")
+                                        ),
+                                        se = print_num(std.error),
+                                        t = print_num(statistic),
+                                        p = print_p(p.value)
 
-  if(table_only) return(tabby)
+                                      )]
 
-  list(model = m,
-       pooled_model = pool(m),
-       table = tabby)
+    if (table_only)
+      return(tabby)
 
-}
+    list(model = m,
+         pooled_model = pool(m),
+         table = tabby)
+
+  }
 
 #' plot_effects_RQ1
 #'
@@ -59,7 +74,6 @@ model_builder_RQ1 <- function(data_imp, outcome, predictors, table_only = TRUE){
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
 plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, return_data = FALSE){
-
 
   effects <- model$model$analyses |>
     lapply(function(m) {

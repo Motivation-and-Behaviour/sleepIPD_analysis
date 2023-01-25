@@ -139,7 +139,8 @@ clean_data <- function(data_joined) {
   # removing some variables we can't harmonise
   d <- d %>% select(-sleep_medications,
   -ethnicity,
-  -maturational_status)
+  -maturational_status) %>%
+    dplyr::rename(ethnicity = ethinicity)
 
   # Clean the country names
   d <- d %>% mutate(country = str_to_title(country),
