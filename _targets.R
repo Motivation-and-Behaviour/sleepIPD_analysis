@@ -22,7 +22,7 @@ list(
   tar_target(data_clean, clean_data(data_joined)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
 
-  tar_target(table_1, make_table1(data_holdout)),
+  tar_target(table_1, make_table1(data_clean)),
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
   # Modelling targets
