@@ -216,5 +216,18 @@ clean_data <- function(data_joined) {
   d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
          select(-lat, -lon, -sunrise, -sunset, -location)
 
+# Add lagged sleep variables
+d <- d %>%
+  arrange(studyid, filename, calendar_date) %>%
+  group_by(studyid, filename) %>%
+  mutate(across(
+    c(
+      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
+      sleep_wakeup_time, sleep_regularity
+    ),
+    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA)
+  )) %>%
+  ungroup()
+
   return(d)
 }
