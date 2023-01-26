@@ -45,15 +45,10 @@ make_table1 <- function(data_clean) {
     digits = all_continuous() ~ 2,
     missing = "no") %>%
     as_gt() %>%
-<<<<<<< HEAD
-    gtsave("tables/observations_table_one.html")
 
-    # Now across each participant_id, summarise all variables.
-=======
     gtsave("tables/observations_table_one.png")
-  
+
   # Now across each participant_id, summarise all variables.
->>>>>>> 1388336572f5b4f8d0c88c83d811c68093ce3d64
   # For factor variables, pick the most common.
   # For numeric variables, take the mean.
   find_max  <- function(x) {names(which.max(table(x)))}
@@ -97,15 +92,9 @@ var_label(participants) <- c(
     digits = all_continuous() ~ 2,
     missing = "no") %>%
     as_gt() %>%
-<<<<<<< HEAD
-    gtsave("tables/participants_table_one.html")
+    gtsave("tables/participants_table_one.png")
 
 # Supplement:
-=======
-    gtsave("tables/participants_table_one.png")
- 
-# Supplement: 
->>>>>>> 1388336572f5b4f8d0c88c83d811c68093ce3d64
 # Table with characteristics of included vs excluded participants
 
 participants %>% select(-participant_id) %>%
