@@ -44,3 +44,7 @@ renv/
 # Data and temporary files
 data/
 temp/
+
+# Others
+.vscode
+.DS_Store
