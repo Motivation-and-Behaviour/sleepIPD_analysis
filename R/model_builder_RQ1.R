@@ -17,11 +17,14 @@ model_builder_RQ1 <-
            control_vars = c(),
            table_only = TRUE) {
 
+    require(broom.mixed)
+    require(lme4)
+    require(data.table)
+
     formula <-
       glue::glue(
         "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + (1|participant_id) + (1|measurement_day)"
       )
-
 
     formula <- gsub("\\+  \\+", "+", formula)
     # formula <- gsub("\\#.*", "", formula)
