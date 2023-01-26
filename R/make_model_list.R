@@ -16,15 +16,15 @@ make_model_list <- function(data_imp) {
 
   PA_vars <- c("pa_volume", "pa_intensity")
 
-  control_vars <- c("ethnicity","ses", "sex", "bmi")
+  control_vars <- c("ses", "sex", "bmi")
 
   instructions <- list(
     "sleep_duration" = c("pa_volume * age + I(pa_volume^2) * age"),
-    "sleep_efficiency" = c(PA_vars, control_vars),
-    sleep_onset = c(PA_vars, control_vars),
-    sleep_regularity = c(PA_vars, control_vars),
-    "pa_volume" = c(sleep_vars, control_vars),
-    "pa_intensity" = c(control_vars,sleep_vars)
+    "sleep_efficiency" = c(PA_vars),
+    sleep_onset = c(PA_vars),
+    sleep_regularity = c(PA_vars),
+    "pa_volume" = c(sleep_vars),
+    "pa_intensity" = c(sleep_vars)
   )
 
   out <- lapply(
@@ -34,6 +34,7 @@ make_model_list <- function(data_imp) {
         data_imp,
         outcome = names(instructions)[i],
         predictors = instructions[[i]],
+        control_vars = control_vars,
         table_only = FALSE
       )
 

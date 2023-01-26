@@ -14,7 +14,7 @@ model_builder_RQ1 <-
   function(data_imp,
            outcome,
            predictors,
-           control_vars = c("ses", "sex", "scale(bmi)"),
+           control_vars = c(),
            table_only = TRUE) {
 
     formula <-
