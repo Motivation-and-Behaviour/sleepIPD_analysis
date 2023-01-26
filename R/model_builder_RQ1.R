@@ -36,12 +36,21 @@ model_builder_RQ1 <-
       i <- 1
       meth.tab <- lme4:::meth.tab.0
       meth.tab[!duplicated(meth.tab[,1]),]
+      meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
       while(!conv & i <= nrow(meth.tab)) {
+
+        if(meth.tab[i , 2] != ""){
+          optCtrl <- list(method = meth.tab[i , 2])
+        }else{
+          optCtrl <- list()
+        }
+
         mod <- lme4::lmer(
           ...,
           data,
           control = lmerControl(
-            optimizer = meth.tab[i, 1]
+            optimizer = meth.tab[i, 1],
+            optCtrl = optCtrl
           ))
 
           if (performance::check_convergence(mod) & !performance::check_singularity(mod)){
