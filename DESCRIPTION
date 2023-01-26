@@ -14,6 +14,7 @@ RoxygenNote: 7.2.2
 Suggests: 
     devtools,
     fnmate (>= 0.0.6),
+    ggmap,
     httpgd,
     languageserver,
     lintr,
