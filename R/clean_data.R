@@ -190,22 +190,13 @@ clean_data <- function(data_joined) {
   d$city[d$studyid == 118] <- "Sydney"
   d$country[d$studyid == 118] <- "Australia"
 
-  #unique(d$studyid[is.na(d$city)])
-  #unique(d$studyid[is.na(d$country)])
   
   d <- d %>% mutate(country = as.factor(country),
                     location = paste(city, country, sep = ", "))
   
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
-  # Saved these results as csv to avoid api calls
-  # library(ggmap)
-  # rawlatlong <- sapply(locations, geocode)
-  # latlong <- t(rawlatlong)
-  # latlong <- as.data.frame(latlong)
-  # latlong$location <- rownames(latlong)
-  # latlong <- apply(latlong, 2, as.character)
-  # write.csv(latlong, "latlong.csv")
+  update_latlong(locations)
   latlong <- read.csv("latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
@@ -224,9 +215,6 @@ clean_data <- function(data_joined) {
 
   d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
          select(-lat, -lon, -sunrise, -sunset, -location)
-  
-  # remove 106 hours because it could be anywhere in Aus
-  d$daylight_hours[d$studyid == 106] <- NA
 
   return(d)
 }
