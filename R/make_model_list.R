@@ -18,22 +18,31 @@ make_model_list <- function(data_imp) {
 
   control_vars <- c("ses", "sex", "bmi")
 
-  instructions <- list(
-    "sleep_duration" = c("pa_volume * age + I(pa_volume^2) * age"),
-    "sleep_efficiency" = c(PA_vars),
-    sleep_onset = c(PA_vars),
-    sleep_regularity = c(PA_vars),
-    "pa_volume" = c(sleep_vars),
-    "pa_intensity" = c(sleep_vars)
-  )
+
+  instructions.rq1 <-
+    expand.grid(
+      sleep_measure = c(
+        "sleep_duration",
+        "sleep_efficiency",
+        "sleep_onset",
+        "sleep_regularity"
+      ),
+      exercise = c(
+        "pa_volume * age + I(pa_volume^2) * age",
+        "pa_intensity * age + I(pa_intensity^2) * age"
+      ),
+      stringsAsFactors = FALSE
+    )
+
+  instructions.rq1$model_name <- with(instructions.rq1, glue::glue("{sleep_measure} by {gsub(' .*', '', exercise)}"))
 
   out <- lapply(
-    seq_len(length(instructions)),
+    seq_len(length(instructions.rq1[,1])),
     FUN = function(i) {
       model_builder_RQ1(
         data_imp,
-        outcome = names(instructions)[i],
-        predictors = instructions[[i]],
+        outcome = instructions.rq1[i, 1],
+        predictors = instructions.rq1[i,2],
         control_vars = control_vars,
         table_only = FALSE
       )
@@ -41,6 +50,6 @@ make_model_list <- function(data_imp) {
     }
   )
 
-  names(out) <- names(instructions)
+  names(out) <- instructions.rq1[,"model_name"]
   out
 }
