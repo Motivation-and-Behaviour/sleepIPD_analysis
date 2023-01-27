@@ -30,7 +30,9 @@ make_RQ1_figure <- function(model_list){
   require(ggplot2)
 
   p <- function(x_var, x_lab, rq){
-  fig <- ggplot(plot_dat[x_name == x_var & RQ == rq], aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
+    pdat <- plot_dat[x_name == x_var & RQ == rq]
+
+  fig <- ggplot(pdat, aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
     geom_line() +
     geom_ribbon(alpha = .5) +
     facet_grid(rows = vars(outcome), cols = vars(group)) +
@@ -39,7 +41,10 @@ make_RQ1_figure <- function(model_list){
       figure_theme() +
     theme(legend.position = "none")
 
-    filename <- "Figures/sleep on {x_var}.jpg" |>
+    outcome <- unique(gsub(" .*","", pdat$outcome))
+    if(length(outcome) > 1) stop("Outcome length is greater than 1")
+
+    filename <- "Figures/{outcome} on {x_var}.jpg" |>
       glue::glue()
 
     ggsave(filename, plot = fig, height = 15, width = 18, units = "cm", dpi = 300)
@@ -51,10 +56,10 @@ make_RQ1_figure <- function(model_list){
   p("pa_volume", "PA volume (z)", rq = 1)
 
   # Research Question 3
-  # p("scale_sleep_duration_lag", "Sleep duration (z)", rq = 3)
-  # p("scale_sleep_efficiency_lag", "Sleep efficiency (z)", rq = 3)
-  # p("scale_sleep_onset_lag", "Sleep onset (z)", rq = 3)
-  # p("scale_sleep_regularity_lag", "Sleep regularity (z)", rq = 3)
+  p("sleep_duration_lag", "lag sleep duration (z)", rq = 3)
+  p("sleep_efficiency_lag", "lag sleep efficiency (z)", rq = 3)
+  p("sleep_onset_lag", "lag sleep onset (z)", rq = 3)
+  p("sleep_regularity_lag", "lag sleep regularity (z)", rq = 3)
 
   NULL
 
