@@ -1,14 +1,14 @@
-#' make_RQ1_figure
+#' make_figures
 #' @param model_list list of RQ1 models
 
-make_RQ1_figure <- function(model_list){
+produce_purdy_pictures <- function(model_list){
 
   dat_list <- lapply(seq_len(length(model_list)), function(i){
 
     m <- model_list[[i]]
     terms <- attr(m, "terms")
 
-    dt <- data.table(get_effects_RQ1(m, terms = terms))
+    dt <- data.table(get_effects(m, terms = terms))
     dt$x_name = terms[1]
     dt$group_name = terms[2]
     dt$outcome = gsub(" .*","",names(model_list)[[i]])

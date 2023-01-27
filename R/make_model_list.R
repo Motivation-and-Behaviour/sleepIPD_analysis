@@ -45,7 +45,7 @@ make_model_list <- function(data_imp) {
   out <- lapply(
     seq_len(length(instructions[,1])),
     FUN = function(i) {
-    model <-  model_builder_RQ1(
+    model <-  model_builder(
         data_imp,
         outcome = instructions[i, "outcome"],
         predictors = instructions[i, "predictors"],
