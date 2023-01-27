@@ -7,9 +7,18 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = "..")
+#setwd("..")
+source("R/utils.R")
+source("R/model_builder_RQ1.R")
 ```
 
 ```{r load-targets, include=FALSE}
+library(targets)
+library(gt)
+require(ggplot2)
+tar_load(model_list)
+
 
 ```
 
@@ -20,6 +29,29 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 # Results
+
+## Model tables
+
+```{r results = "asis"}
+
+tables <- lapply(model_list, function(x) x$table)
+sapply(seq_len(length(tables)), function(x){
+  
+  cat("## ", names(tables)[x])
+  tables[[x]] |> 
+    gt() |> 
+    apa_style() |> 
+    as_raw_html() |> 
+    cat()
+  
+  cat("\\n")
+  cat("\\n")
+})
+
+```
+
+
+
 
 # Discussion
 

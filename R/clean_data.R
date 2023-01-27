@@ -56,12 +56,13 @@ clean_data <- function(data_joined) {
     # Add participant ID using the study and filename
     mutate(participant_id = paste(as.numeric(studyid), filename, sep = "_")) %>%
     # Filter for OK data
-    
+
     # Decision rules for this
     mutate(eligible = (n_valid_hours > 10) &
                         (is.na(sleep_duration) |
                           sleep_duration > 300)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
+
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
@@ -90,6 +91,7 @@ clean_data <- function(data_joined) {
     ) %>%
     select(-measurementday)
   # read in sleep conditions harmonisation data
+
   sleep_refactors <-
     googlesheets4::read_sheet(data_gsheet,
       sheet = "Sleep conditions",
@@ -133,9 +135,11 @@ clean_data <- function(data_joined) {
         "studyid" = "studyid",
         "ses" = "ses"
       )
-    ) %>% 
+    ) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
+
+  d$age_cat <- cut(d$age, breaks = c(0, 11,  18, 35, 65, 100), labels = c("0-11 years","12-18 years", "19-35 years", "36-65 years", "65+ years"))
 
   # removing some variables we can't harmonise
   d <- d %>% select(-sleep_medications,
@@ -153,7 +157,7 @@ clean_data <- function(data_joined) {
     country == "Czechia" ~ "Czech Republic",
     TRUE ~ country
   ))
-  
+
   d$city[d$studyid == 105] <- "Prague"
   d$city[d$studyid == 117] <- "Madrid"
   d$country[d$studyid == 117] <- "Spain"
@@ -190,10 +194,9 @@ clean_data <- function(data_joined) {
   d$city[d$studyid == 118] <- "Sydney"
   d$country[d$studyid == 118] <- "Australia"
 
-  
   d <- d %>% mutate(country = as.factor(country),
                     location = paste(city, country, sep = ", "))
-  
+
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
   update_latlong(locations)
@@ -204,13 +207,13 @@ clean_data <- function(data_joined) {
   sunlight <- d %>% rename(date = calendar_date) %>%
                     getSunlightTimes(data = .,
                                     keep = c("sunrise", "sunset"))
-  
+
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
-  
-  d <- d %>% left_join(distinct(sunlight), 
+
+  d <- d %>% left_join(distinct(sunlight),
                     by = c("calendar_date" = "date",
                     "lat", "lon"))
-  
+
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
 
   d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
@@ -225,9 +228,10 @@ d <- d %>%
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
       sleep_wakeup_time, sleep_regularity
     ),
-    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA)
+    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
+    .names = "{.col}_lag"
   )) %>%
   ungroup()
 
-  return(d)
+  d
 }

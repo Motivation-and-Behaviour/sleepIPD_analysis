@@ -8,6 +8,7 @@
 #' @author noetel
 #' @export
 make_table1 <- function(data_clean) {
+
   # targets::tar_make()
   # targets::tar_load(data_clean)
   # d <- data_clean
@@ -16,7 +17,7 @@ make_table1 <- function(data_clean) {
     pa_volume, pa_intensity,
     sleep_duration, sleep_efficiency,
     sleep_onset, sleep_wakeup,
-    sleep_regularity,# sleep_onset_time, sleep_wakeup_time, 
+    sleep_regularity,# sleep_onset_time, sleep_wakeup_time,
     sleep_duration, sleep_efficiency,
     sex, age, height, weight, bmi, waist_circumference,
     ses, screen_time, daylight_hours, city, eligible,
@@ -36,16 +37,17 @@ make_table1 <- function(data_clean) {
     "Sex", "Age", "Height", "Weight", "BMI", "Waist Circumference",
     "Socioeconomic Status", "Screen Time", "Daylight Hours", "City", "Met Weartime Criteria",
     "Sleep Conditions Reported", "Country", "Season", "Study ID", "Participant ID")
-  
+
   # Tabulate the number of observations
-  d %>% select(-studyid, -participant_id) %>% 
+  d %>% select(-studyid, -participant_id) %>%
   tbl_summary(statistic = list(all_continuous() ~ "{mean} ({sd})",
                                 all_categorical() ~ "{n} ({p}%)"),
     digits = all_continuous() ~ 2,
     missing = "no") %>%
     as_gt() %>%
+
     gtsave("tables/observations_table_one.png")
-  
+
   # Now across each participant_id, summarise all variables.
   # For factor variables, pick the most common.
   # For numeric variables, take the mean.
@@ -84,15 +86,15 @@ var_label(participants) <- c(
     "Study ID",
     "Any Observations Met Weartime Criteria")
 
-  participants %>% select(-studyid, -participant_id) %>% 
+  participants %>% select(-studyid, -participant_id) %>%
   tbl_summary(statistic = list(all_continuous() ~ "{mean} ({sd})",
                                 all_categorical() ~ "{n} ({p}%)"),
     digits = all_continuous() ~ 2,
     missing = "no") %>%
     as_gt() %>%
     gtsave("tables/participants_table_one.png")
- 
-# Supplement: 
+
+# Supplement:
 # Table with characteristics of included vs excluded participants
 
 participants %>% select(-participant_id) %>%

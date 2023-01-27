@@ -1,3 +1,7 @@
+# Allow multible R sessions to be used
+library(future)
+plan("multisession")
+
 # Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
 load_packages()
@@ -22,11 +26,14 @@ list(
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
   # Modelling targets
+
   tar_target(model_list, make_model_list(data_imp)),
   tar_target(model_diagnostics, make_model_diagnostics(model_list)),
 
   # Figures
   tar_target(explore_img, make_explore_img_list(data_holdout)),
+  tar_target(RQ1_figure, make_RQ1_figure(model_list)),
+
   tar_target(purdy_pictures, produce_purdy_pictures()),
 
   # Output manuscript
