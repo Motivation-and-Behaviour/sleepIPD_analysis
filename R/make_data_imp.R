@@ -31,5 +31,26 @@ make_data_imp <- function(data, n_imps = 3) {
       n.core = parallel::detectCores() - 1
     )
 
-  imps
+  # include_scale_variables
+
+  variables_to_scale <-
+    c(
+      "sleep_duration",
+      "sleep_efficiency",
+      "sleep_onset",
+      "sleep_regularity",
+      "pa_volume",
+      "pa_intensity"
+    )
+  scale_names <- paste0("scale_", variables_to_scale)
+
+  imp_list <- data.table(complete(imps, action = "long", include = TRUE))
+
+  for(v in seq_along(variables_to_scale)) {
+    imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
+
+  }
+
+  as.mids(imp_list)
+
 }

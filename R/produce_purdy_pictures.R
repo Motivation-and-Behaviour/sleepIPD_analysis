@@ -7,8 +7,9 @@
 #' @return
 #' @author conig
 #' @export
-produce_purdy_pictures <- function(model) {
+produce_purdy_pictures <- function(model_list) {
 
   NULL
 
 }
+

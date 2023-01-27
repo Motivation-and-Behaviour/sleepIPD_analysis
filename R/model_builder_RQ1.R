@@ -109,24 +109,26 @@ model_builder_RQ1 <-
 
   }
 
-#' plot_effects_RQ1
+#' get_effects_RQ1
 #'
 #' Plot an effects display for a RQ1 model
 #' @param model a list delivered by model_builder_RQ1
 #' @param terms character. variables to plot
 #' @param engine ggeffects function
-#' @param return_data if TRUE only data is returned
+#' @param plot if TRUE plot is returned
+#' @param ... additional arguments passed to the ggeffect engine
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
-plot_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, return_data = FALSE){
+get_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, plot = FALSE,
+                            ...){
 
-  effects <- model$model |>
-    lapply(function(m) {
-      engine(m, terms = terms)
+  effects <-
+    lapply(seq_len(length(model$model)), function(i) {
+      engine(model$model[[i]], terms = attr(model, "terms"), ...)
     }) |>
     ggeffects::pool_predictions()
 
-  if (return_data)
+  if (!plot)
     return(effects)
   effects |>
     plot() +

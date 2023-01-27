@@ -129,6 +129,16 @@
       "Hash": "e9c08b94391e9f3f97355841229124f2",
       "Requirements": []
     },
+    "RcppArmadillo": {
+      "Package": "RcppArmadillo",
+      "Version": "0.11.4.3.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "836c1aeec6a7a2b28273bd42a0511a9e",
+      "Requirements": [
+        "Rcpp"
+      ]
+    },
     "RgoogleMaps": {
       "Package": "RgoogleMaps",
       "Version": "1.4.5.3",
@@ -1712,6 +1722,19 @@
         "tidyr"
       ]
     },
+    "miceadds": {
+      "Package": "miceadds",
+      "Version": "3.16-18",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "47ef30e3c2dcdb83830204271a316adc",
+      "Requirements": [
+        "Rcpp",
+        "RcppArmadillo",
+        "mice",
+        "mitools"
+      ]
+    },
     "mime": {
       "Package": "mime",
       "Version": "0.12",
@@ -1745,6 +1768,16 @@
       "Hash": "587ce77fd3c7bada7eadb2d18b62930d",
       "Requirements": [
         "Rcpp"
+      ]
+    },
+    "mitools": {
+      "Package": "mitools",
+      "Version": "2.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a4b659bd0528226724d55034f11ed7cb",
+      "Requirements": [
+        "DBI"
       ]
     },
     "modelr": {
