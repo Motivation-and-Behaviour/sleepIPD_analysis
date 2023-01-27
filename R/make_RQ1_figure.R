@@ -12,6 +12,7 @@ make_RQ1_figure <- function(model_list){
     dt$x_name = terms[1]
     dt$group_name = terms[2]
     dt$outcome = gsub(" .*","",names(model_list)[[i]])
+    dt$RQ <- attr(m, "RQ")
     dt
 
   })
@@ -28,8 +29,8 @@ make_RQ1_figure <- function(model_list){
 
   require(ggplot2)
 
-  p <- function(x_var, x_lab){
-  fig <- ggplot(plot_dat[x_name == x_var], aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
+  p <- function(x_var, x_lab, rq){
+  fig <- ggplot(plot_dat[x_name == x_var & RQ == rq], aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
     geom_line() +
     geom_ribbon(alpha = .5) +
     facet_grid(rows = vars(outcome), cols = vars(group)) +
@@ -45,9 +46,16 @@ make_RQ1_figure <- function(model_list){
 
   }
 
+  # Research Question 1
+  p("pa_intensity", "PA intensity (z)", rq = 1)
+  p("pa_volume", "PA volume (z)", rq = 1)
 
-  p("pa_intensity", "PA intensity (z)")
-  p("pa_volume", "PA volume (z)")
+  # Research Question 3
+  # p("scale_sleep_duration_lag", "Sleep duration (z)", rq = 3)
+  # p("scale_sleep_efficiency_lag", "Sleep efficiency (z)", rq = 3)
+  # p("scale_sleep_onset_lag", "Sleep onset (z)", rq = 3)
+  # p("scale_sleep_regularity_lag", "Sleep regularity (z)", rq = 3)
+
   NULL
 
 }
