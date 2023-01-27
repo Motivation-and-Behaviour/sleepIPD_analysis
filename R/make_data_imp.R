@@ -35,16 +35,19 @@ make_data_imp <- function(data, n_imps = 3) {
     )
 
   # include_scale_variables
+  sleep_vars <- c("sleep_duration",
+                  "sleep_efficiency",
+                  "sleep_onset",
+                  "sleep_regularity")
+
 
   variables_to_scale <-
-    c(
-      "sleep_duration",
-      "sleep_efficiency",
-      "sleep_onset",
-      "sleep_regularity",
+    c(sleep_vars,
       "pa_volume",
-      "pa_intensity"
+      "pa_intensity",
+      paste0(sleep_vars, "_lag")
     )
+
   scale_names <- paste0("scale_", variables_to_scale)
 
   imp_list <- data.table(complete(imps, action = "long", include = TRUE))

@@ -32,9 +32,7 @@ list(
 
   # Figures
   tar_target(explore_img, make_explore_img_list(data_holdout)),
-  tar_target(RQ1_figure, make_RQ1_figure(model_list)),
-
-  tar_target(purdy_pictures, produce_purdy_pictures()),
+  tar_target(purdy_pictures, produce_purdy_pictures(model_list)),
 
   # Output manuscript
   tar_render(manuscript, "doc/manuscript.Rmd")

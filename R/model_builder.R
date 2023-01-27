@@ -10,7 +10,7 @@
 
 #' @test-arguments outcome = "sleep_duration" predictors = c("pa_volume", "pa_intensity")
 
-model_builder_RQ1 <-
+model_builder <-
   function(data_imp,
            outcome,
            predictors,
@@ -109,7 +109,7 @@ model_builder_RQ1 <-
 
   }
 
-#' get_effects_RQ1
+#' get_effects
 #'
 #' Plot an effects display for a RQ1 model
 #' @param model a list delivered by model_builder_RQ1
@@ -119,7 +119,7 @@ model_builder_RQ1 <-
 #' @param ... additional arguments passed to the ggeffect engine
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
-get_effects_RQ1 <- function(model, terms, engine = ggeffects::ggpredict, plot = FALSE,
+get_effects <- function(model, terms, engine = ggeffects::ggpredict, plot = FALSE,
                             ...){
 
   effects <-

@@ -12,23 +12,27 @@ knitr::opts_knit$set(root.dir = "..")
 source("R/utils.R")
 source("R/model_builder_RQ1.R")
 ```
-
-```{r load-targets, include=FALSE}
+```{r load-libraries}
 library(targets)
 library(gt)
 require(ggplot2)
-tar_load(model_list)
-
-
+library(papaja)
 ```
 
-# Introduction
-
-
-# Methods
-
+```{r load-targets, include=FALSE}
+tar_load(model_list)
+tar_load(data_clean)
+pretty <- function(x) format(x, big.mark = ",")
+```
 
 # Results
+
+The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(demo) shows demographic information. A table of study characteristics can be found in supplementary materials.
+
+## The effects of physical activity on sleep
+
+We explored the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity and age
+
 
 ## Model tables
 

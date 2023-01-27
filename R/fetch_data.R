@@ -31,7 +31,13 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                          "117 Ivan/117_Ivan.csv",
                          "118 Lubans/118_Lubans.csv",
                          "221 Whitehall/221_Whitehall.csv"
-                       )) {
+                       ),
+                       shared = FALSE) {
+  if(shared){
+    base_folder <- paste0("Shared/", base_folder)
+  message(base_folder)
+  }
+
   if (any(cloudstor_user == "" | cloudstor_pwd == "")) {
     stop(paste(
       "Could not find cloudstor credentials.",

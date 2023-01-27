@@ -226,7 +226,7 @@ d <- d %>%
   mutate(across(
     c(
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-      sleep_wakeup_time, sleep_regularity
+      sleep_wakeup_time, sleep_regularity, sleep_duration
     ),
     ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
     .names = "{.col}_lag"
