@@ -228,7 +228,8 @@ d <- d %>%
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
       sleep_wakeup_time, sleep_regularity
     ),
-    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA)
+    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
+    .names = "{.col}_lag"
   )) %>%
   ungroup()
 
