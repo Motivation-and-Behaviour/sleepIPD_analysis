@@ -10,12 +10,15 @@
 #' @export
 
 make_data_imp <- function(data, n_imps = 3) {
+    data <- data %>%
+      filter(n_valid_hours > 0) %>%
+      select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
 
   # Empty imputation to change defaults:
   m0 <- mice(data, maxit = 0)
 
   # Don't do imputation based on these vars:
-  dont_imp <- c("age_cat", "filename")
+  dont_imp <- c("age_cat", "filename", "calendar_date")
   meth <- m0$method
   pred <- m0$predictorMatrix
   meth[names(meth) %in% dont_imp] <- ""
