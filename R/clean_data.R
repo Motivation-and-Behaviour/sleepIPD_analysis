@@ -143,7 +143,7 @@ clean_data <- function(data_joined) {
 
   # removing some variables we can't harmonise
   d <- d %>% select(-sleep_medications,
-  -ethinicity,
+  -ethnicity,
   -maturational_status)
 
   # Clean the country names
