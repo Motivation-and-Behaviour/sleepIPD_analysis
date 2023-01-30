@@ -15,10 +15,7 @@ clean_data <- function(data_joined) {
     clean_names() %>%
     # Remove problem studies
     # TODO: Remove when data are fixed
-    filter(!studyid %in%
-      c(
-        "data/100_ISCOLE.csv", "data/102_Camilla.csv", "data/115_Angelica.csv"
-      )) %>%
+    filter(!studyid %in% c("data/102_Camilla.csv", "data/115_Angelica.csv")) %>%
     # Rename data
     rename(
       pa_volume = acc_day_mg,
