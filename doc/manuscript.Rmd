@@ -1,17 +1,62 @@
 ---
-title: "Untitled Draft"
-author: "Report Author"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+title             : "The title"
+shorttitle        : "Title"
+
+author: 
+  - name          : "First Author"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "my@email.com"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - "Conceptualization"
+      - "Writing - Original Draft Preparation"
+      - "Writing - Review & Editing"
+  - name          : "Ernst-August Doelle"
+    affiliation   : "1,2"
+    role:
+      - "Writing - Review & Editing"
+      - "Supervision"
+
+affiliation:
+  - id            : "1"
+    institution   : "Wilhelm-Wundt-University"
+  - id            : "2"
+    institution   : "Konstanz Business School"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+
+floatsintext      : no
+linenumbers       : yes
+draft             : no
+mask              : no
+
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+
+classoption       : "man"
+output            : papaja::apa6_docx
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_knit$set(root.dir = "..")
 #setwd("..")
 source("R/utils.R")
-source("R/model_builder_RQ1.R")
 ```
+
 ```{r load-libraries}
 library(targets)
 library(gt)
@@ -31,32 +76,24 @@ The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations 
 
 ## The effects of physical activity on sleep
 
-We explored the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity and age
+We explored the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity on sleep by age. The results are presented in Tables \@ref(tab:sleep-by-volume)
 
+```{r sleep-by-volume}
+note <- "Adjusted for SES, BMI, and sex. "
 
-## Model tables
+format_table <- function(tab){
+  tab$term <- gsub("I\\(","", tab$term) |> 
+    gsub("_", " ", x = _) |> 
+    gsub("\\^2\\)","$^2$", x = _)
+  tab
+}
 
-```{r results = "asis"}
-
-tables <- lapply(model_list, function(x) x$table)
-sapply(seq_len(length(tables)), function(x){
-  
-  cat("## ", names(tables)[x])
-  tables[[x]] |> 
-    gt() |> 
-    apa_style() |> 
-    as_raw_html() |> 
-    cat()
-  
-  cat("\\n")
-  cat("\\n")
-})
+model_list$`scale_sleep_duration by scale_pa_volume`$table |> 
+  format_table() |> 
+  papaja::apa_table(caption = "The quadratic effect of physical activity (volume) on sleep duration by age",
+                    note = note,
+                    escape = FALSE)
 
 ```
 
 
-
-
-# Discussion
-
-# Conclusion

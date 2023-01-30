@@ -90,9 +90,9 @@ model_builder <-
     tabby <- data.table(pool_summary)[,
                                       list(
                                         term = term,
-                                        b = with(
+                                        "b [95\\% CI]" = with(
                                           pool_summary,
-                                          glue::glue("{print_num(estimate)} [95% CI {lower}, {upper}]")
+                                          glue::glue("{print_num(estimate)} [{lower}, {upper}]")
                                         ),
                                         se = print_num(std.error),
                                         t = print_num(statistic),
