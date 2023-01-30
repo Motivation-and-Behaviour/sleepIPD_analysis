@@ -190,6 +190,7 @@ clean_data <- function(data_joined) {
         studyid == 110 ~ "Southwest Finland",
         studyid == 112 ~ "Seville",
         studyid == 117 ~ "Madrid",
+        studyid == 118 ~ "Sydney",
         TRUE ~ city
       )
     )
