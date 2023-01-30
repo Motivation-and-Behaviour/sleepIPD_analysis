@@ -15,10 +15,7 @@ clean_data <- function(data_joined) {
     clean_names() %>%
     # Remove problem studies
     # TODO: Remove when data are fixed
-    filter(!studyid %in%
-      c(
-        "data/100_ISCOLE.csv", "data/102_Camilla.csv", "data/115_Angelica.csv"
-      )) %>%
+    filter(!studyid %in% c("data/102_Camilla.csv", "data/115_Angelica.csv")) %>%
     # Rename data
     rename(
       pa_volume = acc_day_mg,
@@ -147,52 +144,56 @@ clean_data <- function(data_joined) {
   -maturational_status)
 
   # Clean the country names
-  d <- d %>% mutate(country = str_to_title(country)) %>%
-  mutate(country = case_when(
-    country == "España" ~ "Spain",
-    country == "Españ" ~ "Spain",
-    country == "Marruecos" ~ "Morocco",
-    country == "Rumania" ~ "Romania",
-    country == "Ucrania" ~ "Ukraine",
-    country == "Czechia" ~ "Czech Republic",
-    TRUE ~ country
-  ))
-
-  d$city[d$studyid == 105] <- "Prague"
-  d$city[d$studyid == 117] <- "Madrid"
-  d$country[d$studyid == 117] <- "Spain"
-
-  # 101 Pedro Lausanne Switzerland
-
-  d$city[d$studyid == 101] <- "Lausanne"
-  d$country[d$studyid == 101] <- "Switzerland"
-
-  # 104 Bruno Florianópolis Brazil
-
-  d$city[d$studyid == 104] <- "Florianópolis"
-  d$country[d$studyid == 104] <- "Brazil"
-
-  # 112 Jesus Seville, Spain
-
-  d$city[d$studyid == 112] <- "Seville"
-  d$country[d$studyid == 112] <- "Spain"
-
-  # 103 Dunedin, New Zealand
-
-  d$city[d$studyid == 103] <- "Dunedin"
-  d$country[d$studyid == 103] <- "New Zealand"
-
-  # 106 Cannot determine: Recruitment state(s)	ACT,NSW,NT,QLD,SA,TAS,WA,VIC
-
-  # 108
-  d$city[d$studyid == 108] <- "Sydney"
-  d$country[d$studyid == 108] <- "Australia"
-  # 110
-  d$city[d$studyid == 110] <- "Southwest Finland"
-  d$country[d$studyid == 110] <- "Finland"
-  # 118
-  d$city[d$studyid == 118] <- "Sydney"
-  d$country[d$studyid == 118] <- "Australia"
+  d <- d %>%
+    mutate(country = str_to_title(country)) %>%
+    mutate(
+      country = case_when(
+        country == "España" ~ "Spain",
+        country == "Españ" ~ "Spain",
+        country == "Marruecos" ~ "Morocco",
+        country == "Rumania" ~ "Romania",
+        country == "Ucrania" ~ "Ukraine",
+        country == "Czechia" ~ "Czech Republic",
+        country == "Us" ~ "United States",
+        country == "Uk" ~ "United Kingdom",
+        studyid == 101 ~ "Switzerland",
+        studyid == 103 ~ "New Zealand",
+        studyid == 104 ~ "Brazil",
+        studyid == 108 ~ "Australia",
+        studyid == 110 ~ "Finland",
+        studyid == 112 ~ "Spain",
+        studyid == 114 ~ "United States",
+        studyid == 117 ~ "Spain",
+        studyid == 118 ~ "Australia",
+        TRUE ~ country
+      ),
+      city = case_when(
+        # 100 ISCOLE
+        studyid == 100 & country == "United States" ~ "Baton Rouge",
+        studyid == 100 & country == "United Kingdom" ~ "Bath",
+        studyid == 100 & country == "Australia" ~ "Adelaide",
+        studyid == 100 & country == "Portugal" ~ "Porto",
+        studyid == 100 & country == "South Africa" ~ "Cape Town",
+        studyid == 100 & country == "Kenya" ~ "Nairobi",
+        studyid == 100 & country == "Colombia" ~ "Bogotá",
+        studyid == 100 & country == "Brazil" ~ "São Paulo",
+        studyid == 100 & country == "Canada" ~ "Ottawa",
+        studyid == 100 & country == "China" ~ "Tianjin",
+        studyid == 100 & country == "India" ~ "Bangalore",
+        studyid == 100 & country == "Finland" ~ "Helsinki",
+        # Other studies
+        studyid == 101 ~ "Lausanne",
+        studyid == 103 ~ "Dunedin",
+        studyid == 104 ~ "Florianópolis",
+        studyid == 105 ~ "Prague",
+        studyid == 108 ~ "Sydney",
+        studyid == 110 ~ "Southwest Finland",
+        studyid == 112 ~ "Seville",
+        studyid == 117 ~ "Madrid",
+        studyid == 118 ~ "Sydney",
+        TRUE ~ city
+      )
+    )
 
   d <- d %>% mutate(country = as.factor(country),
                     location = paste(city, country, sep = ", "))
