@@ -8,19 +8,14 @@
 #' @author
 #' @export
 clean_data <- function(data_joined) {
-  # rm(list = ls())
-  # tar_load(data_joined)
   data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
     clean_names() %>%
-    # Remove problem studies
-    # TODO: Remove when data are fixed
-    filter(!studyid %in% c("data/102_Camilla.csv", "data/115_Angelica.csv")) %>%
     # Rename data
     rename(
       pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
-      sleep_duration = dur_spt_sleep_min, # TODO: confirm
+      sleep_duration = dur_spt_sleep_min,
       sleep_efficiency = sleep_efficiency,
       sleep_onset = sleeponset_p5,
       sleep_wakeup = wakeup_p5,
@@ -31,7 +26,7 @@ clean_data <- function(data_joined) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
+      measurementday, pa_volume, pa_intensity, sleep_duration, sleep_efficiency,
       sleep_onset, sleep_wakeup, sleep_onset_time, sleep_wakeup_time,
       sleep_regularity
     ) %>%
@@ -102,7 +97,8 @@ clean_data <- function(data_joined) {
   # change study_id to a number to match against harmonisation sheet
   d <- d %>% mutate(studyid = parse_number(as.character(studyid)))
 
-  d$sleep_conditions[d$studyid == 110 & is.na(d$sleep_conditions)] <- "No sleep apnea"
+  d$sleep_conditions[d$studyid == 110 & is.na(d$sleep_conditions)] <-
+    "No sleep apnea"
   # when sleep_conditions matches column 2,
   # and studyid matches column 1, replace with column 3
   d <- d %>%
@@ -136,7 +132,12 @@ clean_data <- function(data_joined) {
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
 
-  d$age_cat <- cut(d$age, breaks = c(0, 11,  18, 35, 65, 100), labels = c("0-11 years","12-18 years", "19-35 years", "36-65 years", "65+ years"))
+  d$age_cat <- cut(d$age,
+    breaks = c(0, 11, 18, 35, 65, 100),
+    labels = c(
+      "0-11 years", "12-18 years", "19-35 years", "36-65 years", "65+ years"
+    )
+  )
 
   # removing some variables we can't harmonise
   d <- d %>% select(-sleep_medications,
@@ -205,9 +206,12 @@ clean_data <- function(data_joined) {
   d <- d %>% left_join(latlong, by = "location")
 
   # use suncalc to find sunrise and sunset times
-  sunlight <- d %>% rename(date = calendar_date) %>%
-                    getSunlightTimes(data = .,
-                                    keep = c("sunrise", "sunset"))
+  sunlight <- d %>%
+    rename(date = calendar_date) %>%
+    getSunlightTimes(
+      data = .,
+      keep = c("sunrise", "sunset")
+    )
 
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
 
@@ -217,8 +221,9 @@ clean_data <- function(data_joined) {
 
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
 
-  d <- d %>% mutate(daylight_hours = as.numeric(daylight_hours)) %>%
-         select(-lat, -lon, -sunrise, -sunset, -location)
+  d <- d %>%
+    mutate(daylight_hours = as.numeric(daylight_hours)) %>%
+    select(-lat, -lon, -sunrise, -sunset, -location)
 
 # Add lagged sleep variables
 d <- d %>%
