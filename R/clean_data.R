@@ -225,6 +225,12 @@ clean_data <- function(data_joined) {
     mutate(daylight_hours = as.numeric(daylight_hours)) %>%
     select(-lat, -lon, -sunrise, -sunset, -location)
 
+  # Remove some duplicated rows where data are mostly missing
+  d <- d %>%
+    # Sort desc by valid hours because `distinct` takes first row
+    arrange(studyid, filename, calendar_date, desc(n_valid_hours)) %>%
+    distinct(studyid, filename, calendar_date, .keep_all = TRUE)
+
 # Add lagged sleep variables
 d <- d %>%
   arrange(studyid, filename, calendar_date) %>%
