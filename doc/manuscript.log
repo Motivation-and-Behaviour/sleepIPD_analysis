@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 12:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 13:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -690,11 +690,14 @@ LaTeX Warning: Reference `demo' on page 3 undefined on input line 196.
 (manuscript.ttt)
 \openout4 = `manuscript.fff'.
 
-(manuscript.fff) AED endfloat: Processing end Figures and Tables [3] (./manuscript.ttt) [4
+(manuscript.fff)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[3] AED endfloat: Processing end Figures and Tables [4] (./manuscript.ttt) [5
 
 
-] [5] (./manuscript.fff
-<../Figures/sleep on pa_volume.jpg, id=48, 2132.96875pt x 1777.64125pt>
+] [6] [7] [8] [9] [10] (./manuscript.fff
+<../Figures/sleep on pa_volume.jpg, id=85, 2132.96875pt x 1777.64125pt>
 File: ../Figures/sleep on pa_volume.jpg Graphic file (type jpg)
 <use ../Figures/sleep on pa_volume.jpg>
 Package pdftex.def Info: ../Figures/sleep on pa_volume.jpg  used on input line 4.
@@ -704,7 +707,7 @@ Overfull \hbox (41.90758pt too wide) in paragraph at lines 4--4
 [][] 
  []
 
-<../Figures/sleep on pa_intensity.jpg, id=49, 2132.96875pt x 1777.64125pt>
+<../Figures/sleep on pa_intensity.jpg, id=86, 2132.96875pt x 1777.64125pt>
 File: ../Figures/sleep on pa_intensity.jpg Graphic file (type jpg)
 <use ../Figures/sleep on pa_intensity.jpg>
 Package pdftex.def Info: ../Figures/sleep on pa_intensity.jpg  used on input line 9.
@@ -714,26 +717,66 @@ Overfull \hbox (41.90758pt too wide) in paragraph at lines 9--9
 [][] 
  []
 
-) [6
+<../Figures/Pa on sleep_duration_lag.jpg, id=87, 2132.96875pt x 1065.9825pt>
+File: ../Figures/Pa on sleep_duration_lag.jpg Graphic file (type jpg)
+<use ../Figures/Pa on sleep_duration_lag.jpg>
+Package pdftex.def Info: ../Figures/Pa on sleep_duration_lag.jpg  used on input line 14.
+(pdftex.def)             Requested size: 511.6626pt x 255.7109pt.
 
- <../Figures/sleep on pa_volume.jpg>] [7 <../Figures/sleep on pa_intensity.jpg>] (./manuscript.aux)
+Overfull \hbox (41.90758pt too wide) in paragraph at lines 14--14
+[][] 
+ []
+
+<../Figures/Pa on sleep_efficiency_lag.jpg, id=88, 2132.96875pt x 1065.9825pt>
+File: ../Figures/Pa on sleep_efficiency_lag.jpg Graphic file (type jpg)
+<use ../Figures/Pa on sleep_efficiency_lag.jpg>
+Package pdftex.def Info: ../Figures/Pa on sleep_efficiency_lag.jpg  used on input line 19.
+(pdftex.def)             Requested size: 511.6626pt x 255.7109pt.
+
+Overfull \hbox (41.90758pt too wide) in paragraph at lines 19--19
+[][] 
+ []
+
+<../Figures/Pa on sleep_onset_lag.jpg, id=89, 2132.96875pt x 1065.9825pt>
+File: ../Figures/Pa on sleep_onset_lag.jpg Graphic file (type jpg)
+<use ../Figures/Pa on sleep_onset_lag.jpg>
+Package pdftex.def Info: ../Figures/Pa on sleep_onset_lag.jpg  used on input line 24.
+(pdftex.def)             Requested size: 511.6626pt x 255.7109pt.
+
+Overfull \hbox (41.90758pt too wide) in paragraph at lines 24--24
+[][] 
+ []
+
+<../Figures/Pa on sleep_regularity_lag.jpg, id=90, 2132.96875pt x 1065.9825pt>
+File: ../Figures/Pa on sleep_regularity_lag.jpg Graphic file (type jpg)
+<use ../Figures/Pa on sleep_regularity_lag.jpg>
+Package pdftex.def Info: ../Figures/Pa on sleep_regularity_lag.jpg  used on input line 29.
+(pdftex.def)             Requested size: 511.6626pt x 255.7109pt.
+
+Overfull \hbox (41.90758pt too wide) in paragraph at lines 29--29
+[][] 
+ []
+
+) [11
+
+ <../Figures/sleep on pa_volume.jpg>] [12 <../Figures/sleep on pa_intensity.jpg>] [13 <../Figures/Pa on sleep_duration_lag.jpg> <../Figures/Pa on sleep_efficiency_lag.jpg>] [14 <../Figures/Pa on sleep_onset_lag.jpg> <../Figures/Pa on sleep_regularity_lag.jpg>] (./manuscript.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18055 strings out of 477984
- 301021 string characters out of 5837250
- 1875382 words of memory out of 5000000
- 37848 multiletter control sequences out of 15000+600000
+ 18150 strings out of 477984
+ 304205 string characters out of 5837250
+ 1895382 words of memory out of 5000000
+ 37912 multiletter control sequences out of 15000+600000
  558226 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  89i,11n,90p,1181b,613s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb>
-Output written on manuscript.pdf (7 pages, 1685169 bytes).
+Output written on manuscript.pdf (14 pages, 3497903 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
- 22 named destinations out of 1000 (max. 500000)
- 24627 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 187 PDF objects out of 1000 (max. 8388607)
+ 150 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 24679 words of extra memory for PDF output out of 24883 (max. 10000000)
 

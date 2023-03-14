@@ -90,10 +90,16 @@ format_table <- function(tab) {
   tab <- tab[!grepl("^ses", tab$term), ]
   tab <- tab[!grepl("^sex", tab$term), ]
   tab <- tab[!grepl("^bmi", tab$term), ]
-  tab$term <- gsub("\\bpa\\b", " PA ", tab$term)
   tab$term <- stringr::str_to_sentence(tab$term)
+  tab$term <- gsub(" pa ", " PA ", tab$term)
   names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
   tab
+}
+
+fix_model_names <- function(x){
+  x <- stringr::str_to_sentence(x)
+  x <- gsub("Pa", "PA", x)
+  x
 }
 
 sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
@@ -107,7 +113,7 @@ tab
 names(sleep_outcomes_by_PA_volume) <- gsub("scale_", "", names(sleep_outcomes_by_PA_volume)) |> 
   gsub("\\sby.*", "", x = _ ) |> 
   gsub("_", " ", x = _ ) |> 
-  stringr::str_to_sentence()
+  fix_model_names()
 
   papaja::apa_table(sleep_outcomes_by_PA_volume,
                     caption = "Sleep on physical activity volume controlling for SES, gender and BMI",
@@ -133,7 +139,7 @@ tab
 names(sleep_outcomes_by_PA_intens) <- gsub("scale_", "", names(sleep_outcomes_by_PA_intens)) |> 
   gsub("\\sby.*", "", x = _ ) |> 
   gsub("_", " ", x = _ ) |> 
-  stringr::str_to_sentence()
+  fix_model_names()
 
   papaja::apa_table(sleep_outcomes_by_PA_intens,
                     caption = "Sleep on physical activity intensity controlling for SES, gender and BMI",
@@ -144,3 +150,118 @@ names(sleep_outcomes_by_PA_intens) <- gsub("scale_", "", names(sleep_outcomes_by
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on Physical activity intensity"}
 knitr::include_graphics(here::here("Figures/sleep on pa_intensity.jpg"), error = FALSE)
 ```
+
+## The effects of sleep duration on physical activity
+
+```{r PA-by-sleep-duration}
+var_names <- c(
+  "scale_pa_volume by scale_sleep_duration_lag",
+  "scale_pa_intensity by scale_sleep_duration_lag"
+)
+
+PA_by_sleep_duration <- lapply(model_list[var_names], function(x){
+tab <- format_table(x$table)  
+tab
+})
+
+names(PA_by_sleep_duration) <- gsub("scale_", "", names(PA_by_sleep_duration)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  fix_model_names()
+
+  papaja::apa_table(PA_by_sleep_duration,
+                    caption = "Physical activity  by sleep duration controlling for SES, gender and BMI",
+                    note = note,
+                    escape = FALSE)
+```
+
+```{r PA-by-sleep-duration-fig, fig.cap = "Physical activty by sleep duration"}
+knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag.jpg"), error = FALSE)
+```
+
+## The effects of sleep efficiency on physical activity
+
+```{r PA-by-sleep-efficiency}
+var_names <- c(
+  "scale_pa_volume by scale_sleep_efficiency_lag",
+  "scale_pa_intensity by scale_sleep_efficiency_lag"
+)
+
+PA_by_sleep_efficiency <- lapply(model_list[var_names], function(x){
+tab <- format_table(x$table)  
+tab
+})
+
+names(PA_by_sleep_efficiency) <- gsub("scale_", "", names(PA_by_sleep_efficiency)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  fix_model_names()
+
+  papaja::apa_table(PA_by_sleep_efficiency,
+                    caption = "Physical activity by sleep efficiency controlling for SES, gender and BMI",
+                    note = note,
+                    escape = FALSE)
+```
+
+```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activty by sleep efficiency"}
+knitr::include_graphics(here::here("Figures/PA on sleep_efficiency_lag.jpg"), error = FALSE)
+```
+
+
+## The effects of sleep onset on physical activity
+
+```{r PA-by-sleep-onset}
+var_names <- c(
+  "scale_pa_volume by scale_sleep_onset_lag",
+  "scale_pa_intensity by scale_sleep_onset_lag"
+)
+
+PA_by_sleep_onset <- lapply(model_list[var_names], function(x){
+tab <- format_table(x$table)  
+tab
+})
+
+names(PA_by_sleep_onset) <- gsub("scale_", "", names(PA_by_sleep_onset)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  fix_model_names()
+
+  papaja::apa_table(PA_by_sleep_onset,
+                    caption = "Physical activity by sleep onset controlling for SES, gender and BMI",
+                    note = note,
+                    escape = FALSE)
+```
+
+```{r PA-by-sleep-onset-fig, fig.cap = "Physical activty by sleep onset"}
+knitr::include_graphics(here::here("Figures/PA on sleep_onset_lag.jpg"), error = FALSE)
+```
+
+
+## The effects of sleep regularity on physical activity
+
+```{r PA-by-sleep-regularity}
+var_names <- c(
+  "scale_pa_volume by scale_sleep_regularity_lag",
+  "scale_pa_intensity by scale_sleep_regularity_lag"
+)
+
+PA_by_sleep_regularity <- lapply(model_list[var_names], function(x){
+tab <- format_table(x$table)  
+tab
+})
+
+names(PA_by_sleep_regularity) <- gsub("scale_", "", names(PA_by_sleep_regularity)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  fix_model_names()
+
+  papaja::apa_table(PA_by_sleep_regularity,
+                    caption = "Physical activity by sleep regularity controlling for SES, gender and BMI",
+                    note = note,
+                    escape = FALSE)
+```
+
+```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activty by sleep regularity"}
+knitr::include_graphics(here::here("Figures/PA on sleep_regularity_lag.jpg"), error = FALSE)
+```
+

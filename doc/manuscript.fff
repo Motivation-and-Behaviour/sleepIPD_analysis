@@ -8,3 +8,23 @@
 
 \includegraphics[width=7.08in]{../Figures/sleep on pa_intensity} \caption{Sleep metrics on Physical activity intensity}\label{fig:sleep-by-intensity-fig}
 \end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=7.08in]{../Figures/Pa on sleep_duration_lag} \caption{Physical activty by sleep duration}\label{fig:PA-by-sleep-duration-fig}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=7.08in]{../Figures/Pa on sleep_efficiency_lag} \caption{Physical activty by sleep efficiency}\label{fig:PA-by-sleep-efficiency-fig}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=7.08in]{../Figures/Pa on sleep_onset_lag} \caption{Physical activty by sleep onset}\label{fig:PA-by-sleep-onset-fig}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=7.08in]{../Figures/Pa on sleep_regularity_lag} \caption{Physical activty by sleep regularity}\label{fig:PA-by-sleep-regularity-fig}
+\end{figure*}
