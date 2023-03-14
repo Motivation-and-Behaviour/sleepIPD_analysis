@@ -47,12 +47,19 @@ clean_data <- function(data_joined) {
     mutate(calendar_date = as.Date(calendar_date)) %>%
     # Add participant ID using the study and filename
     mutate(participant_id = paste(as.numeric(studyid), filename, sep = "_")) %>%
+    # Set data with indicated problems to missing
+    mutate(
+      across(c(sleep_duration, sleep_efficiency, sleep_onset, sleep_wakeup,
+        sleep_regularity),
+      ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
+    ),
+    across(c(sleep_onset_time, sleep_wakeup_time),
+      ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_character_, .x)
+    )) %>%
     # Filter for OK data
-
     # Decision rules for this
     mutate(eligible = (n_valid_hours > 10) &
-                        (is.na(sleep_duration) |
-                          sleep_duration > 300)) %>%
+                        (is.na(sleep_duration) | sleep_duration > 200)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
 
     # recalculate measurement day by getting the minimum
@@ -224,6 +231,12 @@ clean_data <- function(data_joined) {
   d <- d %>%
     mutate(daylight_hours = as.numeric(daylight_hours)) %>%
     select(-lat, -lon, -sunrise, -sunset, -location)
+
+  # Remove some duplicated rows where data are mostly missing
+  d <- d %>%
+    # Sort desc by valid hours because `distinct` takes first row
+    arrange(studyid, filename, calendar_date, desc(n_valid_hours)) %>%
+    distinct(studyid, filename, calendar_date, .keep_all = TRUE)
 
 # Add lagged sleep variables
 d <- d %>%
