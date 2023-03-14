@@ -48,13 +48,13 @@ tablelist         : no
 footnotelist      : no
 
 classoption       : "man"
-output            : papaja::apa6_docx
+output            : papaja::apa6_pdf
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-#setwd("..")
 source("R/utils.R")
+options(warn = -1)
 ```
 
 ```{r load-libraries}
@@ -74,11 +74,13 @@ pretty <- function(x) format(x, big.mark = ",")
 
 The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(demo) shows demographic information. A table of study characteristics can be found in supplementary materials.
 
-## The effects of physical activity on sleep
+## The effects of physical activity volume on sleep
 
-We explored the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity on sleep by age. The results are presented in Tables \@ref(tab:sleep-by-volume)
+We explored the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-by-volume) and Figure \@ref(fig:sleep-by-volume-fig). There was no meaningful relationship between physical activity volume and sleep duration. However, a positive curvilinear relationship was observed between physical activity volume and sleep efficiency, onset, and regularity, which interacted with age. Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals. Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity. There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants. For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
 
-```{r sleep-by-volume}
+\renewcommand{\arraystretch}{0.8}
+
+```{r sleep-by-exercise}
 note <- "Adjusted for SES, BMI, and sex. "
 
 format_table <- function(tab){
@@ -88,12 +90,34 @@ format_table <- function(tab){
   tab
 }
 
-model_list$`scale_sleep_duration by scale_pa_volume`$table |> 
-  format_table() |> 
-  papaja::apa_table(caption = "The quadratic effect of physical activity (volume) on sleep duration by age",
+sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
+"scale_sleep_onset by scale_pa_volume", "scale_sleep_regularity by scale_pa_volume")
+
+sleep_outcomes <- lapply(model_list[sleep_names], function(x){
+tab <- format_table(x$table)  
+# Remove BMI, sex and ses from table
+tab <- tab[!grepl("^ses", tab$term),]
+tab <- tab[!grepl("^sex", tab$term),]
+tab <- tab[!grepl("^bmi", tab$term),]
+tab$term <- gsub("\\bpa\\b", " PA ", tab$term)
+tab$term <- stringr::str_to_sentence(tab$term)
+names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
+tab
+})
+names(sleep_outcomes) <- gsub("scale_", "", names(sleep_outcomes)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  stringr::str_to_sentence()
+
+  papaja::apa_table(sleep_outcomes,
+                    caption = "Sleep on physical activity volume controlling for SES, gender and BMI",
                     note = note,
                     escape = FALSE)
-
 ```
 
+```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
+knitr::include_graphics(here::here("Figures/sleep on pa_volume.jpg"), error = FALSE)
+
+
+```
 
