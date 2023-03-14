@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 11:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 12:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -690,11 +690,10 @@ LaTeX Warning: Reference `demo' on page 3 undefined on input line 196.
 (manuscript.ttt)
 \openout4 = `manuscript.fff'.
 
-(manuscript.fff) AED endfloat: Processing end Figures and Tables [3] (./manuscript.ttt
+(manuscript.fff) AED endfloat: Processing end Figures and Tables [3] (./manuscript.ttt) [4
 
-LaTeX Warning: Float too large for page by 4.70033pt on input line 53.
 
-) [4] (./manuscript.fff
+] (./manuscript.fff
 <../Figures/sleep on pa_volume.jpg, id=40, 2132.96875pt x 1777.64125pt>
 File: ../Figures/sleep on pa_volume.jpg Graphic file (type jpg)
 <use ../Figures/sleep on pa_volume.jpg>
@@ -706,8 +705,6 @@ Overfull \hbox (41.90758pt too wide) in paragraph at lines 4--4
  []
 
 ) [5
-
-
 
  <../Figures/sleep on pa_volume.jpg>] (./manuscript.aux)
 
@@ -723,7 +720,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  89i,11n,90p,1181b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb>
-Output written on manuscript.pdf (5 pages, 881536 bytes).
+Output written on manuscript.pdf (5 pages, 881538 bytes).
 PDF statistics:
  94 PDF objects out of 1000 (max. 8388607)
  72 compressed objects within 1 object stream
