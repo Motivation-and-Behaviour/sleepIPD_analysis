@@ -46,9 +46,10 @@ data/
 temp/
 
 # Markdown rubbish
-doc/.*fff$
-doc/.*log$
-doc/.*ttt$
+doc/*.fff
+doc/*.log
+doc/*.ttt
+doc/*.tex
 
 # Others
 .vscode
