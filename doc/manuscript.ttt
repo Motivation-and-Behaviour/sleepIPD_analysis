@@ -5,6 +5,66 @@
 \begin{center}
 \begin{threeparttable}
 
+\caption{\label{tab:demo-participants}Participant characteristics}
+
+\begin{tabular}{ll}
+\toprule
+Variable & \multicolumn{1}{c}{Value}\\
+\midrule
+Numeric variables & \\
+\ \ \ Valid weartime hours & 18.01 (5.41)\\
+\ \ \ PA volume & 39.39 (19.84)\\
+\ \ \ PA intensity & -2.34 (0.31)\\
+\ \ \ Sleep duration & 387.49 (110.41)\\
+\ \ \ Sleep efficiency & 0.77 (0.14)\\
+\ \ \ Sleep onset & 22.55 (2.11)\\
+\ \ \ Sleep wakeup & 31.11 (1.46)\\
+\ \ \ Sleep regularity & 55.03 (12.77)\\
+\ \ \ Age & 35.28 (28.33)\\
+\ \ \ BMI & 21.74 (5.92)\\
+Accelerometer Wear Location & \\
+\ \ \ Hip & 8,830 (35.41\%)\\
+\ \ \ Wrist & 16,105 (64.59\%)\\
+Region & \\
+\ \ \ Africa & 1,090 (4.37\%)\\
+\ \ \ Asia & \ \  731 (2.93\%)\\
+\ \ \ Europe & 14,840 (59.51\%)\\
+\ \ \ North america & 1,449 (5.81\%)\\
+\ \ \ Oceania & 3,183 (12.77\%)\\
+\ \ \ South america & 3,642 (14.61\%)\\
+Season & \\
+\ \ \ Autumn & 6,644 (26.65\%)\\
+\ \ \ Spring & 7,874 (31.58\%)\\
+\ \ \ Summer & 4,137 (16.59\%)\\
+\ \ \ Winter & 6,280 (25.19\%)\\
+Sex & \\
+\ \ \ Female & 12,393 (49.70\%)\\
+\ \ \ Male & 12,542 (50.30\%)\\
+Sleep Conditions Reported & \\
+\ \ \ Yes & 1,009 (4.05\%)\\
+Socioeconomic Status & \\
+\ \ \ Low & 8,375 (33.59\%)\\
+\ \ \ Medium & 8,510 (34.13\%)\\
+\ \ \ High & 8,050 (32.28\%)\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = 24,935}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
 \caption{\label{tab:sleep-by-volume}Sleep on physical activity volume controlling for SES, gender and BMI}
 
 \begin{tabular}{lllll}

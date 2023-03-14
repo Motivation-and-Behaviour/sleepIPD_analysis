@@ -45,6 +45,11 @@ renv/
 data/
 temp/
 
+# Markdown rubbish
+doc/.*fff$
+doc/.*log$
+doc/.*ttt$
+
 # Others
 .vscode
 .DS_Store

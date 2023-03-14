@@ -187,17 +187,76 @@ One or two sentences providing a \textbf{basic introduction} to the field, compr
 \begin{document}
 \maketitle
 
+\renewcommand{\arraystretch}{0.65}
+
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-The aggregated data-set describes 314,925 observations of daily physical activity and sleep from 24,935 unique participants. Table \ref{demo} {[}Mike's table to be inserted{]} shows demographic information. A table of study characteristics can be found in supplementary materials.
+The aggregated data-set describes 314,925 observations of daily physical activity and sleep from 24,935 unique participants. Table \ref{demo-participants} shows demographic information for all participants. A table of study characteristics can be found in supplementary materials.
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:demo-participants}Participant characteristics}
+
+\begin{tabular}{ll}
+\toprule
+Variable & \multicolumn{1}{c}{Value}\\
+\midrule
+Numeric variables & \\
+\ \ \ Valid weartime hours & 18.01 (5.41)\\
+\ \ \ PA volume & 39.39 (19.84)\\
+\ \ \ PA intensity & -2.34 (0.31)\\
+\ \ \ Sleep duration & 387.49 (110.41)\\
+\ \ \ Sleep efficiency & 0.77 (0.14)\\
+\ \ \ Sleep onset & 22.55 (2.11)\\
+\ \ \ Sleep wakeup & 31.11 (1.46)\\
+\ \ \ Sleep regularity & 55.03 (12.77)\\
+\ \ \ Age & 35.28 (28.33)\\
+\ \ \ BMI & 21.74 (5.92)\\
+Accelerometer Wear Location & \\
+\ \ \ Hip & 8,830 (35.41\%)\\
+\ \ \ Wrist & 16,105 (64.59\%)\\
+Region & \\
+\ \ \ Africa & 1,090 (4.37\%)\\
+\ \ \ Asia & \ \  731 (2.93\%)\\
+\ \ \ Europe & 14,840 (59.51\%)\\
+\ \ \ North america & 1,449 (5.81\%)\\
+\ \ \ Oceania & 3,183 (12.77\%)\\
+\ \ \ South america & 3,642 (14.61\%)\\
+Season & \\
+\ \ \ Autumn & 6,644 (26.65\%)\\
+\ \ \ Spring & 7,874 (31.58\%)\\
+\ \ \ Summer & 4,137 (16.59\%)\\
+\ \ \ Winter & 6,280 (25.19\%)\\
+Sex & \\
+\ \ \ Female & 12,393 (49.70\%)\\
+\ \ \ Male & 12,542 (50.30\%)\\
+Sleep Conditions Reported & \\
+\ \ \ Yes & 1,009 (4.05\%)\\
+Socioeconomic Status & \\
+\ \ \ Low & 8,375 (33.59\%)\\
+\ \ \ Medium & 8,510 (34.13\%)\\
+\ \ \ High & 8,050 (32.28\%)\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = 24,935}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \hypertarget{the-effects-of-physical-activity-volume-on-sleep}{%
 \subsection{The effects of physical activity volume on sleep}\label{the-effects-of-physical-activity-volume-on-sleep}}
 
-We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \ref{tab:sleep-by-volume} and Figure \ref{fig:sleep-by-volume-fig}. There was no meaningful relationship between physical activity volume and sleep duration. However, a positive curvilinear relationship was observed between physical activity volume and sleep efficiency, onset, and regularity, which interacted with age. Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals. Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity. There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants. For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
-
-\renewcommand{\arraystretch}{0.7}
+We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \ref{tab:sleep-by-volume} and Figure \ref{fig:sleep-by-volume-fig}. There was no meaningful relationship between physical activity volume and sleep duration. However, we observed a curvilinear relationships between physical activity volume and sleep efficiency, onset, and regularity, all of which interacted with age. Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals. Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity. There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants. For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
 
 \begin{table}[tbp]
 
@@ -252,7 +311,7 @@ Sleep regularity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/sleep on pa_volume} \caption{Sleep metrics on Physical activity volume}\label{fig:sleep-by-volume-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/sleep on pa_volume} \caption{Sleep metrics on Physical activity volume}\label{fig:sleep-by-volume-fig}
 \end{figure}
 
 \hypertarget{the-effects-of-physical-activity-intensity-on-sleep}{%
@@ -313,7 +372,7 @@ Sleep regularity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/sleep on pa_intensity} \caption{Sleep metrics on Physical activity intensity}\label{fig:sleep-by-intensity-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/sleep on pa_intensity} \caption{Sleep metrics on Physical activity intensity}\label{fig:sleep-by-intensity-fig}
 \end{figure}
 
 \hypertarget{the-effects-of-sleep-duration-on-physical-activity}{%
@@ -360,13 +419,13 @@ PA intensity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/Pa on sleep_duration_lag} \caption{Physical activty by sleep duration}\label{fig:PA-by-sleep-duration-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/Pa on sleep_duration_lag} \caption{Physical activty by sleep duration}\label{fig:PA-by-sleep-duration-fig}
 \end{figure}
 
 \hypertarget{the-effects-of-sleep-efficiency-on-physical-activity}{%
 \subsection{The effects of sleep efficiency on physical activity}\label{the-effects-of-sleep-efficiency-on-physical-activity}}
 
-We estimated the effect of sleep efficiency on physical activity by age. Results, controlling for sex, SES, and BMI are presented in Table \ref{tab:PA-by-sleep-efficiency} and Figure \ref{fig:PA-by-sleep-efficiency-fig}. We did not find a relationship between physical activity volume and sleep efficiency. A subtle U-shaped relationship emerged, indicating that individuals with above-average sleep efficiency engaged in more intense physical activity.
+We estimated the effect of sleep efficiency on physical activity by age. Results, controlling for sex, SES, and BMI are presented in Table \ref{tab:PA-by-sleep-efficiency} and Figure \ref{fig:PA-by-sleep-efficiency-fig}. We did not find a relationship between physical activity volume and sleep efficiency. However, there was a subtle U-shaped relationship where individuals with above-average sleep efficiency engaged in more intense physical activity.
 
 \begin{table}[tbp]
 
@@ -407,7 +466,7 @@ PA intensity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/Pa on sleep_efficiency_lag} \caption{Physical activty by sleep efficiency}\label{fig:PA-by-sleep-efficiency-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/Pa on sleep_efficiency_lag} \caption{Physical activty by sleep efficiency}\label{fig:PA-by-sleep-efficiency-fig}
 \end{figure}
 
 \hypertarget{the-effects-of-sleep-onset-on-physical-activity}{%
@@ -454,7 +513,7 @@ PA intensity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/Pa on sleep_onset_lag} \caption{Physical activty by sleep onset}\label{fig:PA-by-sleep-onset-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/Pa on sleep_onset_lag} \caption{Physical activty by sleep onset}\label{fig:PA-by-sleep-onset-fig}
 \end{figure}
 
 \hypertarget{the-effects-of-sleep-regularity-on-physical-activity}{%
@@ -501,7 +560,7 @@ PA intensity &  &  &  & \\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=7.08in]{../Figures/Pa on sleep_regularity_lag} \caption{Physical activty by sleep regularity}\label{fig:PA-by-sleep-regularity-fig}
+\includegraphics[width=1.1\linewidth]{../Figures/Pa on sleep_regularity_lag} \caption{Physical activty by sleep regularity}\label{fig:PA-by-sleep-regularity-fig}
 \end{figure}
 
 

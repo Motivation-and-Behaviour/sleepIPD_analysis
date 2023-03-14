@@ -48,13 +48,16 @@ tablelist         : no
 footnotelist      : no
 
 classoption       : "man"
-output            : papaja::apa6_pdf
+output            : papaja::apa6_docx
 ---
+
+\renewcommand{\arraystretch}{0.65}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 source("R/utils.R")
 options(warn = -1)
+knitr::opts_chunk$set(out.width = "110%")
 ```
 
 ```{r load-libraries}
@@ -67,18 +70,37 @@ library(papaja)
 ```{r load-targets, include=FALSE}
 tar_load(model_list)
 tar_load(data_clean)
+tar_load(purdy_pictures)
 pretty <- function(x) format(x, big.mark = ",")
 ```
 
 # Results
 
-The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(demo) [Mike's table to be inserted] shows demographic information. A table of study characteristics can be found in supplementary materials.
+The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(demo-participants) shows demographic information for all participants. A table of study characteristics can be found in supplementary materials.
+
+```{r demo-participants}
+tar_load(demog_table)
+tar_load(table_1) # to get participants data
+
+tab <- demog_table |> 
+  dplyr::select(Variable = level, Value = out) |> 
+  split(demog_table$name)
+
+tab <- append(tab["Numeric variables"], tab[!names(tab) %in% "Numeric variables"])
+
+# Reorder socioeconomic status
+tab$`Socioeconomic Status`$Variable <- factor(tab$`Socioeconomic Status`$Variable, levels = c("Low","Medium","High"))
+tab$`Sleep Conditions Reported` <- tab$`Sleep Conditions Reported`[tab$`Sleep Conditions Reported`$Variable == "Yes"]
+tab$`Socioeconomic Status` <- tab$`Socioeconomic Status`[order(tab$`Socioeconomic Status`$Variable),]
+
+papaja::apa_table(tab, caption = "Participant characteristics",
+                  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"))                                          
+
+```
 
 ## The effects of physical activity volume on sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-by-volume) and Figure \@ref(fig:sleep-by-volume-fig). There was no meaningful relationship between physical activity volume and sleep duration. However, a positive curvilinear relationship was observed between physical activity volume and sleep efficiency, onset, and regularity, which interacted with age. Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals. Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity. There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants. For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
-
-\renewcommand{\arraystretch}{0.7}
+We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-by-volume) and Figure \@ref(fig:sleep-by-volume-fig). There was no meaningful relationship between physical activity volume and sleep duration. However, we observed a curvilinear relationships between physical activity volume and sleep efficiency, onset, and regularity, all of which interacted with age. Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals. Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity. There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants. For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
 
 ```{r sleep-by-volume}
 note <- "Adjusted for SES, BMI, and sex. "
@@ -185,7 +207,7 @@ knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag.jpg"), erro
 
 ## The effects of sleep efficiency on physical activity
 
-We estimated the effect of sleep efficiency on physical activity by age. Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:PA-by-sleep-efficiency) and Figure \@ref(fig:PA-by-sleep-efficiency-fig). We did not find a relationship between physical activity volume and sleep efficiency. A subtle U-shaped relationship emerged, indicating that individuals with above-average sleep efficiency engaged in more intense physical activity.
+We estimated the effect of sleep efficiency on physical activity by age. Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:PA-by-sleep-efficiency) and Figure \@ref(fig:PA-by-sleep-efficiency-fig). We did not find a relationship between physical activity volume and sleep efficiency. However, there was a subtle U-shaped relationship where individuals with above-average sleep efficiency engaged in more intense physical activity.
 
 
 ```{r PA-by-sleep-efficiency}
