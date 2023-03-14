@@ -3,3 +3,8 @@
 
 \includegraphics[width=7.08in]{../Figures/sleep on pa_volume} \caption{Sleep metrics on Physical activity volume}\label{fig:sleep-by-volume-fig}
 \end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=7.08in]{../Figures/sleep on pa_intensity} \caption{Sleep metrics on Physical activity intensity}\label{fig:sleep-by-intensity-fig}
+\end{figure*}

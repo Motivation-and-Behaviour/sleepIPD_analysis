@@ -99,17 +99,17 @@ format_table <- function(tab) {
 sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
 "scale_sleep_onset by scale_pa_volume", "scale_sleep_regularity by scale_pa_volume")
 
-sleep_outcomes_by_PA <- lapply(model_list[sleep_names], function(x){
+sleep_outcomes_by_PA_volume <- lapply(model_list[sleep_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
 
-names(sleep_outcomes_by_PA) <- gsub("scale_", "", names(sleep_outcomes_by_PA)) |> 
+names(sleep_outcomes_by_PA_volume) <- gsub("scale_", "", names(sleep_outcomes_by_PA_volume)) |> 
   gsub("\\sby.*", "", x = _ ) |> 
   gsub("_", " ", x = _ ) |> 
   stringr::str_to_sentence()
 
-  papaja::apa_table(sleep_outcomes_by_PA,
+  papaja::apa_table(sleep_outcomes_by_PA_volume,
                     caption = "Sleep on physical activity volume controlling for SES, gender and BMI",
                     note = note,
                     escape = FALSE)
@@ -117,7 +117,30 @@ names(sleep_outcomes_by_PA) <- gsub("scale_", "", names(sleep_outcomes_by_PA)) |
 
 ```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
 knitr::include_graphics(here::here("Figures/sleep on pa_volume.jpg"), error = FALSE)
-
-
 ```
 
+## The effects of physical activty intensity on sleep
+
+```{r sleep-by-intensity}
+sleep_names <- c("scale_sleep_duration by scale_pa_intensity", "scale_sleep_efficiency by scale_pa_intensity", 
+"scale_sleep_onset by scale_pa_intensity", "scale_sleep_regularity by scale_pa_intensity")
+
+sleep_outcomes_by_PA_intens <- lapply(model_list[sleep_names], function(x){
+tab <- format_table(x$table)  
+tab
+})
+
+names(sleep_outcomes_by_PA_intens) <- gsub("scale_", "", names(sleep_outcomes_by_PA_intens)) |> 
+  gsub("\\sby.*", "", x = _ ) |> 
+  gsub("_", " ", x = _ ) |> 
+  stringr::str_to_sentence()
+
+  papaja::apa_table(sleep_outcomes_by_PA_intens,
+                    caption = "Sleep on physical activity intensity controlling for SES, gender and BMI",
+                    note = note,
+                    escape = FALSE)
+```
+
+```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on Physical activity intensity"}
+knitr::include_graphics(here::here("Figures/sleep on pa_intensity.jpg"), error = FALSE)
+```
