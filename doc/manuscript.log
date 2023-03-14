@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 11:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  14 MAR 2023 11:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -685,9 +685,6 @@ File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
 
 LaTeX Warning: Reference `demo' on page 3 undefined on input line 196.
 
-
-LaTeX Warning: Reference `tab:sleep-by-volume' on page 3 undefined on input line 201.
-
 \openout3 = `manuscript.ttt'.
 
 (manuscript.ttt)
@@ -698,7 +695,7 @@ LaTeX Warning: Reference `tab:sleep-by-volume' on page 3 undefined on input line
 LaTeX Warning: Float too large for page by 4.70033pt on input line 53.
 
 ) [4] (./manuscript.fff
-<../Figures/sleep on pa_volume.jpg, id=39, 2132.96875pt x 1777.64125pt>
+<../Figures/sleep on pa_volume.jpg, id=40, 2132.96875pt x 1777.64125pt>
 File: ../Figures/sleep on pa_volume.jpg Graphic file (type jpg)
 <use ../Figures/sleep on pa_volume.jpg>
 Package pdftex.def Info: ../Figures/sleep on pa_volume.jpg  used on input line 4.
@@ -718,18 +715,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18034 strings out of 477984
- 300317 string characters out of 5837250
+ 18031 strings out of 477984
+ 300274 string characters out of 5837250
  1867382 words of memory out of 5000000
- 37833 multiletter control sequences out of 15000+600000
- 558317 words of font info for 98 fonts, out of 8000000 for 9000
+ 37832 multiletter control sequences out of 15000+600000
+ 558226 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,11n,90p,1183b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,11n,90p,1181b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/james/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb>
-Output written on manuscript.pdf (5 pages, 881550 bytes).
+Output written on manuscript.pdf (5 pages, 881536 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 94 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
  15 named destinations out of 1000 (max. 500000)
  24614 words of extra memory for PDF output out of 24883 (max. 10000000)
 

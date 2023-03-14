@@ -80,7 +80,7 @@ We explored the effects of physical activity on sleep (RQ1) using mixed-effects 
 
 \renewcommand{\arraystretch}{0.8}
 
-```{r sleep-by-exercise}
+```{r sleep-by-volume}
 note <- "Adjusted for SES, BMI, and sex. "
 
 format_table <- function(tab){

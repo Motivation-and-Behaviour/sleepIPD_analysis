@@ -5,7 +5,7 @@
 \begin{center}
 \begin{threeparttable}
 
-\caption{\label{tab:sleep-by-exercise}Sleep on physical activity volume controlling for SES, gender and BMI}
+\caption{\label{tab:sleep-by-volume}Sleep on physical activity volume controlling for SES, gender and BMI}
 
 \begin{tabular}{lllll}
 \toprule
