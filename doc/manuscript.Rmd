@@ -68,7 +68,7 @@ library(papaja)
 ```
 
 ```{r load-targets, include=FALSE}
-tar_load(model_list)
+tar_load(model_list_by_age)
 tar_load(data_clean)
 tar_load(purdy_pictures)
 pretty <- function(x) format(x, big.mark = ",")
@@ -129,7 +129,7 @@ fix_model_names <- function(x){
 sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
 "scale_sleep_onset by scale_pa_volume", "scale_sleep_regularity by scale_pa_volume")
 
-sleep_outcomes_by_PA_volume <- lapply(model_list[sleep_names], function(x){
+sleep_outcomes_by_PA_volume <- lapply(model_list_by_age[sleep_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -161,7 +161,7 @@ We also found a strong link between physical activity intensity and improved sle
 sleep_names <- c("scale_sleep_duration by scale_pa_intensity", "scale_sleep_efficiency by scale_pa_intensity", 
 "scale_sleep_onset by scale_pa_intensity", "scale_sleep_regularity by scale_pa_intensity")
 
-sleep_outcomes_by_PA_intens <- lapply(model_list[sleep_names], function(x){
+sleep_outcomes_by_PA_intens <- lapply(model_list_by_age[sleep_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -194,7 +194,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_duration_lag"
 )
 
-PA_by_sleep_duration <- lapply(model_list[var_names], function(x){
+PA_by_sleep_duration <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -229,7 +229,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_efficiency_lag"
 )
 
-PA_by_sleep_efficiency <- lapply(model_list[var_names], function(x){
+PA_by_sleep_efficiency <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -262,7 +262,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_onset_lag"
 )
 
-PA_by_sleep_onset <- lapply(model_list[var_names], function(x){
+PA_by_sleep_onset <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -300,7 +300,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_regularity_lag"
 )
 
-PA_by_sleep_regularity <- lapply(model_list[var_names], function(x){
+PA_by_sleep_regularity <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })

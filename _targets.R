@@ -29,12 +29,35 @@ list(
 
   # Modelling targets
 
-  tar_target(model_list, make_model_list(data_imp)),
-  tar_target(model_diagnostics, make_model_diagnostics(model_list)),
+  # Moderated by age
+  tar_target(
+    model_list_by_age,
+    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
+  ),
+  tar_target(
+    model_list_by_sex,
+    make_model_list(
+      data_imp,
+      moderator = "sex",
+      moderator_term = "all",
+      control_vars = c("ses", "age", "bmi"))
+    ),
+
+
+  tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
   # Figures
   tar_target(explore_img, make_explore_img_list(data_holdout)),
-  tar_target(purdy_pictures, produce_purdy_pictures(model_list)),
+  tar_target(
+    purdy_pictures_by_age,
+    produce_purdy_pictures(model_list_by_age,
+                           paste_facet_labels = " years")
+  ),
+  tar_target(
+    purdy_pictures_by_sex,
+    produce_purdy_pictures(model_list_by_sex)
+  ),
+
 
   # Output manuscript
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c("papaja::apa6_docx",
