@@ -19,7 +19,7 @@ participants <- dplyr::filter(participants, elible = TRUE) |>
 
 # Create age bins with specified age points
 age_breaks <- c(0, 11, 18, 35, 65, Inf)
-age_labels <- c("0-11 years", "12-18 years", "19-35 years", "36-65 years", "66+ years")
+age_labels <- c(glue::glue("{floor(min(participants$age, na.rm = TRUE))}-11 years"), "12-18 years", "19-35 years", "36-65 years", "66+ years")
 
 # Assign age categories to the 'age_cat' column in the 'participants' data frame
 participants$age_cat <-
@@ -28,7 +28,8 @@ participants$age_cat <-
     breaks = age_breaks,
     labels = age_labels,
     include.lowest = TRUE,
-    right = FALSE
+    right = FALSE,
+    ordered_result = TRUE
   )
 
 # I store the variable labels for use in the table and add region
@@ -83,6 +84,11 @@ tab1 <- rbindlist(list(Ns, participants_numeric, participants_character), fill =
 # There were a few people for which we could not determine their age
 tab1 <- tab1[!is.na(tab1$age_cat)]
 tab1 <- tab1 |> tidyr::pivot_wider(values_from = out, names_from = age_cat)
+
+# Pivot wider is annoying and ignores factor levels
+non_age_names <- names(tab1)[!names(tab1) %in% age_labels]
+tab1 <- tab1[, c(non_age_names, age_labels)]
+
 # I recode the names using variable labels
 tab1$name <- dplyr::recode(tab1$name, !!!participant_labels)
 tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
