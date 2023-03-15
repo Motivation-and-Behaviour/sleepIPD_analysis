@@ -39,12 +39,12 @@ make_table1 <- function(data_clean) {
     "Sleep Conditions Reported", "Country", "Season", "Study ID", "Participant ID")
 
   # Tabulate the number of observations
-  d %>% select(-studyid, -participant_id) %>%
+  observations_table1 <- d %>% select(-studyid, -participant_id) %>%
   tbl_summary(statistic = list(all_continuous() ~ "{mean} ({sd})",
                                 all_categorical() ~ "{n} ({p}%)"),
     digits = all_continuous() ~ 2,
-    missing = "no") %>%
-    as_gt() %>%
+    missing = "no")
+    as_gt(observations_table1) %>%
 
     gtsave("tables/observations_table_one.png")
 
@@ -86,12 +86,12 @@ var_label(participants) <- c(
     "Study ID",
     "Any Observations Met Weartime Criteria")
 
-  participants %>% select(-studyid, -participant_id) %>%
+participants_table1 <- participants %>% select(-studyid, -participant_id) %>%
   tbl_summary(statistic = list(all_continuous() ~ "{mean} ({sd})",
                                 all_categorical() ~ "{n} ({p}%)"),
     digits = all_continuous() ~ 2,
-    missing = "no") %>%
-    as_gt() %>%
+    missing = "no")
+    as_gt(participants_table1) %>%
     gtsave("tables/participants_table_one.png")
 
 # Supplement:
@@ -143,5 +143,9 @@ participants %>% mutate(studyid = factor(studyid,
     missing = "no") %>%
     as_gt() %>%
     gtsave("tables/participants_by_study.png")
-  return(NULL)
+
+# Return into the target
+list(observations_table1 = observations_table1,
+     participants_table1 = participants_table1,
+     participants = participants)
 }

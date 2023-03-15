@@ -23,6 +23,8 @@ list(
   tar_target(data_holdout, make_data_holdout(data_clean)),
 
   tar_target(table_1, make_table1(data_clean)),
+  tar_target(region_lookup, make_region_lookup()),
+  tar_target(demog_table, make_demog_table(table_1, region_lookup)),
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
   # Modelling targets
@@ -35,5 +37,6 @@ list(
   tar_target(purdy_pictures, produce_purdy_pictures(model_list)),
 
   # Output manuscript
-  tar_render(manuscript, "doc/manuscript.Rmd")
+  tar_render(manuscript, "doc/manuscript.Rmd", output_format = c("papaja::apa6_docx",
+                                                                 "papaja::apa6_pdf"))
 )
