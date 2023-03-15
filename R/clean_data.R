@@ -38,30 +38,37 @@ clean_data <- function(data_joined) {
       maturational_status
     ), as.numeric)) %>%
     # convert charcter variables to factors
-    mutate(across(c(studyid, sex, ethnicity,
-    ses, sleep_medications, sleep_conditions,
-    country, season, accelerometer_wear_location,
-    weekday_x, accelerometer_model
+    mutate(across(c(
+      studyid, sex, ethnicity,
+      ses, sleep_medications, sleep_conditions,
+      country, season, accelerometer_wear_location,
+      weekday_x, accelerometer_model
     ), as.factor)) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
     # Add participant ID using the study and filename
     mutate(participant_id = paste(as.numeric(studyid), filename, sep = "_")) %>%
+    # Remove rows with no valid hours, these are not really 'observations'
+    filter(n_valid_hours > 0) %>%
     # Set data with indicated problems to missing
     mutate(
-      across(c(sleep_duration, sleep_efficiency, sleep_onset, sleep_wakeup,
-        sleep_regularity),
-      ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
-    ),
-    across(c(sleep_onset_time, sleep_wakeup_time),
-      ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_character_, .x)
-    )) %>%
+      across(
+        c(
+          sleep_duration, sleep_efficiency, sleep_onset, sleep_wakeup,
+          sleep_regularity
+        ),
+        ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
+      ),
+      across(
+        c(sleep_onset_time, sleep_wakeup_time),
+        ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_character_, .x)
+      )
+    ) %>%
     # Filter for OK data
     # Decision rules for this
     mutate(eligible = (n_valid_hours > 10) &
-                        (is.na(sleep_duration) | sleep_duration > 200)) %>%
+      (is.na(sleep_duration) | sleep_duration > 200)) %>%
     remove_outliers(ignore_cols = c("age")) %>%
-
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
@@ -110,8 +117,11 @@ clean_data <- function(data_joined) {
   # and studyid matches column 1, replace with column 3
   d <- d %>%
     left_join(sleep_refactors,
-              by = c("studyid" = "studyid",
-              "sleep_conditions" = "sleep_conditions")) %>%
+      by = c(
+        "studyid" = "studyid",
+        "sleep_conditions" = "sleep_conditions"
+      )
+    ) %>%
     mutate(sleep_conditions = as.factor(harmonized)) %>%
     select(-harmonized)
 
@@ -147,9 +157,11 @@ clean_data <- function(data_joined) {
   )
 
   # removing some variables we can't harmonise
-  d <- d %>% select(-sleep_medications,
-  -ethnicity,
-  -maturational_status)
+  d <- d %>% select(
+    -sleep_medications,
+    -ethnicity,
+    -maturational_status
+  )
 
   # Clean the country names
   d <- d %>%
@@ -203,8 +215,10 @@ clean_data <- function(data_joined) {
       )
     )
 
-  d <- d %>% mutate(country = as.factor(country),
-                    location = paste(city, country, sep = ", "))
+  d <- d %>% mutate(
+    country = as.factor(country),
+    location = paste(city, country, sep = ", ")
+  )
 
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
@@ -223,8 +237,11 @@ clean_data <- function(data_joined) {
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
 
   d <- d %>% left_join(distinct(sunlight),
-                    by = c("calendar_date" = "date",
-                    "lat", "lon"))
+    by = c(
+      "calendar_date" = "date",
+      "lat", "lon"
+    )
+  )
 
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
 
@@ -238,19 +255,19 @@ clean_data <- function(data_joined) {
     arrange(studyid, filename, calendar_date, desc(n_valid_hours)) %>%
     distinct(studyid, filename, calendar_date, .keep_all = TRUE)
 
-# Add lagged sleep variables
-d <- d %>%
-  arrange(studyid, filename, calendar_date) %>%
-  group_by(studyid, filename) %>%
-  mutate(across(
-    c(
-      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-      sleep_wakeup_time, sleep_regularity, sleep_duration
-    ),
-    ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
-    .names = "{.col}_lag"
-  )) %>%
-  ungroup()
+  # Add lagged sleep variables
+  d <- d %>%
+    arrange(studyid, filename, calendar_date) %>%
+    group_by(studyid, filename) %>%
+    mutate(across(
+      c(
+        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
+        sleep_wakeup_time, sleep_regularity, sleep_duration
+      ),
+      ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
+      .names = "{.col}_lag"
+    )) %>%
+    ungroup()
 
   d
 }
