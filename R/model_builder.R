@@ -63,7 +63,7 @@ model_builder <-
           i = i + 1
       }
 
-      if(!conv) stop("No convergence with any optimizer:" , cat(...))
+      if(!conv) stop("No convergence with any optimizer:" , ...)
 
       mod
     }
