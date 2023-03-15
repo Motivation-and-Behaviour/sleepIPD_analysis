@@ -29,7 +29,6 @@ list(
 
   # Modelling targets
 
-  # Moderated by age
   tar_target(
     model_list_by_age,
     make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
@@ -42,7 +41,6 @@ list(
       moderator_term = "all",
       control_vars = c("ses", "age", "bmi"))
     ),
-
 
   tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
