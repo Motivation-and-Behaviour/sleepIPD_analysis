@@ -82,19 +82,14 @@ The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations 
 tar_load(demog_table)
 tar_load(table_1) # to get participants data
 
-tab <- demog_table |> 
-  dplyr::select(Variable = level, Value = out) |> 
-  split(demog_table$name)
+tar_load(demog_table)
 
-tab <- append(tab["Numeric variables"], tab[!names(tab) %in% "Numeric variables"])
 
-# Reorder socioeconomic status
-tab$`Socioeconomic Status`$Variable <- factor(tab$`Socioeconomic Status`$Variable, levels = c("Low","Medium","High"))
-tab$`Sleep Conditions Reported` <- tab$`Sleep Conditions Reported`[tab$`Sleep Conditions Reported`$Variable == "Yes"]
-tab$`Socioeconomic Status` <- tab$`Socioeconomic Status`[order(tab$`Socioeconomic Status`$Variable),]
 
-papaja::apa_table(tab, caption = "Participant characteristics",
-                  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"))                                          
+papaja::apa_table(demog_table, caption = "Participant characteristics",
+                  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"),
+                  landscape = TRUE,
+                  col_spanners = list("Age group" = c(2,6)))                                          
 
 ```
 
