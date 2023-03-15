@@ -21,6 +21,6 @@ make_data_holdout <- function(data_clean) {
 
   data_clean %>%
     left_join(rand_ids, by = c("studyid", "filename")) %>%
-    filter(keep) %>%
-    select(-keep)
+    filter(keep & eligible) %>%
+    select(-keep, -eligible)
 }

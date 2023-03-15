@@ -10,9 +10,8 @@
 #' @export
 
 make_data_imp <- function(data, n_imps = 3) {
-    data <- data %>%
-      filter(n_valid_hours > 0) %>%
-      select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
+  data <- data %>%
+    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
 
   # Empty imputation to change defaults:
   m0 <- mice(data, maxit = 0)
@@ -35,14 +34,17 @@ make_data_imp <- function(data, n_imps = 3) {
     )
 
   # include_scale_variables
-  sleep_vars <- c("sleep_duration",
-                  "sleep_efficiency",
-                  "sleep_onset",
-                  "sleep_regularity")
+  sleep_vars <- c(
+    "sleep_duration",
+    "sleep_efficiency",
+    "sleep_onset",
+    "sleep_regularity"
+  )
 
 
   variables_to_scale <-
-    c(sleep_vars,
+    c(
+      sleep_vars,
       "pa_volume",
       "pa_intensity",
       paste0(sleep_vars, "_lag")
@@ -52,11 +54,9 @@ make_data_imp <- function(data, n_imps = 3) {
 
   imp_list <- data.table(complete(imps, action = "long", include = TRUE))
 
-  for(v in seq_along(variables_to_scale)) {
+  for (v in seq_along(variables_to_scale)) {
     imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
-
   }
 
   as.mids(imp_list)
-
 }
