@@ -68,7 +68,7 @@ library(papaja)
 ```
 
 ```{r load-targets, include=FALSE}
-tar_load(model_list)
+tar_load(model_list_by_age)
 tar_load(data_clean)
 tar_load(purdy_pictures)
 pretty <- function(x) format(x, big.mark = ",")
@@ -129,7 +129,7 @@ fix_model_names <- function(x){
 sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
 "scale_sleep_onset by scale_pa_volume", "scale_sleep_regularity by scale_pa_volume")
 
-sleep_outcomes_by_PA_volume <- lapply(model_list[sleep_names], function(x){
+sleep_outcomes_by_PA_volume <- lapply(model_list_by_age[sleep_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -146,7 +146,7 @@ names(sleep_outcomes_by_PA_volume) <- gsub("scale_", "", names(sleep_outcomes_by
 ```
 
 ```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
-knitr::include_graphics(here::here("Figures/sleep on pa_volume.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/sleep on pa_volume by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of physical activity intensity on sleep
@@ -161,7 +161,7 @@ We also found a strong link between physical activity intensity and improved sle
 sleep_names <- c("scale_sleep_duration by scale_pa_intensity", "scale_sleep_efficiency by scale_pa_intensity", 
 "scale_sleep_onset by scale_pa_intensity", "scale_sleep_regularity by scale_pa_intensity")
 
-sleep_outcomes_by_PA_intens <- lapply(model_list[sleep_names], function(x){
+sleep_outcomes_by_PA_intens <- lapply(model_list_by_age[sleep_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -178,7 +178,7 @@ names(sleep_outcomes_by_PA_intens) <- gsub("scale_", "", names(sleep_outcomes_by
 ```
 
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on Physical activity intensity"}
-knitr::include_graphics(here::here("Figures/sleep on pa_intensity.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/sleep on pa_intensity by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep duration on physical activity
@@ -194,7 +194,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_duration_lag"
 )
 
-PA_by_sleep_duration <- lapply(model_list[var_names], function(x){
+PA_by_sleep_duration <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -211,7 +211,7 @@ names(PA_by_sleep_duration) <- gsub("scale_", "", names(PA_by_sleep_duration)) |
 ```
 
 ```{r PA-by-sleep-duration-fig, fig.cap = "Physical activty by sleep duration"}
-knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep efficiency on physical activity
@@ -229,7 +229,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_efficiency_lag"
 )
 
-PA_by_sleep_efficiency <- lapply(model_list[var_names], function(x){
+PA_by_sleep_efficiency <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -246,7 +246,7 @@ names(PA_by_sleep_efficiency) <- gsub("scale_", "", names(PA_by_sleep_efficiency
 ```
 
 ```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activty by sleep efficiency"}
-knitr::include_graphics(here::here("Figures/PA on sleep_efficiency_lag.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/PA on sleep_efficiency_lag by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep onset on physical activity
@@ -262,7 +262,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_onset_lag"
 )
 
-PA_by_sleep_onset <- lapply(model_list[var_names], function(x){
+PA_by_sleep_onset <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -279,7 +279,7 @@ names(PA_by_sleep_onset) <- gsub("scale_", "", names(PA_by_sleep_onset)) |>
 ```
 
 ```{r PA-by-sleep-onset-fig, fig.cap = "Physical activty by sleep onset"}
-knitr::include_graphics(here::here("Figures/PA on sleep_onset_lag.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/PA on sleep_onset_lag by Age.jpg"), error = FALSE)
 ```
 
 
@@ -300,7 +300,7 @@ var_names <- c(
   "scale_pa_intensity by scale_sleep_regularity_lag"
 )
 
-PA_by_sleep_regularity <- lapply(model_list[var_names], function(x){
+PA_by_sleep_regularity <- lapply(model_list_by_age[var_names], function(x){
 tab <- format_table(x$table)  
 tab
 })
@@ -317,6 +317,6 @@ names(PA_by_sleep_regularity) <- gsub("scale_", "", names(PA_by_sleep_regularity
 ```
 
 ```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activty by sleep regularity"}
-knitr::include_graphics(here::here("Figures/PA on sleep_regularity_lag.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/PA on sleep_regularity_lag by Age.jpg"), error = FALSE)
 ```
 

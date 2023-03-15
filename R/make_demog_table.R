@@ -5,16 +5,14 @@
 #' Which we can use with papaja. The gtsummary version does not allow for rowspans and was probably
 #' too long to include in the paper.
 
-make_demog_table <- function(table_1, region_lookup){
+make_demog_table <- function(participant_summary){
 
-participants <- table_1$participants
+participants <- participant_summary
 # First I select all eligible participants
 participants <- dplyr::filter(participants, elible = TRUE) |>
-  # I simplify country to region
-  dplyr::left_join(region_lookup, by = "country") |>
   # I remove variables we don't want in the table
   dplyr::select(
-    -c(waist_circumference, screen_time, daylight_hours, city, studyid, country, eligible, pa_sleep_cat,
+    -c(waist_circumference, screen_time, daylight_hours, city, studyid, eligible,
        height, weight, sleep_wakeup))
 
 # Create age bins with specified age points
@@ -34,7 +32,6 @@ participants$age_cat <-
 
 # I store the variable labels for use in the table and add region
 participant_labels <- var_label(participants)
-participant_labels$region <- "Region"
 
 # I select all character variables and create a long from dataset
 participants_character <- dplyr::select(participants, where(is.character) | where(is.factor)) |>

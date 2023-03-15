@@ -1,7 +1,8 @@
 #' produce_purdy_pictures
 #' @param model_list list of RQ1 models
+#' @example  model_list <- model_list_by_age
 
-produce_purdy_pictures <- function(model_list){
+produce_purdy_pictures <- function(model_list, paste_facet_labels = ""){
 
   dat_list <- lapply(seq_len(length(model_list)), function(i){
 
@@ -13,6 +14,7 @@ produce_purdy_pictures <- function(model_list){
     dt$group_name = terms[2]
     dt$outcome = gsub(" .*","",names(model_list)[[i]])
     dt$RQ <- attr(m, "RQ")
+    dt$moderator <- attr(m, "moderator")
     dt
 
   })
@@ -23,7 +25,7 @@ produce_purdy_pictures <- function(model_list){
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
-  plot_dat$group <- paste(plot_dat$group, "years")
+  plot_dat$group <- paste0(plot_dat$group, paste_facet_labels)
   plot_dat$x_name <- gsub("\\[.*","", plot_dat$x_name)
 
 
@@ -37,14 +39,14 @@ produce_purdy_pictures <- function(model_list){
     geom_ribbon(alpha = .5) +
     facet_grid(rows = vars(outcome), cols = vars(group)) +
       labs(x = x_lab,
-           fill = "Age") +
+           fill = stringr::str_to_sentence(unique(plot_dat$moderator))) +
       figure_theme() +
     theme(legend.position = "none")
 
     outcome <- unique(gsub(" .*","", pdat$outcome))
     if(length(outcome) > 1) stop("Outcome length is greater than 1")
 
-    filename <- "Figures/{outcome} on {x_var}.jpg" |>
+    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}.jpg" |>
       glue::glue()
 
     if(outcome == "Sleep"){
@@ -53,7 +55,7 @@ produce_purdy_pictures <- function(model_list){
       height = 9
     }
 
-    ggsave(filename, plot = fig, height = height, width = 18, units = "cm", dpi = 300)
+    ggsave(filename, plot = fig, height = height, width = 3.25 * length(unique(pdat$group)) + 5, units = "cm", dpi = 300)
 
   }
 

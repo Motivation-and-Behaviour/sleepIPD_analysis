@@ -17,7 +17,7 @@ make_data_imp <- function(data, n_imps = 3) {
   m0 <- mice(data, maxit = 0)
 
   # Don't do imputation based on these vars:
-  dont_imp <- c("age_cat", "filename", "calendar_date")
+  dont_imp <- c("age_cat", "filename", "calendar_date", "region")
   meth <- m0$method
   pred <- m0$predictorMatrix
   meth[names(meth) %in% dont_imp] <- ""

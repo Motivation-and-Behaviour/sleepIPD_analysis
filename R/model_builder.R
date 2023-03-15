@@ -27,9 +27,8 @@ model_builder <-
       )
 
     formula <- gsub("\\+  \\+", "+", formula)
-    # formula <- gsub("\\#.*", "", formula)
 
-    fit_model <- function(..., data){
+    fit_model <- function(..., data, max_iter = 1e6){
       require(optimx)
       require(lme4)
       require(dfoptim)
@@ -38,8 +37,9 @@ model_builder <-
       exhausted <- FALSE
       i <- 1
       meth.tab <- lme4:::meth.tab.0
-      meth.tab[!duplicated(meth.tab[,1]),]
+      meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval","maxeval"))
       meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
+
       while(!conv & i <= nrow(meth.tab)) {
 
         if(meth.tab[i , 2] != ""){
@@ -47,6 +47,8 @@ model_builder <-
         }else{
           optCtrl <- list()
         }
+
+        optCtrl[[meth.tab[i , 3]]] <- max_iter
 
         mod <- lme4::lmer(
           ...,

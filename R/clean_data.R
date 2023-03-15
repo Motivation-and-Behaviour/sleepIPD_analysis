@@ -7,7 +7,7 @@
 #' @return
 #' @author
 #' @export
-clean_data <- function(data_joined) {
+clean_data <- function(data_joined, region_lookup) {
   data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
     clean_names() %>%
@@ -220,11 +220,14 @@ clean_data <- function(data_joined) {
     location = paste(city, country, sep = ", ")
   )
 
+  d <- dplyr::left_join(d, region_lookup, by = "country")
+
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
   update_latlong(locations)
   latlong <- read.csv("latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
+
 
   # use suncalc to find sunrise and sunset times
   sunlight <- d %>%

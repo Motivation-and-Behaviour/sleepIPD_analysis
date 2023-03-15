@@ -19,22 +19,44 @@ list(
 
   # Data targets
   tar_target(data_joined, bind_rows(data_raw), pattern = map(data_raw)),
-  tar_target(data_clean, clean_data(data_joined)),
+  tar_target(data_clean, clean_data(data_joined, region_lookup)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
 
-  tar_target(table_1, make_table1(data_clean)),
+  tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
-  tar_target(demog_table, make_demog_table(table_1, region_lookup)),
+  tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
   # Modelling targets
 
-  tar_target(model_list, make_model_list(data_imp)),
-  tar_target(model_diagnostics, make_model_diagnostics(model_list)),
+  # Moderated by age
+  tar_target(
+    model_list_by_age,
+    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
+  ),
+  tar_target(
+    model_list_by_sex,
+    make_model_list(
+      data_imp,
+      moderator = "sex",
+      moderator_term = "all",
+      control_vars = c("ses", "age", "bmi"))
+    ),
+
+
+  tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
   # Figures
   tar_target(explore_img, make_explore_img_list(data_holdout)),
-  tar_target(purdy_pictures, produce_purdy_pictures(model_list)),
+  tar_target(
+    purdy_pictures_by_age,
+    produce_purdy_pictures(model_list_by_age,
+                           paste_facet_labels = " years")
+  ),
+  tar_target(
+    purdy_pictures_by_sex,
+    produce_purdy_pictures(model_list_by_sex)
+  ),
 
   # Output manuscript
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c("papaja::apa6_docx",

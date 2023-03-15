@@ -7,7 +7,7 @@
 #' @return
 #' @author conig
 #' @export
-make_model_list <- function(data_imp) {
+make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi")) {
 
   sleep_vars <- c("scale_sleep_duration",
                     "scale_sleep_efficiency",
@@ -18,9 +18,7 @@ make_model_list <- function(data_imp) {
 
   PA_vars <- c("scale_pa_volume", "scale_pa_intensity")
 
-  control_vars <- c("ses", "sex", "bmi")
-
-  make_quadratic <- function(x) glue::glue("{x} * age + I({x}^2) * age")
+  make_quadratic <- function(x) glue::glue("{x} * {moderator} + I({x}^2) * {moderator}")
 
   instructions.rq1 <-
     expand.grid(
@@ -53,8 +51,9 @@ make_model_list <- function(data_imp) {
         table_only = FALSE
       )
 
-    attr(model, "terms") <- c(paste0(gsub(" .*", "" ,instructions[i, "predictors"]), "[-4:4 by = 0.1]"), "age [11, 18, 35, 65]")
+    attr(model, "terms") <- c(paste0(gsub(" .*", "" ,instructions[i, "predictors"]), "[-4:4 by = 0.1]"), glue::glue("{moderator} [{moderator_term}]"))
     attr(model, "RQ") <- instructions[i , "RQ"]
+    attr(model, "moderator") <- moderator
     model
 
     }
