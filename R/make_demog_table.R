@@ -15,7 +15,7 @@ participants <- dplyr::filter(participants, elible = TRUE) |>
   # I remove variables we don't want in the table
   dplyr::select(
     -c(waist_circumference, screen_time, daylight_hours, city, studyid, country, eligible, pa_sleep_cat,
-       height, weight))
+       height, weight, sleep_wakeup))
 
 # I store the variable labels for use in the table and add region
 participant_labels <- var_label(participants)
