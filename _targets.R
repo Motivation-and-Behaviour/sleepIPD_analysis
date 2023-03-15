@@ -35,6 +35,7 @@ list(
   tar_target(table_1, make_table1(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(table_1, region_lookup)),
+  tar_target(model_tables, make_model_tables(model_list)),
 
   # Output manuscript
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(

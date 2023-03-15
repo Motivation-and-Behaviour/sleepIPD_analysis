@@ -68,9 +68,9 @@ library(papaja)
 ```
 
 ```{r load-targets, include=FALSE}
-tar_load(model_list)
 tar_load(data_clean)
 tar_load(purdy_pictures)
+tar_load(model_tables)
 pretty <- function(x) format(x, big.mark = ",")
 ```
 
@@ -88,61 +88,32 @@ tar_load(demog_table)
 
 
 
-papaja::apa_table(demog_table, caption = "Participant characteristics",
-                  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"),
-                  landscape = TRUE,
-                  col_spanners = list("Age group" = c(2,6)))                                          
-
+papaja::apa_table(demog_table,
+  caption = "Participant characteristics",
+  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"),
+  landscape = TRUE,
+  col_spanners = list("Age group" = c(2, 6))
+)
 ```
 
 ## The effects of physical activity volume on sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-by-volume) and Figure \@ref(fig:sleep-by-volume-fig). There was no meaningful relationship between physical activity volume and sleep duration.
+We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models. We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig). There was no meaningful relationship between physical activity volume and sleep duration.
 However, we observed a curvilinear relationships between physical activity volume and sleep efficiency, onset, and regularity, all of which interacted with age.
 Sleep efficiency improved with greater physical activity volume, but improvements tapered off for older individuals.
 Physical activity volume and sleep onset had a positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity.
 There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants.
 For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
 
-```{r sleep-by-volume}
-note <- "Adjusted for SES, BMI, and sex. "
-
-format_table <- function(tab) {
-  tab$term <- gsub("I\\(", "", tab$term) |>
-    gsub("_", " ", x = _) |>
-    gsub("\\^2\\)", "$^2$", x = _ )
-  tab <- tab[!grepl("^ses", tab$term), ]
-  tab <- tab[!grepl("^sex", tab$term), ]
-  tab <- tab[!grepl("^bmi", tab$term), ]
-  tab$term <- stringr::str_to_sentence(tab$term)
-  tab$term <- gsub(" pa ", " PA ", tab$term)
-  names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
-  tab
-}
-
-fix_model_names <- function(x){
-  x <- stringr::str_to_sentence(x)
-  x <- gsub("Pa", "PA", x)
-  x
-}
-
-sleep_names <- c("scale_sleep_duration by scale_pa_volume", "scale_sleep_efficiency by scale_pa_volume", 
-"scale_sleep_onset by scale_pa_volume", "scale_sleep_regularity by scale_pa_volume")
-
-sleep_outcomes_by_PA_volume <- lapply(model_list[sleep_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
-
-names(sleep_outcomes_by_PA_volume) <- gsub("scale_", "", names(sleep_outcomes_by_PA_volume)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
-
-  papaja::apa_table(sleep_outcomes_by_PA_volume,
-                    caption = "Sleep on physical activity volume controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
+```{r sleep-outcomes}
+papaja::apa_table(
+  model_tables$sleep$data,
+  caption = model_tables$sleep$caption,
+  note = model_tables$sleep$note,
+  col_spanners = model_tables$sleep$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
 ```
 
 ```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
@@ -151,31 +122,10 @@ knitr::include_graphics(here::here("Figures/sleep on pa_volume.jpg"), error = FA
 
 ## The effects of physical activity intensity on sleep
 
-We estimated how physical activity intensity affects sleep across different age groups. We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-by-intensity) and Figure \@ref(fig:sleep-by-intensity-fig).
+We estimated how physical activity intensity affects sleep across different age groups. We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
 We found that higher physical activity intensity is directly proportional to longer sleep duration and better sleep efficiency.
 In the case of older participants, physical activity intensity had a U-shaped relationship with sleep onset, meaning that individuals with very low or very high physical activity intensity had longer sleep onset.
 We also found a strong link between physical activity intensity and improved sleep regularity, which weakened at higher intensity levels.
-
-
-```{r sleep-by-intensity}
-sleep_names <- c("scale_sleep_duration by scale_pa_intensity", "scale_sleep_efficiency by scale_pa_intensity", 
-"scale_sleep_onset by scale_pa_intensity", "scale_sleep_regularity by scale_pa_intensity")
-
-sleep_outcomes_by_PA_intens <- lapply(model_list[sleep_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
-
-names(sleep_outcomes_by_PA_intens) <- gsub("scale_", "", names(sleep_outcomes_by_PA_intens)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
-
-  papaja::apa_table(sleep_outcomes_by_PA_intens,
-                    caption = "Sleep on physical activity intensity controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
-```
 
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on Physical activity intensity"}
 knitr::include_graphics(here::here("Figures/sleep on pa_intensity.jpg"), error = FALSE)
@@ -189,25 +139,26 @@ We found a subtle inverted U-shaped relationship between average sleep duration 
 
 
 ```{r PA-by-sleep-duration}
-var_names <- c(
-  "scale_pa_volume by scale_sleep_duration_lag",
-  "scale_pa_intensity by scale_sleep_duration_lag"
-)
+# var_names <- c(
+#   "scale_pa_volume by scale_sleep_duration_lag",
+#   "scale_pa_intensity by scale_sleep_duration_lag"
+# )
 
-PA_by_sleep_duration <- lapply(model_list[var_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
+# PA_by_sleep_duration <- lapply(model_list[var_names], function(x) {
+#   tab <- format_table(x$table)
+#   tab
+# })
 
-names(PA_by_sleep_duration) <- gsub("scale_", "", names(PA_by_sleep_duration)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
+# names(PA_by_sleep_duration) <- gsub("scale_", "", names(PA_by_sleep_duration)) |>
+#   gsub("\\sby.*", "", x = _) |>
+#   gsub("_", " ", x = _) |>
+#   fix_model_names()
 
-  papaja::apa_table(PA_by_sleep_duration,
-                    caption = "Physical activity  by sleep duration controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
+# papaja::apa_table(PA_by_sleep_duration,
+#   caption = "Physical activity  by sleep duration controlling for SES, gender and BMI",
+#   note = note,
+#   escape = FALSE
+# )
 ```
 
 ```{r PA-by-sleep-duration-fig, fig.cap = "Physical activty by sleep duration"}
@@ -224,25 +175,26 @@ However, there was a subtle U-shaped relationship where individuals with above-a
 
 
 ```{r PA-by-sleep-efficiency}
-var_names <- c(
-  "scale_pa_volume by scale_sleep_efficiency_lag",
-  "scale_pa_intensity by scale_sleep_efficiency_lag"
-)
+# var_names <- c(
+#   "scale_pa_volume by scale_sleep_efficiency_lag",
+#   "scale_pa_intensity by scale_sleep_efficiency_lag"
+# )
 
-PA_by_sleep_efficiency <- lapply(model_list[var_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
+# PA_by_sleep_efficiency <- lapply(model_list[var_names], function(x) {
+#   tab <- format_table(x$table)
+#   tab
+# })
 
-names(PA_by_sleep_efficiency) <- gsub("scale_", "", names(PA_by_sleep_efficiency)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
+# names(PA_by_sleep_efficiency) <- gsub("scale_", "", names(PA_by_sleep_efficiency)) |>
+#   gsub("\\sby.*", "", x = _) |>
+#   gsub("_", " ", x = _) |>
+#   fix_model_names()
 
-  papaja::apa_table(PA_by_sleep_efficiency,
-                    caption = "Physical activity by sleep efficiency controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
+# papaja::apa_table(PA_by_sleep_efficiency,
+#   caption = "Physical activity by sleep efficiency controlling for SES, gender and BMI",
+#   note = note,
+#   escape = FALSE
+# )
 ```
 
 ```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activty by sleep efficiency"}
@@ -257,25 +209,26 @@ The U-shaped relationship between sleep onset and physical activity volume atten
 
 
 ```{r PA-by-sleep-onset}
-var_names <- c(
-  "scale_pa_volume by scale_sleep_onset_lag",
-  "scale_pa_intensity by scale_sleep_onset_lag"
-)
+# var_names <- c(
+#   "scale_pa_volume by scale_sleep_onset_lag",
+#   "scale_pa_intensity by scale_sleep_onset_lag"
+# )
 
-PA_by_sleep_onset <- lapply(model_list[var_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
+# PA_by_sleep_onset <- lapply(model_list[var_names], function(x) {
+#   tab <- format_table(x$table)
+#   tab
+# })
 
-names(PA_by_sleep_onset) <- gsub("scale_", "", names(PA_by_sleep_onset)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
+# names(PA_by_sleep_onset) <- gsub("scale_", "", names(PA_by_sleep_onset)) |>
+#   gsub("\\sby.*", "", x = _) |>
+#   gsub("_", " ", x = _) |>
+#   fix_model_names()
 
-  papaja::apa_table(PA_by_sleep_onset,
-                    caption = "Physical activity by sleep onset controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
+# papaja::apa_table(PA_by_sleep_onset,
+#   caption = "Physical activity by sleep onset controlling for SES, gender and BMI",
+#   note = note,
+#   escape = FALSE
+# )
 ```
 
 ```{r PA-by-sleep-onset-fig, fig.cap = "Physical activty by sleep onset"}
@@ -295,25 +248,26 @@ Greater sleep regularity was associated with greater physical activity the follo
 
 
 ```{r PA-by-sleep-regularity}
-var_names <- c(
-  "scale_pa_volume by scale_sleep_regularity_lag",
-  "scale_pa_intensity by scale_sleep_regularity_lag"
-)
+# var_names <- c(
+#   "scale_pa_volume by scale_sleep_regularity_lag",
+#   "scale_pa_intensity by scale_sleep_regularity_lag"
+# )
 
-PA_by_sleep_regularity <- lapply(model_list[var_names], function(x){
-tab <- format_table(x$table)  
-tab
-})
+# PA_by_sleep_regularity <- lapply(model_list[var_names], function(x) {
+#   tab <- format_table(x$table)
+#   tab
+# })
 
-names(PA_by_sleep_regularity) <- gsub("scale_", "", names(PA_by_sleep_regularity)) |> 
-  gsub("\\sby.*", "", x = _ ) |> 
-  gsub("_", " ", x = _ ) |> 
-  fix_model_names()
+# names(PA_by_sleep_regularity) <- gsub("scale_", "", names(PA_by_sleep_regularity)) |>
+#   gsub("\\sby.*", "", x = _) |>
+#   gsub("_", " ", x = _) |>
+#   fix_model_names()
 
-  papaja::apa_table(PA_by_sleep_regularity,
-                    caption = "Physical activity by sleep regularity controlling for SES, gender and BMI",
-                    note = note,
-                    escape = FALSE)
+# papaja::apa_table(PA_by_sleep_regularity,
+#   caption = "Physical activity by sleep regularity controlling for SES, gender and BMI",
+#   note = note,
+#   escape = FALSE
+# )
 ```
 
 ```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activty by sleep regularity"}
