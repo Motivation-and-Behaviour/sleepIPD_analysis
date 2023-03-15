@@ -76,7 +76,7 @@ pretty <- function(x) format(x, big.mark = ",")
 
 # Results
 
-The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(demo-participants) shows demographic information for all participants. A table of study characteristics can be found in supplementary materials.
+The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants. Table \@ref(tab:demo-participants) shows demographic information for all participants. A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
 tar_load(demog_table)
