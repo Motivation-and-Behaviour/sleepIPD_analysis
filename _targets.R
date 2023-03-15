@@ -10,11 +10,11 @@ load_packages()
 list(
   tar_files_input(datasets, list.files("data", full.names = TRUE)),
   tar_target(data_raw,
-             read_csv(datasets,
-                      col_types = list(.default = "c"),
-                      id = "studyid"
-             ),
-             pattern = map(datasets), iteration = "list"
+    read_csv(datasets,
+      col_types = list(.default = "c"),
+      id = "studyid"
+    ),
+    pattern = map(datasets), iteration = "list"
   ),
 
   # Data targets
@@ -56,7 +56,12 @@ list(
     produce_purdy_pictures(model_list_by_sex)
   ),
 
+  # Tables
+  tar_target(model_tables, make_model_tables(model_list_by_age)),
+
   # Output manuscript
-  tar_render(manuscript, "doc/manuscript.Rmd", output_format = c("papaja::apa6_docx",
-                                                                 "papaja::apa6_pdf"))
+  tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
+    "papaja::apa6_docx",
+    "papaja::apa6_pdf"
+  ))
 )
