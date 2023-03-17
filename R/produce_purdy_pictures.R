@@ -2,7 +2,7 @@
 #' @param model_list list of RQ1 models
 #' @example  model_list <- model_list_by_age
 
-produce_purdy_pictures <- function(model_list, paste_facet_labels = ""){
+produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_filename = ""){
 
   dat_list <- lapply(seq_len(length(model_list)), function(i){
 
@@ -41,12 +41,14 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = ""){
       labs(x = x_lab,
            fill = stringr::str_to_sentence(unique(plot_dat$moderator))) +
       figure_theme() +
-    theme(legend.position = "none")
+    theme(legend.position = "none") +
+    scale_x_continuous(limits = c(-4,4)) +
+    scale_y_continuous(limits = c(-4,4))
 
     outcome <- unique(gsub(" .*","", pdat$outcome))
     if(length(outcome) > 1) stop("Outcome length is greater than 1")
 
-    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}.jpg" |>
+    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}.jpg" |>
       glue::glue()
 
     if(outcome == "Sleep"){

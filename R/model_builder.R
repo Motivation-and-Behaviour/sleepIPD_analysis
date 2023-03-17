@@ -15,7 +15,8 @@ model_builder <-
            outcome,
            predictors,
            control_vars = c(),
-           table_only = TRUE) {
+           table_only = TRUE,
+           ranef = "(1|studyid/measurement_day/participant_id)") {
 
     require(broom.mixed)
     require(lme4)
@@ -23,7 +24,7 @@ model_builder <-
 
     formula <-
       glue::glue(
-        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + (1|participant_id) + (1|measurement_day) + (1|studyid)"
+        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + {ranef}"
       )
 
     formula <- gsub("\\+  \\+", "+", formula)
@@ -102,74 +103,7 @@ model_builder <-
 
                                       )]
 
-    if (table_only)
-      return(tabby)
-
-    list(model = m,
-         pooled_model = pool(m),
-         table = tabby)
-
-  }
-
-model_builder_fixedef <-
-  function(data_imp,
-           outcome,
-           predictors,
-           control_vars = c(),
-           table_only = TRUE) {
-
-    require(broom.mixed)
-    require(data.table)
-
-    formula <-
-      glue::glue(
-        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + participant_id + measurement_day"
-      )
-
-    formula <- gsub("\\+  \\+", "+", formula)
-
-    fit_model <- function(..., data){
-        mod <- lm(
-          ...,
-          data,
-          control = lmerControl(
-            optimizer = meth.tab[i, 1],
-            optCtrl = optCtrl
-          ))
-
-    }
-
-    imp_list <- complete(data_imp, "all")
-
-    m <- lapply(imp_list, function(x){
-
-      fit_model(formula = eval(parse(text = formula)), data = x)
-
-    })
-
-
-    m_pooled <- pool(m)
-    pool_summary <- data.table(summary(m_pooled))
-
-    crit.val <- qnorm(1 - 0.05 / 2)
-
-    pool_summary$lower <-
-      print_num(with(pool_summary, estimate - crit.val * std.error))
-    pool_summary$upper <-
-      print_num(with(pool_summary, estimate + crit.val * std.error))
-
-    tabby <- data.table(pool_summary)[,
-                                      list(
-                                        term = term,
-                                        "b [95\\% CI]" = with(
-                                          pool_summary,
-                                          glue::glue("{print_num(estimate)} [{lower}, {upper}]")
-                                        ),
-                                        se = print_num(std.error),
-                                        t = print_num(statistic),
-                                        p = print_p(p.value)
-
-                                      )]
+    tabby <- tabby[!grepl("studyid", term),]
 
     if (table_only)
       return(tabby)

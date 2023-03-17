@@ -59,9 +59,29 @@ list(
   # Tables
   tar_target(model_tables, make_model_tables(model_list_by_age)),
 
+  # Multiverse
+  # Using study id as a fixed effect
+  tar_target(
+    model_list_by_age_fixedef,
+    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65",
+                    ranef = "(1 | measurement_day) + (1 | participant_id)",
+                    c("ses", "sex", "bmi", "studyid"))
+  ),
+  tar_target(model_tables_fixedef, make_model_tables(model_list_by_age_fixedef)),
+
+  tar_target(
+    purdy_pictures_by_age_fixedef,
+    produce_purdy_pictures(model_list_by_age_fixedef,
+                           paste_facet_labels = " years",
+                           add_filename = "_fixedef")
+  ),
+
   # Output manuscript
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
     "papaja::apa6_docx",
+    "papaja::apa6_pdf"
+  )),
+  tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
     "papaja::apa6_pdf"
   ))
 )

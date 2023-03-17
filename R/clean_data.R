@@ -272,5 +272,11 @@ clean_data <- function(data_joined, region_lookup) {
     )) %>%
     ungroup()
 
+  # Setting up variables for fixed-effects nested analysis
+  # I don't think it's appropriate for participants to be nested within measurement day
+  # As then the same participant on different days will be treated as different people.
+  d$studyid <- as.factor(d$studyid)
+  d$measurement_day <- as.factor(paste0(as.numeric(d$studyid), "_", d$measurement_day))
+
   d
 }

@@ -7,7 +7,7 @@
 #' @return
 #' @author conig
 #' @export
-make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi")) {
+make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi"), ranef  = "(1|studyid) + (1|measurement_day) + (1|participant_id)") {
 
   sleep_vars <- c("scale_sleep_duration",
                     "scale_sleep_efficiency",
@@ -48,7 +48,8 @@ make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 1
         outcome = instructions[i, "outcome"],
         predictors = instructions[i, "predictors"],
         control_vars = control_vars,
-        table_only = FALSE
+        table_only = FALSE,
+        ranef = ranef
       )
 
     attr(model, "terms") <- c(paste0(gsub(" .*", "" ,instructions[i, "predictors"]), "[-4:4 by = 0.1]"), glue::glue("{moderator} [{moderator_term}]"))
