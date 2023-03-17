@@ -6,6 +6,7 @@
 #' @param outcome chatacter. outcome variable name
 #' @param predictors a chatacter vector of predictors
 #' @param table_only if TRUE, only the table will be retured
+#' @param ranef random effects to paste to formula
 #' @protocol to examine the relationship between sleep and physical activity (Research Questions 1-2) we will use study fixed-effects to account for the nesting of participants in studies (Curran et al 2009). Fixed-effects (not the same as complete pooling analysis that ignores data nesting) control for all time-invariant between-study variance and will allow us to explore within study associations and moderators. We will nest individuals within days, and days within study. We will examine both main effects and subpopulation effects (using separate models), including the following pre-specified individual-level moderators; age (chronological), body mass index z-score (z transformed), SES, ethnicity, and sex as categorical. Day of the week, season (summer vs winter), geographic location, and daylight length will also be included as moderators because these influence sleep and physical activity. Accelerometer wear location will be included as a moderator. Sleep and physical activity may be temporally related where early morning and late evening physical activity can negatively influence optimum sleep duration and sleep quality. To account for this, we will include the time of the day corresponding to the most active periods of physical activity as a moderator. The most active 60, 30, 15, 10 and 5 minutes within 4 windows of time; midnight to 6am (early), 6am to 12pm (normal), 12pm -6pm (normal), 6pm -midnight (late) will be extracted from GGIR and used to test the effect of physical activity proximity to bedtime and wake time on sleep.
 
 #' @test-arguments outcome = "sleep_duration" predictors = c("pa_volume", "pa_intensity")
@@ -16,7 +17,7 @@ model_builder <-
            predictors,
            control_vars = c(),
            table_only = TRUE,
-           ranef = "(1|studyid/measurement_day/participant_id)") {
+           ranef) {
 
     require(broom.mixed)
     require(lme4)
