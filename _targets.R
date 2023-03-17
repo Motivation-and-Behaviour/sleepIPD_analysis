@@ -8,6 +8,9 @@ load_packages()
 
 # Pipeline
 list(
+  ##################################################################
+  ##                           CLEANING                           ##
+  ##################################################################
   tar_files_input(datasets, list.files("data", full.names = TRUE)),
   tar_target(data_raw,
     read_csv(datasets,
@@ -27,7 +30,9 @@ list(
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
 
-  # Modelling targets
+  #################################################################
+  ##                          MODELLING                          ##
+  #################################################################
 
   tar_target(
     model_list_by_age,
@@ -44,7 +49,10 @@ list(
 
   tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
-  # Figures
+  ##################################################################
+  ##                        ASSET CREATION                        ##
+  ##################################################################
+
   tar_target(explore_img, make_explore_img_list(data_holdout)),
   tar_target(
     purdy_pictures_by_age,
@@ -65,12 +73,13 @@ list(
     "papaja::apa6_pdf"
   )),
 
-  ##################################################################
-  ##                          Multiverse                          ##
-  ##################################################################
+  #################################################################
+  ##                   SUPPLEMENTARY MATERIALS                   ##
+  #################################################################
   ### Using study id as a fixed effect
 
   ### Run models
+  ### Study ID is a fixed effect rather than a random effect
   tar_target(
     model_list_by_age_fixedef,
     make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65",
@@ -87,8 +96,7 @@ list(
                            paste_facet_labels = " years",
                            add_filename = "_fixedef")
   ),
-
-
+  ### Produce supplementary material
   tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
     "papaja::apa6_pdf"
   ))
