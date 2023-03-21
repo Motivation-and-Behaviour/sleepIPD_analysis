@@ -187,6 +187,7 @@ moderator_df <- data.frame(
 )
 moderator_df$moderator_sentence <- stringr::str_to_sentence(moderator_df$moderator)
 
+
 lapply(seq_len(nrow(moderator_df)), function(r){
   
   moderator <- moderator_df$moderator[r]
@@ -207,7 +208,6 @@ lapply(seq_len(nrow(moderator_df)), function(r){
 <!------------------------------------>
 <!-- Auto-generated chunks go here: -->
 <!------------------------------------>
-
 \clearpage
 
 ## BMI
@@ -216,7 +216,7 @@ lapply(seq_len(nrow(moderator_df)), function(r){
 tar_load(model_tables_bmi)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by BMI
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by BMI, and the results are presented in Table \@ref(tab:sleep-outcomes-by-bmi) and Figure \@ref(fig:sleep-by-volume-fig-by-bmi)
@@ -249,7 +249,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Bmi.jpg"), 
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by BMI
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-bmi).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-bmi) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-bmi).
 
 
 ```{r pa-outcomes-by-bmi}
@@ -290,7 +290,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Bmi.jpg"), 
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by BMI.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-bmi).
+Results are presented in Table \@ref(tab:pa-outcomes-by-bmi) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-bmi).
 
 ```{r PA-by-sleep-regularity-fig-by-bmi, fig.cap = "Physical activity by sleep regularity moderated by BMI"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Bmi.jpg"), error = FALSE)
@@ -303,7 +303,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Bmi.jp
 tar_load(model_tables_ses)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by SES
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by SES, and the results are presented in Table \@ref(tab:sleep-outcomes-by-ses) and Figure \@ref(fig:sleep-by-volume-fig-by-ses)
@@ -328,6 +328,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_volume by Ses.jpg"), err
 We estimated how physical activity intensity affects sleep across SES
 We present the results in Table \@ref(tab:sleep-outcomes-by-ses) and Figure \@ref(fig:sleep-by-intensity-fig-by-ses).
 
+
 ```{r sleep-by-intensity-fig-by-ses, fig.cap = "Sleep metrics on Physical activity intensity moderated by SES"}
 knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Ses.jpg"), error = FALSE)
 ```
@@ -335,7 +336,8 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Ses.jpg"), 
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by SES
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-ses).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-ses) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-ses).
+
 
 ```{r pa-outcomes-by-ses}
 papaja::apa_table(
@@ -375,7 +377,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Ses.jpg"), 
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by SES.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-ses).
+Results are presented in Table \@ref(tab:pa-outcomes-by-ses) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-ses).
 
 ```{r PA-by-sleep-regularity-fig-by-ses, fig.cap = "Physical activity by sleep regularity moderated by SES"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Ses.jpg"), error = FALSE)
@@ -388,7 +390,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Ses.jp
 tar_load(model_tables_sex)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by sex
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by sex, and the results are presented in Table \@ref(tab:sleep-outcomes-by-sex) and Figure \@ref(fig:sleep-by-volume-fig-by-sex)
@@ -421,7 +423,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Sex.jpg"), 
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by sex
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-sex).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-sex) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-sex).
 
 
 ```{r pa-outcomes-by-sex}
@@ -462,7 +464,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Sex.jpg"), 
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by sex.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-sex).
+Results are presented in Table \@ref(tab:pa-outcomes-by-sex) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-sex).
 
 ```{r PA-by-sleep-regularity-fig-by-sex, fig.cap = "Physical activity by sleep regularity moderated by sex"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Sex.jpg"), error = FALSE)
@@ -475,7 +477,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Sex.jp
 tar_load(model_tables_weekday)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by weekday
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by weekday, and the results are presented in Table \@ref(tab:sleep-outcomes-by-weekday) and Figure \@ref(fig:sleep-by-volume-fig-by-weekday)
@@ -508,7 +510,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Weekday_x.j
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by weekday
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-weekday).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-weekday) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-weekday).
 
 
 ```{r pa-outcomes-by-weekday}
@@ -549,7 +551,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Weekday_x.j
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by weekday.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-weekday).
+Results are presented in Table \@ref(tab:pa-outcomes-by-weekday) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-weekday).
 
 ```{r PA-by-sleep-regularity-fig-by-weekday, fig.cap = "Physical activity by sleep regularity moderated by weekday"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Weekday_x.jpg"), error = FALSE)
@@ -562,7 +564,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Weekda
 tar_load(model_tables_season)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by season
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by season, and the results are presented in Table \@ref(tab:sleep-outcomes-by-season) and Figure \@ref(fig:sleep-by-volume-fig-by-season)
@@ -595,7 +597,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Season.jpg"
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by season
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-season).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-season) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-season).
 
 
 ```{r pa-outcomes-by-season}
@@ -636,7 +638,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Season.jpg"
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by season.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-season).
+Results are presented in Table \@ref(tab:pa-outcomes-by-season) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-season).
 
 ```{r PA-by-sleep-regularity-fig-by-season, fig.cap = "Physical activity by sleep regularity moderated by season"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Season.jpg"), error = FALSE)
@@ -649,7 +651,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Season
 tar_load(model_tables_region)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by region
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by region, and the results are presented in Table \@ref(tab:sleep-outcomes-by-region) and Figure \@ref(fig:sleep-by-volume-fig-by-region)
@@ -682,7 +684,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Region.jpg"
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by region
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-region).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-region) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-region).
 
 
 ```{r pa-outcomes-by-region}
@@ -723,7 +725,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Region.jpg"
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by region.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-region).
+Results are presented in Table \@ref(tab:pa-outcomes-by-region) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-region).
 
 ```{r PA-by-sleep-regularity-fig-by-region, fig.cap = "Physical activity by sleep regularity moderated by region"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Region.jpg"), error = FALSE)
@@ -736,7 +738,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Region
 tar_load(model_tables_daylight)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by daylight hours
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
 We estimated the effect of physical activity volume on sleep by daylight hours, and the results are presented in Table \@ref(tab:sleep-outcomes-by-daylight) and Figure \@ref(fig:sleep-by-volume-fig-by-daylight)
@@ -769,7 +771,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Daylight_ho
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by daylight hours
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-daylight).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-daylight) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-daylight).
 
 
 ```{r pa-outcomes-by-daylight}
@@ -810,7 +812,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Daylight_ho
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by daylight hours.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-daylight).
+Results are presented in Table \@ref(tab:pa-outcomes-by-daylight) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-daylight).
 
 ```{r PA-by-sleep-regularity-fig-by-daylight, fig.cap = "Physical activity by sleep regularity moderated by daylight hours"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Daylight_hours.jpg"), error = FALSE)
@@ -823,12 +825,12 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Daylig
 tar_load(model_tables_wear_location)
 ```
 
-### The effects of physical activity volume on sleep
+### The effects of physical activity volume on sleep by wear location
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models
-We estimated the effect of physical activity volume on sleep by wear location, and the results are presented in Table \@ref(tab:sleep-outcomes-by-wear_location) and Figure \@ref(fig:sleep-by-volume-fig-by-wear-location)
+We estimated the effect of physical activity volume on sleep by wear location, and the results are presented in Table \@ref(tab:sleep-outcomes-by-wear-location) and Figure \@ref(fig:sleep-by-volume-fig-by-wear-location)
 
-```{r sleep-outcomes-by-wear_location}
+```{r sleep-outcomes-by-wear-location}
 papaja::apa_table(
   model_tables_wear_location$sleep$data,
   caption = model_tables_wear_location$sleep$caption,
@@ -846,7 +848,7 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_volume by Accelerometer_
 ### The effects of physical activity intensity on sleep by wear location
 
 We estimated how physical activity intensity affects sleep across wear location
-We present the results in Table \@ref(tab:sleep-outcomes-by-wear_location) and Figure \@ref(fig:sleep-by-intensity-fig-by-wear-location).
+We present the results in Table \@ref(tab:sleep-outcomes-by-wear-location) and Figure \@ref(fig:sleep-by-intensity-fig-by-wear-location).
 
 
 ```{r sleep-by-intensity-fig-by-wear-location, fig.cap = "Sleep metrics on Physical activity intensity moderated by wear location"}
@@ -856,10 +858,10 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Acceleromet
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by wear location
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-wear-location).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-wear-location) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-wear-location).
 
 
-```{r pa-outcomes-by-wear_location}
+```{r pa-outcomes-by-wear-location}
 papaja::apa_table(
   model_tables_wear_location$physical_activity$data,
   caption = model_tables_wear_location$physical_activity$caption,
@@ -877,7 +879,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_duration_lag by Accelero
 ### The effects of sleep efficiency on physical activity
 
 We estimated the effect of sleep efficiency on physical activity by wear location.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-wear_location) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-wear-location).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-wear-location) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-wear-location).
 
 
 ```{r PA-by-sleep-efficiency-fig-by-wear-location, fig.cap = "Physical activity by sleep efficiency moderated by wear location"}
@@ -897,11 +899,10 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Acceleromet
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by wear location.
-Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-wear-location).
+Results are presented in Table \@ref(tab:pa-outcomes-by-wear-location) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-wear-location).
 
 ```{r PA-by-sleep-regularity-fig-by-wear-location, fig.cap = "Physical activity by sleep regularity moderated by wear location"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Accelerometer_wear_location.jpg"), error = FALSE)
 ```
-
 
 <!-- Finish auto-generated chunks go here: -->
