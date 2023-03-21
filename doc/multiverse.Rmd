@@ -328,7 +328,6 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_volume by Ses.jpg"), err
 We estimated how physical activity intensity affects sleep across SES
 We present the results in Table \@ref(tab:sleep-outcomes-by-ses) and Figure \@ref(fig:sleep-by-intensity-fig-by-ses).
 
-
 ```{r sleep-by-intensity-fig-by-ses, fig.cap = "Sleep metrics on Physical activity intensity moderated by SES"}
 knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Ses.jpg"), error = FALSE)
 ```
@@ -337,7 +336,6 @@ knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Ses.jpg"), 
 
 We estimated the effect of sleep duration on physical activity by SES
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-ses).
-
 
 ```{r pa-outcomes-by-ses}
 papaja::apa_table(
