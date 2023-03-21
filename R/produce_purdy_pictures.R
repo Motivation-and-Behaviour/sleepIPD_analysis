@@ -59,7 +59,7 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
     scale_x_continuous(limits = c(-4,4)) +
     scale_y_continuous(limits = c(-4,4)) +
     geom_text(data = conv_message_dat, aes(x = 0, y = 0, label = message, ),
-              hjust = .5, vjust = .5, size = 3, color = "black", family = "serif",
+              hjust = .5, vjust = .5, size = 2, color = "black", family = "serif",
               fontface = "bold",
               show.legend = FALSE, inherit.aes = FALSE)
 

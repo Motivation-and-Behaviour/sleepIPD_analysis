@@ -23,8 +23,6 @@ papaja::apa_table(
 )
 ```
 
-\clearpage
-
 ```{r sleep-by-volume-fig-by-_::moderator_fig::_, fig.cap = "Sleep metrics on Physical activity volume by _::moderator_formal::_"}
 knitr::include_graphics(here::here("Figures/Sleep on pa_volume by _::image_path::_.jpg"), error = FALSE)
 ```
@@ -56,9 +54,7 @@ papaja::apa_table(
 )
 ```
 
-\clearpage
-
-```{r PA-by-sleep-duration-fig-by-_::moderator_fig::_, fig.cap = "Physical activty by sleep duration moderated by _::moderator_formal::_"}
+```{r PA-by-sleep-duration-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep duration moderated by _::moderator_formal::_"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_duration_lag by _::image_path::_.jpg"), error = FALSE)
 ```
 
@@ -68,7 +64,7 @@ We estimated the effect of sleep efficiency on physical activity by _::moderator
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-_::moderator::_) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-_::moderator_fig::_).
 
 
-```{r PA-by-sleep-efficiency-fig-by-_::moderator_fig::_, fig.cap = "Physical activty by sleep efficiency moderated by _::moderator_formal::_"}
+```{r PA-by-sleep-efficiency-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep efficiency moderated by _::moderator_formal::_"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_efficiency_lag by _::image_path::_.jpg"), error = FALSE)
 ```
 
@@ -78,7 +74,7 @@ We estimated the effect of sleep onset on physical activity by _::moderator_form
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-onset-fig-by-_::moderator_fig::_).
 
 
-```{r PA-by-sleep-onset-fig-by-_::moderator_fig::_, fig.cap = "Physical activty by sleep onset moderated by _::moderator_formal::_"}
+```{r PA-by-sleep-onset-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep onset moderated by _::moderator_formal::_"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by _::image_path::_.jpg"), error = FALSE)
 ```
 
@@ -87,7 +83,7 @@ knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by _::image_pa
 We estimated the effect of sleep regularity on physical activity by _::moderator_formal::_.
 Results are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-_::moderator_fig::_).
 
-```{r PA-by-sleep-regularity-fig-by-_::moderator_fig::_, fig.cap = "Physical activty by sleep regularity moderated by _::moderator_formal::_"}
+```{r PA-by-sleep-regularity-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep regularity moderated by _::moderator_formal::_"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by _::image_path::_.jpg"), error = FALSE)
 ```
 
