@@ -6,6 +6,7 @@
 #' @param model_list
 #' @return list of tables
 #' @author Taren Sanders
+#' @test model_list <- model_list_by_wear_location
 #' @export
 make_model_tables <- function(model_list) {
   note <- "Adjusted for SES, BMI, and sex."
@@ -81,7 +82,8 @@ make_model_tables <- function(model_list) {
 format_table <- function(tab) {
   tab$term <- gsub("I\\(", "", tab$term) |>
     gsub("_", " ", x = _) |>
-    gsub("\\^2\\)", "$^2$", x = _)
+    gsub("\\^2\\)", "$^2$", x = _) |>
+    gsub("accelerometer wear location", "", x = _ )
   tab <- tab[!grepl("^ses", tab$term), ]
   tab <- tab[!grepl("^sex", tab$term), ]
   tab <- tab[!grepl("^bmi", tab$term), ]

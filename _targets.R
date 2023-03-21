@@ -39,13 +39,69 @@ list(
     make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
   ),
   tar_target(
+    model_list_by_bmi,
+    make_model_list(
+      data_imp,
+      moderator = "bmi",
+      moderator_term = "18, 22, 25, 30",
+      control_vars = c("ses", "age", "sex"))
+  ),
+  tar_target(
+    model_list_by_ses,
+    make_model_list(
+      data_imp,
+      moderator = "ses",
+      moderator_term = "all",
+      control_vars = c("bmi", "age", "sex"))
+  ),
+  tar_target(
     model_list_by_sex,
     make_model_list(
       data_imp,
       moderator = "sex",
       moderator_term = "all",
       control_vars = c("ses", "age", "bmi"))
-    ),
+  ),
+  tar_target(
+    model_list_by_weekday,
+    make_model_list(
+      data_imp,
+      moderator = "weekday_x",
+      moderator_term = "all",
+      control_vars = c("bmi", "age", "sex"))
+  ),
+  tar_target(
+    model_list_by_season,
+    make_model_list(
+      data_imp,
+      moderator = "season",
+      moderator_term = "all",
+      control_vars = c("bmi", "age", "sex"))
+  ),
+  tar_target(
+    model_list_by_region,
+    make_model_list(
+      data_imp,
+      moderator = "region",
+      moderator_term = "all",
+      control_vars = c("ses", "age", "sex"))
+  ),
+  tar_target(
+    model_list_by_daylight,
+    make_model_list(
+      data_imp,
+      moderator = "daylight_hours",
+      moderator_term = "8, 10, 12, 14",
+      control_vars = c("bmi", "age", "sex"))
+  ),
+  tar_target(
+    model_list_by_wear_location,
+    make_model_list(
+      data_imp,
+      moderator = "accelerometer_wear_location",
+      moderator_term = "all",
+      control_vars = c("bmi", "age", "sex"))
+  ),
 
   tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
@@ -60,12 +116,48 @@ list(
                            paste_facet_labels = " years")
   ),
   tar_target(
+    purdy_pictures_by_bmi,
+    produce_purdy_pictures(model_list_by_bmi)
+  ),
+  tar_target(
+    purdy_pictures_by_ses,
+    produce_purdy_pictures(model_list_by_ses)
+  ),
+  tar_target(
     purdy_pictures_by_sex,
     produce_purdy_pictures(model_list_by_sex)
   ),
+  tar_target(
+    purdy_pictures_by_weekday,
+    produce_purdy_pictures(model_list_by_weekday)
+  ),
+  tar_target(
+    purdy_pictures_by_season,
+    produce_purdy_pictures(model_list_by_season)
+  ),
+  tar_target(
+    purdy_pictures_by_region,
+    produce_purdy_pictures(model_list_by_region)
+  ),
+  tar_target(
+    purdy_pictures_by_daylight,
+    produce_purdy_pictures(model_list_by_daylight, paste_facet_labels = " hours")
+  ),
+  tar_target(
+    purdy_pictures_by_wear_location,
+    produce_purdy_pictures(model_list_by_wear_location)
+  ),
 
   # Tables
-  tar_target(model_tables, make_model_tables(model_list_by_age)),
+  tar_target(model_tables_age, make_model_tables(model_list_by_age)),
+  tar_target(model_tables_bmi, make_model_tables(model_list_by_bmi)),
+  tar_target(model_tables_ses, make_model_tables(model_list_by_ses)),
+  tar_target(model_tables_sex, make_model_tables(model_list_by_sex)),
+  tar_target(model_tables_weekday, make_model_tables(model_list_by_weekday)),
+  tar_target(model_tables_season, make_model_tables(model_list_by_season)),
+  tar_target(model_tables_region, make_model_tables(model_list_by_region)),
+  tar_target(model_tables_daylight, make_model_tables(model_list_by_daylight)),
+  tar_target(model_tables_wear_location, make_model_tables(model_list_by_wear_location)),
 
   # Output results section
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(

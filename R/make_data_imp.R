@@ -11,7 +11,7 @@
 
 make_data_imp <- function(data, n_imps = 3) {
   data <- data %>%
-    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
+    select(-n_valid_hours, -n_hours, -day_zero)
 
   # Empty imputation to change defaults:
   m0 <- mice(data, maxit = 0)

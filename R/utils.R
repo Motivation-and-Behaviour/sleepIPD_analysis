@@ -89,3 +89,4 @@ get_season <- function(date, lat){
 }
 
 find_max  <- function(x) {names(which.max(table(x)))}
+

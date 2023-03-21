@@ -1,3 +1,55 @@
+is_conv <- function(x) performance::check_convergence(x) & !performance::check_singularity(x)
+
+#' fit_model
+#'
+#' A function to fit a model with a range of optimizers
+#' @param ... arguments passed to lmer
+#' @param data data object
+
+fit_model <- function(..., data, max_iter = 1e6){
+  require(optimx)
+  require(lme4)
+  require(dfoptim)
+
+  conv <- FALSE
+  exhausted <- FALSE
+  i <- 1
+  meth.tab <- lme4:::meth.tab.0
+  meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval","maxeval"))
+  meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
+
+  while(!conv & i <= nrow(meth.tab)) {
+    if(meth.tab[i , 2] != ""){
+      optCtrl <- list(method = unname(meth.tab[i , 2]))
+    }else{
+      optCtrl <- list()
+    }
+
+    optCtrl[[meth.tab[i , 3]]] <- max_iter
+
+    mod <- lme4::lmer(
+      ...,
+      data = data,
+      control = lmerControl(
+        optimizer = meth.tab[i, 1],
+        optCtrl = optCtrl
+      ))
+    mod@call$control$optimizer <- unname(meth.tab[i, 1])
+    mod@call$control$optCtrl <- unlist(optCtrl)
+
+    if (is_conv(mod)){
+      conv <- TRUE
+      attr(mod, "conv") <- TRUE
+      return(mod)
+    }
+    i = i + 1
+  }
+  warning("No convergence with any optimizer:" , ...)
+  attr(mod, "conv") <- FALSE
+  mod
+}
+
+
 
 #' model_builder
 #'
@@ -30,62 +82,21 @@ model_builder <-
 
     formula <- gsub("\\+  \\+", "+", formula)
 
-    fit_model <- function(..., data, max_iter = 1e6){
-      require(optimx)
-      require(lme4)
-      require(dfoptim)
-
-      conv <- FALSE
-      exhausted <- FALSE
-      i <- 1
-      meth.tab <- lme4:::meth.tab.0
-      meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval","maxeval"))
-      meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
-
-      while(!conv & i <= nrow(meth.tab)) {
-
-        if(meth.tab[i , 2] != ""){
-          optCtrl <- list(method = meth.tab[i , 2])
-        }else{
-          optCtrl <- list()
-        }
-
-        optCtrl[[meth.tab[i , 3]]] <- max_iter
-
-        mod <- lme4::lmer(
-          ...,
-          data,
-          control = lmerControl(
-            optimizer = meth.tab[i, 1],
-            optCtrl = optCtrl
-          ))
-
-          if (performance::check_convergence(mod) & !performance::check_singularity(mod)){
-            conv <- TRUE
-            return(mod)
-          }
-          i = i + 1
-      }
-
-      if(!conv) stop("No convergence with any optimizer:" , ...)
-
-      mod
-    }
-
     imp_list <- complete(data_imp, "all")
 
     m <- lapply(imp_list, function(x){
-
-      fit_model(formula = eval(parse(text = formula)), data = x)
-
+    mod <- fit_model(formula = eval(parse(text = formula)), data = x)
+    mod
     })
 
+    conv <- sapply(m, function(x) is_conv(x))
+    conv_p <- sum(conv) / length(conv)
 
     m_pooled <- pool(m)
+    attr(m_pooled, "conv_p") <- conv_p
     pool_summary <- data.table(summary(m_pooled))
 
     crit.val <- qnorm(1 - 0.05 / 2)
-
     pool_summary$lower <-
       print_num(with(pool_summary, estimate - crit.val * std.error))
     pool_summary$upper <-
@@ -103,6 +114,9 @@ model_builder <-
                                         p = print_p(p.value)
 
                                       )]
+    if(conv_p < .75){
+      tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\ddagger$")
+    }
 
     tabby <- tabby[!grepl("studyid", term),]
 
@@ -110,7 +124,7 @@ model_builder <-
       return(tabby)
 
     list(model = m,
-         pooled_model = pool(m),
+         pooled_model = m_pooled,
          table = tabby)
 
   }
