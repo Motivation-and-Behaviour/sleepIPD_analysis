@@ -71,9 +71,10 @@ library(papaja)
 tar_load(model_list_by_age)
 tar_load(data_clean)
 tar_load(purdy_pictures_by_age)
-tar_load(model_tables)
+tar_load(model_tables_age)
 tar_load(demog_table)
 pretty <- function(x) format(x, big.mark = ",")
+
 ```
 
 # Results
@@ -108,10 +109,10 @@ For participants aged 35 years and above, this link weakened among those with a 
 
 ```{r sleep-outcomes}
 papaja::apa_table(
-  model_tables$sleep$data,
-  caption = model_tables$sleep$caption,
-  note = model_tables$sleep$note,
-  col_spanners = model_tables$sleep$col_spanners,
+  model_tables_age$sleep$data,
+  caption = model_tables_age$sleep$caption,
+  note = model_tables_age$sleep$note,
+  col_spanners = model_tables_age$sleep$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )
@@ -142,10 +143,10 @@ We found a subtle inverted U-shaped relationship between average sleep duration 
 
 ```{r pa-outcomes}
 papaja::apa_table(
-  model_tables$physical_activity$data,
-  caption = model_tables$physical_activity$caption,
-  note = model_tables$physical_activity$note,
-  col_spanners = model_tables$physical_activity$col_spanners,
+  model_tables_age$physical_activity$data,
+  caption = model_tables_age$physical_activity$caption,
+  note = model_tables_age$physical_activity$note,
+  col_spanners = model_tables_age$physical_activity$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )

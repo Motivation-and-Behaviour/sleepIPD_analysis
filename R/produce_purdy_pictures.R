@@ -37,6 +37,8 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
+  plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
+
   levels(plot_dat$group) <- paste0(levels(plot_dat$group), paste_facet_labels)
   plot_dat$x_name <- gsub("\\[.*","", plot_dat$x_name)
 

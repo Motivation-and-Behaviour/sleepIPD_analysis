@@ -51,8 +51,8 @@ make_model_tables <- function(model_list) {
   })
 
   sleep_table$caption <-
-    glue::glue("Physical activity on sleep controlling for {control_vars}")
-  sleep_table$note <- note
+    glue::glue("Physical activity predicting sleep controlling for {control_vars}.")
+  sleep_table$note <- paste0(note, ". Outcomes variables are listed in the column headers.")
 
   sleep_conv_issue <- any(sapply(sleep_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
 
@@ -84,8 +84,8 @@ make_model_tables <- function(model_list) {
   })
 
   pa_table$caption <-
-    glue::glue("Sleep on physical activity controlling for {control_vars}")
-  pa_table$note <- note
+    glue::glue("Sleep predicting physical activity controlling for {control_vars}")
+  pa_table$note <- paste0(note, ". Outcomes variables are listed in the row headers.")
 
   pa_conv_issue <- any(sapply(pa_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
 
