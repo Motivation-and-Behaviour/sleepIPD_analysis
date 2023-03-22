@@ -81,10 +81,15 @@ pretty <- function(x) format(x, big.mark = ",")
 
 ```{r}
 n_participants <- length(unique(data_clean$participant_id))
+weekday_table <- (data_clean$weekday_x) |> table()
+weekday <- chisq.test(weekday_table)
+weekday_res <-glue::glue("$\\chi^2_{(..weekday$parameter..)}$ = ..papaja::print_num(weekday$statistic).., p = ..papaja::print_p(weekday$p.value)..", .open = "..", .close = "..")
+
 ```
 
 The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
 Table \@ref(tab:demo-participants) shows demographic information for all participants.
+Observations were not uniform across the days of the week `r weekday_res`. There were fewer observations on Monday (z = `r weekday$stdres["Monday"]`) and Sunday  (z = `r weekday$stdres["Sunday"]`); and more on Wednesday (z = `r weekday$stdres["Wednesday"]`).
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
