@@ -37,7 +37,11 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
+  # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
+  plot_dat$outcome <- factor(plot_dat$outcome)
+  volume_level <- grep("Volume", levels(plot_dat$outcome), value = TRUE, ignore.case = TRUE)
+  plot_dat$outcome <- forcats::fct_relevel(plot_dat$outcome, volume_level, after = 0)
 
   levels(plot_dat$group) <- paste0(levels(plot_dat$group), paste_facet_labels)
   plot_dat$x_name <- gsub("\\[.*","", plot_dat$x_name)
