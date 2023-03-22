@@ -114,8 +114,12 @@ model_builder <-
                                         p = print_p(p.value)
 
                                       )]
+    note <- "All models converged." # Add blank note
+
     if(conv_p < .75){
-      tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\ddagger$")
+      conv_print <- papaja::print_num(conv_p * 100)
+      tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\dagger$")
+      note <- as.character(glue::glue("$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."))
     }
 
     tabby <- tabby[!grepl("studyid", term),]
@@ -125,7 +129,9 @@ model_builder <-
 
     list(model = m,
          pooled_model = m_pooled,
-         table = tabby)
+         table = tabby,
+         note = note,
+         control_vars = control_vars)
 
   }
 
