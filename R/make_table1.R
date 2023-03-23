@@ -24,7 +24,8 @@ make_table1 <- function(data_clean) {
     sleep_conditions, country, season, studyid, participant_id) %>%
     mutate(studyid = as.factor(studyid),
             city = as.factor(city),
-            season = as.factor(season))
+            season = as.factor(season),
+           participant_id = as.factor(participant_id))
   # Label everything nicely
   var_label(d) <- c("Valid Weartime Hours",
     "Accelerometer Wear Location",
