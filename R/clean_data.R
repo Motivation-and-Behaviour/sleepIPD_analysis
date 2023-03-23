@@ -277,6 +277,7 @@ clean_data <- function(data_joined, region_lookup) {
   # As then the same participant on different days will be treated as different people.
   d$studyid <- as.factor(d$studyid)
   d$measurement_day <- as.factor(paste0(as.numeric(d$studyid), "_", d$measurement_day))
+  d$participant_id <- as.integer(factor(d$participant_id))
 
   d
 }

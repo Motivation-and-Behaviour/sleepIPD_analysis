@@ -6,6 +6,7 @@
 #' @param data data holdout or clean data
 #' @param n_imps number of imputations
 #' @return
+#' @test data <- tar_read(data_holdout)
 #' @author conig
 #' @export
 
@@ -23,14 +24,23 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[names(meth) %in% dont_imp] <- ""
   pred[, colnames(pred) %in% dont_imp] <- 0
 
+  # Multi-level imputation, consider correlations within participant
+  pred[c("age", "weight", "bmi", "sex"), "participant_id"] <- -2L
+  meth[c("age","weight", "bmi")] <- "2lonly.pmm"
+  meth["sex"] <- "2l.bin"
+
   # Run imps with better settings
+  future_cores <- parallel::detectCores() - 1
+  if(future_cores < n_imps) future_cores <- n_imps
+
   imps <-
     futuremice(
       data,
       m = n_imps,
       predictorMatrix = pred,
+      cluster_var = list("age" = "participant_id", "weight" = "participant_id", "bmi" = "participant_id", "sex" = "participant_id"),
       method = meth,
-      n.core = parallel::detectCores() - 1
+      n.core = future_cores
     )
 
   # include_scale_variables
