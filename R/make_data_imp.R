@@ -12,7 +12,8 @@
 
 make_data_imp <- function(data, n_imps = 3) {
   data <- data %>%
-    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
+    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero) |>
+    dplyr::mutate(participant_id = as.integer(factor(participant_id)))
 
   # Empty imputation to change defaults:
   m0 <- mice(data, maxit = 0)
@@ -31,7 +32,7 @@ make_data_imp <- function(data, n_imps = 3) {
 
   # Run imps with better settings
   future_cores <- parallel::detectCores() - 1
-  if(future_cores < n_imps) future_cores <- n_imps
+  if(future_cores > n_imps) future_cores <- n_imps
 
   imps <-
     futuremice(

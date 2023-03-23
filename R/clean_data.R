@@ -269,7 +269,5 @@ clean_data <- function(data_joined) {
     )) %>%
     ungroup()
 
-  d$participant_id <- as.integer(factor(d$participant_id))
-
   d
 }
