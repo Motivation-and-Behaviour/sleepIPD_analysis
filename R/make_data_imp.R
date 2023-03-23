@@ -12,13 +12,13 @@
 
 make_data_imp <- function(data, n_imps = 3) {
   data <- data %>%
-    select(-n_valid_hours, -n_hours, -day_zero)
+    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero)
 
   # Empty imputation to change defaults:
   m0 <- mice(data, maxit = 0)
 
   # Don't do imputation based on these vars:
-  dont_imp <- c("age_cat", "filename", "calendar_date", "region")
+  dont_imp <- c("age_cat", "filename", "calendar_date")
   meth <- m0$method
   pred <- m0$predictorMatrix
   meth[names(meth) %in% dont_imp] <- ""
@@ -31,7 +31,7 @@ make_data_imp <- function(data, n_imps = 3) {
 
   # Run imps with better settings
   future_cores <- parallel::detectCores() - 1
-  if(future_cores > n_imps) future_cores <- n_imps
+  if(future_cores < n_imps) future_cores <- n_imps
 
   imps <-
     futuremice(
