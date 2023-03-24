@@ -31,8 +31,7 @@ make_data_imp <- function(data, n_imps = 3) {
   meth["sex"] <- "2l.bin"
 
   # Run imps with better settings
-  future_cores <- parallel::detectCores() - 1
-  if(future_cores > n_imps) future_cores <- n_imps
+  future_cores <- min(parallel::detectCores() - 1, n_imps)
 
   imps <-
     futuremice(
