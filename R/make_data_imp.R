@@ -22,7 +22,7 @@ make_data_imp <- function(data, n_imps = 3) {
 
   dont_imp <- c("filename", "calendar_date")
   dont_use <- c("age_cat", "studyid", "participant_id", "country" ,
-                "accelerometer_wear_location", "accelerometer_model")
+                "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16")
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
   pred <- m0$predictorMatrix
