@@ -34,6 +34,7 @@ make_data_imp <- function(data, n_imps = 3) {
   participant_cont <-
     c("pa_volume",
       "pa_intensity",
+      "pa_intensity_m16",
       "sleep_duration",
       "sleep_efficiency",
       "sleep_onset",
