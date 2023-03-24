@@ -82,6 +82,7 @@ make_data_imp <- function(data, n_imps = 3) {
       sleep_vars,
       "pa_volume",
       "pa_intensity",
+      "pa_intensity_m16",
       paste0(sleep_vars, "_lag")
     )
 
