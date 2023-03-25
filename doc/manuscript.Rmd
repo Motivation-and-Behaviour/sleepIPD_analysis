@@ -51,7 +51,7 @@ classoption       : "man"
 output            : papaja::apa6_docx
 ---
 
-\renewcommand{\arraystretch}{0.65}
+\renewcommand{\arraystretch}{0.7}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -68,24 +68,34 @@ library(papaja)
 ```
 
 ```{r load-targets, include=FALSE}
+tar_load(model_list_by_age)
 tar_load(data_clean)
-tar_load(purdy_pictures)
-tar_load(model_tables)
+tar_load(purdy_pictures_by_age)
+tar_load(model_tables_age)
 tar_load(demog_table)
-tar_load(table_1)
 pretty <- function(x) format(x, big.mark = ",")
+
 ```
 
 # Results
 
-The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r length(unique(data_clean$participant_id)) |> pretty()` unique participants.
+```{r}
+n_participants <- length(unique(data_clean$participant_id))
+weekday_table <- (data_clean$weekday_x) |> table()
+weekday <- chisq.test(weekday_table)
+weekday_res <-glue::glue("$\\chi^2_{(..weekday$parameter..)}$ = ..papaja::print_num(weekday$statistic).., p = ..papaja::print_p(weekday$p.value)..", .open = "..", .close = "..")
+
+```
+
+The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
 Table \@ref(tab:demo-participants) shows demographic information for all participants.
+Observations were not uniform across the days of the week `r weekday_res`. There were fewer observations on Monday (z = `r weekday$stdres["Monday"]`) and Sunday  (z = `r weekday$stdres["Sunday"]`); and more on Wednesday (z = `r weekday$stdres["Wednesday"]`).
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
 papaja::apa_table(demog_table,
   caption = "Participant characteristics",
-  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {format(length(unique(table_1$participants$participant_id)),big.mark = ',')}"),
+  note = glue::glue("For categorical variables the value is the count, and percentage. For numeric variables the value is the Mean and SD. N = {n_participants |> pretty()}"),
   landscape = TRUE,
   col_spanners = list("Age group" = c(2, 6))
 )
@@ -104,17 +114,17 @@ For participants aged 35 years and above, this link weakened among those with a 
 
 ```{r sleep-outcomes}
 papaja::apa_table(
-  model_tables$sleep$data,
-  caption = model_tables$sleep$caption,
-  note = model_tables$sleep$note,
-  col_spanners = model_tables$sleep$col_spanners,
+  model_tables_age$sleep$data,
+  caption = model_tables_age$sleep$caption,
+  note = model_tables_age$sleep$note,
+  col_spanners = model_tables_age$sleep$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )
 ```
 
 ```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
-knitr::include_graphics(here::here("Figures/sleep on pa_volume.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/sleep on pa_volume by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of physical activity intensity on sleep
@@ -126,7 +136,7 @@ In the case of older participants, physical activity intensity had a U-shaped re
 We also found a strong link between physical activity intensity and improved sleep regularity, which weakened at higher intensity levels.
 
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on Physical activity intensity"}
-knitr::include_graphics(here::here("Figures/sleep on pa_intensity.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/sleep on pa_intensity by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep duration on physical activity
@@ -138,17 +148,17 @@ We found a subtle inverted U-shaped relationship between average sleep duration 
 
 ```{r pa-outcomes}
 papaja::apa_table(
-  model_tables$physical_activity$data,
-  caption = model_tables$physical_activity$caption,
-  note = model_tables$physical_activity$note,
-  col_spanners = model_tables$physical_activity$col_spanners,
+  model_tables_age$physical_activity$data,
+  caption = model_tables_age$physical_activity$caption,
+  note = model_tables_age$physical_activity$note,
+  col_spanners = model_tables_age$physical_activity$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )
 ```
 
-```{r PA-by-sleep-duration-fig, fig.cap = "Physical activty by sleep duration"}
-knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag.jpg"), error = FALSE)
+```{r PA-by-sleep-duration-fig, fig.cap = "Physical activity by sleep duration"}
+knitr::include_graphics(here::here("Figures/PA on sleep_duration_lag by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep efficiency on physical activity
@@ -158,9 +168,8 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 We did not find a relationship between physical activity volume and sleep efficiency.
 However, there was a subtle U-shaped relationship where individuals with above-average sleep efficiency engaged in more intense physical activity.
 
-
-```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activty by sleep efficiency"}
-knitr::include_graphics(here::here("Figures/PA on sleep_efficiency_lag.jpg"), error = FALSE)
+```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activity by sleep efficiency"}
+knitr::include_graphics(here::here("Figures/PA on sleep_efficiency_lag by Age.jpg"), error = FALSE)
 ```
 
 ## The effects of sleep onset on physical activity
@@ -170,11 +179,9 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 There were strong U-shaped relationships where average sleep onset was linked to the highest levels of physical activity volume and intensity.
 The U-shaped relationship between sleep onset and physical activity volume attenuated for older participants.
 
-
-```{r PA-by-sleep-onset-fig, fig.cap = "Physical activty by sleep onset"}
-knitr::include_graphics(here::here("Figures/PA on sleep_onset_lag.jpg"), error = FALSE)
+```{r PA-by-sleep-onset-fig, fig.cap = "Physical activity by sleep onset"}
+knitr::include_graphics(here::here("Figures/PA on sleep_onset_lag by Age.jpg"), error = FALSE)
 ```
-
 
 ## The effects of sleep regularity on physical activity
 
@@ -186,7 +193,7 @@ Increases in regularity above the average were linked to greater physical activi
 There was a strong linear relationship between sleep regularity and physical activity intensity which slightly attenuated with age.
 Greater sleep regularity was associated with greater physical activity the following day.
 
-```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activty by sleep regularity"}
-knitr::include_graphics(here::here("Figures/PA on sleep_regularity_lag.jpg"), error = FALSE)
+```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity by sleep regularity"}
+knitr::include_graphics(here::here("Figures/PA on sleep_regularity_lag by Age.jpg"), error = FALSE)
 ```
 

@@ -24,7 +24,7 @@ make_region_lookup <- function() {
         "New Zealand",
         "Czech Republic"
       ),
-      region = c(
+      region = factor(c(
         "Oceania",
         "Europe",
         "Europe",
@@ -46,8 +46,9 @@ make_region_lookup <- function() {
         "Europe",
         "Oceania",
         "Europe"
-      )
-    )
+      ), levels = c("Oceania", "Europe", "Africa", "Asia", "North America", "South America")
+    ))
+  lookup_table
 }
 
 

@@ -6,9 +6,18 @@
 #' @param model_list
 #' @return list of tables
 #' @author Taren Sanders
+#' @test model_list <- model_list_by_wear_location
 #' @export
 make_model_tables <- function(model_list) {
-  note <- "Adjusted for SES, BMI, and sex."
+  recode_var <- c("ses"= "SES" ,"bmi" = "BMI", "studyid" = "the fixed effects of study IDs")
+  control_vars <- model_list[[1]]$control_vars |>
+    dplyr::recode(!!!recode_var)
+
+  control_vars <- paste(control_vars, collapse = ", ") |>
+    # replace last comma with and
+    gsub(",([^,]+)$", ", and\\1", x = _, perl = TRUE)
+
+  note <- paste("Adjusted for", control_vars)
 
   sleep_vars <- list(
     `Sleep duration` = "scale_sleep_duration",
@@ -42,8 +51,15 @@ make_model_tables <- function(model_list) {
   })
 
   sleep_table$caption <-
-    "Physical activity on sleep controlling for SES, gender and BMI"
-  sleep_table$note <- note
+    glue::glue("Physical activity predicting sleep controlling for {control_vars}.")
+  sleep_table$note <- paste0(note, ". Outcomes variables are listed in the column headers.")
+
+  sleep_conv_issue <- any(sapply(sleep_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
+
+  if(sleep_conv_issue){
+    sleep_table$note <- paste0(sleep_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
+  }
+
   sleep_table$col_spanners <- list(
     "Physical Activity Volume" = c(2, 5),
     "Physical Activity Intensity" = c(6, 9)
@@ -68,8 +84,15 @@ make_model_tables <- function(model_list) {
   })
 
   pa_table$caption <-
-    "Sleep on physical activity controlling for SES, gender and BMI"
-  pa_table$note <- note
+    glue::glue("Sleep predicting physical activity controlling for {control_vars}")
+  pa_table$note <- paste0(note, ". Outcomes variables are listed in the row headers.")
+
+  pa_conv_issue <- any(sapply(pa_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
+
+  if(pa_conv_issue){
+    pa_table$note <- paste0(pa_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
+  }
+
   pa_table$col_spanners <- list(
     "Physical Activity Volume" = c(2, 5),
     "Physical Activity Intensity" = c(6, 9)
@@ -78,10 +101,17 @@ make_model_tables <- function(model_list) {
   return(list(sleep = sleep_table, physical_activity = pa_table))
 }
 
-format_table <- function(tab) {
+#' format_table
+#'
+#' A function for taking raw table output and preparing it for publication
+#' @param tab data.frame object
+#' @param conv_daggers a bool. If true, daggers will be converted to double daggers.
+
+format_table <- function(tab, conv_daggers = FALSE) {
   tab$term <- gsub("I\\(", "", tab$term) |>
     gsub("_", " ", x = _) |>
-    gsub("\\^2\\)", "$^2$", x = _)
+    gsub("\\^2\\)", "$^2$", x = _) |>
+    gsub("accelerometer wear location", "", x = _ )
   tab <- tab[!grepl("^ses", tab$term), ]
   tab <- tab[!grepl("^sex", tab$term), ]
   tab <- tab[!grepl("^bmi", tab$term), ]
@@ -97,3 +127,4 @@ format_table <- function(tab) {
   names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
   tab
 }
+

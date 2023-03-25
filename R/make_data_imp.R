@@ -12,16 +12,18 @@
 
 make_data_imp <- function(data, n_imps = 3) {
   imp_data <- data %>%
-    select(-n_valid_hours, -n_hours, -weekday_x, -day_zero) |>
+    select(-n_valid_hours, -n_hours, -day_zero) |>
     dplyr::mutate(participant_id = as.integer(factor(participant_id)))
 
   # Empty imputation to change defaults:
   m0 <- mice(imp_data, maxit = 0)
 
   # Don't do imputation based on these vars:
+
   dont_imp <- c("filename", "calendar_date")
-  dont_use <- c("age_cat", "studyid", "participant_id", "country" ,
-                "accelerometer_wear_location", "accelerometer_model")
+  dont_use <- c("age_cat", "studyid", "participant_id", "country" , "region",
+                "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16",
+                "weekday_x")
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
   pred <- m0$predictorMatrix
@@ -33,6 +35,7 @@ make_data_imp <- function(data, n_imps = 3) {
   participant_cont <-
     c("pa_volume",
       "pa_intensity",
+      "pa_intensity_m16",
       "sleep_duration",
       "sleep_efficiency",
       "sleep_onset",
