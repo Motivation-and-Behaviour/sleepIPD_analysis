@@ -7,7 +7,7 @@ clean_data|function|bc235074a3499459|||||||||||||||
 create_distinct|function|feef06749c984f86|||||||||||||||
 data_clean|stem|41b84b1a4d812fae|682fee9dcbe6c4a2|66cded52b690ad42|207072666||t19444.3880130752s|ade16f3618e0972c|11407380|rds|local|vector|||157.757|running command timedatectl had status 1. NAs introduced by coercion|
 data_holdout|stem|aabf3fc1a5e0369c|6037abbeaddf6309|c4cef632ea457eee|-1064111525||t19444.3888307834s|cb39a08519cb2577|1138717|rds|local|vector|||0.086||
-data_imp|stem|6df22d8e21cfa537|3feb40ffe7c2e16f|6d89c4c4e643a802|-693423895||t19444.4115314736s|134a222265464c7b|5347587|rds|local|vector|||916.086|Number of logged events 5. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155|
+data_imp|stem|8fe65b8b9ad44181|3feb40ffe7c2e16f|6d89c4c4e643a802|-693423895|bucket=sleepipdtargets*key=_targets/objects/data_imp*version=1680002344947428|t19444.4715424576s||5997553|qs|gcp|vector|||894.889|Number of logged events 5. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155|
 data_joined|pattern|157076f2bc24339d|422d2404eb0adddc||-540021193||||1600932|rds|local|vector||data_joined_ca68c899*data_joined_44697981*data_joined_2fcec1a1*data_joined_3b7990b1*data_joined_e103ba3f*data_joined_d1297678*data_joined_87f747f9*data_joined_58c08e5c*data_joined_bc832d48*data_joined_4278434e*data_joined_961f389b*data_joined_12fb9060*data_joined_528233c6*data_joined_eb0b5a09*data_joined_cc21c7da*data_joined_9e3d7b7c*data_joined_bf0eee5b|0.28||
 data_joined_12fb9060|branch|6240e868b6148498|cfd37d3eb4f55e7c|a827fb076a78a74b|310179944||t19444.3859186312s|e7cdf760c16fde75|1347221|rds|local|vector|data_joined||0.029||
 data_joined_2fcec1a1|branch|bd94e748cb8dce63|cfd37d3eb4f55e7c|98b471f02888a309|-1938628037||t19444.3858320572s|a7308904054ee717|2914927|rds|local|vector|data_joined||0.051||
@@ -69,6 +69,7 @@ fetch_data|function|389653ddff62e0df|||||||||||||||
 figure_theme|function|4639cba3c8822485|||||||||||||||
 find_max|function|179e3e7afa23c076|||||||||||||||
 fit_model|function|735483ec03214e93|||||||||||||||
+format|object|962a3be0ac50c5ee|||||||||||||||
 format_table|function|666f21ede3017ac8|||||||||||||||
 get_effects|function|82c99164c9c86353|||||||||||||||
 get_effects_RQ1|function|82c99164c9c86353|||||||||||||||
@@ -77,7 +78,7 @@ is_conv|function|e309e5aab6499830|||||||||||||||
 load_packages|function|1e7d4102e4e21191|||||||||||||||
 make_data_holdout|function|09f73d4ff3b13675|||||||||||||||
 make_data_imp|function|da9da915345d258e|||||||||||||||
-make_demog_table|function|9b8f942031e2fc0a|||||||||||||||
+make_demog_table|function|5e107ee48db13401|||||||||||||||
 make_explore_img_list|function|06e578dea26c581a|||||||||||||||
 make_lineplot|function|bea57a5262ffafa3|||||||||||||||
 make_model_diagnostics|function|932e41c06c9db34f|||||||||||||||
@@ -136,37 +137,7 @@ purdy_pictures_by_weekday|stem|3fe873ceaa51890e|94395109b3cedf6d|8c2d8c801e5edfb
 region_lookup|stem|e660b861902e00fa|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19443.9298806196s|7430ee2468db0f5f|385|rds|local|vector|||0.005||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
 remove_outliers|function|0b278c1b9ab8a584|||||||||||||||
+repository|object|513b62a0fe6e0dae|||||||||||||||
 RQ1_figure|stem|3fe873ceaa51890e|33943fc4e575990c|60f213fcf117e4bc|434240020||t19384.2121638271s|a1c456b03adbfbf8|44|rds|local|vector|||11.257||
 table_1|stem|5277cc8234898634|6208a06e81a8eb0a|738d7fa5cdb58df3|-1353748333||t19439.9015154434s|4609f13c2cfe01b8|162016845|rds|local|vector|||132.084||
 update_latlong|function|4bc2e03c10c51b22|||||||||||||||
-figure_theme|function|4639cba3c8822485
-update_latlong|function|4bc2e03c10c51b22
-remove_outlier|function|6c52d8e5e8fccc9a
-make_data_holdout|function|09f73d4ff3b13675
-is_conv|function|e309e5aab6499830
-repository|object|513b62a0fe6e0dae
-format|object|962a3be0ac50c5ee
-apa_style|function|7f874036fb9dd45b
-find_max|function|179e3e7afa23c076
-get_season|function|74020c8a29723133
-make_region_lookup|function|c02f4dd678dc6e99
-create_distinct|function|feef06749c984f86
-load_packages|function|1e7d4102e4e21191
-make_data_imp|function|da9da915345d258e
-check_resids|function|5190a0f448ef7334
-format_table|function|666f21ede3017ac8
-fetch_data|function|389653ddff62e0df
-get_effects|function|82c99164c9c86353
-make_lineplot|function|bea57a5262ffafa3
-remove_outliers|function|0b278c1b9ab8a584
-fit_model|function|735483ec03214e93
-make_demog_table|function|5e107ee48db13401
-make_participant_summary|function|11eccf35fe2c6e23
-check_model|function|cc6fbf89dd7a823d
-make_model_tables|function|d646e73dd71a6256
-produce_purdy_pictures|function|a68826abacd63ad5
-make_explore_img_list|function|06e578dea26c581a
-clean_data|function|bc235074a3499459
-model_builder|function|182f5cbe82d49f43
-make_model_diagnostics|function|932e41c06c9db34f
-make_model_list|function|ee46d1baa6ae7b57
