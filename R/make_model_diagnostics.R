@@ -54,8 +54,8 @@ check_model <- function(model){
 #' Get skewness and kurtosis for models
 
 check_resids <- function(model){
+  require(dplyr)
   dt <- model$model |> lapply(function(x){
-
     resid <- residuals(x)
     tibble(Skewness = moments::skewness(resid),
            Kurtosis = 3 - moments::kurtosis(resid))
