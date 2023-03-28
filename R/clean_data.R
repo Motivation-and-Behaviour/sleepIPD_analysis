@@ -101,12 +101,12 @@ clean_data <- function(data_joined, region_lookup) {
       sleep_onset_time = chron(times = sleep_onset_time),
       sleep_wakeup_time = chron(times = sleep_wakeup_time)
     ) %>%
-    select(-measurementday)  %>% 
+    select(-measurementday) %>%
     # Fix up the most active time
     mutate(
-      pa_mostactivehr = 
-        hour(lubridate::ymd_hms(pa_mostactivehr)) + 
-        minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+      pa_mostactivehr =
+        lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+          lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
     )
   # read in sleep conditions harmonisation data
 
