@@ -9,6 +9,9 @@
 #' @export
 make_participant_summary <- function(data_clean) {
 
+  require(dplyr)
+  require(labelled)
+
   d <- data_clean %>%
     select(n_valid_hours, accelerometer_wear_location,
     pa_volume, pa_intensity,

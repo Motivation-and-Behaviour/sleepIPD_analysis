@@ -8,6 +8,8 @@
 #' @author tarensanders
 #' @export
 make_data_holdout <- function(data_clean) {
+  require(dplyr)
+
   rand_ids <-
     data_clean %>%
     filter(eligible == TRUE) %>%

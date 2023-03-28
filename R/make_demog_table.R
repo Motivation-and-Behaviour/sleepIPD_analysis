@@ -6,6 +6,8 @@
 #' too long to include in the paper.
 
 make_demog_table <- function(participant_summary){
+require(labelled)
+require(dplyr)
 
 participants <- participant_summary
 # First I select all eligible participants
