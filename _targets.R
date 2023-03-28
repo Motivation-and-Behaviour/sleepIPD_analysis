@@ -3,7 +3,7 @@ library(targets)
 library(tarchetypes)
 library(future)
 
-plan("multisession")
+plan(future.callr::callr)
 
 # Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
