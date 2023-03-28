@@ -8,6 +8,8 @@
 #' @param y y-varaible
 
 make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL) {
+  require(ggplot2)
+
   if (is.null(path)) stop("argument path must be supplied")
 
   p <- clean_data |>

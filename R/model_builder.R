@@ -82,7 +82,7 @@ model_builder <-
 
     formula <- gsub("\\+  \\+", "+", formula)
 
-    imp_list <- complete(data_imp, "all")
+    imp_list <- mice::complete(data_imp, "all")
 
     m <- lapply(imp_list, function(x){
     mod <- fit_model(formula = eval(parse(text = formula)), data = x)
@@ -92,26 +92,26 @@ model_builder <-
     conv <- sapply(m, function(x) is_conv(x))
     conv_p <- sum(conv) / length(conv)
 
-    m_pooled <- pool(m)
+    m_pooled <- mice::pool(m)
     attr(m_pooled, "conv_p") <- conv_p
     pool_summary <- data.table(summary(m_pooled))
 
     crit.val <- qnorm(1 - 0.05 / 2)
     pool_summary$lower <-
-      print_num(with(pool_summary, estimate - crit.val * std.error))
+      papaja::print_num(with(pool_summary, estimate - crit.val * std.error))
     pool_summary$upper <-
-      print_num(with(pool_summary, estimate + crit.val * std.error))
+      papaja::print_num(with(pool_summary, estimate + crit.val * std.error))
 
     tabby <- data.table(pool_summary)[,
                                       list(
                                         term = term,
                                         "b [95\\% CI]" = with(
                                           pool_summary,
-                                          glue::glue("{print_num(estimate)} [{lower}, {upper}]")
+                                          glue::glue("{papaja::print_num(estimate)} [{lower}, {upper}]")
                                         ),
-                                        se = print_num(std.error),
-                                        t = print_num(statistic),
-                                        p = print_p(p.value)
+                                        se = papaja::print_num(std.error),
+                                        t = papaja::print_num(statistic),
+                                        p = papaja::print_p(p.value)
 
                                       )]
     note <- "All models converged." # Add blank note
@@ -147,7 +147,6 @@ model_builder <-
 
 get_effects <- function(model, terms, engine = ggeffects::ggpredict, plot = FALSE,
                             ...){
-
   effects <-
     lapply(seq_len(length(model$model)), function(i) {
       engine(model$model[[i]], terms = attr(model, "terms"), ...)
