@@ -102,6 +102,14 @@ list(
       moderator_term = "all",
       control_vars = c("bmi", "age", "sex"))
   ),
+    tar_target(
+    model_list_by_pa_mostactivehr,
+    make_model_list(
+      data_imp,
+      moderator = "pa_mostactivehr",
+      moderator_term = "5, 9, 14, 19",
+      control_vars = c("bmi", "age", "sex"))
+  ),
 
   tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
 
@@ -147,6 +155,10 @@ list(
     purdy_pictures_by_wear_location,
     produce_purdy_pictures(model_list_by_wear_location)
   ),
+    tar_target(
+    purdy_pictures_by_mostactivehr,
+    produce_purdy_pictures(model_list_by_pa_mostactivehr)
+  ),
 
   # Tables
   tar_target(model_tables_age, make_model_tables(model_list_by_age)),
@@ -158,6 +170,7 @@ list(
   tar_target(model_tables_region, make_model_tables(model_list_by_region)),
   tar_target(model_tables_daylight, make_model_tables(model_list_by_daylight)),
   tar_target(model_tables_wear_location, make_model_tables(model_list_by_wear_location)),
+  tar_target(model_tables_pa_mostactivehr, make_model_tables(model_list_by_pa_mostactivehr)),
 
   # Output results section
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(

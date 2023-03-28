@@ -16,6 +16,7 @@ clean_data <- function(data_joined, region_lookup) {
       pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
       pa_intensity_m16 = m16_ig_gradient_enmo_mg_0_24hr,
+      pa_mostactivehr = m1time,
       sleep_duration = dur_spt_sleep_min,
       sleep_efficiency = sleep_efficiency,
       sleep_onset = sleeponset_p5,
@@ -27,9 +28,9 @@ clean_data <- function(data_joined, region_lookup) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      measurementday, pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
-      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-      sleep_wakeup_time, sleep_regularity
+      measurementday, pa_volume, pa_intensity, pa_intensity_m16,
+      pa_mostactivehr, sleep_duration, sleep_efficiency, sleep_onset,
+      sleep_wakeup, sleep_onset_time, sleep_wakeup_time, sleep_regularity
     ) %>%
     # convert numeric variables to numeric
     mutate(across(c(
@@ -96,7 +97,13 @@ clean_data <- function(data_joined, region_lookup) {
       sleep_onset_time = chron(times = sleep_onset_time),
       sleep_wakeup_time = chron(times = sleep_wakeup_time)
     ) %>%
-    select(-measurementday)
+    select(-measurementday)  %>% 
+    # Fix up the most active time
+    mutate(
+      pa_mostactivehr = 
+        hour(lubridate::ymd_hms(pa_mostactivehr)) + 
+        minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+    )
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-

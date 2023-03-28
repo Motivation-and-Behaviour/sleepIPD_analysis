@@ -21,9 +21,11 @@ make_data_imp <- function(data, n_imps = 3) {
   # Don't do imputation based on these vars:
 
   dont_imp <- c("filename", "calendar_date")
-  dont_use <- c("age_cat", "studyid", "participant_id", "country" , "region",
-                "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16",
-                "weekday_x")
+  dont_use <- c(
+    "age_cat", "studyid", "participant_id", "country", "region",
+    "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16", 
+    "pa_mostactivehr", "weekday_x"
+  )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
   pred <- m0$predictorMatrix
@@ -36,6 +38,7 @@ make_data_imp <- function(data, n_imps = 3) {
     c("pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
+      "pa_mostactivehr",
       "sleep_duration",
       "sleep_efficiency",
       "sleep_onset",
