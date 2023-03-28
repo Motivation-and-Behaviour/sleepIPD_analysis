@@ -92,6 +92,16 @@ pretty <- function(x) format(x, big.mark = ",")
 n_participants <- length(unique(data_clean$participant_id))
 ```
 
+## Model diagnostics
+
+The model diagnostics for the main analysis, and for all models presented in this document are in Table \@ref(tab:model-diagnostics)
+
+```{r model-diagnostics}
+tar_read(model_diagnostics) |> 
+  papaja::apa_table(caption = "Model diagnostics", escape = FALSE,
+                    longtable = TRUE)
+```
+
 ## Multiverse
 
 In this document we show the results using another analytic technique. Namely treating study ID as a fixed effect. This is what we wrote in the protocol originally.
@@ -185,7 +195,6 @@ moderator_df <- data.frame(
   moderator_formal = c("BMI", "SES", "sex", "weekday", "season", "region", "daylight hours", "wear location", "most active hour"),
   image_path = c("Bmi", "Ses", "Sex", "Weekday_x", "Season", "Region", "Daylight_hours", "Accelerometer_wear_location", "Pa_mostactivehr")
 )
-moderator_df$moderator_sentence <- stringr::str_to_sentence(moderator_df$moderator)
 
 
 lapply(seq_len(nrow(moderator_df)), function(r){
@@ -193,7 +202,6 @@ lapply(seq_len(nrow(moderator_df)), function(r){
   moderator <- moderator_df$moderator[r]
   moderator_fig <- gsub("_","-",moderator)
   moderator_formal <- moderator_df$moderator_formal[r]
-  moderator_sentence <- moderator_df$moderator_sentence[r]
   image_path <- moderator_df$image_path[r]
   
   glue::glue(pattern, .open = "_::", .close = "::_")
@@ -203,11 +211,10 @@ lapply(seq_len(nrow(moderator_df)), function(r){
 ```
 
 
-
-
 <!------------------------------------>
 <!-- Auto-generated chunks go here: -->
 <!------------------------------------>
+
 \clearpage
 
 ## BMI
@@ -991,5 +998,6 @@ Results are presented in Table \@ref(tab:pa-outcomes-by-pa-mostactivehr) and Fig
 ```{r PA-by-sleep-regularity-fig-by-pa-mostactivehr, fig.cap = "Physical activity by sleep regularity moderated by most active hour"}
 knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Pa_mostactivehr.jpg"), error = FALSE)
 ```
+
 
 <!-- Finish auto-generated chunks go here: -->

@@ -8,9 +8,13 @@
 #' @author
 #' @export
 clean_data <- function(data_joined, region_lookup) {
+  require(chron)
+  require(dplyr)
+  require(googlesheets4)
+
   data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
-    clean_names() %>%
+    janitor::clean_names() %>%
     # Rename data
     rename(
       pa_volume = acc_day_mg,
@@ -112,12 +116,12 @@ clean_data <- function(data_joined, region_lookup) {
       col_types = "c",
       range = "A1:C50"
     ) %>%
-    remove_empty(which = "rows") %>%
-    clean_names() %>%
+    janitor::remove_empty(which = "rows") %>%
+    janitor::clean_names() %>%
     mutate(studyid = as.numeric(studyid))
 
   # change study_id to a number to match against harmonisation sheet
-  d <- d %>% mutate(studyid = parse_number(as.character(studyid)))
+  d <- d %>% mutate(studyid = readr::parse_number(as.character(studyid)))
 
   d$sleep_conditions[d$studyid == 110 & is.na(d$sleep_conditions)] <-
     "No sleep apnea"
@@ -140,8 +144,8 @@ clean_data <- function(data_joined, region_lookup) {
       col_types = "c",
       range = "A1:C100"
     ) %>%
-    remove_empty(which = "rows") %>%
-    clean_names() %>%
+    janitor::remove_empty(which = "rows") %>%
+    janitor::clean_names() %>%
     mutate(
       studyid = as.numeric(studyid),
       ses = tolower(ses)
@@ -173,7 +177,7 @@ clean_data <- function(data_joined, region_lookup) {
 
   # Clean the country names
   d <- d %>%
-    mutate(country = str_to_title(country)) %>%
+    mutate(country = stringr::str_to_title(country)) %>%
     mutate(
       country = case_when(
         country == "España" ~ "Spain",
@@ -228,7 +232,7 @@ clean_data <- function(data_joined, region_lookup) {
     location = paste(city, country, sep = ", ")
   )
 
-  d <- dplyr::left_join(d, region_lookup, by = "country")
+  d <- left_join(d, region_lookup, by = "country")
 
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
@@ -240,7 +244,7 @@ clean_data <- function(data_joined, region_lookup) {
   # use suncalc to find sunrise and sunset times
   sunlight <- d %>%
     rename(date = calendar_date) %>%
-    getSunlightTimes(
+    suncalc::getSunlightTimes(
       data = .,
       keep = c("sunrise", "sunset")
     )

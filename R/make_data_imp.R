@@ -11,8 +11,10 @@
 #' @export
 
 make_data_imp <- function(data, n_imps = 3) {
+  require(mice)
+
   imp_data <- data %>%
-    select(-n_valid_hours, -n_hours, -day_zero) |>
+    dplyr::select(-n_valid_hours, -n_hours, -day_zero) |>
     dplyr::mutate(participant_id = as.integer(factor(participant_id)))
 
   # Empty imputation to change defaults:

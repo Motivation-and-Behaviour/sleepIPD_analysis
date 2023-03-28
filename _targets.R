@@ -1,10 +1,13 @@
 # Allow multible R sessions to be used
+library(targets)
+library(tarchetypes)
 library(future)
+
 plan("multisession")
 
 # Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
-load_packages()
+tar_option_set(packages = c("data.table", "magrittr", "readr"))
 
 # Pipeline
 list(
@@ -13,7 +16,7 @@ list(
   ##################################################################
   tar_files_input(datasets, list.files("data", full.names = TRUE)),
   tar_target(data_raw,
-    read_csv(datasets,
+    readr::read_csv(datasets,
       col_types = list(.default = "c"),
       id = "studyid"
     ),
@@ -21,7 +24,7 @@ list(
   ),
 
   # Data targets
-  tar_target(data_joined, bind_rows(data_raw), pattern = map(data_raw)),
+  tar_target(data_joined, dplyr::bind_rows(data_raw), pattern = map(data_raw)),
   tar_target(data_clean, clean_data(data_joined, region_lookup)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
 
@@ -111,8 +114,6 @@ list(
       control_vars = c("bmi", "age", "sex"))
   ),
 
-  tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
-
   ##################################################################
   ##                        ASSET CREATION                        ##
   ##################################################################
@@ -201,6 +202,22 @@ list(
                            paste_facet_labels = " years",
                            add_filename = "_fixedef")
   ),
+
+  tar_target(
+    model_diagnostics,
+    make_model_diagnostics(
+      model_list_by_age,
+      model_list_by_bmi,
+      model_list_by_ses,
+      model_list_by_sex,
+      model_list_by_weekday,
+      model_list_by_season,
+      model_list_by_region,
+      model_list_by_daylight,
+      model_list_by_wear_location
+    )
+  ),
+
   ### Produce supplementary material
   tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
     "papaja::apa6_pdf"

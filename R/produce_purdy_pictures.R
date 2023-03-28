@@ -5,7 +5,6 @@
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
 
 produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_filename = ""){
-
   dat_list <- lapply(seq_len(length(model_list)), function(i){
 
     m <- model_list[[i]]
