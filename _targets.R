@@ -31,7 +31,9 @@ list(
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
-  tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
+  tar_target(
+    data_imp, make_data_imp(data_holdout, n_imps = 3), deployment = "main"
+    ),
 
   #################################################################
   ##                          MODELLING                          ##
