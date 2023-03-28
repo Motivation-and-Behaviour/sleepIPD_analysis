@@ -7,7 +7,7 @@
 #' @return
 #' @author conig
 #' @export
-make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi"), ranef  = "(1|studyid) + (1|measurement_day) + (1|participant_id)") {
+make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi"), ranef  = "(1|studyid) + (1|participant_id)") {
 
   sleep_vars <- c("scale_sleep_duration",
                     "scale_sleep_efficiency",

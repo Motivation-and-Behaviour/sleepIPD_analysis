@@ -106,8 +106,6 @@ list(
       control_vars = c("bmi", "age", "sex"))
   ),
 
-  tar_target(model_diagnostics, make_model_diagnostics(model_list_by_age)),
-
   ##################################################################
   ##                        ASSET CREATION                        ##
   ##################################################################
@@ -191,6 +189,22 @@ list(
                            paste_facet_labels = " years",
                            add_filename = "_fixedef")
   ),
+
+  tar_target(
+    model_diagnostics,
+    make_model_diagnostics(
+      model_list_by_age,
+      model_list_by_bmi,
+      model_list_by_ses,
+      model_list_by_sex,
+      model_list_by_weekday,
+      model_list_by_season,
+      model_list_by_region,
+      model_list_by_daylight,
+      model_list_by_wear_location
+    )
+  ),
+
   ### Produce supplementary material
   tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
     "papaja::apa6_pdf"
