@@ -50,6 +50,7 @@ list(
     data_imp, make_data_imp(data_holdout, n_imps = 3), deployment = "main",
     format = format, repository = repository
     ),
+  tar_target(imputation_checks, check_imps(data_imp), format = "file"),
 
   #################################################################
   ##                          MODELLING                          ##
