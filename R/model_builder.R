@@ -6,7 +6,7 @@ is_conv <- function(x) performance::check_convergence(x) & !performance::check_s
 #' @param ... arguments passed to lmer
 #' @param data data object
 
-fit_model <- function(..., data, max_iter = 1e6){
+fit_model <- function(..., data, max_iter = 1e6) {
   require(optimx)
   require(lme4)
   require(dfoptim)
@@ -15,17 +15,17 @@ fit_model <- function(..., data, max_iter = 1e6){
   exhausted <- FALSE
   i <- 1
   meth.tab <- lme4:::meth.tab.0
-  meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval","maxeval"))
+  meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval", "maxeval"))
   meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
 
-  while(!conv & i <= nrow(meth.tab)) {
-    if(meth.tab[i , 2] != ""){
-      optCtrl <- list(method = unname(meth.tab[i , 2]))
-    }else{
+  while (!conv & i <= nrow(meth.tab)) {
+    if (meth.tab[i, 2] != "") {
+      optCtrl <- list(method = unname(meth.tab[i, 2]))
+    } else {
       optCtrl <- list()
     }
 
-    optCtrl[[meth.tab[i , 3]]] <- max_iter
+    optCtrl[[meth.tab[i, 3]]] <- max_iter
 
     mod <- lme4::lmer(
       ...,
@@ -33,19 +33,21 @@ fit_model <- function(..., data, max_iter = 1e6){
       control = lmerControl(
         optimizer = meth.tab[i, 1],
         optCtrl = optCtrl
-      ))
+      )
+    )
     mod@call$control$optimizer <- unname(meth.tab[i, 1])
     mod@call$control$optCtrl <- unlist(optCtrl)
 
-    if (is_conv(mod)){
+    if (is_conv(mod)) {
       conv <- TRUE
       attr(mod, "conv") <- TRUE
       return(mod)
     }
-    i = i + 1
+    i <- i + 1
   }
-  warning("No convergence with any optimizer:" , ...)
+  warning("No convergence with any optimizer:", ...)
   attr(mod, "conv") <- FALSE
+  mod@call$formula <- butcher::axe_env(mod@call$formula)
   mod
 }
 
@@ -70,7 +72,6 @@ model_builder <-
            control_vars = c(),
            table_only = TRUE,
            ranef) {
-
     require(broom.mixed)
     require(lme4)
     require(data.table)
@@ -84,9 +85,9 @@ model_builder <-
 
     imp_list <- mice::complete(data_imp, "all")
 
-    m <- lapply(imp_list, function(x){
-    mod <- fit_model(formula = eval(parse(text = formula)), data = x)
-    mod
+    m <- lapply(imp_list, function(x) {
+      mod <- fit_model(formula = eval(parse(text = formula)), data = x)
+      mod
     })
 
     conv <- sapply(m, function(x) is_conv(x))
@@ -102,37 +103,40 @@ model_builder <-
     pool_summary$upper <-
       papaja::print_num(with(pool_summary, estimate + crit.val * std.error))
 
-    tabby <- data.table(pool_summary)[,
-                                      list(
-                                        term = term,
-                                        "b [95\\% CI]" = with(
-                                          pool_summary,
-                                          glue::glue("{papaja::print_num(estimate)} [{lower}, {upper}]")
-                                        ),
-                                        se = papaja::print_num(std.error),
-                                        t = papaja::print_num(statistic),
-                                        p = papaja::print_p(p.value)
-
-                                      )]
+    tabby <- data.table(pool_summary)[
+      ,
+      list(
+        term = term,
+        "b [95\\% CI]" = with(
+          pool_summary,
+          glue::glue("{papaja::print_num(estimate)} [{lower}, {upper}]")
+        ),
+        se = papaja::print_num(std.error),
+        t = papaja::print_num(statistic),
+        p = papaja::print_p(p.value)
+      )
+    ]
     note <- "All models converged." # Add blank note
 
-    if(conv_p < .75){
+    if (conv_p < .75) {
       conv_print <- papaja::print_num(conv_p * 100)
       tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\dagger$")
       note <- as.character(glue::glue("$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."))
     }
 
-    tabby <- tabby[!grepl("studyid", term),]
+    tabby <- tabby[!grepl("studyid", term), ]
 
-    if (table_only)
+    if (table_only) {
       return(tabby)
+    }
 
-    list(model = m,
-         pooled_model = m_pooled,
-         table = tabby,
-         note = note,
-         control_vars = control_vars)
-
+    list(
+      model = m,
+      pooled_model = m_pooled,
+      table = tabby,
+      note = note,
+      control_vars = control_vars
+    )
   }
 
 #' get_effects
@@ -146,17 +150,17 @@ model_builder <-
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
 get_effects <- function(model, terms, engine = ggeffects::ggpredict, plot = FALSE,
-                            ...){
+                        ...) {
   effects <-
     lapply(seq_len(length(model$model)), function(i) {
       engine(model$model[[i]], terms = attr(model, "terms"), ...)
     }) |>
     ggeffects::pool_predictions()
 
-  if (!plot)
+  if (!plot) {
     return(effects)
+  }
   effects |>
     plot() +
     figure_theme()
-
 }
