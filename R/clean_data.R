@@ -31,6 +31,7 @@ clean_data <- function(data_joined, region_lookup) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
+      -dupes, 
       measurementday, pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
       sleep_wakeup_time, sleep_regularity
