@@ -42,14 +42,10 @@ make_data_imp <- function(data, n_imps = 3) {
       "sleep_efficiency",
       "sleep_onset",
       "sleep_wakeup",
-      "sleep_onset_time",
-      "sleep_wakeup_time",
       "sleep_regularity",
       "sleep_efficiency_lag",
       "sleep_onset_lag",
       "sleep_wakeup_lag",
-      "sleep_onset_time_lag",
-      "sleep_wakeup_time_lag",
       "sleep_regularity_lag",
       "sleep_duration_lag"
     )

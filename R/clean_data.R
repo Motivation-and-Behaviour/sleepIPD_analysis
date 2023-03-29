@@ -64,10 +64,6 @@ clean_data <- function(data_joined, region_lookup) {
           sleep_regularity
         ),
         ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
-      ),
-      across(
-        c(sleep_onset_time, sleep_wakeup_time),
-        ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_character_, .x)
       )
     ) %>%
     # Filter for OK data
@@ -97,11 +93,9 @@ clean_data <- function(data_joined, region_lookup) {
       # remove implausible heights
       height = ifelse(height > 30, height, NA),
       # also calculate bmi
-      bmi = weight / ((height / 100)^2),
-      sleep_onset_time = chron(times = sleep_onset_time),
-      sleep_wakeup_time = chron(times = sleep_wakeup_time)
+      bmi <- weight / ((height / 100)^2)
     ) %>%
-    select(-measurementday)
+    select(-measurementday, -sleep_onset_time, -sleep_wakeup_time)
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
@@ -270,8 +264,8 @@ clean_data <- function(data_joined, region_lookup) {
     group_by(studyid, filename) %>%
     mutate(across(
       c(
-        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-        sleep_wakeup_time, sleep_regularity, sleep_duration
+        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity, 
+        sleep_duration
       ),
       ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
       .names = "{.col}_lag"
