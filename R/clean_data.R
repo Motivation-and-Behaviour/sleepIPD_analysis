@@ -20,6 +20,7 @@ clean_data <- function(data_joined, region_lookup) {
       pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
       pa_intensity_m16 = m16_ig_gradient_enmo_mg_0_24hr,
+      pa_mostactivehr = m1time,
       sleep_duration = dur_spt_sleep_min,
       sleep_efficiency = sleep_efficiency,
       sleep_onset = sleeponset_p5,
@@ -101,7 +102,13 @@ clean_data <- function(data_joined, region_lookup) {
       sleep_onset_time = chron(times = sleep_onset_time),
       sleep_wakeup_time = chron(times = sleep_wakeup_time)
     ) %>%
-    select(-measurementday)
+    select(-measurementday) %>%
+    # Fix up the most active time
+    mutate(
+      pa_mostactivehr =
+        lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+          lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+    )
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
