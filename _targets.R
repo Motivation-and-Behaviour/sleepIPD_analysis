@@ -3,11 +3,26 @@ library(targets)
 library(tarchetypes)
 library(future)
 
-plan("multisession")
+plan(future.callr::callr)
 
 # Load required functions and packages
 lapply(list.files("./R", full.names = TRUE), source)
 tar_option_set(packages = c("data.table", "magrittr", "readr"))
+
+# Check if GCS is available to use
+if (Sys.getenv("GCS_AUTH_FILE") != "") {
+  tar_option_set(
+    resources = tar_resources(
+      gcp = tar_resources_gcp(bucket = "sleepipdtargets")
+    )
+  )
+
+  format <- "qs"
+  repository <- "gcp"
+} else {
+  format <- targets::tar_option_get("format")
+  repository <- targets::tar_option_get("repository")
+}
 
 # Pipeline
 list(
@@ -30,7 +45,10 @@ list(
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
-  tar_target(data_imp, make_data_imp(data_holdout, n_imps = 3)),
+  tar_target(
+    data_imp, make_data_imp(data_holdout, n_imps = 3), deployment = "main",
+    format = format, repository = repository
+    ),
 
   #################################################################
   ##                          MODELLING                          ##
