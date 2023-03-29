@@ -47,7 +47,6 @@ fit_model <- function(..., data, max_iter = 1e6) {
   }
   warning("No convergence with any optimizer:", ...)
   attr(mod, "conv") <- FALSE
-  mod@call$formula <- butcher::axe_env(mod@call$formula)
   mod
 }
 
