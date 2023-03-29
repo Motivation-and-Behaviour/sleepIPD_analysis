@@ -20,6 +20,7 @@ clean_data <- function(data_joined, region_lookup) {
       pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
       pa_intensity_m16 = m16_ig_gradient_enmo_mg_0_24hr,
+      pa_mostactivehr = m1time,
       sleep_duration = dur_spt_sleep_min,
       sleep_efficiency = sleep_efficiency,
       sleep_onset = sleeponset_p5,
@@ -31,7 +32,7 @@ clean_data <- function(data_joined, region_lookup) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      -dupes, 
+      -dupes,
       measurementday, pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
       sleep_wakeup_time, sleep_regularity
@@ -96,6 +97,12 @@ clean_data <- function(data_joined, region_lookup) {
       bmi <- weight / ((height / 100)^2)
     ) %>%
     select(-measurementday, -sleep_onset_time, -sleep_wakeup_time)
+  # Fix up the most active time
+  mutate(
+    pa_mostactivehr =
+      lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+        lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+  )
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
@@ -264,7 +271,7 @@ clean_data <- function(data_joined, region_lookup) {
     group_by(studyid, filename) %>%
     mutate(across(
       c(
-        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity, 
+        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity,
         sleep_duration
       ),
       ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),

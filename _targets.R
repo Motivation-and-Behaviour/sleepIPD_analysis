@@ -42,7 +42,6 @@ list(
   tar_target(data_joined, dplyr::bind_rows(data_raw), pattern = map(data_raw)),
   tar_target(data_clean, clean_data(data_joined, region_lookup)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
-
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
@@ -66,7 +65,8 @@ list(
       data_imp,
       moderator = "bmi",
       moderator_term = "18, 22, 25, 30",
-      control_vars = c("ses", "age", "sex"))
+      control_vars = c("ses", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_ses,
@@ -74,7 +74,8 @@ list(
       data_imp,
       moderator = "ses",
       moderator_term = "all",
-      control_vars = c("bmi", "age", "sex"))
+      control_vars = c("bmi", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_sex,
@@ -82,7 +83,8 @@ list(
       data_imp,
       moderator = "sex",
       moderator_term = "all",
-      control_vars = c("ses", "age", "bmi"))
+      control_vars = c("ses", "age", "bmi")
+    )
   ),
   tar_target(
     model_list_by_weekday,
@@ -90,7 +92,8 @@ list(
       data_imp,
       moderator = "weekday_x",
       moderator_term = "all",
-      control_vars = c("bmi", "age", "sex"))
+      control_vars = c("bmi", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_season,
@@ -98,7 +101,8 @@ list(
       data_imp,
       moderator = "season",
       moderator_term = "all",
-      control_vars = c("bmi", "age", "sex"))
+      control_vars = c("bmi", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_region,
@@ -106,7 +110,8 @@ list(
       data_imp,
       moderator = "region",
       moderator_term = "all",
-      control_vars = c("ses", "age", "sex"))
+      control_vars = c("ses", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_daylight,
@@ -114,7 +119,8 @@ list(
       data_imp,
       moderator = "daylight_hours",
       moderator_term = "8, 10, 12, 14",
-      control_vars = c("bmi", "age", "sex"))
+      control_vars = c("bmi", "age", "sex")
+    )
   ),
   tar_target(
     model_list_by_wear_location,
@@ -122,7 +128,17 @@ list(
       data_imp,
       moderator = "accelerometer_wear_location",
       moderator_term = "all",
-      control_vars = c("bmi", "age", "sex"))
+      control_vars = c("bmi", "age", "sex")
+    )
+  ),
+  tar_target(
+    model_list_by_pa_mostactivehr,
+    make_model_list(
+      data_imp,
+      moderator = "pa_mostactivehr",
+      moderator_term = "5, 9, 14, 19",
+      control_vars = c("bmi", "age", "sex")
+    )
   ),
 
   ##################################################################
@@ -133,7 +149,8 @@ list(
   tar_target(
     purdy_pictures_by_age,
     produce_purdy_pictures(model_list_by_age,
-                           paste_facet_labels = " years")
+      paste_facet_labels = " years"
+    )
   ),
   tar_target(
     purdy_pictures_by_bmi,
@@ -167,6 +184,10 @@ list(
     purdy_pictures_by_wear_location,
     produce_purdy_pictures(model_list_by_wear_location)
   ),
+  tar_target(
+    purdy_pictures_by_mostactivehr,
+    produce_purdy_pictures(model_list_by_pa_mostactivehr)
+  ),
 
   # Tables
   tar_target(model_tables_age, make_model_tables(model_list_by_age)),
@@ -178,6 +199,7 @@ list(
   tar_target(model_tables_region, make_model_tables(model_list_by_region)),
   tar_target(model_tables_daylight, make_model_tables(model_list_by_daylight)),
   tar_target(model_tables_wear_location, make_model_tables(model_list_by_wear_location)),
+  tar_target(model_tables_pa_mostactivehr, make_model_tables(model_list_by_pa_mostactivehr)),
 
   # Output results section
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
@@ -194,9 +216,11 @@ list(
   ### Study ID is a fixed effect rather than a random effect
   tar_target(
     model_list_by_age_fixedef,
-    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65",
-                    ranef = "(1 | measurement_day) + (1 | participant_id)",
-                    c("ses", "sex", "bmi", "studyid"))
+    make_model_list(data_imp,
+      moderator = "age", moderator_term = "11, 18, 35, 65",
+      ranef = "(1 | measurement_day) + (1 | participant_id)",
+      c("ses", "sex", "bmi", "studyid")
+    )
   ),
   ### Produce tables
   tar_target(model_tables_fixedef, make_model_tables(model_list_by_age_fixedef)),
@@ -205,10 +229,10 @@ list(
   tar_target(
     purdy_pictures_by_age_fixedef,
     produce_purdy_pictures(model_list_by_age_fixedef,
-                           paste_facet_labels = " years",
-                           add_filename = "_fixedef")
+      paste_facet_labels = " years",
+      add_filename = "_fixedef"
+    )
   ),
-
   tar_target(
     model_diagnostics,
     make_model_diagnostics(
@@ -220,7 +244,8 @@ list(
       model_list_by_season,
       model_list_by_region,
       model_list_by_daylight,
-      model_list_by_wear_location
+      model_list_by_wear_location,
+      model_list_by_pa_mostactivehr
     )
   ),
 
