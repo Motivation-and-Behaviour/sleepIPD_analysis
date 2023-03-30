@@ -100,7 +100,7 @@ make_participant_summary|function|11eccf35fe2c6e23|||||||||||||||
 make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
 make_RQ1_figure|function|2228720a81557620|||||||||||||||
 make_table1|function|f4396bf35fbf18b0|||||||||||||||
-manuscript|stem|82c4b074566b8644|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9533570327s|cfe357d3ec475b11|16704509|file|local|vector|||5.97||
+manuscript|stem|61b3de88075fe4e3|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9671384305s|b01cb28830adb59f|16708704|file|local|vector|||6.01||
 model|object|3b74cf8ca2e36534|||||||||||||||
 model_assets|object|b9e10a1baf78fa2a|||||||||||||||
 model_builder|function|8be422f87664cf1a|||||||||||||||
