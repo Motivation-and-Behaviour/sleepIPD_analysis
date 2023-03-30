@@ -82,7 +82,7 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
           limits = c(-2, 2),
           labels = c("-2 <",-1, 0, 1, "2 +")
         ) +
-        scale_y_continuous(n.breaks = 5) + labs(y = "Age", x = predictor, fill = "") +
+        scale_y_continuous(n.breaks = 5) + labs(y = "Age", x = predictor, fill = "predicted") +
         geom_tile() +
         figure_theme()
       fig <- plot_grid(fig, fig2, rel_widths  = c(1, .66))

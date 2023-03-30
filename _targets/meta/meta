@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|4eaf895192e21ab0|||||||||||||||
+.Random.seed|object|bdbc3c0704147206|||||||||||||||
 apa_style|function|7f874036fb9dd45b|||||||||||||||
 check_imps|function|7749740969325a22|||||||||||||||
 check_list|function|9d75232c701efa94|||||||||||||||
@@ -11,6 +11,7 @@ conv|object|21fe4b10a2b04ca0|||||||||||||||
 conv_p|object|a2a52dfe4e065e93|||||||||||||||
 create_distinct|function|feef06749c984f86|||||||||||||||
 crit.val|object|65b7816febec177f|||||||||||||||
+data|object|76294d908965e8f9|||||||||||||||
 data_clean|stem|9089a73de39f97d2|682fee9dcbe6c4a2|e6a21f172198d07f|207072666||t19446.3744810263s|8ff879f47888fe0f|10220836|rds|local|vector|||41.1|NAs introduced by coercion|
 data_holdout|stem|3cc67874120de100|6037abbeaddf6309|d1a51a136eac7431|-1064111525||t19446.3744830137s|1aea901290247c5e|1020933|rds|local|vector|||0.06||
 data_imp|stem|8009e0fbac1a4e6e|3feb40ffe7c2e16f|6f26ac9b6fd5d7e2|-693423895||t19446.3824502669s|6180819adc815cb1|3211013|rds|local|vector|||688.03|Number of logged events 4. invalid factor level, NA generated. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of i|
@@ -100,7 +101,7 @@ make_participant_summary|function|11eccf35fe2c6e23|||||||||||||||
 make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
 make_RQ1_figure|function|2228720a81557620|||||||||||||||
 make_table1|function|f4396bf35fbf18b0|||||||||||||||
-manuscript|stem|aacf11ffa14ce39e|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9876939122s|fc19e6c6b3c2769e|16786276|file|local|vector|||6.02||
+manuscript|stem|8021f5ab530b117a|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9979411098s|581d40919662d160|16958941|file|local|vector|||5.81||
 model|object|3b74cf8ca2e36534|||||||||||||||
 model_assets|object|b9e10a1baf78fa2a|||||||||||||||
 model_builder|function|8be422f87664cf1a|||||||||||||||
@@ -133,28 +134,29 @@ model_tables_sex|stem|cc8db25869ee0c03|bdfa89a0cb88ff73|2376365769d6a443|6886989
 model_tables_wear_location|stem|fb2ab7e10d683b2c|476e6423f13570e3|bf27dcf10d336783|316138432||t19446.9417339111s|4bebe20355c95641|2374|rds|local|vector|||0.27||
 model_tables_weekday|stem|80f3a4a7a2eeb6d0|f99e47b1b676e54a|e0344b4a187f8ef1|-719477691||t19446.9420716621s|f9782195362f1c23|4886|rds|local|vector|||0.18||
 moderator|object|46ad1ade10c356d4|||||||||||||||
-multiverse|stem|f47f99cd1f60ef01|b7ab673b84eb2090|b1f591dcc76242e4|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19446.9877727141s|1adcef0eb7c19ace|42457530|file|local|vector|||6.69|LaTeX Warning Float too large for page by 33.98792pt on input line 95.. LaTeX Warning Float too large for page by 33.98792pt on input line 100.. LaTeX Warning Float too large for page by 33.98792pt on input line 245.. LaTeX Warning Float too large for page by 33.98792pt on input line 250.|
+multiverse|stem|bbbea634be140c1b|b7ab673b84eb2090|b1f591dcc76242e4|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19446.9980949465s|f0e88356a4c2d755|42531032|file|local|vector|||6.75|LaTeX Warning Float too large for page by 33.98792pt on input line 95.. LaTeX Warning Float too large for page by 33.98792pt on input line 100.. LaTeX Warning Float too large for page by 33.98792pt on input line 245.. LaTeX Warning Float too large for page by 33.98792pt on input line 250.|
 note|object|e476c66c1fc4046d|||||||||||||||
 outcome|object|1ed58c3bc3838469|||||||||||||||
+p|object|9d81b1a83c6eaaff|||||||||||||||
 participant_summary|stem|f3ca9143b031e0ec|1cd67f58d228e8f2|a67a13a59d079ec0|887218007||t19446.9412313454s|6c957d320146c275|1493515|rds|local|vector|||37.72||
 plot_effects_RQ1|function|7816450490b473b4|||||||||||||||
 pool_summary|object|6546db997b70b6f3|||||||||||||||
 predictors|object|6a20361b44069499|||||||||||||||
 prepare_plot_data|function|1b34e1b49c454e45|||||||||||||||
-produce_purdy_pictures|function|673b571c805ddf33|||||||||||||||
+produce_purdy_pictures|function|c63288e9d2ad059b|||||||||||||||
 purdy_pictures|stem|3fe873ceaa51890e|9fe35858b2002667|37dae0e3d008633a|38667698||t19439.9028189495s|a1c456b03adbfbf8|44|rds|local|vector|||12.136||
-purdy_pictures_by_age|stem|15d7f6b08f6e9a66|15f79003144f8bab|32dc86cd51927256|1061401147||t19446.9873848686s|a1c456b03adbfbf8|44|rds|local|vector|||4.08||
-purdy_pictures_by_age_fixedef|stem|15d7f6b08f6e9a66|7287185b6c2e8f8d|5f1da5acf553f8dd|-1604185041||t19446.9873885228s|a1c456b03adbfbf8|44|rds|local|vector|||4.16||
-purdy_pictures_by_bmi|stem|15d7f6b08f6e9a66|d5db706708d4289f|e99da148b6739dc0|211149621||t19446.9873619747s|a1c456b03adbfbf8|44|rds|local|vector|||2.25||
-purdy_pictures_by_daylight|stem|15d7f6b08f6e9a66|60edc95eb7282f3f|f9e03debc821330d|149224158||t19446.9873589871s|a1c456b03adbfbf8|44|rds|local|vector|||2.31||
+purdy_pictures_by_age|stem|15d7f6b08f6e9a66|15f79003144f8bab|71c417c14c68198c|1061401147||t19446.9978547183s|a1c456b03adbfbf8|44|rds|local|vector|||3.14||
+purdy_pictures_by_age_fixedef|stem|15d7f6b08f6e9a66|7287185b6c2e8f8d|e4fe22c6cf644b3c|-1604185041||t19446.9980168682s|a1c456b03adbfbf8|44|rds|local|vector|||3.09||
+purdy_pictures_by_bmi|stem|15d7f6b08f6e9a66|d5db706708d4289f|d8d92e9a52e02570|211149621||t19446.9978706562s|a1c456b03adbfbf8|44|rds|local|vector|||1.38||
+purdy_pictures_by_daylight|stem|15d7f6b08f6e9a66|60edc95eb7282f3f|647a2f20d4106493|149224158||t19446.9977576146s|a1c456b03adbfbf8|44|rds|local|vector|||1.5||
 purdy_pictures_by_mostactivehr|stem|3fe873ceaa51890e|9349317fd2d10779|c6ce340c87b58ffd|-2095527765||t19444.24359225s|a1c456b03adbfbf8|44|rds|local|vector|||12.532||
-purdy_pictures_by_pa_mostactivehr|stem|15d7f6b08f6e9a66|9349317fd2d10779|28d174856bd29c5a|-1643215156||t19446.9873634354s|a1c456b03adbfbf8|44|rds|local|vector|||2.26||
-purdy_pictures_by_region|stem|15d7f6b08f6e9a66|f6edf6505489e11b|4202994e35da6ad6|293334721||t19446.9873697367s|a1c456b03adbfbf8|44|rds|local|vector|||2.84|Removed 9 rows containing missing values geom_line.|
-purdy_pictures_by_season|stem|15d7f6b08f6e9a66|bd9a13b7a9ba7e94|81ab34a6b0d97550|-43591103||t19446.9873599271s|a1c456b03adbfbf8|44|rds|local|vector|||2.34||
-purdy_pictures_by_ses|stem|15d7f6b08f6e9a66|9a0c889889742972|d08528fcdd1ff915|1647354395||t19446.9873802173s|a1c456b03adbfbf8|44|rds|local|vector|||1.61||
-purdy_pictures_by_sex|stem|15d7f6b08f6e9a66|24912b109d775d8c|e90de6c491b660b3|2018758225||t19446.9873512493s|a1c456b03adbfbf8|44|rds|local|vector|||1.65||
-purdy_pictures_by_wear_location|stem|15d7f6b08f6e9a66|08f9ee3acf639261|0bab951d88d5d23f|-1344108889||t19446.9873538006s|a1c456b03adbfbf8|44|rds|local|vector|||1.74||
-purdy_pictures_by_weekday|stem|15d7f6b08f6e9a66|94395109b3cedf6d|ba5c868140d7aadb|-646575597||t19446.987371125s|a1c456b03adbfbf8|44|rds|local|vector|||3.26||
+purdy_pictures_by_pa_mostactivehr|stem|15d7f6b08f6e9a66|9349317fd2d10779|f6f189bd06b8476a|-1643215156||t19446.9979584533s|a1c456b03adbfbf8|44|rds|local|vector|||1.43||
+purdy_pictures_by_region|stem|15d7f6b08f6e9a66|f6edf6505489e11b|5711a937ae4422ca|293334721||t19446.9979802266s|a1c456b03adbfbf8|44|rds|local|vector|||1.86|1m22mRemoved 9 rows containing missing values geom_line.|
+purdy_pictures_by_season|stem|15d7f6b08f6e9a66|bd9a13b7a9ba7e94|675823b9b1b97643|-43591103||t19446.9977742861s|a1c456b03adbfbf8|44|rds|local|vector|||1.42||
+purdy_pictures_by_ses|stem|15d7f6b08f6e9a66|9a0c889889742972|ae6c71d58b4a603c|1647354395||t19446.9981086046s|a1c456b03adbfbf8|44|rds|local|vector|||1.13||
+purdy_pictures_by_sex|stem|15d7f6b08f6e9a66|24912b109d775d8c|3c790f82e1ef4819|2018758225||t19446.9977400206s|a1c456b03adbfbf8|44|rds|local|vector|||1.12||
+purdy_pictures_by_wear_location|stem|15d7f6b08f6e9a66|08f9ee3acf639261|4b07f6d5d30c3fad|-1344108889||t19446.9978163707s|a1c456b03adbfbf8|44|rds|local|vector|||1.14||
+purdy_pictures_by_weekday|stem|15d7f6b08f6e9a66|94395109b3cedf6d|cc6f6e6c858cd76f|-646575597||t19446.997802818s|a1c456b03adbfbf8|44|rds|local|vector|||2.46||
 ranef|object|6a38e8ba56921122|||||||||||||||
 region_lookup|stem|84bf607dd7a49a54|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19446.3718473205s|7430ee2468db0f5f|385|rds|local|vector|||0.05||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
