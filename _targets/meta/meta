@@ -1,13 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 .Random.seed|object|ff5f702f0a4f4551|||||||||||||||
-apa_style|function|7f874036fb9dd45b|||||||||||||||
-check_model|function|cc6fbf89dd7a823d|||||||||||||||
-check_resids|function|5190a0f448ef7334|||||||||||||||
-clean_data|function|2737c037f0b321f3|||||||||||||||
-create_distinct|function|feef06749c984f86|||||||||||||||
-data_clean|stem|694624066f49a77b|682fee9dcbe6c4a2|37f1febd06811138|207072666||t19445.4368118898s|a19326a7488ab5e0|11401773|rds|local|vector|||148.33|running command timedatectl had status 1. NAs introduced by coercion|
-data_holdout|stem|a7bc2214731f26bf|6037abbeaddf6309|60db628b77e32456|-1064111525||t19445.436814899s|761da0c6a59d2f3e|1138296|rds|local|vector|||0.085||
-data_imp|stem|c0d9f3923fa5c33e|3feb40ffe7c2e16f|1ab35d5c38057724|-693423895|bucket=sleepipdtargets*key=_targets/objects/data_imp*version=1680086659544585|t19445.4474040174s||5970546|qs|gcp|vector|||914.797|Number of logged events 4. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155. invalid factor level, NA generated. Number of logged events 155|
+data_clean|stem|36d663b232896421|682fee9dcbe6c4a2|14f4075752fd0ad5|207072666||t19445.9969673311s|8ff879f47888fe0f|10220836|rds|local|vector|||72.975|running command timedatectl had status 1. NAs introduced by coercion|
+data_holdout|stem|30db4c2838d217d4|6037abbeaddf6309|a438c6d6cfcafe00|-1064111525||t19445.9969701089s|1aea901290247c5e|1020933|rds|local|vector|||0.085||
+data_imp|stem|bda9ef7ded061cf1|3feb40ffe7c2e16f|d7be353a341a8cae|-693423895|bucket=sleepipdtargets*key=_targets/objects/data_imp*version=1680140237430244|t19446.067523915s||5649126|qs|gcp|vector|||1108.975|Number of logged events 4. invalid factor level, NA generated. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of i|
 data_joined|pattern|157076f2bc24339d|422d2404eb0adddc||-540021193||||1600932|rds|local|vector||data_joined_ca68c899*data_joined_44697981*data_joined_2fcec1a1*data_joined_3b7990b1*data_joined_e103ba3f*data_joined_d1297678*data_joined_87f747f9*data_joined_58c08e5c*data_joined_bc832d48*data_joined_4278434e*data_joined_961f389b*data_joined_12fb9060*data_joined_528233c6*data_joined_eb0b5a09*data_joined_cc21c7da*data_joined_9e3d7b7c*data_joined_bf0eee5b|0.28||
 data_joined_12fb9060|branch|6240e868b6148498|cfd37d3eb4f55e7c|a827fb076a78a74b|310179944||t19444.3859186312s|e7cdf760c16fde75|1347221|rds|local|vector|data_joined||0.029||
 data_joined_2fcec1a1|branch|bd94e748cb8dce63|cfd37d3eb4f55e7c|98b471f02888a309|-1938628037||t19444.3858320572s|a7308904054ee717|2914927|rds|local|vector|data_joined||0.051||
@@ -63,81 +58,120 @@ datasets_f05f9030|branch|51b517040d44b3f4|17c92c0359a5e715|d29399b0c8fcb42b|-142
 datasets_f7848b84|branch|398368431416f9a2|17c92c0359a5e715|10626323d657885a|-71101625|data/221_Whitehall.csv|t19443.9301946242s|9df6233b93da3d33|78832665|file|local|vector|datasets||0||
 datasets_fafd8a4f|branch|7a11e910e6ef8777|17c92c0359a5e715|60ebb5f40683f802|-374424695|data/112_Jesus.csv|t19443.9301458974s|e5fd62f836e2215e|1953530|file|local|vector|datasets||0.001||
 datasets_files|stem|20620ddb3ad43b65|1efacbf5e09e4d69|8fb75deda0f036e8|1171602028||t19381.3810350978s|1018763f8eb390c8|254|rds|local|list||datasets_files_76edb646*datasets_files_34bd3691*datasets_files_613b5cb8*datasets_files_9f5d1eca*datasets_files_39a9974d*datasets_files_b0952775*datasets_files_cfa48610*datasets_files_f64c13ef*datasets_files_6299c356*datasets_files_83b71c20*datasets_files_4f0c1af3*datasets_files_7483bbf8*datasets_files_7eb07ee8*datasets_files_eeaa978c*datasets_files_562233a7*datasets_files_60169518*datasets_files_c91f7c69|0||
-demog_table|stem|6d72d5c2bea64a19|8ad09232ad54ed17|84f0ef7f49ba8c5b|1043754502||t19445.2143990139s|b98f1b6118cbc470|1699|rds|local|vector|||1.245||
-explore_img|stem|3e0e4ae8d621352d|19781483b4442d97|54f9a7b1d493958b|834660049||t19444.4225487169s|83a6703191e16cd7|455|rds|local|vector|||32.445|1m22mRemoved 3185 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3185 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3185 rows containing missing values geom_point.. 1m22mRemoved 3162 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3162 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3162 rows containing missing values geom_point.. 1m22mRemoved 3182 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3182 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3182 rows containing missing values geom_point.. 1m22mRemoved 3159 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3159 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3159 rows containing missing values geom_point.. 1m22mRemoved 3213 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3213 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3213 rows containing missing values geom_point.. 1m22mRemoved 3190 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3190 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3190 rows containing missing values geom_point.. 1m22mRemoved 6341 rows containing nonfinite values stat_smooth.. 1m22mRemoved 6341 rows containing nonfinite values stat_density2d.. 1m22mRemoved 6341 rows containing missing values geom_point.. 1m22mRemoved 6319 rows containing nonfinite values stat_smooth.. 1m22mRemoved 6319 rows containing nonfinite values stat_density2d.. 1m22mRemoved 6319 rows containing missing values geom_point.. 1m22mRemoved 3003 rows containing nonfinite values stat_smooth.. 1m22mRemoved 3003 rows containing nonfinite values stat_density2d.. 1m22mRemoved 3003 rows containing missing values geom_point.. 1m|
-fetch_data|function|389653ddff62e0df|||||||||||||||
-figure_theme|function|4639cba3c8822485|||||||||||||||
-find_max|function|179e3e7afa23c076|||||||||||||||
-fit_model|function|ca66a5ec22fca31e|||||||||||||||
-format|object|962a3be0ac50c5ee|||||||||||||||
-format_table|function|666f21ede3017ac8|||||||||||||||
-get_effects|function|3830147c2a09991a|||||||||||||||
+demog_table|stem|6d72d5c2bea64a19|8ad09232ad54ed17|84f0ef7f49ba8c5b|1043754502||t19444.3888337927s|b98f1b6118cbc470|1699|rds|local|vector|||1.245||
+explore_img|stem|3e0e4ae8d621352d|19781483b4442d97|5cf015888829ea9e|834660049||t19446.0788306258s|83a6703191e16cd7|455|rds|local|vector|||41.926|Removed 3185 rows containing nonfinite values stat_smooth.. Removed 3185 rows containing nonfinite values stat_density2d.. Removed 3185 rows containing missing values geom_point.. Removed 3162 rows containing nonfinite values stat_smooth.. Removed 3162 rows containing nonfinite values stat_density2d.. Removed 3162 rows containing missing values geom_point.. Removed 3182 rows containing nonfinite values stat_smooth.. Removed 3182 rows containing nonfinite values stat_density2d.. Removed 3182 rows containing missing values geom_point.. Removed 3159 rows containing nonfinite values stat_smooth.. Removed 3159 rows containing nonfinite values stat_density2d.. Removed 3159 rows containing missing values geom_point.. Removed 3213 rows containing nonfinite values stat_smooth.. Removed 3213 rows containing nonfinite values stat_density2d.. Removed 3213 rows containing missing values geom_point.. Removed 3190 rows containing nonfinite values stat_smooth.. Removed 3190 rows containing nonfinite values stat_density2d.. Removed 3190 rows containing missing values geom_point.. Removed 6341 rows containing nonfinite values stat_smooth.. Removed 6341 rows containing nonfinite values stat_density2d.. Removed 6341 rows containing missing values geom_point.. Removed 6319 rows containing nonfinite values stat_smooth.. Removed 6319 rows containing nonfinite values stat_density2d.. Removed 6319 rows containing missing values geom_point.. Removed 3003 rows containing nonfinite values stat_smooth.. Removed 3003 rows containing nonfinite values stat_density2d.. Removed 3003 rows containing missing values geom_point.. Removed 5825 rows containing nonfinite values stat_smooth.. Removed 5825 rows containing nonfinite values stat_density2d.. Removed 5825 rows containing missing values geom_point.. Removed 2980 rows containing nonfinite values|
 get_effects_RQ1|function|82c99164c9c86353|||||||||||||||
-get_season|function|74020c8a29723133|||||||||||||||
-is_conv|function|e309e5aab6499830|||||||||||||||
-load_packages|function|1e7d4102e4e21191|||||||||||||||
-make_data_holdout|function|09f73d4ff3b13675|||||||||||||||
-make_data_imp|function|da9da915345d258e|||||||||||||||
-make_demog_table|function|5e107ee48db13401|||||||||||||||
-make_explore_img_list|function|06e578dea26c581a|||||||||||||||
-make_lineplot|function|bea57a5262ffafa3|||||||||||||||
-make_model_diagnostics|function|932e41c06c9db34f|||||||||||||||
-make_model_list|function|6ae095cb89d51fd7|||||||||||||||
-make_model_tables|function|d646e73dd71a6256|||||||||||||||
-make_participant_summary|function|11eccf35fe2c6e23|||||||||||||||
-make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
+imputation_checks|stem|398c8e24da5252c1|0a59e3b7ef1dc22a|5cb4b4806086f7fb|467240165|Figures/explore/imps_density.png|t19446.0901501839s|6602910a764474d3|849708|file|local|vector|||6.908|1m22mRemoved 68426 rows containing nonfinite values stat_density.|
 make_RQ1_figure|function|2228720a81557620|||||||||||||||
 make_table1|function|f4396bf35fbf18b0|||||||||||||||
 manuscript|stem|9cd020621106ef38|11d69d4e2c450fe0|aca546fe53e915c3|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19444.4227790409s|99530f9afba5d64d|4291329|file|local|vector|||19.909||
-model_builder|function|f461288ab3384549|||||||||||||||
 model_builder_RQ1|function|b65fc6a5f84b2384|||||||||||||||
 model_diagnostics|stem|278b602490838e43|16f2bff717b09b05|0bc48e55d47bb581|-2086566065||t19444.4217526522s|2a9eeeced103eee2|2877|rds|local|vector|||1.124||
 model_list|stem|5f66e07c53936fc1|6db7489d40b29f93|b2c40597844e5c59|1017651230||t19439.9024537725s|cfc9aea64147c71c|414703641|rds|local|vector|||32.708|convergence code 52 from optimx none. Model failed to converge with maxgrad  0.00270684 tol  0.002, component 1|
-model_list_by_age|stem|378eb6c6627364e4|e108eac12baf4397|c32b9bd7e97a4cd5|-915613210||t19445.4328963813s|8ffe1411f869e8a7|530347077|rds|local|vector|||26.674|Model failed to converge with maxgrad  0.00231459 tol  0.002, component 1. Model failed to converge with maxgrad  0.0217832 tol  0.002, component 1. Model failed to converge with maxgrad  0.0217832 tol  0.002, component 1. Model failed to converge with maxgrad  0.00255552 tol  0.002, component 1|
-model_list_by_age_fixedef|stem|79704e6aa076e581|569ec31a95acc4d6|7e4d42122dec3c3a|-1129600786||t19444.4166211717s|c1faf32f2e4e4f9b|535964566|rds|local|vector|||45.458|Model failed to converge with maxgrad  0.0132685 tol  0.002, component 1. Model failed to converge with maxgrad  0.00335083 tol  0.002, component 1. Model failed to converge with maxgrad  0.00560999 tol  0.002, component 1|
-model_list_by_bmi|stem|7d24d79c5b8acc5f|678437d88e59a187|7e4d42122dec3c3a|-824558834||t19444.4215886476s|b3dc98c3f6dea81d|528626899|rds|local|vector|||23.002|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00626415 tol  0.002, component 1. Model failed to converge with maxgrad  0.00212415 tol  0.002, component 1|
-model_list_by_daylight|stem|69eb9a83aa90bb78|80d7db17d34a0e46|7e4d42122dec3c3a|360411306||t19444.4123508021s|f072d9bcd2bb9880|534344001|rds|local|vector|||26.698|Model failed to converge with maxgrad  0.00227185 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00227304 tol  0.002, component 1|
+model_list_by_age|stem|1050cf97baf7d435|e108eac12baf4397|86310820d677dabe|-915613210||t19446.0861007634s|d6339465876c9c19|1069341857|rds|local|vector|||85.523|Model failed to converge with maxgrad  0.00353474 tol  0.002, component 1|
+model_list_by_bmi|stem|f37cfbf021432e7f|678437d88e59a187|6b7697963487eae4|-824558834||t19446.0945038868s|f1259dbb22603eb5|1072009701|rds|local|vector|||92.773|Model failed to converge with maxgrad  0.00222373 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00248233 tol  0.002, component 1. Model failed to converge with maxgrad  0.00315004 tol  0.002, component 1. Model failed to converge with maxgrad  0.00656801 tol  0.002, component 1. Model failed to converge with maxgrad  0.0212419 tol  0.002, component 1. Model failed to converge with maxgrad  0.013498 tol  0.002, component 1. Model failed to converge with maxgrad  0.013498 tol  0.002, component 1. Model failed to converge with maxgrad  0.00306451 tol  0.002, component 1|
+model_list_by_daylight|stem|49465d7e01393ccc|80d7db17d34a0e46|6b7697963487eae4|360411306||t19446.0828614121s|3daf82082da1794b|1091997539|rds|local|vector|||81.608|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.406318 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00651398 tol  0.002, component 1. Model failed to converge with maxgrad  0.00248269 tol  0.002, component 1. Model failed to converge with maxgrad  0.00221518 tol  0.002, component 1. Model failed to converge with maxgrad  0.00270132 tol  0.002, component 1. Model failed to converge with maxgrad  0.00435374 tol  0.002, component 1|
 model_list_by_mostactivehr|stem|1cb5c3e006b1886d|101908c243ef862c|dbd387339f728117|76621297||t19444.1760108971s|8de557a399b21c6f|561791532|rds|local|vector|||49.039|Model failed to converge with maxgrad  0.0038825 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00877976 tol  0.002, component 1. Model failed to converge with maxgrad  0.0079935 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues|
-model_list_by_pa_mostactivehr|stem|358499e785fa6f90|101908c243ef862c|b2ac3ba086f99a62|96767760||t19444.2318412106s|36e10ba3508c5c61|557315812|rds|local|vector|||62.661|running command timedatectl had status 1. Model failed to converge with maxgrad  0.00474669 tol  0.002, component 1. Model failed to converge with maxgrad  0.002195 tol  0.002, component 1. Model failed to converge with maxgrad  0.00483034 tol  0.002, component 1|
-model_list_by_region|stem|27520894c9855d58|1815cd35a09a125e|7e4d42122dec3c3a|995279799||t19444.4159303154s|986c0e4334acc46f|522630627|rds|local|vector|||43.062|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00277028 tol  0.002, component 1|
-model_list_by_season|stem|d0e47a2cf74d1de7|84482da8e178d550|7e4d42122dec3c3a|181616882||t19444.4208180459s|086694616e4d6677|523129212|rds|local|vector|||35.344|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00714062 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.0485247 tol  0.002, component 1|
-model_list_by_ses|stem|24701b5dc091462e|8be3f470466a969b|7e4d42122dec3c3a|-1525584369||t19444.4189348287s|8cdd31034d5b810c|521833414|rds|local|vector|||29.618|Model failed to converge with maxgrad  0.00240277 tol  0.002, component 1. Model failed to converge with maxgrad  0.0198322 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00982134 tol  0.002, component 1. Model failed to converge with maxgrad  0.00680742 tol  0.002, component 1|
-model_list_by_sex|stem|1f1036875e2669c3|50e272b6522b8db0|7e4d42122dec3c3a|1995444685||t19444.4199582081s|336e7d1ff3f8b7e7|515380971|rds|local|vector|||26.431|Model failed to converge with maxgrad  0.00756143 tol  0.002, component 1. Model failed to converge with maxgrad  0.00214211 tol  0.002, component 1. Model failed to converge with maxgrad  0.00207197 tol  0.002, component 1|
-model_list_by_wear_location|stem|d79c6c6f0a9ef07e|a130be28db522ca1|7e4d42122dec3c3a|1226450260||t19444.4154102923s|7e4b7814348c9bb7|518137900|rds|local|vector|||28.415|Model failed to converge with maxgrad  0.00206077 tol  0.002, component 1. Model failed to converge with maxgrad  0.00246899 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  2.67944 tol  0.002, component 1. Model failed to converge with maxgrad  0.00574211 tol  0.002, component 1|
-model_list_by_weekday|stem|3014cd9419ecc7b0|357a2c555fdcc0ba|7e4d42122dec3c3a|-1936845600||t19444.4138615657s|bfdfb8c3f201b480|542624374|rds|local|vector|||42.747|Model failed to converge with maxgrad  0.00213212 tol  0.002, component 1|
+model_list_by_season|stem|0d23b99cbf5354db|84482da8e178d550|6b7697963487eae4|181616882||t19446.08444706s|fd2e54beb8e733dd|1050167698|rds|local|vector|||109.5|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00215919 tol  0.002, component 1. Model failed to converge with maxgrad  0.0129467 tol  0.002, component 1. Model failed to converge with maxgrad  0.00232729 tol  0.002, component 1. Model failed to converge with maxgrad  0.0024697 tol  0.002, component 1. Model failed to converge with maxgrad  0.00658623 tol  0.002, component 1|
+model_list_by_sex|stem|374fbbe49ebcd594|50e272b6522b8db0|6b7697963487eae4|1995444685||t19446.0731674325s|b3a1c6d771c6d167|1030487204|rds|local|vector|||76.64|Model failed to converge with maxgrad  0.00264107 tol  0.002, component 1. Model failed to converge with maxgrad  0.0347907 tol  0.002, component 1. Model failed to converge with maxgrad  0.00225502 tol  0.002, component 1|
+model_list_by_weekday|stem|0ee8c26ee723c654|357a2c555fdcc0ba|6b7697963487eae4|-1936845600||t19446.070311183s|960b1f6695a3f0ad|1101541499|rds|local|vector|||127.405|Model failed to converge with maxgrad  0.00526951 tol  0.002, component 1. Model failed to converge with maxgrad  0.00263898 tol  0.002, component 1. Model failed to converge with maxgrad  0.00554837 tol  0.002, component 1. Model failed to converge with maxgrad  0.00619797 tol  0.002, component 1. Model failed to converge with maxgrad  0.0213966 tol  0.002, component 1. Model failed to converge with maxgrad  0.0213966 tol  0.002, component 1|
 model_tables|stem|fd281d8fdcdd9977|a68f1f8c4bd87bb7|bc20039ecb025208|76938841||t19439.9027580698s|a2249aa94ab93807|1879|rds|local|vector|||0.056||
-model_tables_age|stem|1652c56f06f01640|70a4a12df67f0886|553a3a3da75a11f8|-1966996765||t19445.4328984646s|22c51b4e29abbe37|1849|rds|local|vector|||0.057||
-model_tables_bmi|stem|23f73b9e762f0d73|0e13846e60e012a2|c7a579317edcae3a|-1022518454||t19444.4217509161s|9ec0e682660a9d20|1757|rds|local|vector|||0.019||
+model_tables_age|stem|6361729102c6e5ce|70a4a12df67f0886|b2a473c568c03610|-1966996765||t19446.0960431226s|720bf3a3502491ff|1903|rds|local|vector|||0.134||
 model_tables_daylight|stem|efb3819d17b48732|58172fd1ce2dfab9|0c376d0e5854c4ff|-1834528480||t19444.4215904995s|a9e52167b9bd8d00|2127|rds|local|vector|||0.019||
 model_tables_fixedef|stem|2b1ae1a395b8e7e8|c6fba9e95f574e6c|2c27d2eae80d257b|500124176||t19444.4184339028s|af1e28a9db55a5ed|1907|rds|local|vector|||0.017||
 model_tables_mostactivehr|stem|224746c7d1a00460|3e0fc7422934bffb|47dfbcc2c3f5530d|-1163088916||t19444.1878052235s|ba616aa09fa5359f|2053|rds|local|vector|||0.031||
 model_tables_pa_mostactivehr|stem|b7d7eb94e9f4879d|358fd90539cf45f4|609efbcbea0bfa68|1491712045||t19444.2434471112s|c69f774be48a4f2c|2008|rds|local|vector|||0.075||
 model_tables_region|stem|5f93c7528210cbea|663744f49fd305e6|e68b399615304bae|818287977||t19444.4222789252s|1899e2fa22b73241|4871|rds|local|vector|||0.025||
-model_tables_season|stem|7314f2c54dc02ffa|3b6487357386de8b|12781519fad7b87c|118806688||t19444.4217514948s|b6ab92301874cb6a|3316|rds|local|vector|||0.022||
 model_tables_ses|stem|7a44ad5d03e8ba81|4541cb5d71812b79|ac539e45e0b472d3|209354029||t19444.4221283465s|a2864713e0447a6e|2029|rds|local|vector|||0.024||
 model_tables_sex|stem|24a87111cf3a1862|bdfa89a0cb88ff73|410f8ece4b6f2bed|688698969||t19444.4222789252s|3caa5a62531c33a4|1781|rds|local|vector|||0.023||
 model_tables_wear_location|stem|e92f2500a4e463d2|476e6423f13570e3|252a98440c522ee9|316138432||t19444.4170477919s|e42beb2c6ab955b0|2316|rds|local|vector|||0.077||
 model_tables_weekday|stem|e1eb481d255e5cda|f99e47b1b676e54a|8b6f8f1c0f649c66|-719477691||t19444.4200764951s|52ab85e1fe3a40ad|4827|rds|local|vector|||0.02||
 multiverse|stem|b40f0402634a514a|1dd45cd582736cf9|6308e45c14d394a9|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19444.4225482539s|a809637b13120685|30091772|file|local|vector|||22.823|LaTeX Warning Float too large for page by 33.98792pt on input line 95.. LaTeX Warning Float too large for page by 33.98792pt on input line 100.. LaTeX Warning Float too large for page by 33.98792pt on input line 245.. LaTeX Warning Float too large for page by 33.98792pt on input line 250.|
-participant_summary|stem|56c52dd09cfafed0|1cd67f58d228e8f2|587f5afe57691717|887218007||t19445.1659451518s|6c957d320146c275|1493515|rds|local|vector|||70.204||
+participant_summary|stem|56c52dd09cfafed0|1cd67f58d228e8f2|41cd529902dd545f|887218007||t19446.0884549295s|6c957d320146c275|1493515|rds|local|vector|||46.791||
 plot_effects_RQ1|function|7816450490b473b4|||||||||||||||
-produce_purdy_pictures|function|aa4d870a037254d5|||||||||||||||
 purdy_pictures|stem|3fe873ceaa51890e|9fe35858b2002667|37dae0e3d008633a|38667698||t19439.9028189495s|a1c456b03adbfbf8|44|rds|local|vector|||12.136||
-purdy_pictures_by_age|stem|3fe873ceaa51890e|15f79003144f8bab|cc2485d08ef6e5f9|1061401147||t19444.4225487169s|a1c456b03adbfbf8|44|rds|local|vector|||12.989||
+purdy_pictures_by_age|stem|3fe873ceaa51890e|15f79003144f8bab|c844c5e3a099c89f|1061401147||t19446.0977568954s|a1c456b03adbfbf8|44|rds|local|vector|||28.952||
 purdy_pictures_by_age_fixedef|stem|3fe873ceaa51890e|7287185b6c2e8f8d|122d4d9280e6b3d7|-1604185041||t19444.4181278844s|a1c456b03adbfbf8|44|rds|local|vector|||21.322||
 purdy_pictures_by_bmi|stem|3fe873ceaa51890e|d5db706708d4289f|ffc990a5aebcc8c4|211149621||t19444.4217510318s|a1c456b03adbfbf8|44|rds|local|vector|||12.664||
-purdy_pictures_by_daylight|stem|3fe873ceaa51890e|60edc95eb7282f3f|344be5d218ec0b3a|149224158||t19444.4129766122s|a1c456b03adbfbf8|44|rds|local|vector|||11.146||
+purdy_pictures_by_daylight|stem|3fe873ceaa51890e|60edc95eb7282f3f|2ab1f9ceefb5a965|149224158||t19446.09519347s|a1c456b03adbfbf8|44|rds|local|vector|||29.068||
 purdy_pictures_by_mostactivehr|stem|3fe873ceaa51890e|9349317fd2d10779|c6ce340c87b58ffd|-2095527765||t19444.24359225s|a1c456b03adbfbf8|44|rds|local|vector|||12.532||
 purdy_pictures_by_region|stem|3fe873ceaa51890e|f6edf6505489e11b|c21078faaa566462|293334721||t19444.4172947826s|a1c456b03adbfbf8|44|rds|local|vector|||12.879||
-purdy_pictures_by_season|stem|3fe873ceaa51890e|bd9a13b7a9ba7e94|2658b7253332a28c|-43591103||t19444.4217372587s|a1c456b03adbfbf8|44|rds|local|vector|||11.512||
+purdy_pictures_by_season|stem|3fe873ceaa51890e|bd9a13b7a9ba7e94|693658f716809193|-43591103||t19446.0958013402s|a1c456b03adbfbf8|44|rds|local|vector|||29.033||
 purdy_pictures_by_ses|stem|3fe873ceaa51890e|9a0c889889742972|7fd7627d16dc9863|1647354395||t19444.4203429302s|a1c456b03adbfbf8|44|rds|local|vector|||11.845||
-purdy_pictures_by_sex|stem|3fe873ceaa51890e|24912b109d775d8c|672879ab8183b4f8|2018758225||t19444.4209528838s|a1c456b03adbfbf8|44|rds|local|vector|||10.09||
+purdy_pictures_by_sex|stem|3fe873ceaa51890e|24912b109d775d8c|db74562c76baf30c|2018758225||t19446.0810595606s|a1c456b03adbfbf8|44|rds|local|vector|||31.023||
 purdy_pictures_by_wear_location|stem|3fe873ceaa51890e|08f9ee3acf639261|0dfda5186f93118e|-1344108889||t19444.4172951298s|a1c456b03adbfbf8|44|rds|local|vector|||10.907||
-purdy_pictures_by_weekday|stem|3fe873ceaa51890e|94395109b3cedf6d|8c2d8c801e5edfb5|-646575597||t19444.4217377217s|a1c456b03adbfbf8|44|rds|local|vector|||13.542||
 region_lookup|stem|e660b861902e00fa|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19443.9298806196s|7430ee2468db0f5f|385|rds|local|vector|||0.005||
-remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
-remove_outliers|function|0b278c1b9ab8a584|||||||||||||||
-repository|object|513b62a0fe6e0dae|||||||||||||||
 RQ1_figure|stem|3fe873ceaa51890e|33943fc4e575990c|60f213fcf117e4bc|434240020||t19384.2121638271s|a1c456b03adbfbf8|44|rds|local|vector|||11.257||
 table_1|stem|5277cc8234898634|6208a06e81a8eb0a|738d7fa5cdb58df3|-1353748333||t19439.9015154434s|4609f13c2cfe01b8|162016845|rds|local|vector|||132.084||
+purdy_pictures_by_weekday|stem|3fe873ceaa51890e|94395109b3cedf6d|71449ee631b1d21b|-646575597||t19446.0987472887s|a1c456b03adbfbf8|44|rds|local|vector|||32.769||
+model_tables_bmi|stem|2220cee0f444f583|0e13846e60e012a2|6a8afea70cb3894b|-1022518454||t19446.0991358303s|b86a1aa0b04e6c84|1840|rds|local|vector|||0.061||
+model_tables_season|stem|8c9fee76bd076893|3b6487357386de8b|1e5ffaaf67ccbca5|118806688||t19446.0994845571s|cb98137c471f4dcc|3345|rds|local|vector|||0.019||
+model_list_by_pa_mostactivehr|stem|a6a365b69bfd101d|101908c243ef862c|6b7697963487eae4|96767760||t19446.1016732141s|7ccfc236aadd23f7|1094753251|rds|local|vector|||84.647|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00721033 tol  0.002, component 1. Model failed to converge with maxgrad  0.00456934 tol  0.002, component 1. Model failed to converge with maxgrad  0.00230104 tol  0.002, component 1. Model failed to converge with maxgrad  0.0045841 tol  0.002, component 1. Model failed to converge with maxgrad  0.0656301 tol  0.002, component 1. Model failed to converge with maxgrad  0.00451063 tol  0.002, component 1. Model failed to converge with maxgrad  0.00657724 tol  0.002, component 1. Model failed to converge with maxgrad  0.00637245 tol  0.002, component 1|
+model_list_by_wear_location|stem|04f1485f6c8b5db4|a130be28db522ca1|6b7697963487eae4|1226450260||t19446.1068903345s|7364f85e938fc853|1035023941|rds|local|vector|||82.498|Model failed to converge with maxgrad  0.763501 tol  0.002, component 1. Model failed to converge with maxgrad  0.00221701 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00371844 tol  0.002, component 1. Model failed to converge with maxgrad  0.00298783 tol  0.002, component 1. Model failed to converge with maxgrad  0.0495421 tol  0.002, component 1. Model failed to converge with maxgrad  0.00450257 tol  0.002, component 1. Model failed to converge with maxgrad  0.00271446 tol  0.002, component 1|
+model_list_by_age_fixedef|stem|2cceaa7b58d524f0|569ec31a95acc4d6|6b7697963487eae4|-1129600786||t19446.1085195008s|22f0da4fe3244d19|1092304236|rds|local|vector|||129.895|Model failed to converge with maxgrad  0.0113338 tol  0.002, component 1|
+model_list_by_region|stem|2a4a8f6856fe5ac8|1815cd35a09a125e|6b7697963487eae4|995279799||t19446.1101912597s|518d74e7d26c05dc|1046592031|rds|local|vector|||134.971|unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.00463245 tol  0.002, component 1. Model failed to converge with maxgrad  0.00349862 tol  0.002, component 1. Model failed to converge with maxgrad  0.00200037 tol  0.002, component 1. Model failed to converge with maxgrad  0.0271407 tol  0.002, component 1. Model failed to converge with maxgrad  0.00406373 tol  0.002, component 1. Model failed to converge with maxgrad  0.0112828 tol  0.002, component 1. Model failed to converge with maxgrad  0.00351177 tol  0.002, component 1. Model failed to converge with maxgrad  0.00256418 tol  0.002, component 1|
+model_list_by_ses|stem|df77a7fe52516d40|8be3f470466a969b|6b7697963487eae4|-1525584369||t19446.1116139447s|268a68e1709d1654|1046676008|rds|local|vector|||89.444|Model failed to converge with maxgrad  0.00293901 tol  0.002, component 1. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. unable to evaluate scaled gradient. Model failed to converge degenerate  Hessian with 1 negative eigenvalues. Model failed to converge with maxgrad  0.0990636 tol  0.002, component 1. Model failed to converge with maxgrad  0.0990636 tol  0.002, component 1. Model failed to converge with maxgrad  0.00541682 tol  0.002, component 1. Model failed to converge with maxgrad  0.0149251 tol  0.002, component 1|
+figure_theme|function|4639cba3c8822485|||||||||||||||
 update_latlong|function|4bc2e03c10c51b22|||||||||||||||
+remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
+make_data_holdout|function|09f73d4ff3b13675|||||||||||||||
+is_conv|function|e309e5aab6499830|||||||||||||||
+repository|object|513b62a0fe6e0dae|||||||||||||||
+format|object|962a3be0ac50c5ee|||||||||||||||
+apa_style|function|7f874036fb9dd45b|||||||||||||||
+find_max|function|179e3e7afa23c076|||||||||||||||
+get_season|function|74020c8a29723133|||||||||||||||
+make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
+create_distinct|function|feef06749c984f86|||||||||||||||
+load_packages|function|1e7d4102e4e21191|||||||||||||||
+make_data_imp|function|8ac5e5659bf62d26|||||||||||||||
+check_imps|function|7749740969325a22|||||||||||||||
+check_resids|function|5190a0f448ef7334|||||||||||||||
+format_table|function|666f21ede3017ac8|||||||||||||||
+fetch_data|function|389653ddff62e0df|||||||||||||||
+get_effects|function|3830147c2a09991a|||||||||||||||
+make_lineplot|function|bea57a5262ffafa3|||||||||||||||
+remove_outliers|function|0b278c1b9ab8a584|||||||||||||||
+fit_model|function|ca66a5ec22fca31e|||||||||||||||
+make_demog_table|function|5e107ee48db13401|||||||||||||||
+make_participant_summary|function|11eccf35fe2c6e23|||||||||||||||
+check_model|function|cc6fbf89dd7a823d|||||||||||||||
+make_model_tables|function|d646e73dd71a6256|||||||||||||||
+produce_purdy_pictures|function|aa4d870a037254d5|||||||||||||||
+make_explore_img_list|function|06e578dea26c581a|||||||||||||||
+clean_data|function|3e6bfc974dc7a338|||||||||||||||
+model_builder|function|f461288ab3384549|||||||||||||||
+make_model_diagnostics|function|932e41c06c9db34f|||||||||||||||
+make_model_list|function|6ae095cb89d51fd7|||||||||||||||
+figure_theme|function|4639cba3c8822485
+update_latlong|function|4bc2e03c10c51b22
+remove_outlier|function|6c52d8e5e8fccc9a
+make_data_holdout|function|09f73d4ff3b13675
+is_conv|function|e309e5aab6499830
+repository|object|513b62a0fe6e0dae
+format|object|962a3be0ac50c5ee
+apa_style|function|7f874036fb9dd45b
+find_max|function|179e3e7afa23c076
+get_season|function|74020c8a29723133
+make_region_lookup|function|c02f4dd678dc6e99
+create_distinct|function|feef06749c984f86
+load_packages|function|1e7d4102e4e21191
+make_data_imp|function|8ac5e5659bf62d26
+check_imps|function|7749740969325a22
+check_resids|function|5190a0f448ef7334
+format_table|function|666f21ede3017ac8
+fetch_data|function|389653ddff62e0df
+get_effects|function|3830147c2a09991a
+make_lineplot|function|bea57a5262ffafa3
+remove_outliers|function|0b278c1b9ab8a584
+fit_model|function|ca66a5ec22fca31e
+make_demog_table|function|5e107ee48db13401
+make_participant_summary|function|11eccf35fe2c6e23
+check_model|function|cc6fbf89dd7a823d
+make_model_tables|function|d646e73dd71a6256
+produce_purdy_pictures|function|aa4d870a037254d5
+make_explore_img_list|function|06e578dea26c581a
+clean_data|function|3e6bfc974dc7a338
+model_builder|function|f461288ab3384549
+make_model_diagnostics|function|932e41c06c9db34f
+make_model_list|function|6ae095cb89d51fd7

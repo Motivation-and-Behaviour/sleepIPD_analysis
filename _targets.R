@@ -49,7 +49,10 @@ list(
     data_imp, make_data_imp(data_holdout, n_imps = 3), deployment = "main",
     format = format, repository = repository
     ),
-  tar_target(imputation_checks, check_imps(data_imp), format = "file"),
+  tar_target(imputation_checks, check_imps(data_imp),
+    format = "file",
+    priority = 1
+  ),
 
   #################################################################
   ##                          MODELLING                          ##
@@ -185,7 +188,7 @@ list(
     produce_purdy_pictures(model_list_by_wear_location)
   ),
   tar_target(
-    purdy_pictures_by_mostactivehr,
+    purdy_pictures_by_pa_mostactivehr,
     produce_purdy_pictures(model_list_by_pa_mostactivehr)
   ),
 
@@ -246,7 +249,7 @@ list(
       model_list_by_daylight,
       model_list_by_wear_location,
       model_list_by_pa_mostactivehr
-    )
+    ), deployment = "main"
   ),
 
   ### Produce supplementary material

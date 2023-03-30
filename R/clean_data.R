@@ -33,9 +33,9 @@ clean_data <- function(data_joined, region_lookup) {
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
       -dupes,
-      measurementday, pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
-      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-      sleep_wakeup_time, sleep_regularity
+      measurementday, pa_volume, pa_intensity, pa_intensity_m16,
+      pa_mostactivehr, sleep_duration, sleep_efficiency, sleep_onset,
+      sleep_wakeup, sleep_onset_time, sleep_wakeup_time, sleep_regularity
     ) %>%
     # convert numeric variables to numeric
     mutate(across(c(
@@ -94,9 +94,9 @@ clean_data <- function(data_joined, region_lookup) {
       # remove implausible heights
       height = ifelse(height > 30, height, NA),
       # also calculate bmi
-      bmi <- weight / ((height / 100)^2)
+      bmi = weight / ((height / 100)^2)
     ) %>%
-    select(-measurementday, -sleep_onset_time, -sleep_wakeup_time)
+    select(-measurementday, -sleep_onset_time, -sleep_wakeup_time) %>%
   # Fix up the most active time
   mutate(
     pa_mostactivehr =
