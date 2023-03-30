@@ -123,7 +123,7 @@ papaja::apa_table(
 )
 ```
 
-```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on Physical activity volume"}
+```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right shows the same relationships but by age continuously. These plots demonstrate exact turning points where the effects of PA volume change by age."}
 knitr::include_graphics(here::here("Figures/sleep on pa_volume by Age.jpg"), error = FALSE)
 ```
 
