@@ -1,33 +1,14 @@
 #' produce_purdy_pictures
-#' @param model_list list of RQ1 models
+#' @param model_list model_list
+#' @param paste_facet_labels character. String to paste to facet labels
+#' @param add_filename character. String to add to end of filenames
 #' @example  model_list <- model_list_by_daylight
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
 
 produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_filename = ""){
   dat_list <- lapply(seq_len(length(model_list)), function(i){
-
-    m <- model_list[[i]]
-    terms <- attr(m, "terms")
-    conv <- attr(m$pooled_model, "conv")
-    conv_print <- paste0( papaja::print_num((1 -conv) * 100), "%")
-
-    dt <- data.table(get_effects(m, terms = terms))
-    dt$x_name = terms[1]
-    dt$group_name = terms[2]
-    dt$outcome = gsub(" .*","",names(model_list)[[i]])
-    dt$RQ <- attr(m, "RQ")
-    dt$moderator <- attr(m, "moderator")
-    dt$conv_p <- conv
-    if(conv < .75){
-      # dt[,c("predicted","conf.low","conf.high")] <- NA
-      dt$message <- as.character(glue::glue("DID NOT CONVERGE ({conv_print})"))
-    }else{
-      dt$message <- " "
-    }
-    attr(dt, "conv") <- conv
-    dt
-
+    model_list[[i]]$model_assets$effects
   })
 
   plot_dat <- data.table::rbindlist(dat_list)

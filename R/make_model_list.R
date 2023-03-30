@@ -8,7 +8,6 @@
 #' @author conig
 #' @export
 make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65", control_vars = c("ses", "sex", "bmi"), ranef  = "(1|studyid) + (1|participant_id)") {
-
   sleep_vars <- c("scale_sleep_duration",
                     "scale_sleep_efficiency",
                     "scale_sleep_onset",
@@ -41,22 +40,27 @@ make_model_list <- function(data_imp, moderator = "age", moderator_term = "11, 1
   instructions$model_name <- with(instructions, glue::glue("{outcome} by {gsub(' .*', '', predictors)}"))
 
   out <- lapply(
-    seq_len(length(instructions[,1])),
+    seq_len(length(instructions[, 1])),
     FUN = function(i) {
-    model <-  model_builder(
+      model <-  model_builder(
         data_imp,
         outcome = instructions[i, "outcome"],
         predictors = instructions[i, "predictors"],
+        moderator = moderator,
         control_vars = control_vars,
         table_only = FALSE,
-        ranef = ranef
+        ranef = ranef,
+        terms = c(
+          paste0(gsub(" .*", "" , instructions[i, "predictors"]), "[-4:4 by = 0.1]"),
+          glue::glue("{moderator} [{moderator_term}]")
+        ),
+        RQ = instructions[i, "RQ"]
       )
 
-    attr(model, "terms") <- c(paste0(gsub(" .*", "" ,instructions[i, "predictors"]), "[-4:4 by = 0.1]"), glue::glue("{moderator} [{moderator_term}]"))
-    attr(model, "RQ") <- instructions[i , "RQ"]
-    attr(model, "moderator") <- moderator
-    model
+      attr(model, "RQ") <- instructions[i , "RQ"]
+      attr(model, "moderator") <- moderator
 
+      model
     }
   )
 
