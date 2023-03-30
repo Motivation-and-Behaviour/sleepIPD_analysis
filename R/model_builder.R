@@ -136,6 +136,22 @@ model_builder <-
       return(tabby)
     }
 
+
+
+    if(moderator == "age"){
+      predictor_term <- terms[1]
+      predictor_term <- gsub("\\[.*","",predictor_term)
+      predictor_term <- paste0(predictor_term,"[-4:4 by=0.1]")
+      pred_mat <- get_effects(m,
+                  moderator = "age",
+                  terms = c(predictor_term, "age[10:80 by = 1]"),
+                  outcome = outcome,
+                  conv = conv_p,
+                  RQ = RQ)
+    }else{
+      pred_mat = NULL
+    }
+
     # Model_assets
     model_assets <- list(effects = get_effects(
       m,
@@ -146,7 +162,8 @@ model_builder <-
       RQ = RQ
     ),
     conv = conv_p,
-    diagnostics = check_model(m, conv = conv_p))
+    diagnostics = check_model(m, conv = conv_p),
+    pred_matrix = pred_mat)
 
     list(
       model_assets = model_assets,
