@@ -32,10 +32,10 @@ clean_data <- function(data_joined, region_lookup) {
     # remove all the ggir data execpt the columns that we're using
     select(
       -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      -dupes, 
-      measurementday, pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
-      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-      sleep_wakeup_time, sleep_regularity
+      -dupes,
+      measurementday, pa_volume, pa_intensity, pa_intensity_m16,
+      pa_mostactivehr, sleep_duration, sleep_efficiency, sleep_onset,
+      sleep_wakeup, sleep_onset_time, sleep_wakeup_time, sleep_regularity
     ) %>%
     # convert numeric variables to numeric
     mutate(across(c(
@@ -65,10 +65,6 @@ clean_data <- function(data_joined, region_lookup) {
           sleep_regularity
         ),
         ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
-      ),
-      across(
-        c(sleep_onset_time, sleep_wakeup_time),
-        ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_character_, .x)
       )
     ) %>%
     # Filter for OK data
@@ -98,17 +94,15 @@ clean_data <- function(data_joined, region_lookup) {
       # remove implausible heights
       height = ifelse(height > 30, height, NA),
       # also calculate bmi
-      bmi = weight / ((height / 100)^2),
-      sleep_onset_time = chron(times = sleep_onset_time),
-      sleep_wakeup_time = chron(times = sleep_wakeup_time)
+      bmi = weight / ((height / 100)^2)
     ) %>%
-    select(-measurementday) %>%
-    # Fix up the most active time
-    mutate(
-      pa_mostactivehr =
-        lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
-          lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
-    )
+    select(-measurementday, -sleep_onset_time, -sleep_wakeup_time) %>%
+  # Fix up the most active time
+  mutate(
+    pa_mostactivehr =
+      lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+        lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+  )
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
@@ -277,8 +271,8 @@ clean_data <- function(data_joined, region_lookup) {
     group_by(studyid, filename) %>%
     mutate(across(
       c(
-        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_onset_time,
-        sleep_wakeup_time, sleep_regularity, sleep_duration
+        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity,
+        sleep_duration
       ),
       ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
       .names = "{.col}_lag"

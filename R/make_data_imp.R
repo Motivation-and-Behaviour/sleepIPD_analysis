@@ -21,11 +21,10 @@ make_data_imp <- function(data, n_imps = 3) {
   m0 <- mice(imp_data, maxit = 0)
 
   # Don't do imputation based on these vars:
-
   dont_imp <- c("filename", "calendar_date")
   dont_use <- c(
     "age_cat", "studyid", "participant_id", "country", "region",
-    "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16", 
+    "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16",
     "pa_mostactivehr", "weekday_x"
   )
   # Don't imp some vars, and disable some as predictors
@@ -45,14 +44,10 @@ make_data_imp <- function(data, n_imps = 3) {
       "sleep_efficiency",
       "sleep_onset",
       "sleep_wakeup",
-      "sleep_onset_time",
-      "sleep_wakeup_time",
       "sleep_regularity",
       "sleep_efficiency_lag",
       "sleep_onset_lag",
       "sleep_wakeup_lag",
-      "sleep_onset_time_lag",
-      "sleep_wakeup_time_lag",
       "sleep_regularity_lag",
       "sleep_duration_lag"
     )
@@ -61,21 +56,46 @@ make_data_imp <- function(data, n_imps = 3) {
   pred["sex",] <- 0
   pred["sex", c("age","bmi","pa_intensity","screen_time","sleep_regularity")] <- 1
   pred[c(participant_cont, participant_invar, "sex"), "participant_id"] <- -2L
-  meth[c(participant_cont)] <- "2l.norm"
+  meth[c(participant_cont)] <- "2l.pmm"
   meth[c(participant_invar)] <- "2lonly.pmm"
   meth["sex"] <- "2lonly.pmm"
 
   # Run imps with better settings
   future_cores <- min(parallel::detectCores() - 1, n_imps)
 
-  imps <-
-    futuremice(
-      imp_data,
+  dist.core <- cut(1:n_imps, future_cores, labels = paste0("core", 1:future_cores))
+  n.imp.core <- as.vector(table(dist.core))
+
+  future::plan("multisession",
+    workers = future_cores
+  )
+
+  imps <- furrr::future_map(n.imp.core, function(x) {
+    mice(
+      data = imp_data,
       m = n_imps,
       predictorMatrix = pred,
       method = meth,
-      n.core = future_cores
+      printFlag = FALSE,
+      seed = NA
     )
+  },
+  .options = furrr::furrr_options(seed = TRUE, packages = c("mice", "miceadds"))
+  )
+
+  future::plan(future::sequential)
+
+  # postprocess clustered imputation into a mids object
+  imp <- imps[[1]]
+  if (length(imps) > 1) {
+    for (i in 2:length(imps)) {
+      imp <- ibind(imp, imps[[i]])
+    }
+  }
+  # let imputation matrix correspond to grand m
+  for (i in 1:length(imp$imp)) {
+    colnames(imp$imp[[i]]) <- 1:imp$m
+  }
 
   # include_scale_variables
   sleep_vars <- c(
@@ -96,7 +116,7 @@ make_data_imp <- function(data, n_imps = 3) {
 
   scale_names <- paste0("scale_", variables_to_scale)
 
-  imp_list <- data.table(complete(imps, action = "long", include = TRUE))
+  imp_list <- data.table(complete(imp, action = "long", include = TRUE))
 
   for (v in seq_along(variables_to_scale)) {
     imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
