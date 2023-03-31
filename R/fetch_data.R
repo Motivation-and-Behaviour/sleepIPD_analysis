@@ -34,7 +34,7 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                        ),
                        shared = FALSE) {
   require(cloudstoR)
-  message("Remember to first connect to the VPN. Sometimes you first need to log into cloudstor to warm up the API")
+
   if(shared){
     base_folder <- paste0("Shared/", base_folder)
   message(base_folder)
