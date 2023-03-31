@@ -70,7 +70,11 @@ clean_data <- function(data_joined, region_lookup) {
     # Filter for OK data
     # Decision rules for this
     mutate(eligible = (n_valid_hours > 10) &
-      (is.na(sleep_duration) | sleep_duration > 200)) %>%
+      (is.na(sleep_duration) | sleep_duration > 200) &
+      # Must have either some PA data, or some sleep data
+      ((!is.na(pa_volume) | !is.na(pa_intensity)) |
+        (!is.na(sleep_duration) | !is.na(sleep_efficiency) |
+          !is.na(sleep_onset) | !is.na(sleep_regularity)))) %>%
     remove_outliers(ignore_cols = c("age")) %>%
     # recalculate measurement day by getting the minimum
     # date for each person
@@ -97,12 +101,12 @@ clean_data <- function(data_joined, region_lookup) {
       bmi = weight / ((height / 100)^2)
     ) %>%
     select(-measurementday, -sleep_onset_time, -sleep_wakeup_time) %>%
-  # Fix up the most active time
-  mutate(
-    pa_mostactivehr =
-      lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
-        lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
-  )
+    # Fix up the most active time
+    mutate(
+      pa_mostactivehr =
+        lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+          lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+    )
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
