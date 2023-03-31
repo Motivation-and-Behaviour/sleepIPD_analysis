@@ -101,7 +101,7 @@ make_participant_summary|function|11eccf35fe2c6e23|||||||||||||||
 make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
 make_RQ1_figure|function|2228720a81557620|||||||||||||||
 make_table1|function|f4396bf35fbf18b0|||||||||||||||
-manuscript|stem|8021f5ab530b117a|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9979411098s|581d40919662d160|16958941|file|local|vector|||5.81||
+manuscript|stem|2387b94e8f05f30c|11d69d4e2c450fe0|2f08b20c29dfc95e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19446.9998229522s|12e2f4dce34c4af3|17029491|file|local|vector|||5.97||
 model|object|3b74cf8ca2e36534|||||||||||||||
 model_assets|object|b9e10a1baf78fa2a|||||||||||||||
 model_builder|function|8be422f87664cf1a|||||||||||||||
@@ -143,20 +143,20 @@ plot_effects_RQ1|function|7816450490b473b4|||||||||||||||
 pool_summary|object|6546db997b70b6f3|||||||||||||||
 predictors|object|6a20361b44069499|||||||||||||||
 prepare_plot_data|function|1b34e1b49c454e45|||||||||||||||
-produce_purdy_pictures|function|c63288e9d2ad059b|||||||||||||||
+produce_purdy_pictures|function|53090e744e6aa43a|||||||||||||||
 purdy_pictures|stem|3fe873ceaa51890e|9fe35858b2002667|37dae0e3d008633a|38667698||t19439.9028189495s|a1c456b03adbfbf8|44|rds|local|vector|||12.136||
-purdy_pictures_by_age|stem|15d7f6b08f6e9a66|15f79003144f8bab|71c417c14c68198c|1061401147||t19446.9978547183s|a1c456b03adbfbf8|44|rds|local|vector|||3.14||
-purdy_pictures_by_age_fixedef|stem|15d7f6b08f6e9a66|7287185b6c2e8f8d|e4fe22c6cf644b3c|-1604185041||t19446.9980168682s|a1c456b03adbfbf8|44|rds|local|vector|||3.09||
-purdy_pictures_by_bmi|stem|15d7f6b08f6e9a66|d5db706708d4289f|d8d92e9a52e02570|211149621||t19446.9978706562s|a1c456b03adbfbf8|44|rds|local|vector|||1.38||
-purdy_pictures_by_daylight|stem|15d7f6b08f6e9a66|60edc95eb7282f3f|647a2f20d4106493|149224158||t19446.9977576146s|a1c456b03adbfbf8|44|rds|local|vector|||1.5||
+purdy_pictures_by_age|stem|15d7f6b08f6e9a66|15f79003144f8bab|7d73bd73c51d180d|1061401147||t19446.9997513779s|a1c456b03adbfbf8|44|rds|local|vector|||4.6||
+purdy_pictures_by_age_fixedef|stem|15d7f6b08f6e9a66|7287185b6c2e8f8d|4a431899692832ef|-1604185041||t19446.9998238835s|a1c456b03adbfbf8|44|rds|local|vector|||4.39||
+purdy_pictures_by_bmi|stem|15d7f6b08f6e9a66|d5db706708d4289f|dc83beb3b2dec7f6|211149621||t19446.9997295313s|a1c456b03adbfbf8|44|rds|local|vector|||2.81||
+purdy_pictures_by_daylight|stem|15d7f6b08f6e9a66|60edc95eb7282f3f|d152abc790adfd96|149224158||t19446.999726862s|a1c456b03adbfbf8|44|rds|local|vector|||2.88||
 purdy_pictures_by_mostactivehr|stem|3fe873ceaa51890e|9349317fd2d10779|c6ce340c87b58ffd|-2095527765||t19444.24359225s|a1c456b03adbfbf8|44|rds|local|vector|||12.532||
-purdy_pictures_by_pa_mostactivehr|stem|15d7f6b08f6e9a66|9349317fd2d10779|f6f189bd06b8476a|-1643215156||t19446.9979584533s|a1c456b03adbfbf8|44|rds|local|vector|||1.43||
-purdy_pictures_by_region|stem|15d7f6b08f6e9a66|f6edf6505489e11b|5711a937ae4422ca|293334721||t19446.9979802266s|a1c456b03adbfbf8|44|rds|local|vector|||1.86|1m22mRemoved 9 rows containing missing values geom_line.|
-purdy_pictures_by_season|stem|15d7f6b08f6e9a66|bd9a13b7a9ba7e94|675823b9b1b97643|-43591103||t19446.9977742861s|a1c456b03adbfbf8|44|rds|local|vector|||1.42||
-purdy_pictures_by_ses|stem|15d7f6b08f6e9a66|9a0c889889742972|ae6c71d58b4a603c|1647354395||t19446.9981086046s|a1c456b03adbfbf8|44|rds|local|vector|||1.13||
-purdy_pictures_by_sex|stem|15d7f6b08f6e9a66|24912b109d775d8c|3c790f82e1ef4819|2018758225||t19446.9977400206s|a1c456b03adbfbf8|44|rds|local|vector|||1.12||
-purdy_pictures_by_wear_location|stem|15d7f6b08f6e9a66|08f9ee3acf639261|4b07f6d5d30c3fad|-1344108889||t19446.9978163707s|a1c456b03adbfbf8|44|rds|local|vector|||1.14||
-purdy_pictures_by_weekday|stem|15d7f6b08f6e9a66|94395109b3cedf6d|cc6f6e6c858cd76f|-646575597||t19446.997802818s|a1c456b03adbfbf8|44|rds|local|vector|||2.46||
+purdy_pictures_by_pa_mostactivehr|stem|15d7f6b08f6e9a66|9349317fd2d10779|df4cfc37d42cb300|-1643215156||t19446.9997293695s|a1c456b03adbfbf8|44|rds|local|vector|||2.72||
+purdy_pictures_by_region|stem|15d7f6b08f6e9a66|f6edf6505489e11b|777899dbbedd2b50|293334721||t19446.9997359063s|a1c456b03adbfbf8|44|rds|local|vector|||3.31|Removed 9 rows containing missing values geom_line.|
+purdy_pictures_by_season|stem|15d7f6b08f6e9a66|bd9a13b7a9ba7e94|d91b32accb0b3273|-43591103||t19446.9997260388s|a1c456b03adbfbf8|44|rds|local|vector|||2.78||
+purdy_pictures_by_ses|stem|15d7f6b08f6e9a66|9a0c889889742972|fb0c6a7e82032eb6|1647354395||t19446.9997283759s|a1c456b03adbfbf8|44|rds|local|vector|||2.31||
+purdy_pictures_by_sex|stem|15d7f6b08f6e9a66|24912b109d775d8c|38db8c766222db0d|2018758225||t19446.9997170587s|a1c456b03adbfbf8|44|rds|local|vector|||2.14||
+purdy_pictures_by_wear_location|stem|15d7f6b08f6e9a66|08f9ee3acf639261|32e082fac6576faf|-1344108889||t19446.999720484s|a1c456b03adbfbf8|44|rds|local|vector|||2.19||
+purdy_pictures_by_weekday|stem|15d7f6b08f6e9a66|94395109b3cedf6d|c8db9b5e770d6d6c|-646575597||t19446.9997365995s|a1c456b03adbfbf8|44|rds|local|vector|||3.69||
 ranef|object|6a38e8ba56921122|||||||||||||||
 region_lookup|stem|84bf607dd7a49a54|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19446.3718473205s|7430ee2468db0f5f|385|rds|local|vector|||0.05||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||

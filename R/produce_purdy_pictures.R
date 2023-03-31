@@ -85,7 +85,7 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
         scale_y_continuous(n.breaks = 5) + labs(y = "Age", x = predictor, fill = "predicted") +
         geom_tile() +
         figure_theme()
-      fig <- plot_grid(fig, fig2, rel_widths  = c(1, .66))
+      fig <- plot_grid(fig, fig2, rel_widths  = c(1, .72))
       width = 3.25 * length(unique(pdat$group)) + 4.5
       dpi = 600
     }else{
