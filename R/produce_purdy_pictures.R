@@ -4,9 +4,12 @@
 #' @param add_filename character. String to add to end of filenames
 #' @example  model_list <- model_list_by_age
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
-#' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
+#' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge # nolint
 
-produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_filename = "") {
+produce_purdy_pictures <- function(
+    model_list,
+    paste_facet_labels = "", add_filename = "") {
+
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
     model_list[[i]]$model_assets$effects
   })

@@ -33,10 +33,11 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[names(meth) %in% dont_imp] <- ""
   pred[, colnames(pred) %in% c(dont_use, dont_imp)] <- 0
 
-  participant_invar <- c("age","weight","height","bmi")
+  participant_invar <- c("age", "weight", "height", "bmi")
 
   participant_cont <-
-    c("pa_volume",
+    c(
+      "pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
       "pa_mostactivehr",
@@ -53,8 +54,11 @@ make_data_imp <- function(data, n_imps = 3) {
     )
 
   # Multi-level imputation, consider correlations within participant
-  pred["sex",] <- 0
-  pred["sex", c("age","bmi","pa_intensity","screen_time","sleep_regularity")] <- 1
+  pred["sex", ] <- 0
+  pred[
+    "sex",
+    c("age", "bmi", "pa_intensity", "screen_time", "sleep_regularity")
+  ] <- 1
   pred[c(participant_cont, participant_invar, "sex"), "participant_id"] <- -2L
   meth[c(participant_cont)] <- "2l.pmm"
   meth[c(participant_invar)] <- "2lonly.pmm"
@@ -63,14 +67,16 @@ make_data_imp <- function(data, n_imps = 3) {
   # Run imps with better settings
   future_cores <- min(parallel::detectCores() - 1, n_imps)
 
-  dist.core <- cut(1:n_imps, future_cores, labels = paste0("core", 1:future_cores))
-  n.imp.core <- as.vector(table(dist.core))
+  dist_core <- cut(1:n_imps, future_cores,
+    labels = paste0("core", 1:future_cores)
+  )
+  n_imp_core <- as.vector(table(dist_core))
 
   future::plan("multisession",
     workers = future_cores
   )
 
-  imps <- furrr::future_map(n.imp.core, function(x) {
+  imps <- furrr::future_map(n_imp_core, function(x) {
     mice(
       data = imp_data,
       m = n_imps,
@@ -93,11 +99,17 @@ make_data_imp <- function(data, n_imps = 3) {
     }
   }
   # let imputation matrix correspond to grand m
-  for (i in 1:length(imp$imp)) {
+  for (i in seq_along(imp$imp)) {
     colnames(imp$imp[[i]]) <- 1:imp$m
   }
 
-  # include_scale_variables
+ imp
+
+}
+
+format_imp_vars <- function(data_imp_raw){
+require(mice)
+   # include data transformations
   sleep_vars <- c(
     "sleep_duration",
     "sleep_efficiency",
@@ -105,8 +117,9 @@ make_data_imp <- function(data, n_imps = 3) {
     "sleep_regularity"
   )
 
-  variables_to_scale <-
+  var_to_transf <-
     c(
+      "pa_volume", # For log transform
       sleep_vars,
       "pa_volume",
       "pa_intensity",
@@ -114,13 +127,17 @@ make_data_imp <- function(data, n_imps = 3) {
       paste0(sleep_vars, "_lag")
     )
 
-  scale_names <- paste0("scale_", variables_to_scale)
+  new_name <- c("log_pa_volume", paste0("scale_", var_to_transf[-1]))
+  transf_fn <- gsub("_.*", "", new_name)
 
-  imp_list <- data.table(complete(imp, action = "long", include = TRUE))
+  imp_list <- data.table(complete(data_imp_raw, action = "long",
+   include = TRUE))
 
-  for (v in seq_along(variables_to_scale)) {
-    imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
+  for (v in seq_along(var_to_transf)) {
+    transf_pattern <- "{new_name[v]} := {transf_fn[v]}({var_to_transf[v]})"
+    imp_list[, eval(parse(text = glue::glue(transf_pattern))), by = ".imp"]
   }
 
   as.mids(imp_list)
+
 }

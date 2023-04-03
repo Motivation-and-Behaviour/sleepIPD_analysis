@@ -46,9 +46,10 @@ list(
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(
-    data_imp, make_data_imp(data_holdout, n_imps = 3), deployment = "main",
+    data_imp_raw, make_data_imp(data_holdout, n_imps = 3), deployment = "main",
     format = format, repository = repository
     ),
+  tar_target(data_imp, format_imp_vars(data_imp_raw)),
   tar_target(imputation_checks, check_imps(data_imp),
     format = "file",
     priority = 1
@@ -60,7 +61,8 @@ list(
 
   tar_target(
     model_list_by_age,
-    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
+    make_model_list(data_imp, moderator = "age",
+    moderator_term = "11, 18, 35, 65")
   ),
   tar_target(
     model_list_by_bmi,

@@ -1,4 +1,4 @@
-is_conv <- function(x) performance::check_convergence(x) & !performance::check_singularity(x)
+is_conv <- function(x) performance::check_convergence(x) & !performance::check_singularity(x) # nolint
 
 #' fit_model
 #'
@@ -14,28 +14,36 @@ fit_model <- function(..., data, max_iter = 1e6) {
   conv <- FALSE
   exhausted <- FALSE
   i <- 1
-  meth.tab <- lme4:::meth.tab.0
-  meth.tab <- cbind(meth.tab, maxit_name = c("maxfun", "maxfun", "maxit", "maxfeval", "maxit", "maxeval", "maxeval"))
-  meth.tab <- meth.tab[sample(seq_len(nrow(meth.tab)), nrow(meth.tab), replace = FALSE), ]
+  meth_tab <- lme4:::meth.tab.0
+  meth_tab <- cbind(meth_tab,
+    maxit_name = c(
+      "maxfun", "maxfun", "maxit",
+      "maxfeval", "maxit", "maxeval", "maxeval"
+    )
+  )
+  meth_tab <- meth_tab[sample(seq_len(nrow(meth_tab)),
+    nrow(meth_tab),
+    replace = FALSE
+  ), ]
 
-  while (!conv & i <= nrow(meth.tab)) {
-    if (meth.tab[i, 2] != "") {
-      optCtrl <- list(method = unname(meth.tab[i, 2]))
+  while (!conv && i <= nrow(meth_tab)) {
+    if (meth_tab[i, 2] != "") {
+      opt_ctrl <- list(method = unname(meth_tab[i, 2]))
     } else {
-      optCtrl <- list()
+      opt_ctrl <- list()
     }
 
-    optCtrl[[meth.tab[i, 3]]] <- max_iter
+    opt_ctrl[[meth_tab[i, 3]]] <- max_iter
 
     mod <- lme4::lmer(
       ...,
       data = data,
       control = lmerControl(
-        optimizer = meth.tab[i, 1],
-        optCtrl = optCtrl
+        optimizer = meth_tab[i, 1],
+        optCtrl = opt_ctrl
       )
     )
-    mod@call$control$optimizer <- unname(meth.tab[i, 1])
+    mod@call$control$optimizer <- unname(meth_tab[i, 1])
     mod@call$control$optCtrl <- unlist(optCtrl)
 
     if (is_conv(mod)) {
@@ -65,9 +73,9 @@ fit_model <- function(..., data, max_iter = 1e6) {
 #' @param ranef random effects to paste to formula
 #' @param terms character string of terms to pass to ggeffects
 #' @param RQ numeric to pass to get_effects
-#' @protocol to examine the relationship between sleep and physical activity (Research Questions 1-2) we will use study fixed-effects to account for the nesting of participants in studies (Curran et al 2009). Fixed-effects (not the same as complete pooling analysis that ignores data nesting) control for all time-invariant between-study variance and will allow us to explore within study associations and moderators. We will nest individuals within days, and days within study. We will examine both main effects and subpopulation effects (using separate models), including the following pre-specified individual-level moderators; age (chronological), body mass index z-score (z transformed), SES, ethnicity, and sex as categorical. Day of the week, season (summer vs winter), geographic location, and daylight length will also be included as moderators because these influence sleep and physical activity. Accelerometer wear location will be included as a moderator. Sleep and physical activity may be temporally related where early morning and late evening physical activity can negatively influence optimum sleep duration and sleep quality. To account for this, we will include the time of the day corresponding to the most active periods of physical activity as a moderator. The most active 60, 30, 15, 10 and 5 minutes within 4 windows of time; midnight to 6am (early), 6am to 12pm (normal), 12pm -6pm (normal), 6pm -midnight (late) will be extracted from GGIR and used to test the effect of physical activity proximity to bedtime and wake time on sleep.
+#' @protocol to examine the relationship between sleep and physical activity (Research Questions 1-2) we will use study fixed-effects to account for the nesting of participants in studies (Curran et al 2009). Fixed-effects (not the same as complete pooling analysis that ignores data nesting) control for all time-invariant between-study variance and will allow us to explore within study associations and moderators. We will nest individuals within days, and days within study. We will examine both main effects and subpopulation effects (using separate models), including the following pre-specified individual-level moderators; age (chronological), body mass index z-score (z transformed), SES, ethnicity, and sex as categorical. Day of the week, season (summer vs winter), geographic location, and daylight length will also be included as moderators because these influence sleep and physical activity. Accelerometer wear location will be included as a moderator. Sleep and physical activity may be temporally related where early morning and late evening physical activity can negatively influence optimum sleep duration and sleep quality. To account for this, we will include the time of the day corresponding to the most active periods of physical activity as a moderator. The most active 60, 30, 15, 10 and 5 minutes within 4 windows of time; midnight to 6am (early), 6am to 12pm (normal), 12pm -6pm (normal), 6pm -midnight (late) will be extracted from GGIR and used to test the effect of physical activity proximity to bedtime and wake time on sleep. # nolint: line_length_linter.
 
-#' @test-arguments outcome = "sleep_duration", predictors = "scale_pa_volume * age + I(scale_pa_volume^2) * age", control_vars = c(), table_only = FALSE, ranef  = "(1|studyid) + (1|participant_id)", terms = c("scale_pa_volume[-4:4 by = 0.1]", "age [11, 18, 35, 65]"), moderator = "age"
+#' @test-arguments outcome = "sleep_duration", predictors = "scale_pa_volume * age + I(scale_pa_volume^2) * age", control_vars = c(), table_only = FALSE, ranef  = "(1|studyid) + (1|participant_id)", terms = c("scale_pa_volume[-4:4 by = 0.1]", "age [11, 18, 35, 65]"), moderator = "age" # nolint: line_length_linter.
 
 model_builder <-
   function(data_imp,
@@ -85,7 +93,7 @@ model_builder <-
 
     formula <-
       glue::glue(
-        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + {ranef}"
+        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + {ranef}" # nolint: line_length_linter.
       )
 
     formula <- gsub("\\+  \\+", "+", formula)
@@ -127,7 +135,7 @@ model_builder <-
     if (conv_p < .75) {
       conv_print <- papaja::print_num(conv_p * 100)
       tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\dagger$")
-      note <- as.character(glue::glue("$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."))
+      note <- as.character(glue::glue("$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged.")) # nolint: line_length_linter.
     }
 
     tabby <- tabby[!grepl("studyid", term), ]
@@ -138,32 +146,35 @@ model_builder <-
 
 
 
-    if(moderator == "age"){
+    if (moderator == "age") {
       predictor_term <- terms[1]
-      predictor_term <- gsub("\\[.*","",predictor_term)
-      predictor_term <- paste0(predictor_term,"[-4:4 by=0.1]")
+      predictor_term <- gsub("\\[.*", "", predictor_term)
+      predictor_term <- paste0(predictor_term, "[-4:4 by=0.1]")
       pred_mat <- get_effects(m,
-                  moderator = "age",
-                  terms = c(predictor_term, "age[10:80 by = 1]"),
-                  outcome = outcome,
-                  conv = conv_p,
-                  RQ = RQ)
-    }else{
-      pred_mat = NULL
+        moderator = "age",
+        terms = c(predictor_term, "age[10:80 by = 1]"),
+        outcome = outcome,
+        conv = conv_p,
+        RQ = RQ
+      )
+    } else {
+      pred_mat <- NULL
     }
 
     # Model_assets
-    model_assets <- list(effects = get_effects(
-      m,
-      moderator = moderator,
-      terms = terms,
-      outcome = outcome,
+    model_assets <- list(
+      effects = get_effects(
+        m,
+        moderator = moderator,
+        terms = terms,
+        outcome = outcome,
+        conv = conv_p,
+        RQ = RQ
+      ),
       conv = conv_p,
-      RQ = RQ
-    ),
-    conv = conv_p,
-    diagnostics = check_model(m, conv = conv_p),
-    pred_matrix = pred_mat)
+      diagnostics = check_model(m, conv = conv_p),
+      pred_matrix = pred_mat
+    )
 
     list(
       model_assets = model_assets,
@@ -187,13 +198,12 @@ model_builder <-
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
 get_effects <- function(model, moderator, terms, outcome, conv, RQ, ...) {
-
   effects <-
     lapply(seq_len(length(model)), function(i) {
       suppressMessages(ggeffects::ggpredict(model[[i]], terms = terms, ...))
     }) |> ggeffects::pool_predictions()
 
-  conv_print <- paste0(papaja::print_num((1 -conv) * 100), "%")
+  conv_print <- paste0(papaja::print_num((1 - conv) * 100), "%")
 
   dt <- data.table(effects)
   dt$x_name <- terms[1]
@@ -202,15 +212,11 @@ get_effects <- function(model, moderator, terms, outcome, conv, RQ, ...) {
   dt$RQ <- RQ
   dt$moderator <- moderator
   dt$conv_p <- conv
-  if(conv < .75){
+  if (conv < .75) {
     dt$message <- as.character(glue::glue("DID NOT CONVERGE ({conv_print})"))
-  }else{
+  } else {
     dt$message <- " "
   }
   attr(dt, "conv") <- conv
   dt
-
 }
-
-
-
