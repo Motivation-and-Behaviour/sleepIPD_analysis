@@ -1,0 +1,140 @@
+---
+title             : "Multiverse analysis"
+shorttitle        : "Title"
+
+author: 
+  - name          : "First Author"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "my@email.com"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - "Conceptualization"
+      - "Writing - Original Draft Preparation"
+      - "Writing - Review & Editing"
+  - name          : "Ernst-August Doelle"
+    affiliation   : "1,2"
+    role:
+      - "Writing - Review & Editing"
+      - "Supervision"
+
+affiliation:
+  - id            : "1"
+    institution   : "Wilhelm-Wundt-University"
+  - id            : "2"
+    institution   : "Konstanz Business School"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+
+floatsintext      : no
+linenumbers       : no
+draft             : no
+mask              : no
+
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+
+classoption       : "man"
+
+header-includes:
+ - \usepackage[maxfloats=256]{morefloats}
+
+output            : papaja::apa6_pdf
+
+---
+
+```{comment}
+I needed to add maxdeadcycles and more floats to support how many figures are in this doc.
+```
+
+\renewcommand{\arraystretch}{0.7}
+\maxdeadcycles=1000
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.pos = "!htbp")
+source("R/utils.R")
+options(warn = -1)
+knitr::opts_chunk$set(out.width = "110%")
+```
+
+```{r load-libraries}
+library(targets)
+library(gt)
+require(ggplot2)
+library(papaja)
+```
+
+```{r load-targets, include=FALSE}
+tar_load(data_clean)
+pretty <- function(x) format(x, big.mark = ",")
+```
+
+# Results
+
+```{r}
+n_participants <- length(unique(data_clean$participant_id))
+```
+
+## Model diagnostics
+
+The model diagnostics for the main analysis, and for all models presented in this document are in Table \@ref(tab:model-diagnostics)
+
+```{r model-diagnostics}
+tar_read(model_diagnostics) |> 
+  papaja::apa_table(caption = "Model diagnostics", escape = FALSE,
+                    longtable = TRUE)
+```
+
+## Multiverse
+
+In this document we show the relationship between sleep and physical activity by the moderators that were pre-registered in our protocol.
+
+# Moderation
+
+In the following section we present models for a range of moderators which were pre-defined in our protocol.
+
+
+```{r eval = FALSE}
+pattern <- readLines(fs::path("doc/results_chunk.md")) |> paste(collapse = "\n")
+
+moderator_df <- data.frame(
+  moderator = c("bmi", "ses", "sex", "weekday_x", "season", "region", "daylight_hours", "accelerometer_wear_location", "pa_mostactivehr"),
+  moderator_formal = c("BMI", "SES", "sex", "weekday", "season", "region", "daylight hours", "wear location", "most active hour"),
+  image_path = c("Bmi", "Ses", "Sex", "Weekday_x", "Season", "Region", "Daylight_hours", "Accelerometer_wear_location", "Pa_mostactivehr")
+)
+
+
+lapply(seq_len(nrow(moderator_df)), function(r){
+  
+  moderator <- moderator_df$moderator[r]
+  moderator_fig <- gsub("_","-",moderator)
+  moderator_formal <- moderator_df$moderator_formal[r]
+  image_path <- moderator_df$image_path[r]
+  
+  glue::glue(pattern, .open = "_::", .close = "::_")
+  
+}) |> paste(collapse = "\n") |> clipr::write_clip()
+
+```
+
+
+<!------------------------------------>
+<!-- Auto-generated chunks go here: -->
+<!------------------------------------>
+
+
+<!-- Finish auto-generated chunks go here: -->

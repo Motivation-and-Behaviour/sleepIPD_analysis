@@ -6,7 +6,7 @@
 #' @param model_list
 #' @return list of tables
 #' @author Taren Sanders
-#' @test model_list <- model_list_by_age_log
+#' @test model_list <- model_list_by_bmi_data_imp_log
 #' @export
 make_model_tables <- function(model_list) {
   recode_var <- c("ses"= "SES" ,"bmi" = "BMI", "studyid" = "the fixed effects of study IDs")
@@ -19,31 +19,20 @@ make_model_tables <- function(model_list) {
 
   note <- paste("Adjusted for", control_vars)
 
-  sleep_vars <- list(
-    `Sleep duration` = "scale_sleep_duration",
-    `Sleep efficency` = "scale_sleep_efficiency",
-    `Sleep onset` = "scale_sleep_onset",
-    `Sleep regularity` = "scale_sleep_regularity"
-  )
+  vars <- attr(model_list, "vars")
 
-  pa_vars <- list(
-    `Physical activity volume` = "scale_pa_volume",
-    `Physical activity intensity` = "scale_pa_intensity"
-  )
-
-  if(attr(model_list, "use_log")) {
-    pa_vars$`Physical activity volume` <- "log_pa_volume"
-  }
+  sleep_vars <- vars$sleep_vars
+  pa_vars <- vars$pa_vars
 
   sleep_table <- list()
 
   sleep_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      sleep, "by", pa_vars["Physical activity volume"],
+      sleep, "by", pa_vars[[1]],
       collapse = " "
     )
     model2_name <- paste(
-      sleep, "by", pa_vars[["Physical activity intensity"]],
+      sleep, "by", pa_vars[[2]],
       collapse = " "
     )
 
@@ -65,18 +54,19 @@ make_model_tables <- function(model_list) {
   }
 
   sleep_table$col_spanners <- list(
-    "Physical Activity Volume" = c(2, 5),
-    "Physical Activity Intensity" = c(6, 9)
+    c(2, 5),
+    c(6, 9)
   )
+  names(sleep_table$col_spanners) <- names(pa_vars)
 
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      pa_vars["Physical activity volume"], "by", paste0(sleep, "_lag"),
+      pa_vars[[1]], "by", paste0(sleep, "_lag"),
       collapse = " "
     )
     model2_name <- paste(
-      pa_vars[["Physical activity intensity"]], "by", paste0(sleep, "_lag"),
+      pa_vars[[2]], "by", paste0(sleep, "_lag"),
       collapse = " "
     )
 
@@ -97,14 +87,12 @@ make_model_tables <- function(model_list) {
     pa_table$note <- paste0(pa_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
   }
 
-  if(attr(model_list, "use_log")) {
-  pa_table$note <- paste0(pa_table$note, "PA volume was log-transformed.")
-  }
 
   pa_table$col_spanners <- list(
-    "Physical Activity Volume" = c(2, 5),
-    "Physical Activity Intensity" = c(6, 9)
+    c(2, 5),
+    c(6, 9)
   )
+  names(pa_table$col_spanners) <- names(pa_vars)
 
   return(list(sleep = sleep_table, physical_activity = pa_table))
 }
