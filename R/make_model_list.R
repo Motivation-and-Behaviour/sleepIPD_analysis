@@ -12,7 +12,8 @@ make_model_list <- function(
     moderator = "age",
     moderator_term = "11, 18, 35, 65",
     control_vars = c("ses", "sex", "bmi"),
-    ranef = "(1|studyid) + (1|participant_id)") {
+    ranef = "(1|studyid) + (1|participant_id)",
+    use_log = FALSE) {
   sleep_vars <- c(
     "scale_sleep_duration",
     "scale_sleep_efficiency",
@@ -23,9 +24,12 @@ make_model_list <- function(
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
 
   pa_vars <- c(
-    "scale_pa_volume", "scale_pa_intensity",
-    "log_pa_volume"
+    "scale_pa_volume", "scale_pa_intensity"
   )
+
+  if (use_log) {
+    pa_vars[pa_vars == "scale_pa_volume"] <- "log_pa_volume"
+  }
 
   quadratic_pattern <- "{x} * {moderator} + I({x}^2) * {moderator}"
   make_quadratic <- function(x) glue::glue(quadratic_pattern)
@@ -66,7 +70,8 @@ make_model_list <- function(
         ranef = ranef,
         terms = c(
           paste0(
-            gsub(" .*", "", instructions[i, "predictors"]), "[-4:4 by = 0.1]"),
+            gsub(" .*", "", instructions[i, "predictors"]), "[-4:4 by = 0.1]"
+          ),
           glue::glue("{moderator} [{moderator_term}]")
         ),
         RQ = instructions[i, "RQ"]
@@ -80,5 +85,6 @@ make_model_list <- function(
   )
 
   names(out) <- instructions[, "model_name"]
+  attr(out, "use_log") <- use_log
   out
 }

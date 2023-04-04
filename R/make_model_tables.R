@@ -6,7 +6,7 @@
 #' @param model_list
 #' @return list of tables
 #' @author Taren Sanders
-#' @test model_list <- model_list_by_wear_location
+#' @test model_list <- model_list_by_age_log
 #' @export
 make_model_tables <- function(model_list) {
   recode_var <- c("ses"= "SES" ,"bmi" = "BMI", "studyid" = "the fixed effects of study IDs")
@@ -30,6 +30,10 @@ make_model_tables <- function(model_list) {
     `Physical activity volume` = "scale_pa_volume",
     `Physical activity intensity` = "scale_pa_intensity"
   )
+
+  if(attr(model_list, "use_log")) {
+    pa_vars$`Physical activity volume` <- "log_pa_volume"
+  }
 
   sleep_table <- list()
 
@@ -91,6 +95,10 @@ make_model_tables <- function(model_list) {
 
   if(pa_conv_issue){
     pa_table$note <- paste0(pa_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
+  }
+
+  if(attr(model_list, "use_log")) {
+  pa_table$note <- paste0(pa_table$note, "PA volume was log-transformed.")
   }
 
   pa_table$col_spanners <- list(

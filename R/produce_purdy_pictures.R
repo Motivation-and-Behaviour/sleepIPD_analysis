@@ -2,7 +2,7 @@
 #' @param model_list model_list
 #' @param paste_facet_labels character. String to paste to facet labels
 #' @param add_filename character. String to add to end of filenames
-#' @example  model_list <- model_list_by_age
+#' @example  model_list <- model_list_by_age_fixedef
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge # nolint
 
@@ -37,11 +37,19 @@ produce_purdy_pictures <- function(
   # Plotting function
   require(ggplot2)
 
-  p <- function(x_var, x_lab, rq) {
+  p <- function(x_var, x_lab, rq, debug = FALSE) {
+    if(debug) browser()
     pdat <- plot_dat[x_name == x_var & RQ == rq]
 
     conv_message_dat <- unique(pdat[, c("outcome", "group", "message")])
-    fig <- ggplot(pdat, aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
+    fig <- ggplot(
+      pdat,
+      aes(
+        x = x, y = predicted,
+        ymin = conf.low, ymax = conf.high,
+        group = group, fill = group
+      )
+    ) +
       geom_line() +
       geom_ribbon(alpha = .5) +
       facet_grid(rows = vars(outcome), cols = vars(group)) +
@@ -103,8 +111,12 @@ produce_purdy_pictures <- function(
     outcome <- unique(gsub(" .*", "", pdat$outcome))
     if (length(outcome) > 1) stop("Outcome length is greater than 1")
 
-    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}.jpg" |>
+    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}.jpg" |> # nolint: line_length_linter.
       glue::glue()
+
+    if(attr(model_list, "use_log")) {
+      filename <- gsub("\\.jpg","_log.jpg", filename)
+    }
 
     if (outcome == "Sleep") {
       height <- 15
@@ -115,15 +127,30 @@ produce_purdy_pictures <- function(
     ggsave(filename, plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi)
   }
 
-  # Research Question 1
-  p("pa_intensity", "PA intensity (z)", rq = 1)
-  p("pa_volume", "PA volume (z)", rq = 1)
+  # Create an input data.frame
+  df <- data.frame(x = c("pa_intensity","pa_volume",
+                   "sleep_duration_lag", "sleep_efficiency_lag",
+                   "sleep_onset_lag", "sleep_regularity_lag"))
+  # Format xlab
+  df$y <- df$x |>
+    gsub("_", " ", x = _ ) |>
+    gsub("^(.*)\\b(.*)\\b(lag)$", "\\3 \\1\\2", x = _ ) |>
+    trimws() |>
+    stringr::str_to_sentence() |>
+    gsub("Pa", "PA", x = _) |>
+    paste("(z)")
+  df$RQ <- ifelse(grepl("Lag", df$y), 3, 1)
 
-  # Research Question 3
-  p("sleep_duration_lag", "lag sleep duration (z)", rq = 3)
-  p("sleep_efficiency_lag", "lag sleep efficiency (z)", rq = 3)
-  p("sleep_onset_lag", "lag sleep onset (z)", rq = 3)
-  p("sleep_regularity_lag", "lag sleep regularity (z)", rq = 3)
+  if(attr(model_list, "use_log")){
+    row <- which(df$x == "pa_volume")
+    df$x[row] <- "log_pa_volume"
+    df$y[row] <- "PA volume (log)"
+  }
+
+  # Produce the plots
+  for (row in seq_len(nrow(df))) {
+    p(df$x[row], df$y[row], df$RQ[row])
+  }
 
   NULL
 }

@@ -44,7 +44,7 @@ fit_model <- function(..., data, max_iter = 1e6) {
       )
     )
     mod@call$control$optimizer <- unname(meth_tab[i, 1])
-    mod@call$control$optCtrl <- unlist(optCtrl)
+    mod@call$control$optCtrl <- unlist(opt_ctrl)
 
     if (is_conv(mod)) {
       conv <- TRUE
