@@ -2,7 +2,7 @@
 #' @param model_list model_list
 #' @param paste_facet_labels character. String to paste to facet labels
 #' @param add_filename character. String to add to end of filenames
-#' @example  model_list <- model_list_by_age_fixedef
+#' @example  model_list <- model_list_by_age_data_imp
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge # nolint
 
@@ -125,6 +125,7 @@ produce_purdy_pictures <- function(
     }
 
     ggsave(filename, plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi)
+    return(filename)
   }
 
   # Create an input data.frame
@@ -147,12 +148,15 @@ produce_purdy_pictures <- function(
     df$y[row] <- "PA volume (log)"
   }
 
-  # Produce the plots
-  for (row in seq_len(nrow(df))) {
-    p(df$x[row], df$y[row], df$RQ[row])
-  }
 
-  NULL
+  # produce the plots
+  out <- lapply(seq_len(nrow(df)), function(row){
+    p(df$x[row], df$y[row], df$RQ[row])
+  })
+
+  names(out) <- paste0("predictor_", df$x)
+  out
+
 }
 
 prepare_plot_data <- function(plot_dat, paste_facet_labels) {

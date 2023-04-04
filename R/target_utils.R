@@ -19,13 +19,16 @@ target_factory <-
     model_table_names <- paste0("model_tables_", moderators)
     model_table_names_data <-  paste0(model_table_names,"_", data)
 
+    # model_figures
+    model_figure_names <- paste0("purdy_pictures_by_", moderators)
+    model_figure_names_data <- paste0(model_figure_names, "_", data)
 
     # Create a manuscript using those names
     manuscript_path <- "doc/manuscript.Rmd"
     skeleton_manuscript <- readLines(manuscript_path)
 
-    names_to_change <- c(model_names, model_table_names)
-    new_names <- c(model_names_data, model_table_names_data)
+    names_to_change <- c(model_names, model_table_names, model_figure_names)
+    new_names <- c(model_names_data, model_table_names_data, model_figure_names_data)
 
     for(i in seq_along(names_to_change)){
     skeleton_manuscript <- gsub(names_to_change[i], new_names[i], skeleton_manuscript)
@@ -110,7 +113,8 @@ create_analytic_targets <- function(moderator = "age", data = "data_imp"){
       command = parse(
         text =
           glue::glue(
-            "produce_purdy_pictures(model_list_by_{moderator}_{data}, paste_facet_labels = \"{facet_label}\")
+            "produce_purdy_pictures(model_list_by_{moderator}_{data}, paste_facet_labels = \"{facet_label}\",
+            add_filename = \"_{data}\")
 # )"
           )
       )
