@@ -90,3 +90,18 @@ get_season <- function(date, lat){
 
 find_max  <- function(x) {names(which.max(table(x)))}
 
+display_names <- function(x){
+
+  is_scale <- grepl("^scale",x)
+  is_log <- grepl("^log",x)
+
+  out <- gsub("(scale_|log_)", "", x) |>
+    gsub("_", " ", x = _) |>
+    gsub("pa","physical activity", x = _) |>
+    stringr::str_to_sentence()
+
+  out[is_scale] <- paste(out[is_scale], "(z)")
+  out[is_log] <- paste(out[is_log], "(ln)")
+  out
+
+}

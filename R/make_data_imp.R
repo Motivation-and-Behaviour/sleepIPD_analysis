@@ -107,9 +107,16 @@ make_data_imp <- function(data, n_imps = 3) {
 
 }
 
-format_imp_vars <- function(data_imp_raw){
+format_imp_vars <- function(data_imp_raw, use_log = FALSE){
 require(mice)
    # include data transformations
+
+ log_df <- data.frame(
+    var = c("pa_volume"),
+    new_name = c("log_pa_volume"),
+    method = "log"
+  )
+
   sleep_vars <- c(
     "sleep_duration",
     "sleep_efficiency",
@@ -118,17 +125,22 @@ require(mice)
   )
 
   var_to_transf <-
-    c(
-      "pa_volume", # For log transform
-      sleep_vars,
+    c(sleep_vars,
       "pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
       paste0(sleep_vars, "_lag")
     )
 
-  new_name <- c("log_pa_volume", paste0("scale_", var_to_transf[-1]))
+  new_name <- c(paste0("scale_", var_to_transf))
   transf_fn <- gsub("_.*", "", new_name)
+
+  if(use_log) {
+    for(i in seq_len(nrow(log_df))) {
+      new_name[var_to_transf == log_df$var[i]] <- log_df$new_name[i]
+      transf_fn[var_to_transf == log_df$var[i]] <- log_df$method[i]
+    }
+  }
 
   imp_list <- data.table(complete(data_imp_raw, action = "long",
    include = TRUE))
@@ -141,3 +153,4 @@ require(mice)
   as.mids(imp_list)
 
 }
+

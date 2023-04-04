@@ -2,13 +2,14 @@
 #' @param model_list model_list
 #' @param paste_facet_labels character. String to paste to facet labels
 #' @param add_filename character. String to add to end of filenames
-#' @example  model_list <- model_list_by_age_data_imp
+#' @example  model_list <- model_list_by_age_data_imp_log
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge # nolint
 
 produce_purdy_pictures <- function(
     model_list,
     paste_facet_labels = "", add_filename = "") {
+
 
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
     model_list[[i]]$model_assets$effects
@@ -37,8 +38,8 @@ produce_purdy_pictures <- function(
   # Plotting function
   require(ggplot2)
 
-  p <- function(x_var, x_lab, rq, debug = FALSE) {
-    if(debug) browser()
+  p <- function(x_var, x_lab, rq) {
+
     pdat <- plot_dat[x_name == x_var & RQ == rq]
 
     conv_message_dat <- unique(pdat[, c("outcome", "group", "message")])
@@ -78,10 +79,6 @@ produce_purdy_pictures <- function(
         gsub("_", " ", x = _) |>
         stringr::str_to_sentence() |>
         gsub("Pa", "PA", x = _)
-      gsub("\\[.*", "", unique(tile_dat$x_name)) |>
-        gsub("_", " ", x = _) |>
-        stringr::str_to_sentence() |>
-        gsub("Pa", "PA", x = _)
 
       fig <- fig + theme(strip.text.y = element_blank())
       tdat$facet_label <- "Age continuous"
@@ -109,14 +106,11 @@ produce_purdy_pictures <- function(
     }
 
     outcome <- unique(gsub(" .*", "", pdat$outcome))
+    outcome <- outcome[outcome != "Log"]
     if (length(outcome) > 1) stop("Outcome length is greater than 1")
 
     filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}.jpg" |> # nolint: line_length_linter.
       glue::glue()
-
-    if(attr(model_list, "use_log")) {
-      filename <- gsub("\\.jpg","_log.jpg", filename)
-    }
 
     if (outcome == "Sleep") {
       height <- 15
@@ -129,38 +123,35 @@ produce_purdy_pictures <- function(
   }
 
   # Create an input data.frame
-  df <- data.frame(x = c("pa_intensity","pa_volume",
-                   "sleep_duration_lag", "sleep_efficiency_lag",
-                   "sleep_onset_lag", "sleep_regularity_lag"))
+  vars <- attr(model_list, "vars")
+
+  df <- data.frame(x = c(vars$pa_vars, paste0(vars$sleep_vars, "_lag")))
   # Format xlab
   df$y <- df$x |>
     gsub("_", " ", x = _ ) |>
     gsub("^(.*)\\b(.*)\\b(lag)$", "\\3 \\1\\2", x = _ ) |>
-    trimws() |>
-    stringr::str_to_sentence() |>
-    gsub("Pa", "PA", x = _) |>
-    paste("(z)")
+    trimws()
+
+  is_scale <- grepl("scale", df$y)
+  df$y[is_scale] <- gsub("scale ", "", df$y[is_scale])
+  df$y[is_scale] <- paste(df$y[is_scale], "(z)")
+
+  df$y <- stringr::str_to_sentence(df$y) |>
+    gsub("Pa|pa\\b", "PA", x = _)
+
   df$RQ <- ifelse(grepl("Lag", df$y), 3, 1)
-
-  if(attr(model_list, "use_log")){
-    row <- which(df$x == "pa_volume")
-    df$x[row] <- "log_pa_volume"
-    df$y[row] <- "PA volume (log)"
-  }
-
 
   # produce the plots
   out <- lapply(seq_len(nrow(df)), function(row){
     p(df$x[row], df$y[row], df$RQ[row])
   })
 
-  names(out) <- paste0("predictor_", df$x)
+  names(out) <- paste0("predictor_", gsub("(scale_|log_)","",df$x))
   out
 
 }
 
 prepare_plot_data <- function(plot_dat, paste_facet_labels) {
-  plot_dat$x_name <- gsub("scale_", "", plot_dat$x_name)
   plot_dat$outcome <- gsub("scale_", "", plot_dat$outcome) |>
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>

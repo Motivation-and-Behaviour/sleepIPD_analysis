@@ -24,6 +24,19 @@ if (Sys.getenv("GCS_AUTH_FILE") != "") {
   repository <- targets::tar_option_get("repository")
 }
 
+moderator_variables <- c(
+  "age",
+  "bmi",
+  "ses",
+  "sex",
+  "weekday_x",
+  "season",
+  "region",
+  "daylight_hours",
+  "accelerometer_wear_location",
+  "pa_mostactivehr"
+)
+
 # Pipeline
 list(
   ##################################################################
@@ -51,23 +64,25 @@ list(
     format = format, repository = repository
   ),
   tar_target(data_imp, format_imp_vars(data_imp_raw)),
+  tar_target(data_imp_log, format_imp_vars(data_imp_raw, use_log = TRUE)),
+
   tar_target(imputation_checks, check_imps(data_imp),
     format = "file",
     priority = 1
   ),
 
-  #################################################################
-  ##                          MODELLING                          ##
-  #################################################################
-
-  target_factory(moderator = c("age", "bmi", "ses",
-                               "sex", "weekday_x","season",
-                               "region", "daylight_hours", "accelerometer_wear_location",
-                               "pa_mostactivehr"), data = "data_imp"),
-
   ##################################################################
   ##                        ASSET CREATION                        ##
   ##################################################################
 
-  tar_target(explore_img, make_explore_img_list(data_holdout))
+  tar_target(explore_img, make_explore_img_list(data_holdout)),
+
+  #################################################################
+  ##                          MODELLING                          ##
+  #################################################################
+
+  target_factory(moderators = c(moderator_variables), data = "data_imp"),
+  target_factory(moderators = moderator_variables, data = "data_imp_log")
+
+
 )

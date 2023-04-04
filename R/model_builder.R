@@ -198,6 +198,7 @@ model_builder <-
 #' @example model = rq1_example_model, terms = c("pa_intensity", "pa_volume")
 
 get_effects <- function(model, moderator, terms, outcome, conv, RQ, ...) {
+
   effects <-
     lapply(seq_len(length(model)), function(i) {
       suppressMessages(ggeffects::ggpredict(model[[i]], terms = terms, ...))
