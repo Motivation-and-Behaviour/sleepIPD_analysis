@@ -30,8 +30,8 @@ target_factory <-
     skeleton_manuscript <- readLines(manuscript_path)
     skeleton_multiverse <- readLines(multiverse_path)
 
-    names_to_change <- c(model_names, model_table_names, model_figure_names)
-    new_names <- c(model_names_data, model_table_names_data, model_figure_names_data)
+    names_to_change <- c(model_names, model_table_names, model_figure_names, "model_diagnostics")
+    new_names <- c(model_names_data, model_table_names_data, model_figure_names_data, paste0("model_diagnostics","_",data))
 
     for(i in seq_along(names_to_change)){
     skeleton_manuscript <- gsub(names_to_change[i], new_names[i], skeleton_manuscript)

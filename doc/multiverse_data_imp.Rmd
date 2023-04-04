@@ -94,7 +94,7 @@ n_participants <- length(unique(data_clean$participant_id))
 The model diagnostics for the main analysis, and for all models presented in this document are in Table \@ref(tab:model-diagnostics)
 
 ```{r model-diagnostics}
-tar_read(model_diagnostics) |> 
+tar_read(model_diagnostics_data_imp) |> 
   papaja::apa_table(caption = "Model diagnostics", escape = FALSE,
                     longtable = TRUE)
 ```
