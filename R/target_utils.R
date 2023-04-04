@@ -25,17 +25,24 @@ target_factory <-
 
     # Create a manuscript using those names
     manuscript_path <- "doc/manuscript.Rmd"
+    multiverse_path <- "doc/multiverse.Rmd"
+
     skeleton_manuscript <- readLines(manuscript_path)
+    skeleton_multiverse <- readLines(multiverse_path)
 
     names_to_change <- c(model_names, model_table_names, model_figure_names)
     new_names <- c(model_names_data, model_table_names_data, model_figure_names_data)
 
     for(i in seq_along(names_to_change)){
     skeleton_manuscript <- gsub(names_to_change[i], new_names[i], skeleton_manuscript)
+    skeleton_multiverse <- gsub(names_to_change[i], new_names[i], skeleton_multiverse)
     }
 
     manuscript_path_new <- gsub("\\.Rmd",glue::glue("_{data}.Rmd"),manuscript_path)
+    multiverse_path_new <- gsub("\\.Rmd",glue::glue("_{data}.Rmd"),multiverse_path)
+
     write(skeleton_manuscript, manuscript_path_new)
+    write(skeleton_multiverse, multiverse_path_new)
 
     append(out,
            list(
@@ -51,6 +58,14 @@ target_factory <-
              tar_render_raw(
                name = glue::glue("manuscript_{data}"),
                manuscript_path_new,
+               render_arguments = quote(list(
+                 output_format = c("papaja::apa6_docx",
+                                   "papaja::apa6_pdf")
+               ))
+             ),
+             tar_render_raw(
+               name = glue::glue("multiverse_{data}"),
+               multiverse_path_new,
                render_arguments = quote(list(
                  output_format = c("papaja::apa6_docx",
                                    "papaja::apa6_pdf")
@@ -95,6 +110,7 @@ create_analytic_targets <- function(moderator = "age", data = "data_imp"){
   }
 
   list(
+    # Create model list targets
     tar_target_raw(
       name = glue::glue("model_list_by_{moderator}_{data}"),
       command = parse(
@@ -106,19 +122,19 @@ create_analytic_targets <- function(moderator = "age", data = "data_imp"){
                       )"
         )
       )
-
     ),
+    # Create figure targets
     tar_target_raw(
       name = glue::glue("purdy_pictures_by_{moderator}_{data}"),
       command = parse(
         text =
           glue::glue(
             "produce_purdy_pictures(model_list_by_{moderator}_{data}, paste_facet_labels = \"{facet_label}\",
-            add_filename = \"_{data}\")
-# )"
+            add_filename = \"_{data}\")"
           )
       )
     ),
+    # Create table targets
     tar_target_raw(name = glue::glue("model_tables_{moderator}_{data}"),
                command = parse(
                  text = glue::glue(
@@ -127,6 +143,9 @@ create_analytic_targets <- function(moderator = "age", data = "data_imp"){
                ))
   )
 }
+
+# 'jput
+#' dput, but returns the command instead of printing it
 
 jput <- function(x){
   x <- paste0("\"", x, "\"")

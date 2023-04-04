@@ -70,9 +70,4 @@ list(
   ##################################################################
 
   tar_target(explore_img, make_explore_img_list(data_holdout))
-  # Output results section
-  ### Produce supplementary material
-  # tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
-  #   "papaja::apa6_pdf"
-  # ))
 )

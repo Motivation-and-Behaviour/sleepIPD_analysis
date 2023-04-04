@@ -24,7 +24,7 @@ papaja::apa_table(
 ```
 
 ```{r sleep-by-volume-fig-by-_::moderator_fig::_, fig.cap = "Sleep metrics on Physical activity volume by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Sleep on pa_volume by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_pa_volume), error = FALSE)
 ```
 
 ### The effects of physical activity intensity on sleep by _::moderator_formal::_
@@ -34,7 +34,7 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-_::moderator_fig::_)
 
 
 ```{r sleep-by-intensity-fig-by-_::moderator_fig::_, fig.cap = "Sleep metrics on Physical activity intensity moderated by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_pa_intensity), error = FALSE)
 ```
 
 ### The effects of sleep duration on physical activity
@@ -55,7 +55,7 @@ papaja::apa_table(
 ```
 
 ```{r PA-by-sleep-duration-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep duration moderated by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_duration_lag by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_sleep_duration_lag), error = FALSE)
 ```
 
 ### The effects of sleep efficiency on physical activity
@@ -65,7 +65,7 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 
 
 ```{r PA-by-sleep-efficiency-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep efficiency moderated by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_efficiency_lag by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_sleep_efficiency_lag), error = FALSE)
 ```
 
 ### The effects of sleep onset on physical activity
@@ -75,7 +75,7 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 
 
 ```{r PA-by-sleep-onset-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep onset moderated by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_sleep_onset_lag), error = FALSE)
 ```
 
 ### The effects of sleep regularity on physical activity
@@ -84,6 +84,6 @@ We estimated the effect of sleep regularity on physical activity by _::moderator
 Results are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-_::moderator_fig::_).
 
 ```{r PA-by-sleep-regularity-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep regularity moderated by _::moderator_formal::_"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by _::image_path::_.jpg"), error = FALSE)
+knitr::include_graphics(here::here(tar_read(purdy_pictures_by__::moderator::_)$predictor_sleep_regularity_lag), error = FALSE)
 ```
 

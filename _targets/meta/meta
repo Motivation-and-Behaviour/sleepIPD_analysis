@@ -10,7 +10,7 @@ clean_data|function|2d57ee186700e2e4|||||||||||||||
 control_vars|object|3704c27cb0ced913|||||||||||||||
 conv|object|21fe4b10a2b04ca0|||||||||||||||
 conv_p|object|a2a52dfe4e065e93|||||||||||||||
-create_analytic_targets|function|4d41b823b4e00a55|||||||||||||||
+create_analytic_targets|function|eeb4f522586ef296|||||||||||||||
 create_distinct|function|feef06749c984f86|||||||||||||||
 crit.val|object|65b7816febec177f|||||||||||||||
 dat_list|object|2b88536efdd88a9f|||||||||||||||
@@ -110,7 +110,7 @@ make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
 make_RQ1_figure|function|2228720a81557620|||||||||||||||
 make_table1|function|f4396bf35fbf18b0|||||||||||||||
 manuscript|stem|553e35c28ba32faf|11d69d4e2c450fe0|bf979039c071cf2e|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19450.9999665278s||16367822|file|local|vector|||1.98||cannot open the connection
-manuscript_data_imp|stem|9a00f6502bc0cef8|4831ebf80a747110|6e6a691f569a3034|-666132494|doc/manuscript_data_imp.docx*doc/manuscript_data_imp.pdf*doc/manuscript_data_imp.Rmd|t19451.0653693881s|37fef9f33625be2d|16370775|file|local|vector|||6.16||
+manuscript_data_imp|stem|9a00f6502bc0cef8|4831ebf80a747110|6e6a691f569a3034|-666132494|doc/manuscript_data_imp.docx*doc/manuscript_data_imp.pdf*doc/manuscript_data_imp.Rmd|t19451.0820313755s|37fef9f33625be2d|16370775|file|local|vector|||6.16||
 model|object|3b74cf8ca2e36534|||||||||||||||
 model_assets|object|b9e10a1baf78fa2a|||||||||||||||
 model_builder|function|da1668172fab1b21|||||||||||||||
@@ -192,6 +192,7 @@ model1_name|object|caa6e1407725fd7f|||||||||||||||
 model2_name|object|1d13f0b409aa286a|||||||||||||||
 moderator|object|46ad1ade10c356d4|||||||||||||||
 multiverse|stem|b19293d6a512ccdf|b7ab673b84eb2090|7c12a5358e170750|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19451.0226011339s|bd8bd9d15c198c69|42545404|file|local|vector|||7.22|LaTeX Warning Float too large for page by 33.98792pt on input line 95.. LaTeX Warning Float too large for page by 33.98792pt on input line 100.. LaTeX Warning Float too large for page by 33.98792pt on input line 245.. LaTeX Warning Float too large for page by 33.98792pt on input line 250.|
+multiverse_data_imp|stem|029bdb2334f75b32|ae938398a412be03|17742c9c435ebc1c|821980532|doc/multiverse_data_imp.docx*doc/multiverse_data_imp.pdf*doc/multiverse_data_imp.Rmd|t19451.0820832421s|0faa5b45a1f36850|129382|file|local|vector|||3.73||
 note|object|d1b9b211d28fa77c|||||||||||||||
 outcome|object|1ed58c3bc3838469|||||||||||||||
 p|function|1c8aa024b0841978|||||||||||||||
@@ -211,7 +212,7 @@ purdy_pictures|stem|3fe873ceaa51890e|9fe35858b2002667|37dae0e3d008633a|38667698|
 purdy_pictures_by_accelerometer_wear_location|stem|15d7f6b08f6e9a66|a9313e7d7bd4d567|9f8d17faf55534bc|-378694723||t19451.022674331s|a1c456b03adbfbf8|44|rds|local|vector|||1||
 purdy_pictures_by_accelerometer_wear_location_data_imp|stem|bd3d99f002af2435|ab26873c1a092b7d|c4d3758f4413aa5b|1891811104||t19451.0585252909s|b118d73574f00f7d|299|rds|local|vector|||0.97||
 purdy_pictures_by_age|stem|15d7f6b08f6e9a66|15f79003144f8bab|4809e3fb1b5072ca|1061401147||t19451.0100348848s|a1c456b03adbfbf8|44|rds|local|vector|||3.43||
-purdy_pictures_by_age_data_imp|stem|fb6216dffdd4f3cc|70975ff2343b6fb7|65bcc1c8d7b75db6|-274372682||t19451.0583842263s|34fe10b9a860addd|282|rds|local|vector|||3.43||
+purdy_pictures_by_age_data_imp|stem|fb6216dffdd4f3cc|70975ff2343b6fb7|65bcc1c8d7b75db6|-274372682||t19451.0674122283s|34fe10b9a860addd|282|rds|local|vector|||3.43||
 purdy_pictures_by_age_fixedef|stem|15d7f6b08f6e9a66|7287185b6c2e8f8d|9f76c3469d150371|-1604185041||t19450.4048629012s|a1c456b03adbfbf8|44|rds|local|vector|||3.36||
 purdy_pictures_by_age_log|stem||1bec2f0ff228f1f5|dcd588b6d5f5d80f|967987105||t19450.2751510697s||0|rds|local|vector|||2.91||Outcome length is greater than 1
 purdy_pictures_by_bmi|stem|15d7f6b08f6e9a66|5afb63def214e2bd|f3f09a88c76b10fb|211149621||t19451.0100658761s|a1c456b03adbfbf8|44|rds|local|vector|||1.44||
@@ -251,7 +252,7 @@ sleep_vars|object|56bbfcca8df2faa9|||||||||||||||
 tabby|object|e3a3b1daeb255e30|||||||||||||||
 table_1|stem|5277cc8234898634|6208a06e81a8eb0a|738d7fa5cdb58df3|-1353748333||t19439.9015154434s|4609f13c2cfe01b8|162016845|rds|local|vector|||132.084||
 table_only|object|df161ddba3dacc9e|||||||||||||||
-target_factory|function|4a0fe681cfd145a8|||||||||||||||
+target_factory|function|baf9659adf83dda3|||||||||||||||
 terms|object|49bb917257774696|||||||||||||||
 text|object|b12d5da151ddaa85|||||||||||||||
 tile_dat|object|fa69f121b99e4583|||||||||||||||
