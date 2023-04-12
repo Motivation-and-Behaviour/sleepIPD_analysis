@@ -123,5 +123,7 @@ make_data_imp <- function(data, n_imps = 3) {
     imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
   }
 
+  imp_list$log_pa_volume <- log(imp_list$pa_volume)
+
   as.mids(imp_list)
 }
