@@ -27,7 +27,8 @@ clean_data <- function(data_joined, region_lookup) {
       sleep_wakeup = wakeup_p5,
       sleep_onset_time = sleeponset_ts_p5,
       sleep_wakeup_time = wakeup_ts_p5,
-      sleep_regularity = sleep_regularity_index
+      sleep_regularity = sleep_regularity_index,
+      acc_wear_loc = accelerometer_wear_location
     ) %>%
     # remove all the ggir data execpt the columns that we're using
     select(
@@ -48,7 +49,7 @@ clean_data <- function(data_joined, region_lookup) {
     mutate(across(c(
       studyid, sex, ethnicity,
       ses, sleep_medications, sleep_conditions,
-      country, season, accelerometer_wear_location,
+      country, season, acc_wear_loc,
       weekday_x, accelerometer_model
     ), as.factor)) %>%
     # convert calendar_date to date

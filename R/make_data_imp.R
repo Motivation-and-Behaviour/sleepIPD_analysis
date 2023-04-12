@@ -24,7 +24,7 @@ make_data_imp <- function(data, n_imps = 3) {
   dont_imp <- c("filename", "calendar_date")
   dont_use <- c(
     "age_cat", "studyid", "participant_id", "country", "region",
-    "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16",
+    "acc_wear_loc", "accelerometer_model", "pa_intensity_m16",
     "pa_mostactivehr", "weekday_x"
   )
   # Don't imp some vars, and disable some as predictors

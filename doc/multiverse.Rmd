@@ -97,9 +97,11 @@ n_participants <- length(unique(data_clean$participant_id))
 The model diagnostics for the main analysis, and for all models presented in this document are in Table \@ref(tab:model-diagnostics)
 
 ```{r model-diagnostics}
-tar_read(model_diagnostics) |> 
-  papaja::apa_table(caption = "Model diagnostics", escape = FALSE,
-                    longtable = TRUE)
+tar_read(model_diagnostics) |>
+  papaja::apa_table(
+    caption = "Model diagnostics", escape = FALSE,
+    longtable = TRUE
+  )
 ```
 
 ## Multiverse
@@ -193,21 +195,20 @@ pattern <- readLines(fs::path("doc/results_chunk.md")) |> paste(collapse = "\n")
 moderator_df <- data.frame(
   moderator = c("bmi", "ses", "sex", "weekday", "season", "region", "daylight", "wear_location", "pa_mostactivehr"),
   moderator_formal = c("BMI", "SES", "sex", "weekday", "season", "region", "daylight hours", "wear location", "most active hour"),
-  image_path = c("Bmi", "Ses", "Sex", "Weekday_x", "Season", "Region", "Daylight_hours", "Accelerometer_wear_location", "Pa_mostactivehr")
+  image_path = c("Bmi", "Ses", "Sex", "Weekday_x", "Season", "Region", "Daylight_hours", "Acc_wear_loc", "Pa_mostactivehr")
 )
 
 
-lapply(seq_len(nrow(moderator_df)), function(r){
-  
+lapply(seq_len(nrow(moderator_df)), function(r) {
   moderator <- moderator_df$moderator[r]
-  moderator_fig <- gsub("_","-",moderator)
+  moderator_fig <- gsub("_", "-", moderator)
   moderator_formal <- moderator_df$moderator_formal[r]
   image_path <- moderator_df$image_path[r]
-  
-  glue::glue(pattern, .open = "_::", .close = "::_")
-  
-}) |> paste(collapse = "\n") |> clipr::write_clip()
 
+  glue::glue(pattern, .open = "_::", .close = "::_")
+}) |>
+  paste(collapse = "\n") |>
+  clipr::write_clip()
 ```
 
 
@@ -849,7 +850,7 @@ papaja::apa_table(
 ```
 
 ```{r sleep-by-volume-fig-by-wear-location, fig.cap = "Sleep metrics on Physical activity volume by wear location"}
-knitr::include_graphics(here::here("Figures/Sleep on pa_volume by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Sleep on pa_volume by Acc_wear_loc.jpg"), error = FALSE)
 ```
 
 ### The effects of physical activity intensity on sleep by wear location
@@ -859,7 +860,7 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-wear-location) and F
 
 
 ```{r sleep-by-intensity-fig-by-wear-location, fig.cap = "Sleep metrics on Physical activity intensity moderated by wear location"}
-knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Sleep on pa_intensity by Acc_wear_loc.jpg"), error = FALSE)
 ```
 
 ### The effects of sleep duration on physical activity
@@ -880,7 +881,7 @@ papaja::apa_table(
 ```
 
 ```{r PA-by-sleep-duration-fig-by-wear-location, fig.cap = "Physical activity by sleep duration moderated by wear location"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_duration_lag by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Pa on sleep_duration_lag by Acc_wear_loc.jpg"), error = FALSE)
 ```
 
 ### The effects of sleep efficiency on physical activity
@@ -890,7 +891,7 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 
 
 ```{r PA-by-sleep-efficiency-fig-by-wear-location, fig.cap = "Physical activity by sleep efficiency moderated by wear location"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_efficiency_lag by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Pa on sleep_efficiency_lag by Acc_wear_loc.jpg"), error = FALSE)
 ```
 
 ### The effects of sleep onset on physical activity
@@ -900,7 +901,7 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 
 
 ```{r PA-by-sleep-onset-fig-by-wear-location, fig.cap = "Physical activity by sleep onset moderated by wear location"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Pa on sleep_onset_lag by Acc_wear_loc.jpg"), error = FALSE)
 ```
 
 ### The effects of sleep regularity on physical activity
@@ -909,7 +910,7 @@ We estimated the effect of sleep regularity on physical activity by wear locatio
 Results are presented in Table \@ref(tab:pa-outcomes-by-wear-location) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-wear-location).
 
 ```{r PA-by-sleep-regularity-fig-by-wear-location, fig.cap = "Physical activity by sleep regularity moderated by wear location"}
-knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Accelerometer_wear_location.jpg"), error = FALSE)
+knitr::include_graphics(here::here("Figures/Pa on sleep_regularity_lag by Acc_wear_loc.jpg"), error = FALSE)
 ```
 \clearpage
 
