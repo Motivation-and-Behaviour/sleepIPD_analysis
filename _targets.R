@@ -26,26 +26,28 @@ if (Sys.getenv("GCS_AUTH_FILE") != "") {
 
 # Model parameters
 default_pa <- c("log_pa_volume", "scale_pa_intensity")
+scale_pa <- c("scale_pa_volume", "scale_pa_intensity")
 default_sleep <- c(
   "scale_sleep_duration", "scale_sleep_efficiency", "scale_sleep_onset",
   "scale_sleep_regularity"
 )
 default_ranef <- "(1|studyid) + (1|participant_id)"
+fixedef <- "(1 | measurement_day) + (1 | participant_id)"
 
 # nolint start styler: off
 models <- dplyr::tribble(
-  ~model_name,          ~moderator,        ~moderator_term,  ~pa_vars,          ~sleep_vars,   ~labels,  ~ranef,
-  "by_age",             "age",             "11, 18, 35, 65", default_pa,        default_sleep, " years", default_ranef,
-  "by_bmi",             "bmi",             "18, 22, 25, 30", default_pa,        default_sleep, "",       default_ranef,
-  "by_ses",             "ses",             "all",            default_pa,        default_sleep, "",       default_ranef,
-  "by_weekday",         "weekday_x",       "all",            default_pa,        default_sleep, "",       default_ranef,
-  "by_season",          "season",          "all",            default_pa,        default_sleep, "",       default_ranef,
-  "by_region",          "region",          "all",            default_pa,        default_sleep, "",       default_ranef,
-  "by_daylight",        "daylight_hours",  "8, 10, 12, 14",  default_pa,        default_sleep, " hours", default_ranef,
-  "by_wear_location",   "acc_wear_loc",    "all",            default_pa,        default_sleep, "",       default_ranef,
-  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   default_pa,        default_sleep, "",       default_ranef,
-  "by_age_fixedef",     "age",             "11, 18, 35, 65", default_pa,        default_sleep, " years", "(1 | measurement_day) + (1 | participant_id)",
-  "by_age_nolog",       "age",             "11, 18, 35, 65", "scale_pa_volume", default_sleep, "",       default_ranef
+  ~model_name,          ~moderator,        ~moderator_term,  ~pa_vars,   ~sleep_vars,   ~ranef,
+  "by_age",             "age",             "11, 18, 35, 65", default_pa, default_sleep, default_ranef,
+  "by_age_fixedef",     "age",             "11, 18, 35, 65", default_pa, default_sleep, fixedef,
+  "by_age_nolog",       "age",             "11, 18, 35, 65", scale_pa,   default_sleep, default_ranef,
+  "by_bmi",             "bmi",             "18, 22, 25, 30", default_pa, default_sleep, default_ranef,
+  "by_ses",             "ses",             "all",            default_pa, default_sleep, default_ranef,
+  "by_weekday",         "weekday_x",       "all",            default_pa, default_sleep, default_ranef,
+  "by_season",          "season",          "all",            default_pa, default_sleep, default_ranef,
+  "by_region",          "region",          "all",            default_pa, default_sleep, default_ranef,
+  "by_daylight",        "daylight_hours",  "8, 10, 12, 14",  default_pa, default_sleep, default_ranef,
+  "by_wear_location",   "acc_wear_loc",    "all",            default_pa, default_sleep, default_ranef,
+  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   default_pa, default_sleep, default_ranef
 )
 # nolint end styler: on
 
@@ -92,98 +94,12 @@ list(
         moderator = moderator,
         moderator_term = moderator_term, pa_vars = pa_vars,
         sleep_vars = sleep_vars, ranef = ranef
-      ),
+      )),
       tar_target(
         purdy_pictures,
-        produce_purdy_pictures(model_list, paste_facet_labels = labels)
+        produce_purdy_pictures(model_list)
       ),
       tar_target(model_tables, make_model_tables(model_list))
-    )
-  ),
-  tar_target(
-    model_list_by_age,
-    make_model_list(data_imp, moderator = "age", moderator_term = "11, 18, 35, 65")
-  ),
-  tar_target(
-    model_list_by_bmi,
-    make_model_list(
-      data_imp,
-      moderator = "bmi",
-      moderator_term = "18, 22, 25, 30",
-      control_vars = c("ses", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_ses,
-    make_model_list(
-      data_imp,
-      moderator = "ses",
-      moderator_term = "all",
-      control_vars = c("bmi", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_sex,
-    make_model_list(
-      data_imp,
-      moderator = "sex",
-      moderator_term = "all",
-      control_vars = c("ses", "age", "bmi")
-    )
-  ),
-  tar_target(
-    model_list_by_weekday,
-    make_model_list(
-      data_imp,
-      moderator = "weekday_x",
-      moderator_term = "all",
-      control_vars = c("bmi", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_season,
-    make_model_list(
-      data_imp,
-      moderator = "season",
-      moderator_term = "all",
-      control_vars = c("bmi", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_region,
-    make_model_list(
-      data_imp,
-      moderator = "region",
-      moderator_term = "all",
-      control_vars = c("ses", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_daylight,
-    make_model_list(
-      data_imp,
-      moderator = "daylight_hours",
-      moderator_term = "8, 10, 12, 14",
-      control_vars = c("bmi", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_wear_location,
-    make_model_list(
-      data_imp,
-      moderator = "accelerometer_wear_location",
-      moderator_term = "all",
-      control_vars = c("bmi", "age", "sex")
-    )
-  ),
-  tar_target(
-    model_list_by_pa_mostactivehr,
-    make_model_list(
-      data_imp,
-      moderator = "pa_mostactivehr",
-      moderator_term = "5, 9, 14, 19",
-      control_vars = c("bmi", "age", "sex")
-    )
   ),
 
   ##################################################################
@@ -191,61 +107,6 @@ list(
   ##################################################################
 
   tar_target(explore_img, make_explore_img_list(data_holdout)),
-  tar_target(
-    purdy_pictures_by_age,
-    produce_purdy_pictures(model_list_by_age,
-      paste_facet_labels = " years"
-    )
-  ),
-  tar_target(
-    purdy_pictures_by_bmi,
-    produce_purdy_pictures(model_list_by_bmi)
-  ),
-  tar_target(
-    purdy_pictures_by_ses,
-    produce_purdy_pictures(model_list_by_ses)
-  ),
-  tar_target(
-    purdy_pictures_by_sex,
-    produce_purdy_pictures(model_list_by_sex)
-  ),
-  tar_target(
-    purdy_pictures_by_weekday,
-    produce_purdy_pictures(model_list_by_weekday)
-  ),
-  tar_target(
-    purdy_pictures_by_season,
-    produce_purdy_pictures(model_list_by_season)
-  ),
-  tar_target(
-    purdy_pictures_by_region,
-    produce_purdy_pictures(model_list_by_region)
-  ),
-  tar_target(
-    purdy_pictures_by_daylight,
-    produce_purdy_pictures(model_list_by_daylight, paste_facet_labels = " hours")
-  ),
-  tar_target(
-    purdy_pictures_by_wear_location,
-    produce_purdy_pictures(model_list_by_wear_location)
-  ),
-  tar_target(
-    purdy_pictures_by_pa_mostactivehr,
-    produce_purdy_pictures(model_list_by_pa_mostactivehr)
-  ),
-
-  # Tables
-  tar_target(model_tables_age, make_model_tables(model_list_by_age)),
-  tar_target(model_tables_bmi, make_model_tables(model_list_by_bmi)),
-  tar_target(model_tables_ses, make_model_tables(model_list_by_ses)),
-  tar_target(model_tables_sex, make_model_tables(model_list_by_sex)),
-  tar_target(model_tables_weekday, make_model_tables(model_list_by_weekday)),
-  tar_target(model_tables_season, make_model_tables(model_list_by_season)),
-  tar_target(model_tables_region, make_model_tables(model_list_by_region)),
-  tar_target(model_tables_daylight, make_model_tables(model_list_by_daylight)),
-  tar_target(model_tables_wear_location, make_model_tables(model_list_by_wear_location)),
-  tar_target(model_tables_pa_mostactivehr, make_model_tables(model_list_by_pa_mostactivehr)),
-
   # Output results section
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
     "papaja::apa6_docx",
@@ -255,36 +116,14 @@ list(
   #################################################################
   ##                   SUPPLEMENTARY MATERIALS                   ##
   #################################################################
-  ### Using study id as a fixed effect
-
-  ### Run models
-  ### Study ID is a fixed effect rather than a random effect
-  tar_target(
-    model_list_by_age_fixedef,
-    make_model_list(data_imp,
-      moderator = "age", moderator_term = "11, 18, 35, 65",
-      ranef = "(1 | measurement_day) + (1 | participant_id)",
-      c("ses", "sex", "bmi", "studyid")
-    )
-  ),
-  ### Produce tables
-  tar_target(model_tables_fixedef, make_model_tables(model_list_by_age_fixedef)),
-
-  ### Produce figures
-  tar_target(
-    purdy_pictures_by_age_fixedef,
-    produce_purdy_pictures(model_list_by_age_fixedef,
-      paste_facet_labels = " years",
-      add_filename = "_fixedef"
-    )
-  ),
   tar_target(
     model_diagnostics,
     make_model_diagnostics(
       model_list_by_age,
+      model_list_by_age_fixedef,
+      model_list_by_age_nolog,
       model_list_by_bmi,
       model_list_by_ses,
-      model_list_by_sex,
       model_list_by_weekday,
       model_list_by_season,
       model_list_by_region,
