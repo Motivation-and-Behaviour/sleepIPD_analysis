@@ -64,14 +64,17 @@ make_data_imp <- function(data, n_imps = 3) {
   # Run imps with better settings
   future_cores <- min(parallel::detectCores() - 1, n_imps)
 
-  dist.core <- cut(1:n_imps, future_cores, labels = paste0("core", 1:future_cores))
-  n.imp.core <- as.vector(table(dist.core))
+  dist_core <- cut(
+    1:n_imps, future_cores,
+    labels = paste0("core", 1:future_cores)
+  )
+  n_imp_core <- as.vector(table(dist_core))
 
   future::plan("multisession",
     workers = future_cores
   )
 
-  imps <- furrr::future_map(n.imp.core, function(x) {
+  imps <- furrr::future_map(n_imp_core, function(x) {
     mice(
       data = imp_data,
       m = x,
@@ -94,7 +97,7 @@ make_data_imp <- function(data, n_imps = 3) {
     }
   }
   # let imputation matrix correspond to grand m
-  for (i in 1:length(imp$imp)) {
+  for (i in seq_along(imp$imp)) {
     colnames(imp$imp[[i]]) <- 1:imp$m
   }
 
@@ -120,7 +123,8 @@ make_data_imp <- function(data, n_imps = 3) {
   imp_list <- data.table(complete(imp, action = "long", include = TRUE))
 
   for (v in seq_along(variables_to_scale)) {
-    imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
+    imp_list[, (eval(scale_names[v])) :=
+      as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
   }
 
   imp_list$log_pa_volume <- log(imp_list$pa_volume)
