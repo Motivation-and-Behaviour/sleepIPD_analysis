@@ -33,10 +33,11 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[names(meth) %in% dont_imp] <- ""
   pred[, colnames(pred) %in% c(dont_use, dont_imp)] <- 0
 
-  participant_invar <- c("age","weight","height","bmi")
+  participant_invar <- c("age", "weight", "height", "bmi")
 
   participant_cont <-
-    c("pa_volume",
+    c(
+      "pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
       "pa_mostactivehr",
@@ -53,8 +54,8 @@ make_data_imp <- function(data, n_imps = 3) {
     )
 
   # Multi-level imputation, consider correlations within participant
-  pred["sex",] <- 0
-  pred["sex", c("age","bmi","pa_intensity","screen_time","sleep_regularity")] <- 1
+  pred["sex", ] <- 0
+  pred["sex", c("age", "bmi", "pa_intensity", "screen_time", "sleep_regularity")] <- 1
   pred[c(participant_cont, participant_invar, "sex"), "participant_id"] <- -2L
   meth[c(participant_cont)] <- "2l.pmm"
   meth[c(participant_invar)] <- "2lonly.pmm"
@@ -73,7 +74,7 @@ make_data_imp <- function(data, n_imps = 3) {
   imps <- furrr::future_map(n.imp.core, function(x) {
     mice(
       data = imp_data,
-      m = n_imps,
+      m = x,
       predictorMatrix = pred,
       method = meth,
       printFlag = FALSE,
