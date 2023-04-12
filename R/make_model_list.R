@@ -10,7 +10,7 @@
 make_model_list <- function(data_imp,
                             moderator = "age",
                             moderator_term = "11, 18, 35, 65",
-                            control_vars = c("ses", "sex", "bmi"),
+                            control_vars = c("ses", "age", "sex", "bmi"),
                             ranef = "(1|studyid) + (1|participant_id)",
                             sleep_vars = c(
                               "scale_sleep_duration", "scale_sleep_efficiency",
@@ -19,6 +19,8 @@ make_model_list <- function(data_imp,
                             pa_vars = c(
                               "scale_pa_volume", "scale_pa_intensity"
                             )) {
+  control_vars <- control_vars[!control_vars == moderator]
+
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
 
   make_quadratic <- function(x) glue::glue("{x} * {moderator} + I({x}^2) * {moderator}")
