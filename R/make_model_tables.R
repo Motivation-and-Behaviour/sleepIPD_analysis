@@ -19,27 +19,20 @@ make_model_tables <- function(model_list) {
 
   note <- paste("Adjusted for", control_vars)
 
-  sleep_vars <- list(
-    `Sleep duration` = "scale_sleep_duration",
-    `Sleep efficency` = "scale_sleep_efficiency",
-    `Sleep onset` = "scale_sleep_onset",
-    `Sleep regularity` = "scale_sleep_regularity"
-  )
+  vars <- attr(model_list, "vars")
 
-  pa_vars <- list(
-    `Physical activity volume` = "scale_pa_volume",
-    `Physical activity intensity` = "scale_pa_intensity"
-  )
+  sleep_vars <- vars$sleep_vars
+  pa_vars <- vars$pa_vars
 
   sleep_table <- list()
 
   sleep_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      sleep, "by", pa_vars["Physical activity volume"],
+      sleep, "by", pa_vars[[1]],
       collapse = " "
     )
     model2_name <- paste(
-      sleep, "by", pa_vars[["Physical activity intensity"]],
+      sleep, "by", pa_vars[[2]],
       collapse = " "
     )
 
@@ -61,18 +54,19 @@ make_model_tables <- function(model_list) {
   }
 
   sleep_table$col_spanners <- list(
-    "Physical Activity Volume" = c(2, 5),
-    "Physical Activity Intensity" = c(6, 9)
+    c(2, 5),
+    c(6, 9)
   )
+  names(sleep_table$col_spanners) <- names(pa_vars)
 
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      pa_vars["Physical activity volume"], "by", paste0(sleep, "_lag"),
+      pa_vars[[1]], "by", paste0(sleep, "_lag"),
       collapse = " "
     )
     model2_name <- paste(
-      pa_vars[["Physical activity intensity"]], "by", paste0(sleep, "_lag"),
+      pa_vars[[2]], "by", paste0(sleep, "_lag"),
       collapse = " "
     )
 
@@ -94,9 +88,10 @@ make_model_tables <- function(model_list) {
   }
 
   pa_table$col_spanners <- list(
-    "Physical Activity Volume" = c(2, 5),
-    "Physical Activity Intensity" = c(6, 9)
+    c(2, 5),
+    c(6, 9)
   )
+  names(pa_table$col_spanners) <- names(pa_vars)
 
   return(list(sleep = sleep_table, physical_activity = pa_table))
 }

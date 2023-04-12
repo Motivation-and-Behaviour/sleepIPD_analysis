@@ -1,20 +1,33 @@
 #' produce_purdy_pictures
 #' @param model_list model_list
-#' @param paste_facet_labels character. String to paste to facet labels
-#' @param add_filename character. String to add to end of filenames
 #' @example  model_list <- model_list_by_age
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
 
-produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_filename = "") {
+produce_purdy_pictures <- function(model_list) {
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
     model_list[[i]]$model_assets$effects
   })
 
+  moderator <- attr(model_list[[1]], "moderator")
+
+  add_filename <-
+    if ("studyid" %in% model_list[[1]]$control_vars) "_fixedef" else ""
+
+  # Additional labels
+  f_df <- data.frame(
+    moderator = c("age", "daylight_hours"),
+    facet_label = c(" years", " hours")
+  )
+
+  if (moderator %in% f_df$moderator) {
+    paste_facet_labels <- f_df$facet_label[f_df$moderator == moderator]
+  } else {
+    paste_facet_labels <- ""
+  }
+
   plot_dat <- data.table::rbindlist(dat_list) |>
     prepare_plot_data(paste_facet_labels)
-
-  moderator <- attr(model_list[[1]], "moderator")
 
   # Im the moderator is age, then, retrieve granular age predictions
 
@@ -38,7 +51,14 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
     pdat <- plot_dat[x_name == x_var & RQ == rq]
 
     conv_message_dat <- unique(pdat[, c("outcome", "group", "message")])
-    fig <- ggplot(pdat, aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high, group = group, fill = group)) +
+    fig <- ggplot(
+      pdat,
+      aes(
+        x = x, y = predicted,
+        ymin = conf.low, ymax = conf.high,
+        group = group, fill = group
+      )
+    ) +
       geom_line() +
       geom_ribbon(alpha = .5) +
       facet_grid(rows = vars(outcome), cols = vars(group)) +
@@ -64,10 +84,6 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
       tdat <- tile_dat[x_name == x_var & RQ == rq]
 
       predictor <- gsub("\\[.*", "", unique(tdat$x_name)) |>
-        gsub("_", " ", x = _) |>
-        stringr::str_to_sentence() |>
-        gsub("Pa", "PA", x = _)
-      gsub("\\[.*", "", unique(tile_dat$x_name)) |>
         gsub("_", " ", x = _) |>
         stringr::str_to_sentence() |>
         gsub("Pa", "PA", x = _)
@@ -112,25 +128,50 @@ produce_purdy_pictures <- function(model_list, paste_facet_labels = "", add_file
     ggsave(filename, plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi)
   }
 
-  # Research Question 1
-  p("pa_intensity", "PA intensity (z)", rq = 1)
-  p("pa_volume", "PA volume (z)", rq = 1)
+  vars <- attr(model_list, "vars")
 
-  # Research Question 3
-  p("sleep_duration_lag", "lag sleep duration (z)", rq = 3)
-  p("sleep_efficiency_lag", "lag sleep efficiency (z)", rq = 3)
-  p("sleep_onset_lag", "lag sleep onset (z)", rq = 3)
-  p("sleep_regularity_lag", "lag sleep regularity (z)", rq = 3)
+  df <- data.frame(x = c(vars$pa_vars, paste0(vars$sleep_vars, "_lag")))
+  # Format xlab
+  df$y <- df$x |>
+    gsub("_", " ", x = _) |>
+    gsub("^(.*)\\b(.*)\\b(lag)$", "\\3 \\1\\2", x = _) |>
+    trimws()
 
-  NULL
+  is_scale <- grepl("scale", df$y)
+  df$y[is_scale] <- gsub("scale ", "", df$y[is_scale])
+  df$y[is_scale] <- paste(df$y[is_scale], "(z)")
+
+  is_log <- grepl("log", df$y)
+  df$y[is_log] <- gsub("log ", "", df$y[is_log])
+  df$y[is_log] <- paste(df$y[is_log], "(log)")
+
+  df$y <- stringr::str_to_sentence(df$y) |>
+    gsub("Pa|pa\\b", "PA", x = _)
+
+  df$RQ <- ifelse(grepl("Lag", df$y), 3, 1)
+
+  # produce the plots
+  out <- lapply(seq_len(nrow(df)), function(row) {
+    p(df$x[row], df$y[row], df$RQ[row])
+  })
+
+  names(out) <- paste0("predictor_", gsub("(scale_|log_)", "", df$x))
+  out
 }
 
 prepare_plot_data <- function(plot_dat, paste_facet_labels) {
-  plot_dat$x_name <- gsub("scale_", "", plot_dat$x_name)
-  plot_dat$outcome <- gsub("scale_", "", plot_dat$outcome) |>
+  is_scale <- grepl("scale_", plot_dat$outcome)
+  plot_dat$outcome[is_scale] <- gsub("scale_", "", plot_dat$outcome[is_scale])|>
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
+
+is_log <- grepl("log_", plot_dat$outcome)
+plot_dat$outcome[is_log] <- gsub("log_", "", plot_dat$outcome[is_log]) |>
+  gsub("_", " ", x = _) |>
+  stringr::str_to_title() |>
+  paste("(log)")
+
   # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
   plot_dat$outcome <- factor(plot_dat$outcome)
