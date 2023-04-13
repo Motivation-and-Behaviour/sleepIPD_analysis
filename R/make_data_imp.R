@@ -25,7 +25,7 @@ make_data_imp <- function(data, n_imps = 3) {
   dont_use <- c(
     "age_cat", "studyid", "participant_id", "country", "region",
     "acc_wear_loc", "accelerometer_model", "pa_intensity_m16",
-    "pa_mostactivehr", "weekday_x"
+    "pa_mostactivehr", "weekday"
   )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method

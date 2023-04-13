@@ -47,11 +47,10 @@ clean_data <- function(data_joined, region_lookup) {
     ), as.numeric)) %>%
     # convert charcter variables to factors
     mutate(across(c(
-      studyid, sex, ethnicity,
-      ses, sleep_medications, sleep_conditions,
-      country, season, acc_wear_loc,
-      weekday_x, accelerometer_model
+      studyid, sex, ethnicity, ses, sleep_medications, sleep_conditions,
+      country, season, acc_wear_loc, weekday_x, accelerometer_model
     ), as.factor)) %>%
+    rename(weekday = weekday_x) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
     # Add participant ID using the study and filename
