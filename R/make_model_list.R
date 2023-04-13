@@ -74,7 +74,15 @@ make_model_list <- function(data_imp,
     }
   )
 
+  # Add some attributes used in other targets
   names(out) <- instructions[, "model_name"]
   attr(out, "vars") <- list(sleep_vars = sleep_vars, pa_vars = pa_vars)
+  attr(out, "filename_suffix") <-
+    dplyr::case_when(
+      "studyid" %in% control_vars ~ "_fixedef",
+      "scale_pa_volume" %in% pa_vars ~ "_nolog",
+      TRUE ~ ""
+    )
+
   out
 }

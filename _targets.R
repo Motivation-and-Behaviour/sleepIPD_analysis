@@ -25,29 +25,31 @@ if (Sys.getenv("GCS_AUTH_FILE") != "") {
 }
 
 # Model parameters
-default_pa <- c("log_pa_volume", "scale_pa_intensity")
+dflt_pa <- c("log_pa_volume", "scale_pa_intensity")
 scale_pa <- c("scale_pa_volume", "scale_pa_intensity")
-default_sleep <- c(
+dflt_sleep <- c(
   "scale_sleep_duration", "scale_sleep_efficiency", "scale_sleep_onset",
   "scale_sleep_regularity"
 )
-default_ranef <- "(1|studyid) + (1|participant_id)"
-fixedef <- "(1 | measurement_day) + (1 | participant_id)"
+dflt_ranef <- "(1|studyid) + (1|participant_id)"
+fixedef <- "(1|measurement_day) + (1|participant_id)"
+dflt_con <- c("ses", "age", "sex", "bmi")
 
 # nolint start styler: off
-models <- dplyr::tribble(
-  ~model_name,          ~moderator,        ~moderator_term,  ~pa_vars,   ~sleep_vars,   ~ranef,
-  "by_age",             "age",             "11, 18, 35, 65", default_pa, default_sleep, default_ranef,
-  "by_age_fixedef",     "age",             "11, 18, 35, 65", default_pa, default_sleep, fixedef,
-  "by_age_nolog",       "age",             "11, 18, 35, 65", scale_pa,   default_sleep, default_ranef,
-  "by_bmi",             "bmi",             "18, 22, 25, 30", default_pa, default_sleep, default_ranef,
-  "by_ses",             "ses",             "all",            default_pa, default_sleep, default_ranef,
-  "by_weekday",         "weekday_x",       "all",            default_pa, default_sleep, default_ranef,
-  "by_season",          "season",          "all",            default_pa, default_sleep, default_ranef,
-  "by_region",          "region",          "all",            default_pa, default_sleep, default_ranef,
-  "by_daylight",        "daylight_hours",  "8, 10, 12, 14",  default_pa, default_sleep, default_ranef,
-  "by_wear_location",   "acc_wear_loc",    "all",            default_pa, default_sleep, default_ranef,
-  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   default_pa, default_sleep, default_ranef
+models_df <- dplyr::tribble(
+  ~model_name,          ~moderator,        ~mod_term,        ~mod_formal,        ~pa_vars, ~sleep_vars, ~ranef,     ~cont_vars,
+  "by_age",             "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_age_fixedef",     "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  fixedef,    c(dflt_con, "studyid"),
+  "by_age_nolog",       "age",             "11, 18, 35, 65", "age",              scale_pa, dflt_sleep,  dflt_ranef, dflt_con,
+  "by_bmi",             "bmi",             "18, 22, 25, 30", "BMI",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_ses",             "ses",             "all",            "SES",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_sex",             "sex",             "all",            "sex",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_weekday",         "weekday",         "all",            "weekday",          dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_season",          "season",          "all",            "season",           dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_region",          "region",          "all",            "region",           dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_daylight",        "daylight_hours",  "8, 10, 12, 14",  "daylight hours",   dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_wear_location",   "acc_wear_loc",    "all",            "wear location",    dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   "most active hour", dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con
 )
 # nolint end styler: on
 
@@ -86,20 +88,20 @@ list(
   ##                          MODELLING                          ##
   #################################################################
   tar_map(
-    values = models,
+    values = models_df,
     names = model_name,
     tar_target(
       model_list,
       make_model_list(data_imp,
-        moderator = moderator,
-        moderator_term = moderator_term, pa_vars = pa_vars,
-        sleep_vars = sleep_vars, ranef = ranef
-      )),
-      tar_target(
-        purdy_pictures,
-        produce_purdy_pictures(model_list)
-      ),
-      tar_target(model_tables, make_model_tables(model_list))
+        moderator = moderator, moderator_term = mod_term, pa_vars = pa_vars,
+        sleep_vars = sleep_vars, control_vars = cont_vars, ranef = ranef
+      )
+    ),
+    tar_target(model_tables, make_model_tables(model_list)),
+    tar_target(
+      purdy_pictures,
+      produce_purdy_pictures(model_list, model_tables)
+    )
   ),
 
   ##################################################################
@@ -133,7 +135,14 @@ list(
     ),
     deployment = "main"
   ),
-
+  tar_target(multiverse_skeleton, "doc/multiverse_skeleton.Rmd",
+    format = "file"
+  ),
+  tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
+  tar_target(multiverse_file,
+    make_multiverse_file(multiverse_skeleton, multiverse_chunk, models_df),
+    format = "file"
+  ),
   ### Produce supplementary material
   tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
     "papaja::apa6_pdf"

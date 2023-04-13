@@ -4,15 +4,14 @@
 #' @details I check the proporiton of models that converged. If less then 75% of models converged
 #' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
 
-produce_purdy_pictures <- function(model_list) {
+produce_purdy_pictures <- function(model_list, ...) {
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
     model_list[[i]]$model_assets$effects
   })
 
   moderator <- attr(model_list[[1]], "moderator")
 
-  add_filename <-
-    if ("studyid" %in% model_list[[1]]$control_vars) "_fixedef" else ""
+  add_filename <- attr(model_list, "filename_suffix")
 
   # Additional labels
   f_df <- data.frame(
