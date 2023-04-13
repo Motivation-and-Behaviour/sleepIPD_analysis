@@ -1,0 +1,267 @@
+---
+title             : "Multiverse analysis"
+shorttitle        : "Title"
+
+author: 
+  - name          : "First Author"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "my@email.com"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - "Conceptualization"
+      - "Writing - Original Draft Preparation"
+      - "Writing - Review & Editing"
+  - name          : "Ernst-August Doelle"
+    affiliation   : "1,2"
+    role:
+      - "Writing - Review & Editing"
+      - "Supervision"
+
+affiliation:
+  - id            : "1"
+    institution   : "Wilhelm-Wundt-University"
+  - id            : "2"
+    institution   : "Konstanz Business School"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+
+floatsintext      : no
+linenumbers       : no
+draft             : no
+mask              : no
+
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+
+classoption       : "man"
+
+header-includes:
+ - \usepackage[maxfloats=256]{morefloats}
+
+output            : papaja::apa6_pdf
+
+---
+
+```{comment}
+I needed to add maxdeadcycles and more floats to support how many figures are in this doc.
+```
+
+\renewcommand{\arraystretch}{0.7}
+\maxdeadcycles=1000
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.pos = "!htbp")
+source("R/utils.R")
+options(warn = -1)
+knitr::opts_chunk$set(out.width = "110%")
+```
+
+```{r load-libraries}
+library(targets)
+library(gt)
+require(ggplot2)
+library(papaja)
+```
+
+```{r load-targets, include=FALSE}
+tar_load(multiverse_file)
+pretty <- function(x) format(x, big.mark = ",")
+```
+
+# Results
+
+## Model diagnostics
+
+The model diagnostics for the main analysis, and for all models presented in this document are in Table \@ref(tab:model-diagnostics)
+
+```{r model-diagnostics}
+tar_read(model_diagnostics) |>
+  papaja::apa_table(
+    caption = "Model diagnostics", escape = FALSE,
+    longtable = TRUE
+  )
+```
+
+## Fixed Effect Model
+
+```{r}
+tar_load(model_tables_by_age_fixedef)
+tar_load(purdy_pictures_by_age_fixedef)
+```
+
+In this document we show the results using another analytic technique.
+Namely treating study ID as a fixed effect.
+This is what we wrote in the protocol originally.
+
+### The effects of physical activity volume on sleep
+
+We estimated the effects of physical activity on sleep (RQ1) using fixed-effects models.
+We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-volume-fig-fixedef).
+
+```{r sleep-outcomes-fixedef}
+papaja::apa_table(
+  model_tables_by_age_fixedef$sleep$data,
+  caption = model_tables_by_age_fixedef$sleep$caption,
+  note = model_tables_by_age_fixedef$sleep$note,
+  col_spanners = model_tables_by_age_fixedef$sleep$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r sleep-by-volume-fig-fixedef, fig.cap = "Sleep metrics on Physical activity volume"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_volume), error = FALSE)
+```
+
+### The effects of physical activity intensity on sleep
+
+We estimated how physical activity intensity affects sleep across different age groups.
+We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-intensity-fig-fixedef).
+
+```{r sleep-by-intensity-fig-fixedef, fig.cap = "Sleep metrics on Physical activity intensity"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_intensity), error = FALSE)
+```
+
+### The effects of sleep duration on physical activity
+
+We estimated the effect of sleep duration on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-duration-fig-fixedef).
+
+```{r pa-outcomes-fixedef}
+papaja::apa_table(
+  model_tables_by_age_fixedef$physical_activity$data,
+  caption = model_tables_by_age_fixedef$physical_activity$caption,
+  note = model_tables_by_age_fixedef$physical_activity$note,
+  col_spanners = model_tables_by_age_fixedef$physical_activity$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r PA-by-sleep-duration-fig-fixedef, fig.cap = "Physical activity by sleep duration"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_duration_lag), error = FALSE)
+```
+
+### The effects of sleep efficiency on physical activity
+
+We estimated the effect of sleep efficiency on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-fixedef).
+
+```{r PA-by-sleep-efficiency-fig-fixedef, fig.cap = "Physical activity by sleep efficiency"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+### The effects of sleep onset on physical activity
+
+We estimated the effect of sleep onset on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-onset-fig-fixedef).
+
+```{r PA-by-sleep-onset-fig-fixedef, fig.cap = "Physical activity by sleep onset"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_onset_lag), error = FALSE)
+```
+
+### The effects of sleep regularity on physical activity
+
+We estimated the effect of sleep regularity on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-regularity-fig-fixedef).
+
+```{r PA-by-sleep-regularity-fig-fixedef, fig.cap = "Physical activity by sleep regularity"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Without Log Transforming PA Volume
+
+```{r}
+tar_load(model_tables_by_age_nolog)
+tar_load(purdy_pictures_by_age_nolog)
+```
+
+Based on preliminary modelling on a subset of the data, we chose to log transform the physical activity volume variable.
+Below, we present the results had we not made this decision.
+These results are all moderated by age, as this was our primary analysis.
+
+### The effects of physical activity volume on sleep
+
+We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
+We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-nolog) and Figure \@ref(fig:sleep-by-volume-fig-nolog).
+
+```{r sleep-outcomes-nolog}
+papaja::apa_table(
+  model_tables_by_age_nolog$sleep$data,
+  caption = model_tables_by_age_nolog$sleep$caption,
+  note = model_tables_by_age_nolog$sleep$note,
+  col_spanners = model_tables_by_age_nolog$sleep$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r sleep-by-volume-fig-nolog, fig.cap = "Sleep metrics on Physical activity volume"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_pa_volume), error = FALSE)
+```
+
+### The effects of sleep duration on physical activity
+
+We estimated the effect of sleep duration on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-duration-fig-nolog).
+
+```{r pa-outcomes-nolog}
+papaja::apa_table(
+  model_tables_by_age_nolog$physical_activity$data,
+  caption = model_tables_by_age_nolog$physical_activity$caption,
+  note = model_tables_by_age_nolog$physical_activity$note,
+  col_spanners = model_tables_by_age_nolog$physical_activity$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r PA-by-sleep-duration-fig-nolog, fig.cap = "Physical activity by sleep duration"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_duration_lag), error = FALSE)
+```
+
+### The effects of sleep efficiency on physical activity
+
+We estimated the effect of sleep efficiency on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-nolog).
+
+```{r PA-by-sleep-efficiency-fig-nolog, fig.cap = "Physical activity by sleep efficiency"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+### The effects of sleep onset on physical activity
+
+We estimated the effect of sleep onset on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-onset-fig-nolog).
+
+```{r PA-by-sleep-onset-fig-nolog, fig.cap = "Physical activity by sleep onset"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_onset_lag), error = FALSE)
+```
+
+### The effects of sleep regularity on physical activity
+
+We estimated the effect of sleep regularity on physical activity by age.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-regularity-fig-nolog).
+
+```{r PA-by-sleep-regularity-fig-nolog, fig.cap = "Physical activity by sleep regularity"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+# Moderation
+
+In the following section we present models for a range of moderators which were pre-defined in our protocol.

@@ -8,32 +8,37 @@
 #' @author noetel & conigrave
 #' @export
 make_participant_summary <- function(data_clean) {
-
   require(dplyr)
   require(labelled)
 
   d <- data_clean %>%
-    select(n_valid_hours, accelerometer_wear_location,
-    pa_volume, pa_intensity,
-    sleep_duration, sleep_efficiency,
-    sleep_onset, sleep_wakeup,
-    sleep_regularity, # sleep_onset_time, sleep_wakeup_time,
-    sleep_duration, sleep_efficiency,
-    sex, age, height, weight, bmi, waist_circumference,
-    ses, screen_time, daylight_hours, city, eligible,
-    sleep_conditions, country, season, region, studyid, participant_id) %>%
-    mutate(studyid = as.factor(studyid),
-            city = as.factor(city),
-            season = as.factor(season))
+    select(
+      n_valid_hours, acc_wear_loc,
+      pa_volume, pa_intensity,
+      sleep_duration, sleep_efficiency,
+      sleep_onset, sleep_wakeup,
+      sleep_regularity, # sleep_onset_time, sleep_wakeup_time,
+      sleep_duration, sleep_efficiency,
+      sex, age, height, weight, bmi, waist_circumference,
+      ses, screen_time, daylight_hours, city, eligible,
+      sleep_conditions, country, season, region, studyid, participant_id
+    ) %>%
+    mutate(
+      studyid = as.factor(studyid),
+      city = as.factor(city),
+      season = as.factor(season)
+    )
 
   participants <- d %>%
     group_by(participant_id) %>%
-    summarise(across(where(is.numeric), mean, na.rm = TRUE),
-              across(where(is.factor), find_max),
-              across(where(is.logical), any)) %>%
+    summarise(
+      across(where(is.numeric), mean, na.rm = TRUE),
+      across(where(is.factor), find_max),
+      across(where(is.logical), any)
+    ) %>%
     mutate(sleep_conditions = as.factor(sleep_conditions))
 
-var_label(participants) <- c(
+  var_label(participants) <- c(
     "Participant ID",
     "Valid Weartime Hours",
     "PA Volume",
@@ -58,8 +63,8 @@ var_label(participants) <- c(
     "Season",
     "Region",
     "Study ID",
-    "Any Observations Met Weartime Criteria")
+    "Any Observations Met Weartime Criteria"
+  )
 
-participants
-
+  participants
 }

@@ -24,8 +24,8 @@ make_data_imp <- function(data, n_imps = 3) {
   dont_imp <- c("filename", "calendar_date")
   dont_use <- c(
     "age_cat", "studyid", "participant_id", "country", "region",
-    "accelerometer_wear_location", "accelerometer_model", "pa_intensity_m16",
-    "pa_mostactivehr", "weekday_x"
+    "acc_wear_loc", "accelerometer_model", "pa_intensity_m16",
+    "pa_mostactivehr", "weekday"
   )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
@@ -33,10 +33,11 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[names(meth) %in% dont_imp] <- ""
   pred[, colnames(pred) %in% c(dont_use, dont_imp)] <- 0
 
-  participant_invar <- c("age","weight","height","bmi")
+  participant_invar <- c("age", "weight", "height", "bmi")
 
   participant_cont <-
-    c("pa_volume",
+    c(
+      "pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
       "pa_mostactivehr",
@@ -53,8 +54,8 @@ make_data_imp <- function(data, n_imps = 3) {
     )
 
   # Multi-level imputation, consider correlations within participant
-  pred["sex",] <- 0
-  pred["sex", c("age","bmi","pa_intensity","screen_time","sleep_regularity")] <- 1
+  pred["sex", ] <- 0
+  pred["sex", c("age", "bmi", "pa_intensity", "screen_time", "sleep_regularity")] <- 1
   pred[c(participant_cont, participant_invar, "sex"), "participant_id"] <- -2L
   meth[c(participant_cont)] <- "2l.pmm"
   meth[c(participant_invar)] <- "2lonly.pmm"
@@ -63,17 +64,20 @@ make_data_imp <- function(data, n_imps = 3) {
   # Run imps with better settings
   future_cores <- min(parallel::detectCores() - 1, n_imps)
 
-  dist.core <- cut(1:n_imps, future_cores, labels = paste0("core", 1:future_cores))
-  n.imp.core <- as.vector(table(dist.core))
+  dist_core <- cut(
+    1:n_imps, future_cores,
+    labels = paste0("core", 1:future_cores)
+  )
+  n_imp_core <- as.vector(table(dist_core))
 
   future::plan("multisession",
     workers = future_cores
   )
 
-  imps <- furrr::future_map(n.imp.core, function(x) {
+  imps <- furrr::future_map(n_imp_core, function(x) {
     mice(
       data = imp_data,
-      m = n_imps,
+      m = x,
       predictorMatrix = pred,
       method = meth,
       printFlag = FALSE,
@@ -93,7 +97,7 @@ make_data_imp <- function(data, n_imps = 3) {
     }
   }
   # let imputation matrix correspond to grand m
-  for (i in 1:length(imp$imp)) {
+  for (i in seq_along(imp$imp)) {
     colnames(imp$imp[[i]]) <- 1:imp$m
   }
 
@@ -119,8 +123,11 @@ make_data_imp <- function(data, n_imps = 3) {
   imp_list <- data.table(complete(imp, action = "long", include = TRUE))
 
   for (v in seq_along(variables_to_scale)) {
-    imp_list[, (eval(scale_names[v])) := as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
+    imp_list[, (eval(scale_names[v])) :=
+      as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
   }
+
+  imp_list$log_pa_volume <- log(imp_list$pa_volume)
 
   as.mids(imp_list)
 }
