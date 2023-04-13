@@ -104,8 +104,8 @@ tar_load(model_tables_by_age_fixedef)
 tar_load(purdy_pictures_by_age_fixedef)
 ```
 
-In this document we show the results using another analytic technique. 
-Namely treating study ID as a fixed effect. 
+In this document we show the results using another analytic technique.
+Namely treating study ID as a fixed effect.
 This is what we wrote in the protocol originally.
 
 ### The effects of physical activity volume on sleep
