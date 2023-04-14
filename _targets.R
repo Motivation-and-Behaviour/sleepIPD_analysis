@@ -58,6 +58,7 @@ list(
   #################################################################
   ##                          MODELLING                          ##
   #################################################################
+  tar_target(model_definitions, models_df),
   tar_map(
     values = models_df,
     names = model_name,
@@ -111,8 +112,9 @@ list(
   ),
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
   tar_target(multiverse_file,
-    make_multiverse_file(multiverse_skeleton, multiverse_chunk, models_df),
-    format = "file"
+    make_multiverse_file(
+      multiverse_skeleton, multiverse_chunk, model_definitions),
+    format = "file", priority = 1
   ),
   ### Produce supplementary material
   tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(

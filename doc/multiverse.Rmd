@@ -1057,3 +1057,91 @@ Results are presented in Table \@ref(tab:pa-outcomes-by-pa-mostactivehr) and Fig
 ```{r PA-by-sleep-regularity-fig-by-pa-mostactivehr, fig.cap = "Physical activity by sleep regularity moderated by most active hour"}
 knitr::include_graphics(here::here(purdy_pictures_by_pa_mostactivehr$predictor_sleep_regularity_lag), error = FALSE)
 ```
+\clearpage
+
+## ethnicity
+
+```{r}
+tar_load(model_tables_by_ethnicity)
+tar_load(purdy_pictures_by_ethnicity)
+```
+
+### The effects of physical activity volume on sleep by ethnicity
+
+We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
+We estimated the effect of physical activity volume on sleep by ethnicity, and the results are presented in Table \@ref(tab:sleep-outcomes-by-ethnicity) and Figure \@ref(fig:sleep-by-volume-fig-by-ethnicity)
+
+```{r sleep-outcomes-by-ethnicity}
+papaja::apa_table(
+  model_tables_by_ethnicity$sleep$data,
+  caption = model_tables_by_ethnicity$sleep$caption,
+  note = model_tables_by_ethnicity$sleep$note,
+  col_spanners = model_tables_by_ethnicity$sleep$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r sleep-by-volume-fig-by-ethnicity, fig.cap = "Sleep metrics on Physical activity volume by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_pa_volume), error = FALSE)
+```
+
+### The effects of physical activity intensity on sleep by ethnicity
+
+We estimated how physical activity intensity affects sleep across ethnicity.
+We present the results in Table \@ref(tab:sleep-outcomes-by-ethnicity) and Figure \@ref(fig:sleep-by-intensity-fig-by-ethnicity).
+
+
+```{r sleep-by-intensity-fig-by-ethnicity, fig.cap = "Sleep metrics on Physical activity intensity moderated by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_pa_intensity), error = FALSE)
+```
+
+### The effects of sleep duration on physical activity
+
+We estimated the effect of sleep duration on physical activity by ethnicity.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-ethnicity) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-ethnicity).
+
+
+```{r pa-outcomes-by-ethnicity}
+papaja::apa_table(
+  model_tables_by_ethnicity$physical_activity$data,
+  caption = model_tables_by_ethnicity$physical_activity$caption,
+  note = model_tables_by_ethnicity$physical_activity$note,
+  col_spanners = model_tables_by_ethnicity$physical_activity$col_spanners,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r PA-by-sleep-duration-fig-by-ethnicity, fig.cap = "Physical activity by sleep duration moderated by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_sleep_duration_lag), error = FALSE)
+```
+
+### The effects of sleep efficiency on physical activity
+
+We estimated the effect of sleep efficiency on physical activity by ethnicity.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-ethnicity) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-ethnicity).
+
+
+```{r PA-by-sleep-efficiency-fig-by-ethnicity, fig.cap = "Physical activity by sleep efficiency moderated by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+### The effects of sleep onset on physical activity
+
+We estimated the effect of sleep onset on physical activity by ethnicity.
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-ethnicity) and Figure \@ref(fig:PA-by-sleep-onset-fig-by-ethnicity).
+
+
+```{r PA-by-sleep-onset-fig-by-ethnicity, fig.cap = "Physical activity by sleep onset moderated by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_sleep_onset_lag), error = FALSE)
+```
+
+### The effects of sleep regularity on physical activity
+
+We estimated the effect of sleep regularity on physical activity by ethnicity.
+Results are presented in Table \@ref(tab:pa-outcomes-by-ethnicity) and Figure \@ref(fig:PA-by-sleep-regularity-fig-by-ethnicity).
+
+```{r PA-by-sleep-regularity-fig-by-ethnicity, fig.cap = "Physical activity by sleep regularity moderated by ethnicity"}
+knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_sleep_regularity_lag), error = FALSE)
+```
