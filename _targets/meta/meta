@@ -2,6 +2,7 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 .Random.seed|object|0945509410f7a114|||||||||||||||
 add_filename|object|ef46db3751d8e999|||||||||||||||
 apa_style|function|7f874036fb9dd45b|||||||||||||||
+back_transform|function|fbf54a8d64d94dd2|||||||||||||||
 check_imps|function|7749740969325a22|||||||||||||||
 check_list|function|9d75232c701efa94|||||||||||||||
 check_model|function|791980e350afa672|||||||||||||||
@@ -100,43 +101,43 @@ make_demog_table|function|054083b9e07685fc|||||||||||||||
 make_explore_img_list|function|06e578dea26c581a|||||||||||||||
 make_lineplot|function|bea57a5262ffafa3|||||||||||||||
 make_model_diagnostics|function|d1abb65aa3b324cf|||||||||||||||
-make_model_list|function|258ebc175734aa90|||||||||||||||
+make_model_list|function|18251e8221dda4b8|||||||||||||||
 make_model_tables|function|e0fb6a597b6d3155|||||||||||||||
 make_multiverse_file|function|b01e8fd8eccfe357|||||||||||||||
 make_participant_summary|function|ae83b58121a56ca0|||||||||||||||
 make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
-manuscript|stem|aa08f3dd9b2a0ba9|37f62dc6f36adceb|5d1b5d74904419e8|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19461.2099672907s|dd4c1465bd54fce5|18084161|file|local|vector|||7.09||
+manuscript|stem|ad57c1d714362b6a|37f62dc6f36adceb|5d1b5d74904419e8|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19461.4058634677s|700d54c8f65cde72|17248044|file|local|vector|||5.61||
 model_builder|function|8be422f87664cf1a|||||||||||||||
-model_diagnostics|stem|26f1344b615b1670|d1f43348e4f69850|1eb70ccfa2cb6c3c|-2086566065||t19461.2385367872s|af71ff7a19838961|3515|rds|local|vector|||0.02||
+model_diagnostics|stem|2bb9194ddcc1c777|d1f43348e4f69850|2a07bde76ee04290|-2086566065||t19461.4041695907s|f34d176b19c345a5|3508|rds|local|vector|||0||
 model_list|object|4513b676089048b8|||||||||||||||
-model_list_by_age|stem|4477f5ec0c69f1b9|353aa42dd95ea04e|1c8be6c62e927c30|-915613210||t19461.3077754466s|3587e4e21fafd877|3071552|rds|local|vector|||30.63|Model failed to converge with maxgrad  0.00682706 tol  0.002, component 1|
-model_list_by_age_fixedef|stem|30bf2d41957623e1|cf227ad7fc6ee16f|90ca720f7e8c8320|-1129600786||t19461.238536468s|a49bc0d9981967f3|3085212|rds|local|vector|||178.83||
-model_list_by_age_nolog|stem|a6d4761ad73ada95|9997dd60c8d0acb8|90ca720f7e8c8320|-640522012||t19461.2370805472s|a8e9c67de863795c|3081376|rds|local|vector|||52.85|Model failed to converge with maxgrad  0.00337153 tol  0.002, component 1|
-model_list_by_bmi|stem|748ac8babbec1683|8df52f79a30465c6|90ca720f7e8c8320|-824558834||t19461.2368402609s|a8db4d1f1d3e22b8|203912|rds|local|vector|||32.42|Model failed to converge with maxgrad  0.00202643 tol  0.002, component 1|
-model_list_by_daylight|stem|7bfa576253fa1fb5|a5f260189eba53be|90ca720f7e8c8320|360411306||t19461.2368668698s|62ebd70080b0b3a2|206102|rds|local|vector|||34.64|Model failed to converge with maxgrad  0.00608107 tol  0.002, component 1. Model failed to converge with maxgrad  0.00228696 tol  0.002, component 1|
-model_list_by_pa_mostactivehr|stem|77203777facaae04|4aa58fdf51f63dd4|90ca720f7e8c8320|96767760||t19461.236878905s|1c77e188edbb9b12|205590|rds|local|vector|||35.64|Model failed to converge with maxgrad  0.0030282 tol  0.002, component 1. Model failed to converge with maxgrad  0.00363664 tol  0.002, component 1. Model failed to converge with maxgrad  0.00248896 tol  0.002, component 1|
-model_list_by_region|stem|593802ee25e5cd6a|5a10e158d9cad925|90ca720f7e8c8320|995279799||t19461.2369927952s|5dc75528e8f150d3|307359|rds|local|vector|||45.52|Model failed to converge with maxgrad  0.00513631 tol  0.002, component 1|
-model_list_by_season|stem|8bf1152460c05ba4|04cf4b2d79083587|90ca720f7e8c8320|181616882||t19461.2369247065s|ebadd04a82ec52af|213657|rds|local|vector|||39.47|Model failed to converge with maxgrad  0.00229623 tol  0.002, component 1|
-model_list_by_ses|stem|82adffe082fa6ae1|239cba4ea1fff506|90ca720f7e8c8320|-1525584369||t19461.2368688184s|a2336116242c0c2c|164884|rds|local|vector|||34.74|Model failed to converge with maxgrad  0.00215019 tol  0.002, component 1. Model failed to converge with maxgrad  0.00350207 tol  0.002, component 1. Model failed to converge with maxgrad  0.00310492 tol  0.002, component 1|
-model_list_by_sex|stem|600a4b0707876c3c|fe9f667969f3c085|90ca720f7e8c8320|1995444685||t19461.2368533811s|46038ad733ae0333|101885|rds|local|vector|||33.16|Model failed to converge with maxgrad  0.00467306 tol  0.002, component 1. Model failed to converge with maxgrad  0.00243924 tol  0.002, component 1|
-model_list_by_wear_location|stem|1b8f4f10d38225b0|21827e79f7edda2f|90ca720f7e8c8320|1226450260||t19461.2368740675s|64b639a79e4055e3|120834|rds|local|vector|||35.06|Model failed to converge with maxgrad  0.00217414 tol  0.002, component 1|
-model_list_by_weekday|stem|fd25e9481364bc03|7034913f48e717c1|90ca720f7e8c8320|-1936845600||t19461.2370222655s|7dce3f0d3641cc89|350332|rds|local|vector|||47.84||
-model_tables_by_age|stem|16c7b8a88b906418|70a4a12df67f0886|6c2574bf05944dc2|652505398||t19461.2370999832s|b53cd6b848c28d47|1972|rds|local|vector|||0.2||
-model_tables_by_age_fixedef|stem|6e20e1663b2372c2|c6fba9e95f574e6c|b8c356b27e2ee36f|-1875179391||t19461.238548781s|bb1a77f8921b1df1|1997|rds|local|vector|||0.17||
-model_tables_by_age_nolog|stem|7c5db59da017e051|cf21f893df586637|40cc63767e6306d7|-574102457||t19461.2370950373s|a96f0c58d9849bcb|1860|rds|local|vector|||0.22||
-model_tables_by_bmi|stem|d3233506e6a1ceee|0e13846e60e012a2|73e9c9dbf25744f5|-1473914303||t19461.2368587706s|708079fc929f5a8a|1887|rds|local|vector|||0.31||
-model_tables_by_daylight|stem|7458b0defc9d53e7|58172fd1ce2dfab9|2d7e0ef774d81834|1805080857||t19461.2368864971s|30ec9e3788aa10e4|2261|rds|local|vector|||0.39||
-model_tables_by_pa_mostactivehr|stem|7df1256bca82c3e8|358fd90539cf45f4|11899f5cabd9a702|-365482984||t19461.236898146s|0e1b3a7b347541fa|2128|rds|local|vector|||0.33||
-model_tables_by_region|stem|e291fe196379318f|663744f49fd305e6|c1a2a1ace31c393d|-822635937||t19461.2370057833s|5c7a7f9c85d4d82d|5142|rds|local|vector|||0.24||
-model_tables_by_season|stem|22a5f74fb863ecc8|3b6487357386de8b|7d1240785cc6c67b|70081220||t19461.2369418662s|7cf092884ec7d39a|3509|rds|local|vector|||0.29||
-model_tables_by_ses|stem|a8c1a98c6ed3c2c6|4541cb5d71812b79|81891978f5c4cacf|-1132203156||t19461.2368887729s|0894a896d54ea448|2089|rds|local|vector|||0.35||
-model_tables_by_sex|stem|04322d71da34a0d7|bdfa89a0cb88ff73|3bb20ed750f02e17|425766184||t19461.2368702758s|816f025395e332d6|1855|rds|local|vector|||0.31||
-model_tables_by_wear_location|stem|d618dea1d9d6d96e|476e6423f13570e3|c3bcfb9c14d5f45d|1633114236||t19461.2368921101s|d35f35350f9c9195|2461|rds|local|vector|||0.33||
-model_tables_by_weekday|stem|85c87e36b18fe87a|f99e47b1b676e54a|3c9c74853d88c647|-742811385||t19461.2370355574s|f9f8cc96cc0a1d02|5185|rds|local|vector|||0.22||
+model_list_by_age|stem|d4b7b790ade2d485|353aa42dd95ea04e|72fa1a4010b6c045|-915613210||t19461.4007390788s|fce51f4e59c09693|3323444|rds|local|vector|||30.75|Model failed to converge with maxgrad  0.00682706 tol  0.002, component 1|
+model_list_by_age_fixedef|stem|558c249170979a7d|cf227ad7fc6ee16f|72fa1a4010b6c045|-1129600786||t19461.4041692777s|d6b7d4fd43c2ffdd|3336320|rds|local|vector|||181.29||
+model_list_by_age_nolog|stem|52ee41f8eb84c366|9997dd60c8d0acb8|72fa1a4010b6c045|-640522012||t19461.4026453083s|e0581f38909e208b|3331887|rds|local|vector|||49.5|Model failed to converge with maxgrad  0.00337153 tol  0.002, component 1|
+model_list_by_bmi|stem|9181940129652988|8df52f79a30465c6|72fa1a4010b6c045|-824558834||t19461.4024174063s|253a500fda003171|454954|rds|local|vector|||30.1|Model failed to converge with maxgrad  0.00202635 tol  0.002, component 1|
+model_list_by_daylight|stem|ac53cb063b98ea6a|a5f260189eba53be|72fa1a4010b6c045|360411306||t19461.4024436547s|db8cd1b3a5fc1003|457928|rds|local|vector|||32.3|Model failed to converge with maxgrad  0.00608126 tol  0.002, component 1. Model failed to converge with maxgrad  0.00228696 tol  0.002, component 1|
+model_list_by_pa_mostactivehr|stem|ef755fd693b7961f|4aa58fdf51f63dd4|72fa1a4010b6c045|96767760||t19461.402444948s|cca9258cbe9cd9a8|456757|rds|local|vector|||32.26|Model failed to converge with maxgrad  0.00302809 tol  0.002, component 1. Model failed to converge with maxgrad  0.00363676 tol  0.002, component 1. Model failed to converge with maxgrad  0.00248898 tol  0.002, component 1|
+model_list_by_region|stem|0ad2967e4a249c93|5a10e158d9cad925|72fa1a4010b6c045|995279799||t19461.4025596979s|d08a479ca7e1ad68|680360|rds|local|vector|||42.19|Model failed to converge with maxgrad  0.0051363 tol  0.002, component 1|
+model_list_by_season|stem|e8043651206dba3e|04cf4b2d79083587|72fa1a4010b6c045|181616882||t19461.4025046568s|440f949f8db78176|464931|rds|local|vector|||37.34|Model failed to converge with maxgrad  0.00229623 tol  0.002, component 1|
+model_list_by_ses|stem|887b375903ee62eb|239cba4ea1fff506|72fa1a4010b6c045|-1525584369||t19461.4024463913s|17bd4bc0691752a5|354366|rds|local|vector|||32.29|Model failed to converge with maxgrad  0.00215023 tol  0.002, component 1. Model failed to converge with maxgrad  0.00350206 tol  0.002, component 1. Model failed to converge with maxgrad  0.00310488 tol  0.002, component 1|
+model_list_by_sex|stem|82ae98e03230ae7d|fe9f667969f3c085|72fa1a4010b6c045|1995444685||t19461.4024216685s|79a023c31cf45d5f|249106|rds|local|vector|||30.11|Model failed to converge with maxgrad  0.00467308 tol  0.002, component 1. Model failed to converge with maxgrad  0.00243913 tol  0.002, component 1|
+model_list_by_wear_location|stem|133ab187a62181cd|21827e79f7edda2f|72fa1a4010b6c045|1226450260||t19461.402450099s|86c4035698cd4fa2|252332|rds|local|vector|||32.55|Model failed to converge with maxgrad  0.00217414 tol  0.002, component 1|
+model_list_by_weekday|stem|efbfb694d7422823|7034913f48e717c1|72fa1a4010b6c045|-1936845600||t19461.402603849s|b78d1383f24fb3ee|780152|rds|local|vector|||45.82||
+model_tables_by_age|stem|16c7b8a88b906418|70a4a12df67f0886|ab2825d27ba7a45c|652505398||t19461.4020801768s|b53cd6b848c28d47|1972|rds|local|vector|||0.32||
+model_tables_by_age_fixedef|stem|6e20e1663b2372c2|c6fba9e95f574e6c|315b168f228b51a5|-1875179391||t19461.4041819127s|bb1a77f8921b1df1|1997|rds|local|vector|||0.17||
+model_tables_by_age_nolog|stem|7c5db59da017e051|cf21f893df586637|e52400d31e20051e|-574102457||t19461.4026598591s|a96f0c58d9849bcb|1860|rds|local|vector|||0.22||
+model_tables_by_bmi|stem|d3233506e6a1ceee|0e13846e60e012a2|f753221154522f83|-1473914303||t19461.4024345312s|708079fc929f5a8a|1887|rds|local|vector|||0.28||
+model_tables_by_daylight|stem|7458b0defc9d53e7|58172fd1ce2dfab9|9a99bb92752c054b|1805080857||t19461.4024607729s|30ec9e3788aa10e4|2261|rds|local|vector|||0.28||
+model_tables_by_pa_mostactivehr|stem|7df1256bca82c3e8|358fd90539cf45f4|8a163b6ff7a92e9c|-365482984||t19461.4024620306s|0e1b3a7b347541fa|2128|rds|local|vector|||0.33||
+model_tables_by_region|stem|e291fe196379318f|663744f49fd305e6|f96d29a475383978|-822635937||t19461.4025717394s|5c7a7f9c85d4d82d|5142|rds|local|vector|||0.2||
+model_tables_by_season|stem|22a5f74fb863ecc8|3b6487357386de8b|1def045e088cb211|70081220||t19461.4025184449s|7cf092884ec7d39a|3509|rds|local|vector|||0.22||
+model_tables_by_ses|stem|a8c1a98c6ed3c2c6|4541cb5d71812b79|aeca1e0ae34d6504|-1132203156||t19461.4024642501s|0894a896d54ea448|2089|rds|local|vector|||0.32||
+model_tables_by_sex|stem|2378a4554ccc9645|bdfa89a0cb88ff73|525aa11e030aed93|425766184||t19461.4024390644s|0c377d031c08b494|1854|rds|local|vector|||0.25||
+model_tables_by_wear_location|stem|d618dea1d9d6d96e|476e6423f13570e3|c45b0b39ea9f1bce|1633114236||t19461.4024675355s|d35f35350f9c9195|2461|rds|local|vector|||0.37||
+model_tables_by_weekday|stem|85c87e36b18fe87a|f99e47b1b676e54a|0ca0441a1868c30c|-742811385||t19461.4026166168s|f9f8cc96cc0a1d02|5185|rds|local|vector|||0.2||
 models_df|object|844319ba44482155|||||||||||||||
 moderator|object|46ad1ade10c356d4|||||||||||||||
 moderator_term|object|5d37a002d095628e|||||||||||||||
-multiverse|stem|1d30b7e8eed6a5df|13c7b122afad35f6|17d265d6c8f1ae3d|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19461.2386902886s|71bd6906d0f395df|52105216|file|local|vector|||7.98|LaTeX Warning Float too large for page by 33.98792pt on input line 120.. LaTeX Warning Float too large for page by 33.98792pt on input line 125.. LaTeX Warning Float too large for page by 33.98792pt on input line 270.. LaTeX Warning Float too large for page by 33.98792pt on input line 275.|
+multiverse|stem|83ce42c4184b0c19|13c7b122afad35f6|56f2ad7ed79d573e|-188246237|doc/multiverse.pdf*doc/multiverse.Rmd|t19461.4043300742s|80637ccdcd59fa9d|51519658|file|local|vector|||8.19|LaTeX Warning Float too large for page by 33.98792pt on input line 120.. LaTeX Warning Float too large for page by 33.98792pt on input line 125.. LaTeX Warning Float too large for page by 33.98792pt on input line 270.. LaTeX Warning Float too large for page by 33.98792pt on input line 275.|
 multiverse_chunk|stem|9c905515dc194167|d8bbb50473871d16|ef46db3751d8e999|37203877|doc/results_chunk.md|t19461.0457945709s|3ca7c2d275d9676c|4484|file|local|vector|||0.08||
 multiverse_file|stem|1a5d7ec09575fea8|771845464218f4d3|33a6ee25531ad53b|1973701511|doc/multiverse.Rmd|t19461.0476138756s|e4fb0c8372f4d865|45623|file|local|vector|||0.24||
 multiverse_skeleton|stem|5aa528fa60f3df4e|d72f7fd91ee3db8e|ef46db3751d8e999|13269227|doc/multiverse_skeleton.Rmd|t19461.0457945709s|36917afc62ee3bbe|10096|file|local|vector|||0.06||
@@ -144,20 +145,20 @@ pa_vars|object|bf73d75ef0d0dd92|||||||||||||||
 participant_summary|stem|fcde0626e6753e46|1cd67f58d228e8f2|968aa038e835a95c|887218007||t19461.0530403067s|f4239aebde1a242e|1494745|rds|local|vector|||52.07||
 paste_facet_labels|object|ca92fe1f7118d3bf|||||||||||||||
 plot_dat|object|c5faa3755f2961fe|||||||||||||||
-prepare_plot_data|function|e83ea0731ea91a63|||||||||||||||
-produce_purdy_pictures|function|18cce1a316ff7345|||||||||||||||
-purdy_pictures_by_age|stem|e925b99d7a286e38|89c84430acc468e7|4331d042b387302c|1061401147||t19461.2371588184s|34fe10b9a860addd|282|rds|local|vector|||4.05|Removed 4 rows containing missing values geom_line.. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf|
-purdy_pictures_by_age_fixedef|stem|abb01010407b0e1e|a341c620d51f7f66|8a0fb8b5f4eb158c|-1604185041||t19461.2385977992s|dcfb5579c9d2f932|290|rds|local|vector|||3.39|Removed 8 rows containing missing values geom_line.|
-purdy_pictures_by_age_nolog|stem|382863f91eb95728|df3cea304c6d2f5d|1986de6dfd2018ee|898632674||t19461.237153834s|1e85e50b3bd5846b|284|rds|local|vector|||4.05||
-purdy_pictures_by_bmi|stem|ace2dfdf9b33b9b2|733f71e3c6f00af3|8e6cee0ff39c2cfd|211149621||t19461.2369102366s|7c08b6911a348b50|283|rds|local|vector|||3.2||
-purdy_pictures_by_daylight|stem|3128a5421c1ced43|4392ae7c8022e470|3a443ad3bc2b45b6|149224158||t19461.2369378026s|eadb9afd7ddf0e7f|293|rds|local|vector|||3.17||
-purdy_pictures_by_pa_mostactivehr|stem|abc80367da293924|08b92a7d4991fc54|f5b01441699ff868|-1643215156||t19461.2369473679s|a1eb2c1cc7ef6b38|294|rds|local|vector|||3||
-purdy_pictures_by_region|stem|37f19faa982675a7|742e3412b164e295|43de9d61ce674f5e|293334721||t19461.2370494231s|1e85e50b3bd5846b|284|rds|local|vector|||2.89|Removed 101 rows containing missing values geom_line.|
-purdy_pictures_by_season|stem|1dafc55eb146f418|600d9b644191a574|ed7a40869bc52955|-43591103||t19461.2369801222s|2da9ea27cba6664b|285|rds|local|vector|||2.29|Removed 18 rows containing missing values geom_line.|
-purdy_pictures_by_ses|stem|c18ec9ea745fa009|74a1536b4260ca86|bca678581df13000|1647354395||t19461.2369354911s|34fe10b9a860addd|282|rds|local|vector|||2.78||
-purdy_pictures_by_sex|stem|c324f077945659f9|d962da2e6438b11e|43dea812310bdc35|2018758225||t19461.2369113254s|7c08b6911a348b50|283|rds|local|vector|||2.23||
-purdy_pictures_by_wear_location|stem|37021145e9909733|d029862ba71c897b|1f7ff519025a4023|-1344108889||t19461.2369328228s|72edd60c3d768dd3|291|rds|local|vector|||2.24||
-purdy_pictures_by_weekday|stem|72931ee79fa7e453|f8bc7ea24723948d|834ccb3891e45f34|-646575597||t19461.2370816631s|032c598c5079204f|286|rds|local|vector|||3.04|Removed 12 rows containing missing values geom_line.|
+prepare_plot_data|function|f52e39d7c49843b4|||||||||||||||
+produce_purdy_pictures|function|0d1719f9a4272409|||||||||||||||
+purdy_pictures_by_age|stem|e925b99d7a286e38|89c84430acc468e7|73c5de1cf4bea992|1061401147||t19461.4021714023s|34fe10b9a860addd|282|rds|local|vector|||6.36|Removed 43 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_age_fixedef|stem|abb01010407b0e1e|a341c620d51f7f66|38f389e93d031c62|-1604185041||t19461.4042353957s|dcfb5579c9d2f932|290|rds|local|vector|||3.75|Removed 52 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_age_nolog|stem|382863f91eb95728|df3cea304c6d2f5d|041773e2e9ba674a|898632674||t19461.4027204757s|1e85e50b3bd5846b|284|rds|local|vector|||4.19|Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_bmi|stem|ace2dfdf9b33b9b2|733f71e3c6f00af3|8b378e36babe06ce|211149621||t19461.4024840998s|7c08b6911a348b50|283|rds|local|vector|||3.08|Removed 16 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_daylight|stem|3128a5421c1ced43|4392ae7c8022e470|93fdd71a51c773c0|149224158||t19461.4025091482s|eadb9afd7ddf0e7f|293|rds|local|vector|||2.96|Removed 16 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_pa_mostactivehr|stem|abc80367da293924|08b92a7d4991fc54|acf8b1014a8ae68e|-1643215156||t19461.4025087484s|a1eb2c1cc7ef6b38|294|rds|local|vector|||2.83|Removed 16 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_region|stem|37f19faa982675a7|742e3412b164e295|f6b06b58bca573cd|293334721||t19461.4026151552s|1e85e50b3bd5846b|284|rds|local|vector|||2.89|Removed 311 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.|
+purdy_pictures_by_season|stem|1dafc55eb146f418|600d9b644191a574|5ac71a6bab68b794|-43591103||t19461.4025557564s|2da9ea27cba6664b|285|rds|local|vector|||2.27|Removed 90 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.. Removed 160 rows containing missing values geom_line.|
+purdy_pictures_by_ses|stem|c18ec9ea745fa009|74a1536b4260ca86|1d420ac85ecb307a|1647354395||t19461.4025082616s|34fe10b9a860addd|282|rds|local|vector|||2.63|Removed 12 rows containing missing values geom_line.. Removed 120 rows containing missing values geom_line.. Removed 120 rows containing missing values geom_line.. Removed 120 rows containing missing values geom_line.. Removed 120 rows containing missing values geom_line.. Removed 120 rows containing missing values geom_line.|
+purdy_pictures_by_sex|stem|c324f077945659f9|d962da2e6438b11e|978f42aad316a77a|2018758225||t19461.4024812172s|7c08b6911a348b50|283|rds|local|vector|||2.39|Removed 8 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.|
+purdy_pictures_by_wear_location|stem|37021145e9909733|d029862ba71c897b|7846b9b4ec842ae6|-1344108889||t19461.402508928s|72edd60c3d768dd3|291|rds|local|vector|||2.31|Removed 24 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.. Removed 80 rows containing missing values geom_line.|
+purdy_pictures_by_weekday|stem|72931ee79fa7e453|f8bc7ea24723948d|8e7ffe6a64e5d936|-646575597||t19461.402662191s|032c598c5079204f|286|rds|local|vector|||3.06|Removed 71 rows containing missing values geom_line.. Removed 280 rows containing missing values geom_line.. Removed 280 rows containing missing values geom_line.. Removed 280 rows containing missing values geom_line.. Removed 280 rows containing missing values geom_line.. Removed 280 rows containing missing values geom_line.|
 ranef|object|6a38e8ba56921122|||||||||||||||
 region_lookup|stem|5fca739c84f1b72d|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19461.0463879335s|7430ee2468db0f5f|385|rds|local|vector|||0.05||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||

@@ -66,7 +66,7 @@ make_model_list <- function(data_imp,
         ranef = ranef,
         terms = c(
           paste0(
-            gsub(" .*", "", instructions[i, "predictors"]), "[-4:4 by = 0.1]"),
+            gsub(" .*", "", instructions[i, "predictors"]), "[-5:5 by = 0.05]"),
           glue::glue("{moderator} [{moderator_term}]")
         ),
         RQ = instructions[i, "RQ"]
