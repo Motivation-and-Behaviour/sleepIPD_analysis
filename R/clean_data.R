@@ -12,6 +12,8 @@ clean_data <- function(data_joined, region_lookup) {
   require(dplyr)
   require(googlesheets4)
 
+  gs4_deauth()
+
   data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
     janitor::clean_names() %>%
@@ -159,6 +161,33 @@ clean_data <- function(data_joined, region_lookup) {
     ) %>%
     mutate(ses = factor(harmonized, levels = c("Low", "Medium", "High"))) %>%
     select(-harmonized)
+  # and for ethnicity
+  ethnicity_refactors <-
+    googlesheets4::read_sheet(data_gsheet,
+      sheet = "Ethnicity",
+      col_types = "c",
+      range = "A1:C120"
+    ) %>%
+    janitor::remove_empty(which = "rows") %>%
+    janitor::clean_names() %>%
+    mutate(
+      studyid = as.numeric(studyid),
+      ethnicity = tolower(ethnicity)
+    )
+
+  d <- d %>%
+    mutate(ethnicity = tolower(ethnicity)) %>%
+    left_join(ethnicity_refactors,
+      by = c("studyid" = "studyid", "ethnicity" = "ethnicity")
+    ) %>%
+    mutate(
+      ethnicity = factor(
+        harmonized,
+        levels = c("White", "Non-white", "Unclear")
+      ),
+      ethnicity = tidyr::replace_na(ethnicity, "Unclear")
+    ) %>%
+    select(-harmonized)
 
   d$age_cat <- cut(d$age,
     breaks = c(0, 11, 18, 35, 65, 100),
@@ -170,7 +199,6 @@ clean_data <- function(data_joined, region_lookup) {
   # removing some variables we can't harmonise
   d <- d %>% select(
     -sleep_medications,
-    -ethnicity,
     -maturational_status
   )
 
