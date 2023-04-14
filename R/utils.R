@@ -109,13 +109,34 @@ display_names <- function(x){
 
 }
 
-#' get_descriptives
+#' get_scale_descriptives
 #'
-#' Get descriptives for multiply imputed data
+#' Get descriptives for multiply imputed data for scale variables
 
-get_descriptives <- function(data, ...){
-  vars <- list(...)
-  browser()
+get_scale_descriptives <- function(data, ...) {
+  vars <- unlist(list(...))
+  # We want descriptives to convert log back to scale
+  # So we need the scale descriptives, not the log descriptives
+  vars <- gsub("log_", "scale_", vars)
+  dat <- mice::complete(data, action = "long", include = FALSE) |>
+    data.table()
+
+  # Get all imp data, make long form
+  dt <- dat[, c(vars, ".imp"), with = FALSE] |>
+    tidyr::pivot_longer(-.imp, names_to = "var") |>
+    data.table()
+  # get mean and sd by variable and imp
+  dt_2 <- dt[, .(mean = mean(value, na.rm = TRUE),
+                 sd = sd(value, na.rm = TRUE)) , by = c(".imp", "var")] |>
+    tidyr::pivot_longer(-c(.imp, var)) |>
+    data.table()
+
+  # get mean of each mean and sd across imps
+  descriptives <-
+    dt_2[, .(value = mean(value)), by = c("name", "var")] |>
+    tidyr::pivot_wider(values_from = value, names_from = name)
+
+  descriptives
 
 }
 
