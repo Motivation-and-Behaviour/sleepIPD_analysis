@@ -23,6 +23,11 @@ make_model_list <- function(data_imp,
 
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
 
+  # Apply display names
+  names(sleep_vars) <- display_names(sleep_vars)
+  names(sleep_lag_vars) <- display_names(sleep_lag_vars)
+  names(pa_vars) <- display_names(pa_vars)
+
   quadratic_pattern <- "{x} * {moderator} + I({x}^2) * {moderator}"
   make_quadratic <- function(x) glue::glue(quadratic_pattern)
 
@@ -86,3 +91,4 @@ make_model_list <- function(data_imp,
 
   out
 }
+
