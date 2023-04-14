@@ -5,14 +5,14 @@
 #' @title
 #' @param multiverse_skeleton
 #' @param multiverse_chunk
-#' @param models_df
+#' @param model_definitions
 #' @return
 #' @export
 make_multiverse_file <- function(multiverse_skeleton,
-                                 multiverse_chunk, models_df) {
+                                 multiverse_chunk, model_definitions) {
   multiverse_skeleton_lines <- readLines(multiverse_skeleton)
 
-  moderator_df <- models_df %>%
+  moderator_df <- model_definitions %>%
     dplyr::select(model_name, moderator, mod_formal) %>%
     dplyr::filter(moderator != "age")
 
