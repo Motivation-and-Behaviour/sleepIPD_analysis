@@ -117,7 +117,7 @@ get_scale_descriptives <- function(data, ...) {
   vars <- unlist(list(...))
   # We want descriptives to convert log back to scale
   # So we need the scale descriptives, not the log descriptives
-  vars <- gsub("log_", "scale_", vars)
+  vars <- gsub("(log_|scale_)", "", vars)
   dat <- mice::complete(data, action = "long", include = FALSE) |>
     data.table()
 
@@ -134,7 +134,8 @@ get_scale_descriptives <- function(data, ...) {
   # get mean of each mean and sd across imps
   descriptives <-
     dt_2[, .(value = mean(value)), by = c("name", "var")] |>
-    tidyr::pivot_wider(values_from = value, names_from = name)
+    tidyr::pivot_wider(values_from = value, names_from = name) |>
+    data.table()
 
   descriptives
 
