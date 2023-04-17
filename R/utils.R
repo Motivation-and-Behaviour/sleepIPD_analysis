@@ -141,3 +141,17 @@ get_scale_descriptives <- function(data, ...) {
 
 }
 
+plot_percentile <- function(var){
+  require(ggplot2)
+
+  p <- lapply(seq(0,1,by = 0.005), function(x){
+    data.frame(p = x*100, value = quantile(var, x, na.rm = TRUE))
+
+  }) |> data.table::rbindlist()
+
+  ggplot( p, aes(x = p, y = value)) +
+    geom_point() +
+    labs(x = "Percentile")
+
+}
+

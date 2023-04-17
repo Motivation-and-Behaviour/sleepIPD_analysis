@@ -35,15 +35,17 @@ produce_purdy_pictures <- function(model_list, ...) {
       model_list[[i]]$model_assets$pred_matrix
     }) |> rbindlist()
     tile_dat$group <- as.numeric(tile_dat$group)
-    tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     # hide non-sig predictions
-    tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
-    tile_dat$predicted[tile_dat$predicted >= 2] <- 2
-    tile_dat$predicted[tile_dat$predicted <= -2] <- -2
 
     tile_dat <- tile_dat |>
       prepare_plot_data(paste_facet_labels,
-                        scale_descriptives = attr(model_list, "scale_descriptives"))
+                        scale_descriptives = attr(model_list, "scale_descriptives"),
+                        debug = FALSE)
+
+    tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
+    tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
+    tile_dat$predicted[tile_dat$predicted >= 2] <- 2
+    tile_dat$predicted[tile_dat$predicted <= -2] <- -2
   }
 
   # Plotting function
@@ -71,8 +73,8 @@ produce_purdy_pictures <- function(model_list, ...) {
       ) +
       figure_theme() +
       theme(legend.position = "none") +
-      scale_x_continuous(limits = c(-4, 4)) +
-      scale_y_continuous(limits = c(-4, 4)) +
+      scale_x_continuous(limits = c(-2, 2)) +
+      scale_y_continuous(limits = c(-2, 2)) +
       geom_text(
         data = conv_message_dat, aes(x = 0, y = 0, label = message, ),
         hjust = .5, vjust = .5, size = 2, color = "black", family = "serif",
@@ -105,6 +107,7 @@ produce_purdy_pictures <- function(model_list, ...) {
           labels = c("-2 <", -1, 0, 1, "2 +")
         ) +
         scale_y_continuous(n.breaks = 5) +
+        scale_x_continuous(limits = c(-2,2)) +
         labs(y = "Age", x = predictor, fill = "predicted") +
         geom_tile() +
         figure_theme()
@@ -165,7 +168,8 @@ produce_purdy_pictures <- function(model_list, ...) {
 #' prepare_plot_data
 
 prepare_plot_data <- function(plot_dat, paste_facet_labels,
-                              scale_descriptives) {
+                              scale_descriptives, debug = FALSE) {
+  if(debug) browser()
   is_scale <- grepl("scale_", plot_dat$outcome)
   plot_dat$outcome[is_scale] <- gsub("scale_", "", plot_dat$outcome[is_scale])|>
     gsub("_", " ", x = _) |>
