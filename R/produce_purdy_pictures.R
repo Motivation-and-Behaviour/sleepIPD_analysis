@@ -245,8 +245,3 @@ ln_to_z <- function(x, mean, sd){
   (exp(x) - mean) / sd
 }
 
-back_transform <- function(data, scale_descriptives){
-
-
-
-}
