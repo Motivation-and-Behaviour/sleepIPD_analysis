@@ -40,7 +40,7 @@ produce_purdy_pictures <- function(model_list, ...) {
     tile_dat <- tile_dat |>
       prepare_plot_data(paste_facet_labels,
                         scale_descriptives = attr(model_list, "scale_descriptives"),
-                        debug = FALSE)
+                        debug = TRUE)
 
     tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0

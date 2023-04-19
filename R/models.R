@@ -1,6 +1,6 @@
 # Model parameters
-dflt_pa <- c("log_pa_volume", "scale_pa_intensity")
-scale_pa <- c("scale_pa_volume", "scale_pa_intensity")
+dflt_pa <- c("scale_pa_volume", "scale_pa_intensity")
+log_pa <- c("log_pa_volume", "scale_pa_intensity")
 dflt_sleep <- c(
   "scale_sleep_duration", "scale_sleep_efficiency", "scale_sleep_onset",
   "scale_sleep_regularity"
@@ -14,7 +14,7 @@ models_df <- dplyr::tribble(
   ~model_name,          ~moderator,        ~mod_term,        ~mod_formal,        ~pa_vars, ~sleep_vars, ~ranef,     ~cont_vars,
   "by_age",             "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_age_fixedef",     "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  fixedef,    c(dflt_con, "studyid"),
-  "by_age_nolog",       "age",             "11, 18, 35, 65", "age",              scale_pa, dflt_sleep,  dflt_ranef, dflt_con,
+  "by_age_log",         "age",             "11, 18, 35, 65", "age",              log_pa,   dflt_sleep,  dflt_ranef, dflt_con,
   "by_bmi",             "bmi",             "18, 22, 25, 30", "BMI",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_ses",             "ses",             "all",            "SES",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_sex",             "sex",             "all",            "sex",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
