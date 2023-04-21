@@ -26,7 +26,7 @@ produce_purdy_pictures <- function(model_list, ...) {
   }
 
   plot_dat <- data.table::rbindlist(dat_list) |>
-    prepare_plot_data(paste_facet_labels)
+    prepare_plot_data(paste_facet_labels, scale_descriptives = attr(model_list, "scale_descriptives"))
 
   # Im the moderator is age, then, retrieve granular age predictions
 
@@ -35,18 +35,24 @@ produce_purdy_pictures <- function(model_list, ...) {
       model_list[[i]]$model_assets$pred_matrix
     }) |> rbindlist()
     tile_dat$group <- as.numeric(tile_dat$group)
-    tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     # hide non-sig predictions
+
+    tile_dat <- tile_dat |>
+      prepare_plot_data(paste_facet_labels,
+                        scale_descriptives = attr(model_list, "scale_descriptives"),
+                        debug = TRUE)
+
+    tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
     tile_dat$predicted[tile_dat$predicted >= 2] <- 2
     tile_dat$predicted[tile_dat$predicted <= -2] <- -2
-    tile_dat <- tile_dat |> prepare_plot_data(paste_facet_labels)
   }
 
   # Plotting function
   require(ggplot2)
 
   p <- function(x_var, x_lab, rq) {
+
     pdat <- plot_dat[x_name == x_var & RQ == rq]
 
     conv_message_dat <- unique(pdat[, c("outcome", "group", "message")])
@@ -67,8 +73,8 @@ produce_purdy_pictures <- function(model_list, ...) {
       ) +
       figure_theme() +
       theme(legend.position = "none") +
-      scale_x_continuous(limits = c(-4, 4)) +
-      scale_y_continuous(limits = c(-4, 4)) +
+      scale_x_continuous(limits = c(-2, 2)) +
+      scale_y_continuous(limits = c(-2, 2)) +
       geom_text(
         data = conv_message_dat, aes(x = 0, y = 0, label = message, ),
         hjust = .5, vjust = .5, size = 2, color = "black", family = "serif",
@@ -101,6 +107,7 @@ produce_purdy_pictures <- function(model_list, ...) {
           labels = c("-2 <", -1, 0, 1, "2 +")
         ) +
         scale_y_continuous(n.breaks = 5) +
+        scale_x_continuous(limits = c(-2,2)) +
         labs(y = "Age", x = predictor, fill = "predicted") +
         geom_tile() +
         figure_theme()
@@ -142,7 +149,7 @@ produce_purdy_pictures <- function(model_list, ...) {
 
   is_log <- grepl("log", df$y)
   df$y[is_log] <- gsub("log ", "", df$y[is_log])
-  df$y[is_log] <- paste(df$y[is_log], "(log)")
+  df$y[is_log] <- paste(df$y[is_log], "(z*)")
 
   df$y <- stringr::str_to_sentence(df$y) |>
     gsub("Pa|pa\\b", "PA", x = _)
@@ -158,18 +165,69 @@ produce_purdy_pictures <- function(model_list, ...) {
   out
 }
 
-prepare_plot_data <- function(plot_dat, paste_facet_labels) {
+#' prepare_plot_data
+
+prepare_plot_data <- function(plot_dat, paste_facet_labels,
+                              scale_descriptives, debug = FALSE) {
+  if(debug) browser()
   is_scale <- grepl("scale_", plot_dat$outcome)
   plot_dat$outcome[is_scale] <- gsub("scale_", "", plot_dat$outcome[is_scale])|>
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
 
-is_log <- grepl("log_", plot_dat$outcome)
-plot_dat$outcome[is_log] <- gsub("log_", "", plot_dat$outcome[is_log]) |>
+  is_log_outcome <- grepl("log_", plot_dat$outcome)
+  is_log_predictor <- grepl("log_", plot_dat$x_name)
+
+  log_outcome_vars <- unique(plot_dat$outcome[is_log_outcome])
+  log_predictor_vars <- unique(plot_dat$x_name[is_log_predictor])
+
+  if(length(log_outcome_vars) > 0){
+  # Rescale log outcomes variables
+    for(i in seq_along(log_outcome_vars)){
+      var_i <- log_outcome_vars[i]
+      to_transf <- is_log_outcome & plot_dat$outcome == var_i
+      dt <- scale_descriptives[var == gsub("log_","",var_i)]
+
+      # exponentiate outcome variables
+      plot_dat[to_transf, "predicted"] <-
+        ln_to_z(plot_dat[to_transf, "predicted"],
+                mean = dt$mean, sd = dt$sd)
+      plot_dat[to_transf, "conf.low"] <-
+        ln_to_z(plot_dat[to_transf, "conf.low"],
+                mean = dt$mean, sd = dt$sd)
+      plot_dat[to_transf, "conf.high"] <-
+        ln_to_z(plot_dat[to_transf, "conf.high"],
+                mean = dt$mean, sd = dt$sd)
+      # reset to_transf
+      to_transf <- NULL
+      dt <- NULL
+    }
+
+  }
+
+  if(length(log_predictor_vars) > 0){
+    # Rescale log outcomes variables
+    for(i in seq_along(log_predictor_vars)){
+      var_i <- log_predictor_vars[i]
+      to_transf <- is_log_predictor & plot_dat$x_name == var_i
+      dt <- scale_descriptives[var == gsub("log_","",gsub("\\[.*","",var_i))]
+
+      plot_dat[to_transf, "x"] <-
+        ln_to_z(plot_dat[to_transf, "x"],
+                mean = dt$mean, sd = dt$sd)
+      # reset to_transf
+      to_transf <- NULL
+      dt <- NULL
+    }
+
+  }
+
+
+plot_dat$outcome[is_log_outcome] <- gsub("log_", "", plot_dat$outcome[is_log_outcome]) |>
   gsub("_", " ", x = _) |>
   stringr::str_to_title() |>
-  paste("(log)")
+  paste("(z*)")
 
   # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
@@ -179,5 +237,11 @@ plot_dat$outcome[is_log] <- gsub("log_", "", plot_dat$outcome[is_log]) |>
 
   levels(plot_dat$group) <- paste0(levels(plot_dat$group), paste_facet_labels)
   plot_dat$x_name <- gsub("\\[.*", "", plot_dat$x_name)
+
   plot_dat
 }
+
+ln_to_z <- function(x, mean, sd){
+  (exp(x) - mean) / sd
+}
+

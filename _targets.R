@@ -95,7 +95,7 @@ list(
     make_model_diagnostics(
       model_list_by_age,
       model_list_by_age_fixedef,
-      model_list_by_age_nolog,
+      model_list_by_age_log,
       model_list_by_bmi,
       model_list_by_ses,
       model_list_by_weekday,

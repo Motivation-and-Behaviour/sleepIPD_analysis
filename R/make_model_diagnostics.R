@@ -67,7 +67,7 @@ check_resids <- function(model){
   dt <- model |> lapply(function(x){
     resid <- residuals(x)
     tibble(Skewness = moments::skewness(resid),
-           Kurtosis = 3 - moments::kurtosis(resid))
+           Kurtosis = moments::kurtosis(resid) - 3)
 
   }) |> data.table::rbindlist()
   dt[, lapply(.SD, function(x) mean(x, na.rm = TRUE))]

@@ -184,82 +184,80 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## Without Log Transforming PA Volume
+## Log Transforming PA Volume
 
 ```{r}
-tar_load(model_tables_by_age_nolog)
-tar_load(purdy_pictures_by_age_nolog)
+tar_load(model_tables_by_age_log)
+tar_load(purdy_pictures_by_age_log)
 ```
 
-Based on preliminary modelling on a subset of the data, we chose to log transform the physical activity volume variable.
-Below, we present the results had we not made this decision.
-These results are all moderated by age, as this was our primary analysis.
+Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability. The log scale meant that the variable became unintepretable towards the edge of its range. Below, we present the results had we not made this decision. These results are all moderated by age, as this was our primary analysis. The associated figures are back-transformed to the scale range.
 
 ### The effects of physical activity volume on sleep
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
-We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-nolog) and Figure \@ref(fig:sleep-by-volume-fig-nolog).
+We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-log) and Figure \@ref(fig:sleep-by-volume-fig-log).
 
-```{r sleep-outcomes-nolog}
+```{r sleep-outcomes-log}
 papaja::apa_table(
-  model_tables_by_age_nolog$sleep$data,
-  caption = model_tables_by_age_nolog$sleep$caption,
-  note = model_tables_by_age_nolog$sleep$note,
-  col_spanners = model_tables_by_age_nolog$sleep$col_spanners,
+  model_tables_by_age_log$sleep$data,
+  caption = model_tables_by_age_log$sleep$caption,
+  note = model_tables_by_age_log$sleep$note,
+  col_spanners = model_tables_by_age_log$sleep$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )
 ```
 
-```{r sleep-by-volume-fig-nolog, fig.cap = "Sleep metrics on Physical activity volume"}
-knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_pa_volume), error = FALSE)
+```{r sleep-by-volume-fig-log, fig.cap = "Sleep metrics on Physical activity volume"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_pa_volume), error = FALSE)
 ```
 
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-duration-fig-nolog).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-duration-fig-log).
 
-```{r pa-outcomes-nolog}
+```{r pa-outcomes-log}
 papaja::apa_table(
-  model_tables_by_age_nolog$physical_activity$data,
-  caption = model_tables_by_age_nolog$physical_activity$caption,
-  note = model_tables_by_age_nolog$physical_activity$note,
-  col_spanners = model_tables_by_age_nolog$physical_activity$col_spanners,
+  model_tables_by_age_log$physical_activity$data,
+  caption = model_tables_by_age_log$physical_activity$caption,
+  note = model_tables_by_age_log$physical_activity$note,
+  col_spanners = model_tables_by_age_log$physical_activity$col_spanners,
   escape = FALSE,
   landscape = TRUE
 )
 ```
 
-```{r PA-by-sleep-duration-fig-nolog, fig.cap = "Physical activity by sleep duration"}
-knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_duration_lag), error = FALSE)
+```{r PA-by-sleep-duration-fig-log, fig.cap = "Physical activity by sleep duration"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_duration_lag), error = FALSE)
 ```
 
 ### The effects of sleep efficiency on physical activity
 
 We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-nolog).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-log).
 
-```{r PA-by-sleep-efficiency-fig-nolog, fig.cap = "Physical activity by sleep efficiency"}
-knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_efficiency_lag), error = FALSE)
+```{r PA-by-sleep-efficiency-fig-log, fig.cap = "Physical activity by sleep efficiency"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_efficiency_lag), error = FALSE)
 ```
 
 ### The effects of sleep onset on physical activity
 
 We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-onset-fig-nolog).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-onset-fig-log).
 
-```{r PA-by-sleep-onset-fig-nolog, fig.cap = "Physical activity by sleep onset"}
-knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_onset_lag), error = FALSE)
+```{r PA-by-sleep-onset-fig-log, fig.cap = "Physical activity by sleep onset"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_onset_lag), error = FALSE)
 ```
 
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-nolog) and Figure \@ref(fig:PA-by-sleep-regularity-fig-nolog).
+Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-regularity-fig-log).
 
-```{r PA-by-sleep-regularity-fig-nolog, fig.cap = "Physical activity by sleep regularity"}
-knitr::include_graphics(here::here(purdy_pictures_by_age_nolog$predictor_sleep_regularity_lag), error = FALSE)
+```{r PA-by-sleep-regularity-fig-log, fig.cap = "Physical activity by sleep regularity"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
 # Moderation

@@ -141,7 +141,7 @@ model_builder <-
     if(moderator == "age"){
       predictor_term <- terms[1]
       predictor_term <- gsub("\\[.*","",predictor_term)
-      predictor_term <- paste0(predictor_term,"[-4:4 by=0.1]")
+      predictor_term <- paste0(predictor_term,"[-5:5 by=0.1]")
       pred_mat <- get_effects(m,
                   moderator = "age",
                   terms = c(predictor_term, "age[10:80 by = 1]"),

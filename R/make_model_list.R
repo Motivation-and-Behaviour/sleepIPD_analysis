@@ -23,6 +23,11 @@ make_model_list <- function(data_imp,
 
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
 
+  # Apply display names
+  names(sleep_vars) <- display_names(sleep_vars)
+  names(sleep_lag_vars) <- display_names(sleep_lag_vars)
+  names(pa_vars) <- display_names(pa_vars)
+
   quadratic_pattern <- "{x} * {moderator} + I({x}^2) * {moderator}"
   make_quadratic <- function(x) glue::glue(quadratic_pattern)
 
@@ -61,7 +66,7 @@ make_model_list <- function(data_imp,
         ranef = ranef,
         terms = c(
           paste0(
-            gsub(" .*", "", instructions[i, "predictors"]), "[-4:4 by = 0.1]"),
+            gsub(" .*", "", instructions[i, "predictors"]), "[-5:5 by = 0.05]"),
           glue::glue("{moderator} [{moderator_term}]")
         ),
         RQ = instructions[i, "RQ"]
@@ -77,6 +82,7 @@ make_model_list <- function(data_imp,
   # Add some attributes used in other targets
   names(out) <- instructions[, "model_name"]
   attr(out, "vars") <- list(sleep_vars = sleep_vars, pa_vars = pa_vars)
+  attr(out, "scale_descriptives") <- get_scale_descriptives(data_imp, sleep_vars, sleep_lag_vars, pa_vars)
   attr(out, "filename_suffix") <-
     dplyr::case_when(
       "studyid" %in% control_vars ~ "_fixedef",
@@ -86,3 +92,4 @@ make_model_list <- function(data_imp,
 
   out
 }
+
