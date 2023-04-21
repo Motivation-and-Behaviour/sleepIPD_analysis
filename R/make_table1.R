@@ -13,15 +13,11 @@ make_participant_summary <- function(data_clean) {
 
   d <- data_clean %>%
     select(
-      n_valid_hours, acc_wear_loc,
-      pa_volume, pa_intensity,
-      sleep_duration, sleep_efficiency,
-      sleep_onset, sleep_wakeup,
-      sleep_regularity, # sleep_onset_time, sleep_wakeup_time,
-      sleep_duration, sleep_efficiency,
-      sex, age, height, weight, bmi, waist_circumference,
-      ses, screen_time, daylight_hours, city, eligible,
-      sleep_conditions, country, season, region, studyid, participant_id
+      acc_wear_loc, age, bmi, city, country, daylight_hours, eligible,
+      ethnicity, height, n_valid_hours, pa_intensity, pa_volume, participant_id,
+      region, screen_time, season, ses, sex, sleep_conditions, sleep_duration,
+      sleep_efficiency, sleep_onset, sleep_regularity, sleep_wakeup, studyid,
+      waist_circumference, weight
     ) %>%
     mutate(
       studyid = as.factor(studyid),
@@ -38,32 +34,33 @@ make_participant_summary <- function(data_clean) {
     ) %>%
     mutate(sleep_conditions = as.factor(sleep_conditions))
 
-  var_label(participants) <- c(
-    "Participant ID",
-    "Valid Weartime Hours",
-    "PA Volume",
-    "PA Intensity",
-    "Sleep Duration",
-    "Sleep Efficiency",
-    "Sleep Onset",
-    "Sleep Wakeup",
-    "Sleep Regularity",
-    "Age",
-    "Height",
-    "Weight",
-    "BMI",
-    "Waist Circumference",
-    "Screen Time",
-    "Daylight Hours",
-    "Accelerometer Wear Location",
-    "Sex",
-    "Socioeconomic Status",
-    "City",
-    "Sleep Conditions Reported",
-    "Season",
-    "Region",
-    "Study ID",
-    "Any Observations Met Weartime Criteria"
+  var_label(participants) <- list(
+    participant_id = "Participant ID",
+    age = "Age",
+    bmi = "BMI",
+    daylight_hours = "Daylight Hours",
+    height = "Height",
+    n_valid_hours = "Valid Weartime Hours",
+    pa_intensity = "PA Intensity",
+    pa_volume = "PA Volume",
+    screen_time = "Screen Time",
+    sleep_duration = "Sleep Duration",
+    sleep_efficiency = "Sleep Efficiency",
+    sleep_onset = "Sleep Onset",
+    sleep_regularity = "Sleep Regularity",
+    sleep_wakeup = "Sleep Wakeup",
+    waist_circumference = "Waist Circumference",
+    weight = "Weight",
+    acc_wear_loc = "Accelerometer Wear Location",
+    city = "City",
+    ethnicity = "Ethnicity",
+    region = "Region",
+    season = "Season",
+    ses = "Socioeconomic Status",
+    sex = "Sex",
+    sleep_conditions = "Sleep Conditions Reported",
+    studyid = "Study ID",
+    eligible = "Any Observations Met Weartime Criteria"
   )
 
   participants

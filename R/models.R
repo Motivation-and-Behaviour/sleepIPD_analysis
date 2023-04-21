@@ -23,6 +23,7 @@ models_df <- dplyr::tribble(
   "by_region",          "region",          "all",            "region",           dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_daylight",        "daylight_hours",  "8, 10, 12, 14",  "daylight hours",   dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_wear_location",   "acc_wear_loc",    "all",            "wear location",    dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
-  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   "most active hour", dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con
+  "by_pa_mostactivehr", "pa_mostactivehr", "5, 9, 14, 19",   "most active hour", dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_ethnicity",       "ethnicity",       "all",            "ethnicity",        dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con
 )
 # nolint end styler: on
