@@ -24,22 +24,20 @@ load_packages <- function() {
 #'
 #' Attractive ggplot2 theme defaults
 
-figure_theme <- function(){
-
-    ggplot2::theme_bw() +
-      ggplot2::theme(
-        text = ggplot2::element_text(family = "serif"),
-        strip.text.y = ggplot2::element_text(angle = 0),
-        strip.background.y = ggplot2::element_blank()
-      )
-
+figure_theme <- function() {
+  ggplot2::theme_bw() +
+    ggplot2::theme(
+      text = ggplot2::element_text(family = "serif"),
+      strip.text.y = ggplot2::element_text(angle = 0),
+      strip.background.y = ggplot2::element_blank()
+    )
 }
 
 #' APA_style for gt
 
 apa_style <- function(x) {
   x |>
-    opt_table_lines(extent = "none")|>
+    opt_table_lines(extent = "none") |>
     tab_options(
       heading.border.bottom.width = 2,
       heading.border.bottom.color = "black",
@@ -62,23 +60,23 @@ apa_style <- function(x) {
 #' @return a season
 #'
 
-get_season <- function(date, lat){
+get_season <- function(date, lat) {
   if (lat > 0) {
-    if (month(date) %in% c(3:5)) {
+    if (lubridate::month(date) %in% c(3:5)) {
       "spring"
-    } else if (month(date) %in% c(6:8)) {
+    } else if (lubridate::month(date) %in% c(6:8)) {
       "summer"
-    } else if (month(date) %in% c(9:11)) {
+    } else if (lubridate::month(date) %in% c(9:11)) {
       "autumn"
     } else {
       "winter"
     }
   } else {
-    if (month(date) %in% c(3:5)) {
+    if (lubridate::month(date) %in% c(3:5)) {
       "autumn"
-    } else if (month(date) %in% c(6:8)) {
+    } else if (lubridate::month(date) %in% c(6:8)) {
       "winter"
-    } else if (month(date) %in% c(9:11)) {
+    } else if (lubridate::month(date) %in% c(9:11)) {
       "spring"
     } else {
       "summer"
@@ -86,25 +84,25 @@ get_season <- function(date, lat){
   }
 }
 
-find_max  <- function(x) {names(which.max(table(x)))}
+find_max <- function(x) {
+  names(which.max(table(x)))
+}
 
 #' Generates display names for variables
 #' @param x a list containing variables e.g. pa_vars
 
-display_names <- function(x){
-
-  is_scale <- grepl("^scale",x)
-  is_log <- grepl("^log",x)
+display_names <- function(x) {
+  is_scale <- grepl("^scale", x)
+  is_log <- grepl("^log", x)
 
   out <- gsub("(scale_|log_)", "", x) |>
     gsub("_", " ", x = _) |>
-    gsub("pa","physical activity", x = _) |>
+    gsub("pa", "physical activity", x = _) |>
     stringr::str_to_sentence()
 
   out[is_scale] <- paste(out[is_scale], "(z)")
   out[is_log] <- paste(out[is_log], "(ln)")
   out
-
 }
 
 #' get_scale_descriptives
@@ -124,8 +122,10 @@ get_scale_descriptives <- function(data, ...) {
     tidyr::pivot_longer(-.imp, names_to = "var") |>
     data.table()
   # get mean and sd by variable and imp
-  dt_2 <- dt[, .(mean = mean(value, na.rm = TRUE),
-                 sd = sd(value, na.rm = TRUE)) , by = c(".imp", "var")] |>
+  dt_2 <- dt[, .(
+    mean = mean(value, na.rm = TRUE),
+    sd = sd(value, na.rm = TRUE)
+  ), by = c(".imp", "var")] |>
     tidyr::pivot_longer(-c(.imp, var)) |>
     data.table()
 
@@ -136,20 +136,16 @@ get_scale_descriptives <- function(data, ...) {
     data.table()
 
   descriptives
-
 }
 
-plot_percentile <- function(var){
+plot_percentile <- function(var) {
   require(ggplot2)
 
-  p <- lapply(seq(0,1,by = 0.005), function(x){
-    data.frame(p = x*100, value = quantile(var, x, na.rm = TRUE))
-
+  p <- lapply(seq(0, 1, by = 0.005), function(x) {
+    data.frame(p = x * 100, value = quantile(var, x, na.rm = TRUE))
   }) |> data.table::rbindlist()
 
-  ggplot( p, aes(x = p, y = value)) +
+  ggplot(p, aes(x = p, y = value)) +
     geom_point() +
     labs(x = "Percentile")
-
 }
-

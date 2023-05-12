@@ -166,7 +166,7 @@ clean_data <- function(data_joined, region_lookup) {
     googlesheets4::read_sheet(data_gsheet,
       sheet = "Ethnicity",
       col_types = "c",
-      range = "A1:C120"
+      range = "A1:C177"
     ) %>%
     janitor::remove_empty(which = "rows") %>%
     janitor::clean_names() %>%
@@ -220,6 +220,7 @@ clean_data <- function(data_joined, region_lookup) {
         studyid == 104 ~ "Brazil",
         studyid == 108 ~ "Australia",
         studyid == 110 ~ "Finland",
+        studyid == 111 ~ "United Kingdom",
         studyid == 112 ~ "Spain",
         studyid == 114 ~ "United States",
         studyid == 117 ~ "Spain",
