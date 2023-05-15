@@ -265,7 +265,7 @@ clean_data <- function(data_joined, region_lookup) {
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
   update_latlong(locations)
-  latlong <- read.csv("latlong.csv") %>% select(-X)
+  latlong <- read.csv("data/latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
 
