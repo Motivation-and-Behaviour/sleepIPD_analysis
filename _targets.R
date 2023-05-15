@@ -42,7 +42,9 @@ list(
   ),
   tar_change(
     refactors,
-    sapply(c("Sleep conditions", "Ethnicity", "SES"), sheet_read),
+    sapply(c("Sleep conditions", "Ethnicity", "SES"), sheet_read,
+      simplify = FALSE, USE.NAMES = TRUE
+    ),
     change = sheet_last_modified()
   ),
   # Data targets
