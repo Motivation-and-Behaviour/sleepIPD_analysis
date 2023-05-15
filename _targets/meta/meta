@@ -6,7 +6,7 @@ check_model|function|31d9f5f6368f6368|||||||||||||||
 check_resids|function|186918fba0c7d766|||||||||||||||
 clean_data|function|9a8bd69506b92cfc|||||||||||||||
 create_distinct|function|feef06749c984f86|||||||||||||||
-data_clean|stem|83109a213e251d87|bd093d07abce6da2|7bc4aab81291f1ca|207072666||t19492.211894944s||10635866|rds|local|vector|||8.871|NAs introduced by coercion|x must be an array of at least two dimensions
+data_clean|stem|83109a213e251d87|bd093d07abce6da2|e2963e17ee015d4d|207072666||t19492.2857192407s|169824166974054e|10635866|rds|local|vector|||85.707|NAs introduced by coercion|
 data_holdout|stem|f9eb29587afe9f1f|6037abbeaddf6309|e60b37438d30e24b|-1064111525||t19492.2118984042s|2ec8d1f587aab07b|975303|rds|local|vector|||0.125||
 data_imp|stem|6251ec65f85858c8|3feb40ffe7c2e16f|2b2804131870c71e|-693423895|bucket=sleepipdtargets*key=_targets/objects/data_imp*version=1684127513931600|t19492.2165679487s||3107338|qs|gcp|vector|||403.138|Number of logged events 4. invalid factor level, NA generated. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of items to replace is not a multiple of replacement length. Some predictor variables are on very different scales consider rescaling. NAs produced. number of i|
 data_joined|pattern|967d2905d7cd1970|cfd37d3eb4f55e7c||-540021193||||1639827|rds|local|vector||data_joined_ca68c899*data_joined_44697981*data_joined_2fcec1a1*data_joined_3b7990b1*data_joined_e103ba3f*data_joined_d1297678*data_joined_87f747f9*data_joined_58c08e5c*data_joined_bc832d48*data_joined_4278434e*data_joined_249b83e9*data_joined_961f389b*data_joined_12fb9060*data_joined_528233c6*data_joined_eb0b5a09*data_joined_cc21c7da*data_joined_9e3d7b7c*data_joined_25642bfd*data_joined_bf0eee5b|0.022||
@@ -156,7 +156,7 @@ purdy_pictures_by_sex|stem|e6de48e4979f6156|d962da2e6438b11e|e6c801a04bc97dda|20
 purdy_pictures_by_wear_location|stem|464c0c7464614777|d029862ba71c897b|f610ba00c5600d15|-1344108889||t19492.2197425493s|175116648b33090c|292|rds|local|vector|||14.853|Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.|
 purdy_pictures_by_weekday|stem|bce1b8174462aab5|f8bc7ea24723948d|05e408e2e6399be6|-646575597||t19492.2202115599s|73a5f5604ca1ab33|288|rds|local|vector|||9.667|Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.|
 refactors|stem|3957cf3a8750bae5|54ff3980ae9e9e6d|9b725616aa09aeb6|1958783602||t19492.283697384s|4fad2be3f631ccab|2621|rds|local|vector|||2.879||
-refactors_change|stem|f38c507fb7c0ce17|32605b8c5d4b26da|08f8d8c8a039584d|93531778||t19492.2836637636s|dff9495c51b724c1|77|rds|local|vector|||0.919||
+refactors_change|stem|f38c507fb7c0ce17|32605b8c5d4b26da|08f8d8c8a039584d|93531778||t19492.2842092648s|dff9495c51b724c1|77|rds|local|vector|||0.85||
 region_lookup|stem|e660b861902e00fa|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19468.2210197204s|7430ee2468db0f5f|385|rds|local|vector|||0.315||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
 remove_outliers|function|0b278c1b9ab8a584|||||||||||||||
@@ -164,52 +164,3 @@ repository|object|513b62a0fe6e0dae|||||||||||||||
 sheet_last_modified|function|d5c19148978f8170|||||||||||||||
 sheet_read|function|6e261bfdfd8b3d07|||||||||||||||
 update_latlong|function|14f47cd1ac2eee1a|||||||||||||||
-make_data_imp|function|3c792ce6b9dd91f4
-log_pa|object|bf73d75ef0d0dd92
-check_resids|function|186918fba0c7d766
-check_list|function|9d75232c701efa94
-load_packages|function|1e7d4102e4e21191
-display_names|function|5aada90e6c7e394a
-figure_theme|function|4639cba3c8822485
-format|object|962a3be0ac50c5ee
-make_data_holdout|function|09f73d4ff3b13675
-format_table|function|666f21ede3017ac8
-plot_percentile|function|9cfa3af4b865c777
-dflt_con|object|de145e0181714aae
-find_max|function|179e3e7afa23c076
-repository|object|513b62a0fe6e0dae
-ln_to_z|function|e9ae43bf571b3628
-remove_outlier|function|6c52d8e5e8fccc9a
-get_scale_descriptives|function|15822897c695b037
-check_imps|function|7749740969325a22
-get_effects|function|03cccd55678c922b
-apa_style|function|7f874036fb9dd45b
-dflt_sleep|object|a96c1c43f4b1d085
-fetch_data|function|9cfbbf428c2528cb
-get_season|function|6844c5c1bd334324
-update_latlong|function|14f47cd1ac2eee1a
-sheet_read|function|6e261bfdfd8b3d07
-sheet_last_modified|function|d5c19148978f8170
-create_distinct|function|feef06749c984f86
-dflt_ranef|object|6a38e8ba56921122
-fixedef|object|cbeeac8da079937a
-is_conv|function|e309e5aab6499830
-make_region_lookup|function|c02f4dd678dc6e99
-dflt_pa|object|5728a81bcc1d1f52
-make_multiverse_file|function|db49aa6b6af58104
-models_df|object|737e31d38ea3bb72
-check_model|function|31d9f5f6368f6368
-make_model_diagnostics|function|d1abb65aa3b324cf
-make_lineplot|function|bea57a5262ffafa3
-make_demog_table|function|5e107ee48db13401
-make_model_tables|function|e0fb6a597b6d3155
-make_participant_summary|function|ac2866bef4ac51e4
-prepare_plot_data|function|39355e4fc9f105a8
-remove_outliers|function|0b278c1b9ab8a584
-fit_model|function|ca66a5ec22fca31e
-make_explore_img_list|function|06e578dea26c581a
-produce_purdy_pictures|function|2cb069006be0235b
-clean_data|function|9a8bd69506b92cfc
-model_builder|function|207a8edc5a0ea3e6
-make_model_list|function|e7d1402572f0f554
-refactors_change|stem|f38c507fb7c0ce17|32605b8c5d4b26da|08f8d8c8a039584d|93531778||t19492.2842092648s|dff9495c51b724c1|77|rds|local|vector|||0.85||
