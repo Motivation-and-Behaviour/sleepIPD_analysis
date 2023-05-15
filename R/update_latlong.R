@@ -8,7 +8,8 @@
 #' @author noetel
 #' @export
 update_latlong <- function(locations) {
-  if (length(read.csv("data/latlong.csv")$location) < length(locations)) {
+  if (!file.exists("data/latlong.csv") ||
+    length(read.csv("data/latlong.csv")$location) < length(locations)) {
     require(ggmap)
     rawlatlong <- sapply(locations, geocode)
     latlong <- t(rawlatlong)
