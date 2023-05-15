@@ -209,9 +209,6 @@ clean_data <- function(data_joined, region_lookup) {
       country = case_when(
         country == "España" ~ "Spain",
         country == "Españ" ~ "Spain",
-        country == "Marruecos" ~ "Morocco",
-        country == "Rumania" ~ "Romania",
-        country == "Ucrania" ~ "Ukraine",
         country == "Czechia" ~ "Czech Republic",
         country == "Us" ~ "United States",
         country == "Uk" ~ "United Kingdom",
@@ -251,7 +248,10 @@ clean_data <- function(data_joined, region_lookup) {
         studyid == 112 ~ "Seville",
         studyid == 117 ~ "Madrid",
         studyid == 118 ~ "Sydney",
-        TRUE ~ city
+        studyid == 212 & city == "Mobtellano" ~ "Montellano",
+        studyid == 212 & city == "Sevilla/Heliópolis" ~ "Sevilla",
+        studyid == 212 & is.na(city) ~ "Sevilla",
+        TRUE ~ stringr::str_trim(city)
       )
     )
 
