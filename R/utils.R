@@ -149,3 +149,19 @@ plot_percentile <- function(var) {
     geom_point() +
     labs(x = "Percentile")
 }
+
+sheet_read <- function(sheet_name) {
+  sheetid <- "1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s"
+  googlesheets4::gs4_deauth()
+  googlesheets4::read_sheet(
+    sheetid,
+    sheet = sheet_name, col_types = "c", range = "A:C"
+  )
+}
+
+sheet_last_modified <- function() {
+  sheetid <- "1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s"
+  googledrive::drive_deauth()
+  info <- googledrive::drive_get(googledrive::as_id(sheetid))
+  info$drive_resource[[1]]$modifiedTime
+}

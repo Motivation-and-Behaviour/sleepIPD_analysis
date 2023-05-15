@@ -40,10 +40,14 @@ list(
     ),
     pattern = map(datasets), iteration = "list"
   ),
-
+  tar_change(
+    refactors,
+    sapply(c("Sleep conditions", "Ethnicity", "SES"), sheet_read),
+    change = sheet_last_modified()
+  ),
   # Data targets
   tar_target(data_joined, dplyr::bind_rows(data_raw), pattern = map(data_raw)),
-  tar_target(data_clean, clean_data(data_joined, region_lookup)),
+  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors)),
   tar_target(data_holdout, make_data_holdout(data_clean)),
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
