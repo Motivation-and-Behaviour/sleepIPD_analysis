@@ -26,6 +26,7 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                          "110 Sari/110_Sari.csv",
                          "111 Rowlands/111_Rowlands.csv",
                          "112 Jesus/Study 2/112_Jesus.csv",
+                         "112 Jesus/Study 3/212_Jesus.csv",
                          "113 Manuel/113_Manuel.csv",
                          "114 Zenong/114_Zenong.csv",
                          "115 Angelica/115_Angelica.csv",
@@ -36,9 +37,9 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                        shared = FALSE) {
   require(cloudstoR)
 
-  if(shared){
+  if (shared) {
     base_folder <- paste0("Shared/", base_folder)
-  message(base_folder)
+    message(base_folder)
   }
 
   if (any(cloudstor_user == "" | cloudstor_pwd == "")) {
@@ -59,4 +60,3 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
 
   invisible(downloaded_files)
 }
-
