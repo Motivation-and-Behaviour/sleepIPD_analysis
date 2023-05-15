@@ -29,7 +29,10 @@ list(
   ##################################################################
   ##                           CLEANING                           ##
   ##################################################################
-  tar_files_input(datasets, list.files("data", full.names = TRUE)),
+  tar_files_input(
+    datasets,
+    list.files("data", pattern = "\\d+_[A-Za-z]+\\.csv", full.names = TRUE)
+  ),
   tar_target(data_raw,
     readr::read_csv(datasets,
       col_types = list(.default = "c"),
@@ -113,7 +116,8 @@ list(
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
   tar_target(multiverse_file,
     make_multiverse_file(
-      multiverse_skeleton, multiverse_chunk, model_definitions),
+      multiverse_skeleton, multiverse_chunk, model_definitions
+    ),
     format = "file", priority = 1
   ),
   ### Produce supplementary material
