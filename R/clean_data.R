@@ -248,7 +248,10 @@ clean_data <- function(data_joined, region_lookup, refactors) {
 
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
+
+  # Update longitude and latitude for study locations
   update_latlong(locations)
+
   latlong <- read.csv("data/latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
