@@ -8,13 +8,16 @@
 #' @author noetel
 #' @export
 update_latlong <- function(locations) {
-  if (length(read.csv("latlong.csv")$location) < length(locations)) {
+  if (!file.exists("data/latlong.csv") ||
+    length(read.csv("data/latlong.csv")$location) < length(locations)) {
     require(ggmap)
+    if(!ggmap::has_google_key()) stop("To run the pipeline an API key must be\ncreated and stored with ggmap::register_google()")
+
     rawlatlong <- sapply(locations, geocode)
     latlong <- t(rawlatlong)
     latlong <- as.data.frame(latlong)
     latlong$location <- rownames(latlong)
     latlong <- apply(latlong, 2, as.character)
-    write.csv(latlong, "latlong.csv")
+    write.csv(latlong, "data/latlong.csv")
   }
 }

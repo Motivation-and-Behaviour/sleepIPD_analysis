@@ -7,14 +7,10 @@
 #' @return
 #' @author
 #' @export
-clean_data <- function(data_joined, region_lookup) {
+clean_data <- function(data_joined, region_lookup, refactors) {
   require(chron)
   require(dplyr)
-  require(googlesheets4)
 
-  gs4_deauth()
-
-  data_gsheet <- "https://docs.google.com/spreadsheets/d/1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s/edit#gid=1960479274" # nolint
   d <- data_joined %>%
     janitor::clean_names() %>%
     # Rename data
@@ -112,11 +108,7 @@ clean_data <- function(data_joined, region_lookup) {
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
-    googlesheets4::read_sheet(data_gsheet,
-      sheet = "Sleep conditions",
-      col_types = "c",
-      range = "A1:C50"
-    ) %>%
+    refactors$`Sleep conditions` %>%
     janitor::remove_empty(which = "rows") %>%
     janitor::clean_names() %>%
     mutate(studyid = as.numeric(studyid))
@@ -140,11 +132,7 @@ clean_data <- function(data_joined, region_lookup) {
 
   # do the same thing for ses
   ses_refactors <-
-    googlesheets4::read_sheet(data_gsheet,
-      sheet = "SES",
-      col_types = "c",
-      range = "A1:C100"
-    ) %>%
+    refactors$SES %>%
     janitor::remove_empty(which = "rows") %>%
     janitor::clean_names() %>%
     mutate(
@@ -163,11 +151,7 @@ clean_data <- function(data_joined, region_lookup) {
     select(-harmonized)
   # and for ethnicity
   ethnicity_refactors <-
-    googlesheets4::read_sheet(data_gsheet,
-      sheet = "Ethnicity",
-      col_types = "c",
-      range = "A1:C120"
-    ) %>%
+    refactors$Ethnicity %>%
     janitor::remove_empty(which = "rows") %>%
     janitor::clean_names() %>%
     mutate(
@@ -209,9 +193,6 @@ clean_data <- function(data_joined, region_lookup) {
       country = case_when(
         country == "España" ~ "Spain",
         country == "Españ" ~ "Spain",
-        country == "Marruecos" ~ "Morocco",
-        country == "Rumania" ~ "Romania",
-        country == "Ucrania" ~ "Ukraine",
         country == "Czechia" ~ "Czech Republic",
         country == "Us" ~ "United States",
         country == "Uk" ~ "United Kingdom",
@@ -220,6 +201,7 @@ clean_data <- function(data_joined, region_lookup) {
         studyid == 104 ~ "Brazil",
         studyid == 108 ~ "Australia",
         studyid == 110 ~ "Finland",
+        studyid == 111 ~ "United Kingdom",
         studyid == 112 ~ "Spain",
         studyid == 114 ~ "United States",
         studyid == 117 ~ "Spain",
@@ -250,7 +232,10 @@ clean_data <- function(data_joined, region_lookup) {
         studyid == 112 ~ "Seville",
         studyid == 117 ~ "Madrid",
         studyid == 118 ~ "Sydney",
-        TRUE ~ city
+        studyid == 212 & city == "Mobtellano" ~ "Montellano",
+        studyid == 212 & city == "Sevilla/Heliópolis" ~ "Sevilla",
+        studyid == 212 & is.na(city) ~ "Sevilla",
+        TRUE ~ stringr::str_trim(city)
       )
     )
 
@@ -263,8 +248,11 @@ clean_data <- function(data_joined, region_lookup) {
 
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
+
+  # Update longitude and latitude for study locations
   update_latlong(locations)
-  latlong <- read.csv("latlong.csv") %>% select(-X)
+
+  latlong <- read.csv("data/latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
 
@@ -312,10 +300,12 @@ clean_data <- function(data_joined, region_lookup) {
     ungroup()
 
   # Setting up variables for fixed-effects nested analysis
-  # I don't think it's appropriate for participants to be nested within measurement day
-  # As then the same participant on different days will be treated as different people.
+  # I don't think it's appropriate for participants to be nested within
+  # measurement day as then the same participant on different days will be
+  # treated as different people.
   d$studyid <- as.factor(d$studyid)
-  d$measurement_day <- as.factor(paste0(as.numeric(d$studyid), "_", d$measurement_day))
+  d$measurement_day <-
+    as.factor(paste0(as.numeric(d$studyid), "_", d$measurement_day))
 
   d
 }
