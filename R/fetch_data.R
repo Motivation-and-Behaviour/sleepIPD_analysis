@@ -1,18 +1,14 @@
-#' Fetch datasets from cloudstor
+#' Fetch datasets from Sharepoint
 #'
 #' @title fetch_data
-#' @param cloudstor_user Your cloudstor username
-#' @param cloudstor_pwd Your cloudstor password
 #' @param base_folder The base folder where data is stored. This should end with
 #' "`Pooled Sleep Study`"
 #' @param files The list of files to fetch. Useful if you only want to only
 #' redownload a few files
-#' @return invisible list of downloaded files
+#' @return NULL
 #' @author Taren Sanders
 #' @export
-fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
-                       cloudstor_pwd = Sys.getenv("CLOUD_PASS"),
-                       base_folder = Sys.getenv("CLOUDSTOR_MB", unset = "Motivation and Behaviour Program/Pooled Sleep Study"), # nolint
+fetch_data <- function(base_folder = "Motivation and Behaviour Program/Pooled Sleep Study", # nolint
                        files = c(
                          "100 ISCOLE/100_ISCOLE.csv",
                          "101 Pedro/101_Pedro.csv",
@@ -33,30 +29,16 @@ fetch_data <- function(cloudstor_user = Sys.getenv("CLOUD_USER"),
                          "117 Ivan/117_Ivan.csv",
                          "118 Lubans/118_Lubans.csv",
                          "221 Whitehall/221_Whitehall.csv"
-                       ),
-                       shared = FALSE) {
-  require(cloudstoR)
+                       )) {
+  require(Microsoft365R)
 
-  if (shared) {
-    base_folder <- paste0("Shared/", base_folder)
-    message(base_folder)
-  }
-
-  if (any(cloudstor_user == "" | cloudstor_pwd == "")) {
-    stop(paste(
-      "Could not find cloudstor credentials.",
-      "Please set CLOUD_USER and CLOUD_PASS in your environment."
-    ))
-  }
+  team <- get_team("p-acu-Motivation_and_Behaviour_Program")
+  drv <- team$get_drive("Cloudstor")
 
   dir.create("data", showWarnings = FALSE)
 
-  downloaded_files <- purrr::map(files, ~ cloudstoR::cloud_get(
+  downloaded_files <- purrr::map(files, ~ drv$download_file(
     paste(base_folder, .x, sep = "/"),
-    dest = file.path("data", basename(.x)),
-    user = cloudstor_user, password = cloudstor_pwd,
-    open_file = FALSE
+    dest = file.path("data", basename(.x)), overwrite = TRUE
   ))
-
-  invisible(downloaded_files)
 }
