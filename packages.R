@@ -1,5 +1,4 @@
 ## library() calls go here
-library(cloudstoR)
 library(chron)
 library(ggplot2)
 library(janitor)
