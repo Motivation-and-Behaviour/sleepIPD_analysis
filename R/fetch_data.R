@@ -28,7 +28,8 @@ fetch_data <- function(base_folder = "Motivation and Behaviour Program/Pooled Sl
                          "115 Angelica/115_Angelica.csv",
                          "117 Ivan/117_Ivan.csv",
                          "118 Lubans/118_Lubans.csv",
-                         "221 Whitehall/221_Whitehall.csv"
+                         "221 Whitehall/221_Whitehall.csv",
+                         "222 Wendt/222_Wendt.csv"
                        )) {
   require(Microsoft365R)
 
