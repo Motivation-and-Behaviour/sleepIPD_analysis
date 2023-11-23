@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 # Easier running of the pipeline
 library(targets)
 
