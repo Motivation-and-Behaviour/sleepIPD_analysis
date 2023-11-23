@@ -41,7 +41,7 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
       sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity, age,
       n_valid_hours, n_hours, measurementday, weight, height, screen_time,
-      waist_circumference, maturational_status
+      waist_circumference
     ), as.numeric)) %>%
     # convert charcter variables to factors
     mutate(across(c(
