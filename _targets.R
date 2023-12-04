@@ -13,7 +13,7 @@ tar_option_set(packages = c("data.table", "magrittr", "readr"))
 if (Sys.getenv("GCS_AUTH_FILE") != "") {
   tar_option_set(
     resources = tar_resources(
-      gcp = tar_resources_gcp(bucket = "sleepipdtargets")
+      gcp = tar_resources_gcp(bucket = "sleepipdtargets", prefix = "sleepipd")
     )
   )
 
