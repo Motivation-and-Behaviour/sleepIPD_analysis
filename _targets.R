@@ -3,6 +3,8 @@ library(targets)
 library(tarchetypes)
 library(future)
 
+set.seed(42)
+
 plan(future.callr::callr)
 
 # Load required functions and packages
