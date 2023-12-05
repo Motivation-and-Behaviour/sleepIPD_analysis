@@ -55,9 +55,16 @@ list(
     )
   ),
   # Data targets
-  tar_target(data_joined, dplyr::bind_rows(data_raw), pattern = map(data_raw)),
-  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors)),
-  tar_target(data_holdout, make_data_holdout(data_clean)),
+  tar_target(data_joined, dplyr::bind_rows(data_raw),
+    pattern = map(data_raw),
+    format = format, repository = repository
+  ),
+  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors),
+    format = format, repository = repository
+  ),
+  tar_target(data_holdout, make_data_holdout(data_clean),
+    format = format, repository = repository
+  ),
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
@@ -83,7 +90,8 @@ list(
       make_model_list(data_imp,
         moderator = moderator, moderator_term = mod_term, pa_vars = pa_vars,
         sleep_vars = sleep_vars, control_vars = cont_vars, ranef = ranef
-      )
+      ),
+      format = format, repository = repository
     ),
     tar_target(model_tables, make_model_tables(model_list)),
     tar_target(
