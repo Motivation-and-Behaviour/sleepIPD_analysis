@@ -109,7 +109,7 @@ make_participant_summary|function|ac2866bef4ac51e4|||||||||||||||
 make_region_lookup|function|c02f4dd678dc6e99|||||||||||||||
 manuscript|stem|932fdc024f601d69|37f62dc6f36adceb|ee0a13d16f0c3c25|615889701|doc/manuscript.docx*doc/manuscript.pdf*doc/manuscript.Rmd|t19696.0591461608s|cf982207095460a1|15768160|file|local|vector|||6.422||
 model_builder|function|207a8edc5a0ea3e6|||||||||||||||
-model_definitions|stem|cc09a7991277c5c3|0a265be628358810|1277fc139439e4e7|-1634137032||t19492.995178939s|a0669c72be07cb49|610|rds|local|vector|||0.064||
+model_definitions|stem|7a175c747928c77a|0a265be628358810|1277fc139439e4e7|-1634137032||t19696.2191519582s|a0669c72be07cb49|610|rds|local|vector|||0.056||
 model_diagnostics|stem|8a6909e4e750c674|7fab430c4c2cd932|05120bc8116571a5|-2086566065||t19696.0619331975s|8722a95aa413b206|3499|rds|local|vector|||0.054||
 model_list_by_age|stem|d282c9843af4916c|9997dd60c8d0acb8|a2fd771b9b710676|-915613210||t19696.0581375961s|24cad17c756ae78e|4036224|rds|local|vector|||132.093|Model failed to converge with maxgrad  0.00357428 tol  0.002, component 1. Model failed to converge with maxgrad  0.00201912 tol  0.002, component 1|
 model_list_by_age_fixedef|stem|e2dde6266a8b41ad|1f233fa6128420d3|a2fd771b9b710676|-1129600786||t19696.0619242854s|71350ae08ecec414|4042834|rds|local|vector|||464.893||
@@ -159,8 +159,8 @@ purdy_pictures_by_ses|stem|e4a4bee805f6b217|74a1536b4260ca86|55bdec0f2112a147|16
 purdy_pictures_by_sex|stem|7d6b4f23e029d44b|d962da2e6438b11e|5f64b42042e4b3cc|2018758225||t19696.0579698878s|1e85e50b3bd5846b|284|rds|local|vector|||4.479|Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.|
 purdy_pictures_by_wear_location|stem|6daea4be8305d61e|d029862ba71c897b|66459aeaa19c90f2|-1344108889||t19696.0578980128s|eadb9afd7ddf0e7f|293|rds|local|vector|||5.233|Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.. Removed 240 rows containing missing values geom_line.|
 purdy_pictures_by_weekday|stem|d8ac968b0338b677|f8bc7ea24723948d|6bf51cf3a5f0c552|-646575597||t19696.0581871331s|73a5f5604ca1ab33|288|rds|local|vector|||5.67|Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.. Removed 840 rows containing missing values geom_line.|
-refactors|stem|ef62a71f6e4116d4|54ff3980ae9e9e6d|e549a98db6865829|1958783602||t19696.1551851079s|a5357e79bc1b4447|2654|rds|local|vector|||4.417||
-refactors_change|stem|4c6783f81733766d|32605b8c5d4b26da|08f8d8c8a039584d|93531778||t19696.1842987879s|dff9495c51b724c1|77|rds|local|vector|||0.653||
+refactors|stem|ef62a71f6e4116d4|6081177d77576247|b464f865aa98fe3f|1958783602||t19696.218202784s|a5357e79bc1b4447|2654|rds|local|vector|||2.969||
+refactors_change|stem|4c6783f81733766d|32605b8c5d4b26da|08f8d8c8a039584d|93531778||t19696.2057751958s|dff9495c51b724c1|77|rds|local|vector|||0.615||
 region_lookup|stem|75b5c270eb3380c1|db4b214fa9a93c94|91d39f6e8432840d|-1520527148||t19696.1551276537s|7430ee2468db0f5f|385|rds|local|vector|||0.057||
 remove_outlier|function|6c52d8e5e8fccc9a|||||||||||||||
 remove_outliers|function|0b278c1b9ab8a584|||||||||||||||
