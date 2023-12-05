@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # Check for GCS
-if (Sys.getenv("GCS_AUTH_FILE") != "") {
+if (Sys.getenv("GCS_AUTH_FILE") == "") {
   usethis::ui_warn(
     c(
       "GCS_AUTH_FILE not set, using local storage.
