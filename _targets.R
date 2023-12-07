@@ -3,6 +3,8 @@ library(targets)
 library(tarchetypes)
 library(future)
 
+set.seed(42)
+
 plan(future.callr::callr)
 
 # Load required functions and packages
@@ -13,7 +15,7 @@ tar_option_set(packages = c("data.table", "magrittr", "readr"))
 if (Sys.getenv("GCS_AUTH_FILE") != "") {
   tar_option_set(
     resources = tar_resources(
-      gcp = tar_resources_gcp(bucket = "sleepipdtargets")
+      gcp = tar_resources_gcp(bucket = "sleepipdtargets", prefix = "sleepipd")
     )
   )
 
@@ -22,6 +24,11 @@ if (Sys.getenv("GCS_AUTH_FILE") != "") {
 } else {
   format <- targets::tar_option_get("format")
   repository <- targets::tar_option_get("repository")
+}
+
+# Invalidate refactors target if sheet has been updated
+if (tar_read(refactors_change) != sheet_last_modified()) {
+  tar_invalidate(refactors)
 }
 
 # Pipeline
@@ -40,22 +47,29 @@ list(
     ),
     pattern = map(datasets), iteration = "list"
   ),
-  tar_change(
+  tar_target(refactors_change, sheet_last_modified()),
+  tar_target(
     refactors,
     sapply(c("Sleep conditions", "Ethnicity", "SES"), sheet_read,
       simplify = FALSE, USE.NAMES = TRUE
-    ),
-    change = sheet_last_modified()
+    )
   ),
   # Data targets
-  tar_target(data_joined, dplyr::bind_rows(data_raw), pattern = map(data_raw)),
-  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors)),
-  tar_target(data_holdout, make_data_holdout(data_clean)),
+  tar_target(data_joined, dplyr::bind_rows(data_raw),
+    pattern = map(data_raw),
+    format = format, repository = repository
+  ),
+  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors),
+    format = format, repository = repository
+  ),
+  tar_target(data_holdout, make_data_holdout(data_clean),
+    format = format, repository = repository
+  ),
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(
-    data_imp, make_data_imp(data_holdout, n_imps = 3),
+    data_imp, make_data_imp(data_clean, n_imps = 50),
     deployment = "main",
     format = format, repository = repository
   ),
@@ -76,7 +90,8 @@ list(
       make_model_list(data_imp,
         moderator = moderator, moderator_term = mod_term, pa_vars = pa_vars,
         sleep_vars = sleep_vars, control_vars = cont_vars, ranef = ranef
-      )
+      ),
+      format = format, repository = repository
     ),
     tar_target(model_tables, make_model_tables(model_list)),
     tar_target(
