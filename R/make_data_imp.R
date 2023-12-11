@@ -62,7 +62,7 @@ make_data_imp <- function(data, n_imps = 3) {
   meth["sex"] <- "2lonly.pmm"
 
   # Run imps with better settings
-  future_cores <- min(parallel::detectCores() - 1, n_imps)
+  future_cores <- min(parallel::detectCores() - 1, n_imps, 16)
 
   dist_core <- cut(
     1:n_imps, future_cores,
