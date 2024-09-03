@@ -128,7 +128,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age$predictor_pa_volume), e
 We estimated how physical activity intensity affects sleep across different age groups
 We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
 We found no evidence that physical activity intensity is related to sleep duration, sleep efficiency, or sleep onset.
-However, we did find evidence for an association between physical activity intensity and improved sleep regularity, which weakened at higher intensity levels.
+However, we did find evidence for an association between physical activity intensity and improved sleep regularity, which weakened as age increased.
 
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(here::here(purdy_pictures_by_age$predictor_pa_intensity), error = FALSE)
