@@ -25,10 +25,12 @@
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",
 	"remoteEnv": {
-		"GCS_AUTH_FILE": "/auth/gcs-auth.json"
+		"GCS_AUTH_FILE": "/auth/gcs-auth.json",
+		"RENV_PATHS_CACHE": "/home/vscode/.local/share/renv"
 	},
 	"mounts": [
-		"source=${localEnv:GCS_AUTH_FILE},target=/auth/gcs-auth.json,type=bind"
+		"source=${localEnv:GCS_AUTH_FILE},target=/auth/gcs-auth.json,type=bind",
+		"source=${localEnv:RENV_PATHS_CACHE},target=/home/vscode/.local/share/renv,type=bind"
 	],
 	// Configure tool-specific properties.
 	"customizations": {

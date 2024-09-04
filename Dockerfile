@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libfontconfig1-dev \
   libfribidi-dev \
+  libgit2-dev \
   libglpk40 \
   libharfbuzz-dev \
   libssl-dev \
@@ -45,8 +46,5 @@ ENV RENV_VERSION=1.0.3
 RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" && \
   R -e "remotes::install_github('rstudio/renv@v${RENV_VERSION}')" 
 
-# Setup renv
-COPY ../renv.lock renv.lock
-RUN R -e "renv::restore()"
 # Install dev requirements that are seperate from the project
-# RUN R -e "renv::install(c('languageserver', 'httpgd', 'conflicted', 'dotenv', 'devtools', 'milesmcbain/fnmate','milesmcbain/tflow'))"
+RUN R -e "renv::install(c('languageserver', 'httpgd', 'conflicted', 'dotenv', 'devtools', 'milesmcbain/fnmate','milesmcbain/tflow'))"
