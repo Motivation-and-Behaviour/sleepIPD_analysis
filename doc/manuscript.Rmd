@@ -1,32 +1,61 @@
 ---
-title             : "The title"
-shorttitle        : "Title"
+title             : "The relationship between sleep and physical activity across the lifespan"
+shorttitle        : "Sleep and physical activity across the lifespan"
 
 author: 
-  - name          : "First Author"
+  - name          : "Taren Sanders*"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : "Postal address"
-    email         : "my@email.com"
-    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
-      - "Conceptualization"
-      - "Writing - Original Draft Preparation"
-      - "Writing - Review & Editing"
-  - name          : "Ernst-August Doelle"
-    affiliation   : "1,2"
-    role:
-      - "Writing - Review & Editing"
-      - "Supervision"
+    address       : "33 Berry St, North Sydney, NSW, Australia"
+    email         : "Taren.Sanders@acu.edu.au"
+  - name          : "Timothy Hartwig"
+    affiliation   : "2"
+  - name          : "James Conigrave"
+    affiliation   : "3"
+  - name          : "Borja del Pozo-Cruz"
+    affiliation   : "4, 5, 6"
+  - name          : "Philip Parker"
+    affiliation   : "7"
+  - name          : "Michael Noetel"
+    affiliation   : "8"
+  - name          : "Devan Antczak"
+    affiliation   : "9"
+  - name          : "Stuart Fairclough"
+    affiliation   : "10"
+  - name          : "Shona Halson"
+    affiliation   : "11"
+  - name          : "--- DATASET PROVIDERS TBD ---"
+    affiliation   : "12"
+  - name          : "Chris Londale"
+    affiliation   : "13"
 
 affiliation:
   - id            : "1"
-    institution   : "Wilhelm-Wundt-University"
+    institution   : "Institute for Positive Psychology and Education, Australian Catholic University, North Sydney, Australia"
   - id            : "2"
-    institution   : "Konstanz Business School"
+    institution   : "School of Behavioural and Health Science, Australian Catholic University, North Sydney, Australia"
+  - id            : "3"
+    institution   : "Centre for Alcohol Policy Research, La Trobe University, Bundoora, Australia"
+  - id            : "4"
+    institution   : "Department of Sport Science and Clinical Biomechanics, University of Southern Denmark, Odense, Denmark"
+  - id            : "5"
+    institution   : "Department of Physical Education, Faculty of Education, University of Cádiz, Cádiz, Spain"
+  - id            : "6"
+    institution   : "Biomedical Research and Innovation Institute of Cádiz (INiBICA) Research Unit, Puerta del Mar University Hospital, University of Cádiz, Cádiz, Spain"
+  - id            : "7"
+    institution   : "Office of the Deputy Vice-Chancellor (Research and Enterprise), Australian Catholic University, North Sydney, Australia"
+  - id            : "8"
+    institution   : "School of Psychology, University of Queensland, Brisbane, Australia"
+  - id            : "9"
+    institution   : "School of Education, University of Wollongong, Wollongong, Australia"
+  - id            : "10"
+    institution   : "Department of Sport and Physical Activity, Edge Hill University, Ormskirk, United Kingdom"
+  - id            : "11"
+    institution   : "--- TBD ---"
+  - id            : "13"
+    institution   : "Office of the Provost, Australian Catholic University, North Sydney, Australia"
 
 authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-
   Enter author note here.
 
 abstract: |
@@ -38,7 +67,6 @@ keywords          : "keywords"
 wordcount         : "X"
 bibliography      : ["references.bib"]
 csl               : "bmj.csl"
-
 
 floatsintext      : no
 linenumbers       : no
@@ -215,3 +243,10 @@ Greater sleep regularity was associated with greater physical activity the follo
 knitr::include_graphics(here::here(purdy_pictures_by_age$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
+\newpage
+
+# References
+
+<div id = "refs"></div>
+
+\newpage
