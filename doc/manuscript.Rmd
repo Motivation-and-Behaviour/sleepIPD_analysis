@@ -36,6 +36,8 @@ abstract: |
   
 keywords          : "keywords"
 wordcount         : "X"
+bibliography      : ["references.bib"]
+csl               : "bmj.csl"
 
 
 floatsintext      : no
@@ -68,12 +70,33 @@ library(papaja)
 ```
 
 ```{r load-targets, include=FALSE}
+tar_load(references)
 tar_load(data_clean)
 tar_load(purdy_pictures_by_age)
 tar_load(model_tables_by_age)
 tar_load(demog_table)
 pretty <- function(x) format(x, big.mark = ",")
 ```
+
+# Introduction
+
+Sleep is an important determinant of population health [@luysterSleepHealthImperative2012]. 
+The consequences of poor sleep are profound and include increased all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
+Poor sleep is common: over 50% of children and adolescents [@wheatonShortSleepDuration2018] and 35% of adults [@liuPrevalenceHealthySleep2016] report less sleep than recommended.
+Improving sleep should be a priority for public health policy and more safe and accessible strategies that promote sleep are needed [@klinePhysicalActivitySleep2021].
+In adults, being physically active appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015] and the World Health Organisation recommends physical activity as a method to improve sleep in adults [@bullWorldHealthOrganization2020].
+In children, adolescents, and older adults associations are unclear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016] and guidelines do not currently support a role for physical activity to improve sleep.
+
+Promoting physical activity may be an effective method to improve sleep across the lifespan but the published literature to date has at least two limitations that prevent firm conclusions to support health guidelines.
+First, most studies have relied on self-report measures of sleep and physical activity [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016], which could confound associations and limit the precision of analyses designed to identify a dose-response relationship between physical activity and sleep.
+Second, no study has collected data from a large sample that included participants across the lifespan.
+Umbrella reviews [@klinePhysicalActivitySleep2021] and meta-analyses [@aielloEffectExerciseTraining2016; @antczakPhysicalActivitySleep2020; @bannoExerciseCanImprove2018; @bartelProtectiveRiskFactors2015; @edwardsAssessingImpactDiet2019; @gaoShorttermEfficacyMinimally2019; @iftikharComparativeEfficacyCPAP2017; @iftikharEffectsExerciseTraining2014; @janssenAssociationsScreenTime2020; @kredlowEffectsPhysicalActivity2015; @kwokSelfReportedSleep2018; @langRelationshipPhysicalActivity2016; @ledermanDoesExerciseImprove2019; @lins-filhoEffectExerciseTraining2020; @maSleepDurationTotal2016; @mendelsonObstructiveSleepApnea2018; @rubio-ariasEffectExerciseSleep2017; @stutzEffectsEveningExercise2019; @yangEffectsExerciseSleep2020; @yangExerciseTrainingImproves2012; @yangSedentaryBehaviorSleep2017] have provided some suggestive evidence about how physical activity as a means of improving sleep may vary across the lifespan.
+However, their reliance on aggregated study-level effects limits the quality and scope of data that can be used to analyse the influence of age [@rileyUsingIndividualParticipant2023].
+Individual participant data (IPD) analysis can overcome these limitations [@ioannidisNextgenerationSystematicReviews2017].
+
+In this study we harmonised individual participant data (IPD) from activity monitor observations obtained from studies around the world.
+The objective of this pooled IPD study was to investigate the relationship between device-measured physical activity and sleep across the lifespan.
+We examined whether individuals who are more physically active have better sleep, whether age, sex, and socio-cultural factors moderate the association between physical activity and sleep, and whether there is a bidirectional association between physical activity and sleep. 
 
 # Results
 
