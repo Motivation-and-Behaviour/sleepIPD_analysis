@@ -171,7 +171,7 @@ This data will be classified as missing and will be imputed using the accelerome
 
 ## Covariates and moderators 
 
-The following individual participant data will be obtained when available; age, sex, height, weight (body mass index will be calculated), waist circumference, maturational status, socioeconomic status (SES), ethnicity, screentime, sleep medications, and medically diagnosed conditions known to affect sleep.
+The following individual participant data will be obtained when available; age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
 The country, city, time zone, daylight length, and season in which data were collected will also be obtained.
 
 ## Statistical analysis 
@@ -179,16 +179,50 @@ The country, city, time zone, daylight length, and season in which data were col
 To reduce the risk of bias in secondary data analysis of IPD, we used a blind analysis approach [@westonRecommendationsIncreasingTransparency2019].
 We developed and tested models on a 10% holdout subsample of the dataset.
 When the analysis code was ready, we conducted the final analysis [@maccounBlindAnalysisHide2015].
-We preregistered our study protocol, including an analysis plan (https://osf.io/ahd96).
 
+We checked all data for implausibly low or high measurements which were excluded if they fall outside of ±4SD of the mean.
+We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputation by chained equations to provide 50 imputed datasets.
+We used Rubin's rule to combine the results from all imputed datasets into one single set of results.
 For all analyses, we examined 95% confidence intervals and used P < 0.05 to assess for statistical significance.
-We used R for data cleaning and analysis.
+We used R (version `r paste(R.Version()[c("major", "minor")], collapse = ".")`) for all data cleaning and analysis.
 We report mean and 95% confidence intervals.
 For categorical variables, percentages are reported.
-We conducted model diagnostics on all models (see supplementary materials).
+We examined model diagnostics on all models (see supplementary materials).
 
 To examine the relationship between sleep and physical activity (Research Questions 1-2) we fit mixed-effects models with random intercepts for study ID to account for the nesting of participants in studies [@curranIntegrativeDataAnalysis2009].
-We predict each sleep indicator by each PA indicator controlling for sex, body mass index (BMI) and region.
+We predict each sleep indicator by each physical activity indicator controlling for sex, body mass index (BMI) and region.
+
+## Protocol deviations
+
+This paper addresses Hypotheses 1 and 2 from our registered protocol
+We will address remaining hypotheses in future research.
+To streamline our analysis and reduce redundancy, we made some changes to our protocol while working with the holdout data.
+
+### Using Study ID as fixed effect
+
+We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
+But, as we aimed for our findings to generalise to other studies, estimating random intercepts for Study ID is also appropriate.
+This approach allows us to estimate coefficients across studies, rather than partialling out study effects entirely.
+While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials.
+
+### Sleep indicator variable
+
+Our research examines various aspects of sleep: onset, duration, regularity, and efficiency.
+We initially planned to merge these variables into a single indicator to simplify analysis.
+However, no validated indicator existed which could be estimated from our measured variables. 
+We decided against creating one, as we could not validate it with our data.
+Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep quality and physical activity.
+
+### Log transformation
+
+We aimed to improve model diagnostics using log transformations.
+Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, these model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
+Accordingly we do not use log transformations in the main paper, however these models can be found in supplementary materials.
+
+## Patient and public involvement
+
+Patients and members of the public were not involved in the design, analysis or interpretation of this IPD study using secondary data. Results of this study have broad public health interest, particularly policymakers. Findings from this study will be disseminated through institutional websites, press and media platform releases, and tailored messages to public health organisations and governing bodies. 
 
 # Results
 
@@ -240,7 +274,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age$predictor_pa_volume), e
 
 ## The effects of physical activity intensity on sleep
 
-We estimated how physical activity intensity affects sleep across different age groups
+We estimated how physical activity intensity affects sleep across different age groups.
 We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
 We found no evidence that physical activity intensity is related to sleep duration, sleep efficiency, or sleep onset.
 However, we did find evidence for an association between physical activity intensity and improved sleep regularity, which weakened as age increased.
@@ -306,6 +340,10 @@ Greater sleep regularity was associated with greater physical activity the follo
 ```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity by sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(here::here(purdy_pictures_by_age$predictor_sleep_regularity_lag), error = FALSE)
 ```
+
+# Discussion
+
+# Conclusion
 
 \newpage
 
