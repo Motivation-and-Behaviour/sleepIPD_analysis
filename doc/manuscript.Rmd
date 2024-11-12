@@ -66,7 +66,7 @@ abstract: |
 keywords          : "keywords"
 wordcount         : "X"
 bibliography      : ["references.bib"]
-csl               : "bmj.csl"
+csl               : "vancouver-brackets-no-et-al.csl"
 
 floatsintext      : no
 linenumbers       : no
@@ -138,41 +138,38 @@ Studies could use any wear location for the accelerometer (hip, wrist, or thigh)
 
 We identified potentially relevant studies by examining the reference lists of recent systematic reviews that explored the relationship between sleep and physical activity in children, adolescents, and adults [@antczakPhysicalActivitySleep2020; @kredlowEffectsPhysicalActivity2015; @langRelationshipPhysicalActivity2016].
 We then used forward searching on potentially eligible studies [@hindeBidirectionalCitationSearching2015].
-We also performed a literature search to identify accelerometry consortiums and individual studies.
-We also searched trial registries (ANZCTR, ICTRP, ISRCTN) and the Open Science Framework for unpublished results, and we asked collaborators to help identify any additional studies.
+We additionally performed a literature search to identify accelerometry consortiums and individual studies, searched trial registries (ANZCTR, ICTRP, ISRCTN) and the Open Science Framework for unpublished results, and we asked collaborators to help identify any additional studies.
 
 We contacted chief investigators or consortium leads by email to request access to deidentified individual data.
 To make the data acquisition manageable, we only invited studies with sample sizes larger than 400 participants.
-Contributing investigators, or their university, signed a data transfer agreement.
-The lead university's Research Ethics Committee granted permission for each study's data to be obtained and investigators transferred their deidentified data via a secure file-sharing system.
+If required by the contributing research group, the contributing investigators or their university signed a data transfer agreement.
+All studies included in the pooled data meta-analysis had to have been approved by their local institutional ethical committees, and all participants had to have provided written informed consent.
+The lead university's Research Ethics Committee granted permission for each study's data to be obtained, and investigators transferred their deidentified data via a secure file-sharing system.
 
 ## Data harmonisation and outcomes 
 
 All activity monitor data were harmonised by reprocessing raw accelerometer files using an open-source GGIR package in R to produce physical activity and sleep outcomes [@miguelesGGIRResearchCommunity2019; @vanheesEstimatingSleepParameters2018].
-By reprocessing all raw accelerometer data we were able to generate outcomes that could be compared across studies, devices wear location, and populations [@rowlandsProvidingBasisHarmonization2019].
+By reprocessing all raw accelerometer data, we were able to generate outcomes that could be compared across studies, devices wear location, and populations [@rowlandsProvidingBasisHarmonization2019].
 Data were reprocessed by the core research team, or by data contributors themselves using the GGIR package processing script provided by the core research team.
 Reprocessed individual study datasets were then pooled into a single dataset.
 A detailed description of the reprocessing method and decisions for specific accelerometer devices is available in an online supplementary file.
 
-For sleep, GGIR produced the following metrics; total sleep time (minutes), sleep efficiency (percentage of time asleep within the sleep time window), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle).
-We examined associations of individual sleep characteristics and physical activity [@matriccianiRethinkingSleephealthLink2018], but researchers are increasingly using sleep as a multidimensional construct with sleep health  [@beiMeanSystematicReview2016; @buysseSleepHealthCan2014; @lunsford-averyValidationSleepRegularity2018; @phillipsIrregularSleepWake2017].
-Together, these sleep metrics can be used as indicators of sleep quality [@ohayonNationalSleepFoundation2017].
-
-For physical activity, we used volume and intensity metrics proposed by @rowlandsMovingForwardAccelerometerAssessed2018.
-These measures are 1) average accelerations (measure of volume) and 2) intensity gradients (measure of intensity distribution where the natural logs of time and intensity are used to produce a straight-line graph with the slope of the graph being the intensity gradient).
+For sleep, GGIR produced the following metrics; total sleep time (minutes), sleep efficiency (percentage of time asleep within the sleep period), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle). 
+For physical activity, we used volume and intensity metrics proposed by Rowlands et al @rowlandsMovingForwardAccelerometerAssessed2018.
+These measures are 1) average acceleration (measure of physical activity volume) and 2) intensity gradient (measure of intensity distribution where the natural logs of time and intensity are used to produce a straight-line graph with the slope of the graph being the intensity gradient).
 We used this approach to model the full continuum of physical activity intensity for our main analyses [@rowlandsEnhancingValueAccelerometerassessed2019] and avoid collapsing physical activity data into population-specific intensity categories which occurs when intensity cut-points are applied to accelerometer data [@rowlandsDatadrivenMeaningfulEasy2019].
 
 For the purposes of translating physical activity data for interpretation and public health recommendations and for time-use based analyses we then determined; 1) the number of minutes spent in acceleration intensity bands in $50mg$ increments [@rowlandsMovingForwardAccelerometerAssessed2018], 2) the number of minutes spent in light and moderate to vigorous physical activity using age appropriate cut-points applied to the time in intensity bands data, and 3) the minimum acceleration measured for a range of different durations, this is the $MX$ metric where $X$ refers to the duration.
 For example, $M60$ refers to the minimum acceleration for the most active 60 minutes of the day [@rowlandsEnhancingValueAccelerometerassessed2019].
-All awake time will also be further categorised into bout lengths for sedentary, light, and moderate to vigorous physical activity bouts using the categories defined by @gabaHowShortSleepers2020.
+We also categorise all awake time into bout lengths for sedentary, light, and moderate to vigorous physical activity bouts using the categories defined by Gába et al @gabaHowShortSleepers2020.
 After extracting sleep and physical activity, the remaining time within the 24-hour time cycle was classified as sedentary behaviour.
-Non-wear time and abnormally high acceleration values will be detected using the data processing default setting [@vanheesSeparatingMovementGravity2013].
-This data will be classified as missing and will be imputed using the accelerometer data from the same time interval on the remaining days of the week.
+Non-wear time and abnormally high acceleration values were detected using the data processing default setting [@vanheesSeparatingMovementGravity2013].
+These data were classified as missing and imputed using the accelerometer data from the same time interval on the remaining days of the week.
 
 ## Covariates and moderators 
 
-The following individual participant data will be obtained when available; age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
-The country, city, time zone, daylight length, and season in which data were collected will also be obtained.
+The following individual participant data were obtained when available; age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
+The country, city, time zone, daylight length, and season in which data were collected were also obtained.
 
 ## Statistical analysis 
 
@@ -180,35 +177,38 @@ To reduce the risk of bias in secondary data analysis of IPD, we used a blind an
 We developed and tested models on a 10% holdout subsample of the dataset.
 When the analysis code was ready, we conducted the final analysis [@maccounBlindAnalysisHide2015].
 
-We checked all data for implausibly low or high measurements which were excluded if they fall outside of ±4SD of the mean.
-We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputation by chained equations to provide 50 imputed datasets.
-We used Rubin's rule to combine the results from all imputed datasets into one single set of results.
+We checked all data for implausibly low or high measurements which were excluded if they fell outside of ±4SD of the mean, as these likely indicate measurement device failures.
+We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputation by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide 50 imputed datasets.
+Specifically, we used multilevel predictive mean matching imputation clustered by participants.
+We used Rubin's rule to pool the results from analyses conducted using each imputed dataset into one single set of results.
 For all analyses, we examined 95% confidence intervals and used P < 0.05 to assess for statistical significance.
 We used R (version `r paste(R.Version()[c("major", "minor")], collapse = ".")`) for all data cleaning and analysis.
 We report mean and 95% confidence intervals.
 For categorical variables, percentages are reported.
-We examined model diagnostics on all models (see supplementary materials).
+We examined model diagnostics from all models (see supplementary materials).
 
 To examine the relationship between sleep and physical activity (Research Questions 1-2) we fit mixed-effects models with random intercepts for study ID to account for the nesting of participants in studies [@curranIntegrativeDataAnalysis2009].
 We predict each sleep indicator by each physical activity indicator controlling for sex, body mass index (BMI) and region.
+Quadratic terms were introduced in each model to allow for curvilinear relationships to be modelled.
+We interacted each predictor with age to reveal how the relationship between physical activity and sleep changes over the lifespan.
 
 ## Protocol deviations
 
-This paper addresses Hypotheses 1 and 2 from our registered protocol
+This paper addresses Hypotheses 1 and 2 from our registered protocol.
 We will address remaining hypotheses in future research.
 To streamline our analysis and reduce redundancy, we made some changes to our protocol while working with the holdout data.
 
 ### Using Study ID as fixed effect
 
 We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
-But, as we aimed for our findings to generalise to other studies, estimating random intercepts for Study ID is also appropriate.
-This approach allows us to estimate coefficients across studies, rather than partialling out study effects entirely.
+But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
+This approach allows us to account for variability between studies without fully partialing out study effects, thereby better modelling common phenomena.
 While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
-The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials, and are qualitatively similar to the main results.
 
 ### Sleep indicator variable
 
-Our research examines various aspects of sleep: onset, duration, regularity, and efficiency.
+Our research examines various metrics of sleep: onset, duration, regularity, and efficiency.
 We initially planned to merge these variables into a single indicator to simplify analysis.
 However, no validated indicator existed which could be estimated from our measured variables.
 We decided against creating one, as we could not validate it with our data.
@@ -216,9 +216,9 @@ Consequently, our models illustrate the relationship between each aspect of slee
 
 ### Log transformation
 
-We aimed to improve model diagnostics using log transformations.
-Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, these model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
-Accordingly we do not use log transformations in the main paper, however these models can be found in supplementary materials.
+We aimed to improve model diagnostics using log transformations of skewed variables.
+Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
+Accordingly, we do not use log transformations in the main paper, however these models can be found in supplementary materials.
 
 ## Patient and public involvement
 
