@@ -20,7 +20,7 @@ author:
     affiliation   : "8"
   - name          : "Devan Antczak"
     affiliation   : "9"
-  - name          : "Stuart Fairclough"
+  - name          : "Stuart J. Fairclough"
     affiliation   : "10"
   - name          : "Shona Halson"
     affiliation   : "2"
