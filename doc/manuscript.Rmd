@@ -110,7 +110,7 @@ pretty <- function(x) format(x, big.mark = ",")
 
 Sleep is an important determinant of population health [@luysterSleepHealthImperative2012].
 The consequences of poor sleep are profound and include increased all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
-Poor sleep is common: over 50% of children and adolescents [@wheatonShortSleepDuration2018] and 35% of adults [@liuPrevalenceHealthySleep2016] report less sleep than recommended.
+Poor sleep is common: over 50% of children and adolescents [@wheatonShortSleepDuration2018] and 35% of adults [@liuPrevalenceHealthySleep2016] report lower sleep duration than recommended.
 Improving sleep should be a priority for public health policy and more safe and accessible strategies that promote sleep are needed [@klinePhysicalActivitySleep2021].
 In adults, being physically active appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015] and the World Health Organisation recommends physical activity as a method to improve sleep in adults [@bullWorldHealthOrganization2020].
 In children, adolescents, and older adults associations are unclear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016] and guidelines do not currently support a role for physical activity to improve sleep.
