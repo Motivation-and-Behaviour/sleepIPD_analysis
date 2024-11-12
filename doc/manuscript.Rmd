@@ -23,7 +23,7 @@ author:
   - name          : "Stuart Fairclough"
     affiliation   : "10"
   - name          : "Shona Halson"
-    affiliation   : "11"
+    affiliation   : "2"
   - name          : "***DATASET PROVIDERS TBD***"
     affiliation   : "12"
   - name          : "Chris Lonsdale"
