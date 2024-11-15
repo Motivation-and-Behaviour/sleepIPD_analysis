@@ -372,41 +372,45 @@ knitr::include_graphics(
 
 # Discussion
 
-In this study, we collated and harmonised device-measured physical activity and sleep data from studies around the world, covering participants across the lifespan.
-We found no evidence that physical activity volume or intensity is related to sleep duration or efficiency.
+In this study, we collated and harmonised device-measured physical activity and sleep data from `r length(unique(data_clean$studyid))` studies around the world, covering participants across the lifespan.
+We found no evidence that physical activity volume or intensity are related to sleep duration or efficiency.
 We did, however, observe relationships between the volume of physical activity an individual accumulated, and their subsequent sleep onset and regularity.
-Physical activity intensity was likewise associated with sleep regularity.
+Sleep was more regular among people who engaged in more intense physical activity.
 Further, we found no evidence that sleep duration or efficiency were associated with physical activity volume.
-Sleep efficiency was associated with more intense physical activity the following day, while sleep onset and regularity was associated with both subsequent physical activity volume and intensity.
+Those who slept more efficiently engaged in more intense physical activity the following day. 
+Those who fell asleep earlier and at a more regular time also engaged in more intense physical activity, and engaged in more total physical activity.
 These findings were largely robust to the decisions made during analysis (see supplementary materials for all analyses).
 
 The lack of association between physical activity and sleep duration or efficiency is particularly notable, as a relationship between these variables has been observed in meta-analyses [@klinePhysicalActivitySleep2021].
 For example, @kredlowEffectsPhysicalActivity2015 found small ($0.22 < d < 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
-**Struggling to explain this one - does not seem to be related to objective vs subjective measures of sleep or PA.**
-**It does seem as though this relationship only really shows in the experimental literature - which the umbrella review seems to brush over.**
-**So, could be that increasing one health behaviour causes an increase in others, but that without the experimental manipulation the effect isn't observed?**
-**Most of the acute PA studies were in labs, which would make sleep duration etc more easily manipulated that in ecologically valid settings.**
-It could also be that duration of sleep is set more by parameters external to the individual, such as work schedules, than by individual health behaviours.
+This discrepancy could be due to the design of the studies, as the majority of studies which have found a relationship were experimental.
+That is, physical activity was manipulated and it may be that the routine nature of individuals' physical activity makes associations more difficult to detect.
+Similarly, most of the studies which examined acute changes to physical activity were conducted in laboratory settings.
+These studies, while useful for understanding the potential mechanisms, are not ecologically valid and may not reflect the relationship between physical activity and sleep in the real world.
+Laboratory studies also tend to use more sensitive measures of sleep and physical activity, which may generate less statistical noise and make relationships easier to detect.
+It could also be that duration of sleep is set more by parameters external to the individual, such as work schedules or parenting duties, than by individual health behaviours.
 
 We found the most consistent evidence for relationships between sleep onset and regularity with physical activity volume and intensity.
 This relationship appeared to be bi-directional, with sleep onset and regularity influencing physical activity the following day, and physical activity influencing sleep onset and regularity that night.
-This is consistent with the idea that sleep and physical activity are mutually reinforcing behaviours [@klinePhysicalActivitySleep2021].
+This is consistent with the idea that sleep and physical activity are mutually reinforcing behaviours [@klinePhysicalActivitySleep2021], or that they are habitual and linked to factors such as the value placed on health.
+Sleep regularity is a stronger predictor of mortality than sleep duration [@windredSleepRegularityStronger2024], and so the finding that physical activity is associated with sleep regularity may be particularly important.
 
 Interestingly, the effects of physical activity on sleep regularity were stronger in older adults compared to younger individuals.
 This age-dependent association suggests that promoting physical activity in older adults could be a particularly effective strategy for improving sleep health, which may contribute to better overall health outcomes [@huangSleepPhysicalActivity2022; @kwokSelfReportedSleep2018].
-Furthermore, the age-related weakening of the positive effects of physical activity volume beyond a certain threshold implies that moderate rather than high levels of physical activity may be optimal for promoting sleep in older populations.
-For younger individuals, physical activity was associated with improved sleep onset, whereas for older participants, physical activity was linked to delayed sleep onset.
-This suggests a nuanced relationship, where age-specific factors (such as changes in circadian rhythm) might mediate how physical activity impacts sleep timing.
+Alternatively, it could mean that older adults have fewer of the external constraints (e.g., work schedules, parenting duties) that younger adults have, and so are more able to benefit from the effects of physical activity on sleep.
+Furthermore, the age-related weakening of the positive effects of physical activity volume beyond a certain threshold implies that moderate rather than high levels of physical activity may be sufficient for promoting sleep in older populations.
+For younger individuals, physical activity was associated with earlier sleep onset, whereas for older participants, physical activity was linked to later sleep onset.
+This suggests a nuanced relationship, where age-specific factors (such as changes in circadian rhythm, or age-varying commitments such as work or school) might mediate how physical activity impacts sleep timing.
 Future public health recommendations could consider tailoring activity guidelines to different age groups to optimise sleep benefits.
 
-These findings have important implications for public health recommendations.
+These findings have other important implications for public health recommendations.
 Our results support encouraging physical activity for maintaining regular sleep patterns, especially in older adults.
 However, the data suggest that focusing solely on increasing physical activity volume or intensity may not necessarily improve other aspects of sleep quality, such as duration or efficiency.
-Public health messages should, therefore, emphasise the role of consistent physical activity in promoting stable sleep schedules rather than framing physical activity as a universal solution for improving sleep.
+Public health messages should, therefore, emphasise the role of physical activity in promoting stable sleep schedules rather than framing physical activity as a universal solution for improving sleep.
 We note, however, that we did not examine the effects of physical activity on sleep in individuals with sleep disorders or other health conditions.
 Physical activity interventions may still be a useful treatment for these conditions.
 
-Our study has several strengths, including the use of device-based measures, which reduce the bias associated with self-reported sleep and activity data, and the harmonisation of individual data across diverse studies, allowing for robust and generalisable findings.
+Our study has several strengths, including the use of device-based measures, which reduce the bias associated with self-reported sleep and activity data, and the harmonisation of individual data from multiple studies, conducted in geographically diverse regions and among multiple age groups, allowing for robust and generalisable findings.
 However, the study is not without limitations.
 Despite our efforts to harmonise data, variability in accelerometer wear locations and slight differences in data collection protocols across studies may have introduced measurement inconsistencies.
 Additionally, although we controlled for several potential confounders, there may still be unmeasured factors affecting the observed associations.
@@ -417,7 +421,7 @@ The limited research on those aged 18-35 is particularly concerning given the hi
 
 Our findings contribute to the growing body of literature that highlights the complex relationship between physical activity and sleep.
 While physical activity appears to benefit sleep regularity, its effects on other sleep metrics are less clear, particularly when considering age differences.
-Future research should aim to explore mechanisms underlying these associations and identify specific intervention strategies that can effectively enhance both sleep and physical activity behaviors for diverse populations.
+Future research should aim to explore mechanisms underlying these associations and identify specific intervention strategies that can effectively enhance both sleep and physical activity behaviours for diverse populations.
 
 \newpage
 
