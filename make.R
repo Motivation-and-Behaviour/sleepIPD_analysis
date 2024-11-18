@@ -32,7 +32,7 @@ if ("--parallel" %in% args) {
 
   # Run everything else in parallel
   # No advantage after 14 cores
-  tar_make_future(-manuscript, workers = min(parallel::detectCores(), 8))
+  tar_make_future(-manuscript, workers = min(parallel::detectCores(), 2))
 
   targets::tar_make(manuscript, shortcut = TRUE)
 } else {

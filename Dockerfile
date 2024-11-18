@@ -24,13 +24,14 @@ RUN apt-get update && apt-get install -y \
   texinfo \
   wget \
   xclip \
+  xdg-utils \
   python3-pip && \
   pip3 install radian
 
 WORKDIR /sleepIPD_analysis
 
 # Install tex
-ENV CTAN_REPO="https://mirror.cse.unsw.edu.au/pub/CTAN/systems/texlive/tlnet"
+ENV CTAN_REPO="https://mirror.aarnet.edu.au/pub/CTAN/systems/texlive/tlnet/"
 ENV PATH="$PATH:/usr/local/texlive/bin/linux"
 RUN /rocker_scripts/install_pandoc.sh
 RUN /rocker_scripts/install_texlive.sh
@@ -49,4 +50,4 @@ RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.
 COPY ../renv.lock renv.lock
 RUN R -e "renv::restore()"
 # Install dev requirements that are seperate from the project
-# RUN R -e "renv::install(c('languageserver', 'httpgd', 'conflicted', 'dotenv', 'devtools', 'milesmcbain/fnmate','milesmcbain/tflow'))"
+RUN R -e "renv::install(c('languageserver', 'nx10/httpgd', 'conflicted', 'dotenv', 'devtools', 'milesmcbain/fnmate','milesmcbain/tflow'))"
