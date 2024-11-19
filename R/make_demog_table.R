@@ -11,7 +11,7 @@ make_demog_table <- function(participant_summary) {
 
   participants <- participant_summary
   # First I select all eligible participants
-  participants <- dplyr::filter(participants, elible = TRUE) |>
+  participants <- dplyr::filter(participants, eligible == TRUE) |>
     # I remove variables we don't want in the table
     dplyr::select(
       -c(

@@ -247,9 +247,14 @@ There were fewer observations on Monday (z = `r weekday$stdres["Monday"]`) and S
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
+n_missing_age <- dplyr::filter(data_clean, is.na(age)) |>
+  dplyr::distinct(participant_id) |>
+  nrow()
+
 papaja::apa_table(demog_table,
   caption = "Participant characteristics",
   note = glue::glue(
+    "{n_missing_age |> pretty()} participants had missing age data. ",
     "For categorical variables the value is the count, and percentage. ",
     "For numeric variables the value is the Mean and SD. ",
     "N = {n_participants |> pretty()}"
