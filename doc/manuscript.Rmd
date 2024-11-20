@@ -267,11 +267,10 @@ papaja::apa_table(demog_table,
 ## The effects of physical activity volume on sleep
 
 We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
-We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig).
-There was no meaningful relationship between physical activity volume and sleep duration or sleep efficiency.
-Physical activity volume and sleep onset had a very weak positive association for younger individuals, but a negative association for older individuals, where sleep onset was reduced among those with the highest physical activity.
-There was a strong positive association between physical activity volume and sleep regularity, which was strongest among older participants.
-For participants aged 35 years and above, this link weakened among those with a physical activity volume greater than two standard deviations.
+The effect of physical activity volume on sleep by age are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig).
+Higher physical activity volume was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
+While we observed statistically significant curvilinear relationships, these did not appear to meaningfully change the effect.
+The relationship between physical activity volume and sleep duration, efficiency, and onset was consistent across the age groups, with some very weak evidence that the relationship with sleep regularity grew stronger with age.
 
 ```{r sleep-outcomes}
 papaja::apa_table(
@@ -293,10 +292,11 @@ knitr::include_graphics(
 
 ## The effects of physical activity intensity on sleep
 
-We estimated how physical activity intensity affects sleep across different age groups.
-We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
-We found no evidence that physical activity intensity is related to sleep duration, sleep efficiency, or sleep onset.
-However, we did find evidence for an association between physical activity intensity and improved sleep regularity, which weakened as age increased.
+We estimated how physical activity intensity affects sleep across different age groups and present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
+We observed weak associations between physical activity intensity and sleep duration, sleep efficiency, and sleep onset, with a stronger relationship observed with sleep regularity.
+As with physical activity volume, we observed statistically significant curvilinear relationships, but these were only meaningful for the impact of physical activity intensity on sleep regularity, in which very low levels of intensity were strongly associated with poor sleep regularity and the benefits of increasing intensity diminished past one standard deviation above the mean.
+While age statistically significantly modified the relationship between physical activity intensity and sleep duration, efficiency, and regularity, the effect was negligible for duration and efficiency.
+For regularity, the association weakened with age.
 
 ```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
