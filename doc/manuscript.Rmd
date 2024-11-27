@@ -373,8 +373,10 @@ knitr::include_graphics(
 # Discussion
 
 In this study, we collated and harmonised device-measured physical activity and sleep data from `r length(unique(data_clean$studyid))` studies around the world, covering participants across the lifespan.
-We found no evidence that physical activity volume or intensity are related to sleep duration or efficiency.
-We did, however, observe relationships between the volume of physical activity an individual accumulated, and their subsequent sleep onset and regularity.
+We found that both the amount and the intensity of physical activity was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
+These relationships were the strongest for sleep regularity, although the the relationship between physical activity intensity weakened with age.
+Many of these relationships were bi-directional.
+
 Sleep was more regular among people who engaged in more intense physical activity.
 Further, we found no evidence that sleep duration or efficiency were associated with physical activity volume.
 Those who slept more efficiently engaged in more intense physical activity the following day. 
