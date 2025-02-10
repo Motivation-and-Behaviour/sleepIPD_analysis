@@ -70,7 +70,7 @@ produce_purdy_pictures <- function(model_list, ...) {
     ) +
       geom_line() +
       geom_ribbon(alpha = .5) +
-      facet_grid(rows = vars(outcome), cols = vars(group)) +
+      facet_grid(rows = vars(outcome), cols = vars(group), switch = "y") +
       labs(
         x = x_lab,
         fill = stringr::str_to_sentence(unique(plot_dat$moderator))
@@ -97,7 +97,6 @@ produce_purdy_pictures <- function(model_list, ...) {
         stringr::str_to_sentence() |>
         gsub("Pa", "PA", x = _)
 
-      fig <- fig + theme(strip.text.y = element_blank())
       tdat$facet_label <- "Age continuous"
       fig2 <-
         ggplot(tdat, aes(x = x, y = group, fill = predicted)) +
