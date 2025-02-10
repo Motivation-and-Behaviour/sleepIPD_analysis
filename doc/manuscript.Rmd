@@ -283,7 +283,7 @@ papaja::apa_table(
 )
 ```
 
-```{r sleep-by-volume-fig, fig.cap = "Sleep metrics on physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age."}
+```{r sleep-by-volume-fig, fig.cap = "Sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_pa_volume),
   error = FALSE
@@ -297,7 +297,7 @@ We observed weak associations between physical activity intensity and sleep dura
 As with physical activity volume, we observed statistically significant curvilinear relationships, but these were only meaningful for the impact of physical activity intensity on sleep regularity, in which very low levels of intensity were strongly associated with poor sleep regularity and the benefits of increasing intensity diminished past one standard deviation above the mean.
 While age statistically significantly modified the relationship between physical activity intensity and sleep duration, efficiency, and regularity, the effect was negligible.
 
-```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics on physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_pa_intensity),
   error = FALSE
@@ -322,7 +322,7 @@ papaja::apa_table(
 )
 ```
 
-```{r PA-by-sleep-duration-fig, fig.cap = "Physical activity by sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r PA-by-sleep-duration-fig, fig.cap = "Physical activity predicted by previous night sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_duration_lag),
   error = FALSE
@@ -335,7 +335,7 @@ We estimated the effect of sleep efficiency on physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-efficiency-fig).
 There was a negligible relationship between sleep efficiency and physical activity volume and a weak linear association between sleep efficiency and more intense physical activity.
 
-```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activity by sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_efficiency_lag),
   error = FALSE
@@ -348,7 +348,7 @@ We estimated the effect of sleep onset on physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-onset-fig).
 There were weak curvilinear relationships where average sleep onset was linked to the highest levels of physical activity volume, but not intensity.
 
-```{r PA-by-sleep-onset-fig, fig.cap = "Physical activity by sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r PA-by-sleep-onset-fig, fig.cap = "Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_onset_lag),
   error = FALSE
@@ -362,7 +362,7 @@ Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-o
 There was a positive linear relationship between sleep regularity and both physical activity volume and intensity.
 These relationships were slightly attenuated with age, such that for older adults the effect was negligible.
 
-```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity by sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_regularity_lag),
   error = FALSE
