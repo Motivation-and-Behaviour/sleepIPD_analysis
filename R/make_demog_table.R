@@ -102,6 +102,7 @@ make_demog_table <- function(participant_summary) {
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
   tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
+  tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
