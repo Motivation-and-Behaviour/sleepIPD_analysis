@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
   libcurl4-openssl-dev \
   libfontconfig1-dev \
   libfribidi-dev \
+  libgit2-dev \
   libglpk40 \
   libharfbuzz-dev \
   libssl-dev \
