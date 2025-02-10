@@ -92,11 +92,6 @@ produce_purdy_pictures <- function(model_list, ...) {
 
       tdat <- tile_dat[x_name == x_var & RQ == rq]
 
-      predictor <- gsub("\\[.*", "", unique(tdat$x_name)) |>
-        gsub("_", " ", x = _) |>
-        stringr::str_to_sentence() |>
-        gsub("Pa", "PA", x = _)
-
       tdat$facet_label <- "Age continuous"
       fig2 <-
         ggplot(tdat, aes(x = x, y = group, fill = predicted)) +
@@ -111,7 +106,7 @@ produce_purdy_pictures <- function(model_list, ...) {
         ) +
         scale_y_continuous(n.breaks = 5) +
         scale_x_continuous(limits = c(-2, 2)) +
-        labs(y = "Age", x = predictor, fill = "predicted") +
+        labs(y = "Age", x = x_lab, fill = "predicted") +
         geom_tile() +
         figure_theme()
       fig <- cowplot::plot_grid(fig, fig2, rel_widths = c(1, .72))
