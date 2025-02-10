@@ -411,6 +411,9 @@ Promoting more regular sleep may also be a useful strategy for increasing physic
 Our study has several strengths, including the use of device-based measures, which reduce the bias associated with self-reported sleep and activity data, and the harmonisation of individual data from multiple studies, conducted in geographically diverse regions and among multiple age groups, allowing for robust and generalisable findings.
 However, the study is not without limitations.
 Despite our efforts to harmonise data, variability in accelerometer wear locations and slight differences in data collection protocols across studies may have introduced measurement inconsistencies.
+We also chose to maximise the data available for analysis, at the expense of some precision in the estimates.
+Specifically, we included participants with four or more nights of valid sleep, while some recommend at least seven nights to estimate metrics such as sleep regularity [@lokHowManyDays2024].
+However, the processing method we used specifically allows for comparisons to day-pairs and this methodology has been used by others [e.g., @windredSleepRegularityStronger2024].
 Additionally, although we controlled for several potential confounders, there may still be unmeasured factors affecting the observed associations.
 Finally, while our study captured data from across the lifespan, the limited representation of certain age groups, especially adolescents and young adults, restricts the generalisability of our conclusions to these populations.
 The limited research on those aged 18-35 is particularly concerning given the high prevalence of poor sleep in this age group [@liuPrevalenceHealthySleep2016].
