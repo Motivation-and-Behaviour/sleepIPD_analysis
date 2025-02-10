@@ -100,7 +100,7 @@ make_demog_table <- function(participant_summary) {
   # I recode the names using variable labels
   tab1$name <- dplyr::recode(tab1$name, !!!participant_labels)
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
-  tab1$level <- stringr::str_to_sentence(tab1$level)
+  tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
