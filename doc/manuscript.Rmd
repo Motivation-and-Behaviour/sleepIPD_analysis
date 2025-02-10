@@ -240,8 +240,9 @@ weekday_res <- glue::glue(
 )
 ```
 
-The aggregated data-set describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
-Table \@ref(tab:demo-participants) shows demographic information for all participants.
+The aggregated dataset describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
+Of these, **XXX** days were excluded as they had insufficient wear time, which also resulted in the exclusion of **XXX** participants.
+Table \@ref(tab:demo-participants) shows demographic information for the included participants.
 Observations were not uniform across the days of the week `r weekday_res`.
 There were fewer observations on Monday (z = `r weekday$stdres["Monday"]`) and Sunday  (z = `r weekday$stdres["Sunday"]`); and more on Wednesday (z = `r weekday$stdres["Wednesday"]`).
 A table of study characteristics can be found in supplementary materials.
