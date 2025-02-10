@@ -35,6 +35,9 @@ make_demog_table <- function(participant_summary) {
       ordered_result = TRUE
     )
 
+  # Make sleep_efficiency a percentage value
+  participants$sleep_efficiency <- participants$sleep_efficiency * 100
+
   # I store the variable labels for use in the table and add region
   participant_labels <- var_label(participants)
 
@@ -103,6 +106,10 @@ make_demog_table <- function(participant_summary) {
   tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
   tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
+  tab1$level[tab1$level == "PA Volume"] <- "PA Volume (average acceleration in mg)"
+  tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
+  tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
+  tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (clock time)"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
