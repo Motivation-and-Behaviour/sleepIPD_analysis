@@ -95,6 +95,7 @@ library(targets)
 library(gt)
 require(ggplot2)
 library(papaja)
+library(scales)
 ```
 
 ```{r load-targets, include=FALSE}
@@ -103,6 +104,7 @@ tar_load(data_clean)
 tar_load(purdy_pictures_by_age)
 tar_load(model_tables_by_age)
 tar_load(demog_table)
+tar_load(participant_summary)
 pretty <- function(x) format(x, big.mark = ",")
 ```
 
@@ -241,11 +243,24 @@ weekday_res <- glue::glue(
   "p = ..papaja::print_p(weekday$p.value)..",
   .open = "..", .close = ".."
 )
+
+p_female <- label_percent(0.1)(mean(participant_summary$sex == "Female"))
+p_young <-
+  label_percent(0.1)(mean(participant_summary$age_cat == "2-11 years",
+    na.rm = TRUE
+  ))
+p_old <-
+  label_percent(0.1)(mean(participant_summary$age_cat == "66+ years",
+    na.rm = TRUE
+  ))
 ```
 
 The aggregated dataset describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
 Of these, `r (nrow(data_clean) - nrow(data_clean_eligible)) |> pretty()` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r (n_participants - n_participants_eligible) |> pretty()` participants.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
+The majority of participants came from Europe, Oceania, and South America, with limited data from other regions.
+There was a near-even split by sex (`r p_female`), but age skewed towards both younger children (2-11 years, `r p_young`) and older adults (66+ years, `r p_old`).
+
 Valid observations were not uniform across the days of the week (`r weekday_res`).
 Weekends were overrepresented (Saturday: z = `r weekday$stdres["Saturday"]`; Sunday: z = `r weekday$stdres["Sunday"]`), while Wednesdays (z = `r weekday$stdres["Wednesday"]`) and Thursdays (z = `r weekday$stdres["Thursday"]`) were underrepresented.
 A table of study characteristics can be found in supplementary materials.
@@ -261,7 +276,7 @@ papaja::apa_table(demog_table,
     "{n_missing_age |> pretty()} participants had missing age data. ",
     "For categorical variables the value is the count, and percentage. ",
     "For numeric variables the value is the Mean and SD. ",
-    "N = {n_participants_eligible |> pretty()}"
+    "Total N = {n_participants_eligible |> pretty()}"
   ),
   landscape = TRUE,
   col_spanners = list("Age group" = c(2, 6))
@@ -413,6 +428,7 @@ Physical activity interventions may still be a useful treatment for these condit
 Promoting more regular sleep may also be a useful strategy for increasing physical activity, although our results suggest a limited benefit from targeting other aspects of sleep quality.
 
 Our study has several strengths, including the use of device-based measures, which reduce the bias associated with self-reported sleep and activity data, and the harmonisation of individual data from multiple studies, conducted in geographically diverse regions and among multiple age groups, allowing for robust and generalisable findings.
+We also used modern methods for processing and estimating physical activity, including using the full 24 hours of data, and avoiding the use of intensity cut-points.
 However, the study is not without limitations.
 Despite our efforts to harmonise data, variability in accelerometer wear locations and slight differences in data collection protocols across studies may have introduced measurement inconsistencies.
 We also chose to maximise the data available for analysis, at the expense of some precision in the estimates.

@@ -36,9 +36,28 @@ make_participant_summary <- function(data_clean) {
     ) %>%
     mutate(sleep_conditions = as.factor(sleep_conditions))
 
+  # Create age bins with specified age points
+  age_breaks <- c(0, 11, 18, 35, 65, Inf)
+  age_labels <-
+    c(glue::glue(
+      "{floor(min(participants$age, na.rm = TRUE))}-11 years"
+    ), "12-18 years", "19-35 years", "36-65 years", "66+ years")
+
+  # Assign age categories to the 'age_cat' column
+  participants$age_cat <-
+    cut(
+      participants$age,
+      breaks = age_breaks,
+      labels = age_labels,
+      include.lowest = TRUE,
+      right = FALSE,
+      ordered_result = TRUE
+    )
+
   var_label(participants) <- list(
     participant_id = "Participant ID",
     age = "Age",
+    age_cat = "Age Category",
     bmi = "BMI",
     daylight_hours = "Daylight Hours",
     height = "Height",

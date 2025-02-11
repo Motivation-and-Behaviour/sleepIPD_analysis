@@ -19,21 +19,6 @@ make_demog_table <- function(participant_summary) {
     ) %>%
     dplyr::relocate(n_valid_days, .after = n_valid_hours)
 
-  # Create age bins with specified age points
-  age_breaks <- c(0, 11, 18, 35, 65, Inf)
-  age_labels <- c(glue::glue("{floor(min(participants$age, na.rm = TRUE))}-11 years"), "12-18 years", "19-35 years", "36-65 years", "66+ years")
-
-  # Assign age categories to the 'age_cat' column in the 'participants' data frame
-  participants$age_cat <-
-    cut(
-      participants$age,
-      breaks = age_breaks,
-      labels = age_labels,
-      include.lowest = TRUE,
-      right = FALSE,
-      ordered_result = TRUE
-    )
-
   # Make sleep_efficiency a percentage value
   participants$sleep_efficiency <- participants$sleep_efficiency * 100
 
@@ -101,6 +86,7 @@ make_demog_table <- function(participant_summary) {
   tab1 <- tab1 |> tidyr::pivot_wider(values_from = out, names_from = age_cat)
 
   # Pivot wider is annoying and ignores factor levels
+  age_labels <- levels(participants$age_cat)
   non_age_names <- names(tab1)[!names(tab1) %in% age_labels]
   tab1 <- tab1[, c(non_age_names, age_labels)]
 
