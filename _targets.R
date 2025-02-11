@@ -106,10 +106,12 @@ list(
 
   tar_target(explore_img, make_explore_img_list(data_holdout)),
   # Output results section
+  tar_target(ms_info, make_manuscript_info(data_clean, participant_summary)),
   tar_target(references, "doc/references.bib", format = "file"),
   tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
     "papaja::apa6_docx",
-    "papaja::apa6_pdf"
+    "papaja::apa6_pdf",
+    "md_document"
   )),
 
   #################################################################

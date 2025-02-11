@@ -1,6 +1,5 @@
 {
-  "language": "en-GB", // For BMJ
-  "enabled": true,
+  "language": "en-GB",
   "files": [
     "**/*.Rmd"
   ],
@@ -35,6 +34,7 @@
     "confounders",
     "deidentified",
     "filho",
+    "Gába",
     "GGIR",
     "ICTRP",
     "ISRCTN",

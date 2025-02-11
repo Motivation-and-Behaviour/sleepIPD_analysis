@@ -58,10 +58,32 @@ affiliation:
 authornote: |
   Enter author note here.
 
-abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+abstract: |   
+
+  **Objectives**: To examine the association between device-measured physical activity and sleep across the lifespan using individual participant data (IPD) meta-analysis.
+  We furthed aimed to examine how the association differed by age.
+
+  **Design**: Pooled IPD analysis of accelerometer-based physical activity and sleep data from multiple observational studies.
+
+  **Setting**: We sourced data from `r targets::tar_read(ms_info)$n_studies` observational studies conducted multiple geographical regions and across the lifespan.
+
+  **Participants**: The dataset included `r targets::tar_read(ms_info)$n_obs` observations from `r targets::tar_read(ms_info)$n_pts` participants aged 2 to 94 years.
+  Participants were selected from studies that used research-grade accelerometers with at least four valid days of wear time, including at least one weekend day.
+  Exclusion criteria included insufficient wear time and missing key covariate data.
   
-  <!-- https://tinyurl.com/ybremelq -->
+  **Main Outcome Measures**: Sleep outcomes included total sleep time, sleep efficiency, sleep onset timing, and sleep regularity.
+  Physical activity was assessed in terms of volume (average acceleration) and intensity (intensity gradient).
+  Mixed-effects models were used to examine associations, adjusting for age, sex, body mass index, and socioeconomic status.
+  
+  **Results**: Higher physical activity volume was associated with longer sleep duration, greater sleep efficiency, earlier sleep onset, and more regular sleep.
+  The effect of physical activity on sleep regularity was particularly strong, with minimal variation across age groups.
+  Conversely, individuals with more regular sleep patterns and earlier sleep onset exhibited higher levels of physical activity the following day, though these effects were modest.  
+  
+  **Conclusions**: Physical activity is positively associated with sleep regularity across the lifespan, supporting its role as a non-pharmacological intervention for maintaining consistent sleep patterns.
+  Public health recommendations should emphasize the importance of regular physical activity for sleep health.
+  Future research should investigate mechanisms underlying these associations and assess targeted intervention strategies.
+  
+  **Trial Registration**: The study protocol was pre-registered on the Open Science Framework (https://osf.io/ahd96).
   
 keywords          : "keywords"
 wordcount         : "X"
@@ -92,20 +114,16 @@ knitr::opts_chunk$set(out.width = "110%")
 
 ```{r load-libraries}
 library(targets)
-library(gt)
-require(ggplot2)
+library(ggplot2)
 library(papaja)
-library(scales)
 ```
 
 ```{r load-targets, include=FALSE}
 tar_load(references)
-tar_load(data_clean)
 tar_load(purdy_pictures_by_age)
 tar_load(model_tables_by_age)
 tar_load(demog_table)
-tar_load(participant_summary)
-pretty <- function(x) format(x, big.mark = ",")
+tar_load(ms_info)
 ```
 
 # Introduction
@@ -156,7 +174,7 @@ Data were reprocessed by the core research team, or by data contributors themsel
 Reprocessed individual study datasets were then pooled into a single dataset.
 A detailed description of the reprocessing method and decisions for specific accelerometer devices is available in an online supplementary file.
 
-For sleep, GGIR produced the following metrics; total sleep time (minutes), sleep efficiency (percentage of time asleep within the sleep period), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle). 
+For sleep, GGIR produced the following metrics; total sleep time (minutes), sleep efficiency (percentage of time asleep within the sleep period), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle).
 For physical activity, we used volume and intensity metrics proposed by Rowlands et al @rowlandsMovingForwardAccelerometerAssessed2018.
 These measures are 1) average acceleration (measure of physical activity volume) and 2) intensity gradient (measure of intensity distribution where the natural logs of time and intensity are used to produce a straight-line graph with the slope of the graph being the intensity gradient).
 We used this approach to model the full continuum of physical activity intensity for our main analyses [@rowlandsEnhancingValueAccelerometerassessed2019] and avoid collapsing physical activity data into population-specific intensity categories which occurs when intensity cut-points are applied to accelerometer data [@rowlandsDatadrivenMeaningfulEasy2019].
@@ -230,53 +248,24 @@ Findings from this study will be disseminated through institutional websites, pr
 
 # Results
 
-```{r}
-n_participants <- length(unique(data_clean$participant_id))
-data_clean_eligible <- data_clean |>
-  dplyr::filter(eligible)
-n_participants_eligible <- length(unique(data_clean_eligible$participant_id))
-weekday_table <- (data_clean_eligible$weekday) |> table()
-weekday <- chisq.test(weekday_table)
-weekday_res <- glue::glue(
-  "$\\chi^2_{(..weekday$parameter..)}$",
-  " = ..papaja::print_num(weekday$statistic).., ",
-  "p = ..papaja::print_p(weekday$p.value)..",
-  .open = "..", .close = ".."
-)
-
-p_female <- label_percent(0.1)(mean(participant_summary$sex == "Female"))
-p_young <-
-  label_percent(0.1)(mean(participant_summary$age_cat == "2-11 years",
-    na.rm = TRUE
-  ))
-p_old <-
-  label_percent(0.1)(mean(participant_summary$age_cat == "66+ years",
-    na.rm = TRUE
-  ))
-```
-
-The aggregated dataset describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
-Of these, `r (nrow(data_clean) - nrow(data_clean_eligible)) |> pretty()` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r (n_participants - n_participants_eligible) |> pretty()` participants.
+The aggregated dataset describes `r ms_info$n_obs` observations of daily physical activity and sleep from `r ms_info$n_pts` unique participants.
+Of these, `r ms_info$n_obs_excluded` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r ms_info$n_pts_excluded` participants.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
 The majority of participants came from Europe, Oceania, and South America, with limited data from other regions.
-There was a near-even split by sex (`r p_female`), but age skewed towards both younger children (2-11 years, `r p_young`) and older adults (66+ years, `r p_old`).
+There was a near-even split by sex (`r ms_info$p_female`), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
 
-Valid observations were not uniform across the days of the week (`r weekday_res`).
-Weekends were overrepresented (Saturday: z = `r weekday$stdres["Saturday"]`; Sunday: z = `r weekday$stdres["Sunday"]`), while Wednesdays (z = `r weekday$stdres["Wednesday"]`) and Thursdays (z = `r weekday$stdres["Thursday"]`) were underrepresented.
+Valid observations were not uniform across the days of the week (`r ms_info$weekday_res`).
+Weekends were over-represented (Saturday: z = `r ms_info$weekday$stdres["Saturday"]`; Sunday: z = `r ms_info$weekday$stdres["Sunday"]`), while Wednesdays (z = `r ms_info$weekday$stdres["Wednesday"]`) and Thursdays (z = `r ms_info$weekday$stdres["Thursday"]`) were under-represented.
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
-n_missing_age <- dplyr::filter(data_clean_eligible, is.na(age)) |>
-  dplyr::distinct(participant_id) |>
-  nrow()
-
 papaja::apa_table(demog_table,
   caption = "Participant characteristics",
   note = glue::glue(
-    "{n_missing_age |> pretty()} participants had missing age data. ",
+    "{ms_info$n_missing_age} participants had missing age data. ",
     "For categorical variables the value is the count, and percentage. ",
     "For numeric variables the value is the Mean and SD. ",
-    "Total N = {n_participants_eligible |> pretty()}"
+    "Total N = {ms_info$n_pts_eligible}"
   ),
   landscape = TRUE,
   col_spanners = list("Age group" = c(2, 6))
@@ -390,12 +379,12 @@ knitr::include_graphics(
 
 # Discussion
 
-In this study, we collated and harmonised device-measured physical activity and sleep data from `r length(unique(data_clean$studyid))` studies around the world, covering participants across the lifespan.
+In this study, we collated and harmonised device-measured physical activity and sleep data from `r ms_info$n_studies` studies around the world, covering participants across the lifespan.
 We found that both the volume and intensity of physical activity was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
 These relationships were the strongest for sleep regularity, although the the relationship between physical activity intensity weakened with age.
 
 When examining the reverse direction, we observed those who fell asleep earlier and at a more regular time engaged in more total physical activity, with an additional negligible benefit for those who slept more efficiently.
-Similarly, those who slept at a more regular time and with more efficiency engaged in more intese physical activity.
+Similarly, those who slept at a more regular time and with more efficiency engaged in more intense physical activity.
 These findings were largely robust to the decisions made during analysis (see supplementary materials for all analyses).
 
 Our findings broadly align with meta-analyses of experimental research, although the strengths of the relationships we observed were much weaker [@kredlowEffectsPhysicalActivity2015].
