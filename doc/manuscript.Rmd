@@ -230,7 +230,10 @@ Findings from this study will be disseminated through institutional websites, pr
 
 ```{r}
 n_participants <- length(unique(data_clean$participant_id))
-weekday_table <- (data_clean$weekday) |> table()
+data_clean_eligible <- data_clean |>
+  dplyr::filter(eligible)
+n_participants_eligible <- length(unique(data_clean_eligible$participant_id))
+weekday_table <- (data_clean_eligible$weekday) |> table()
 weekday <- chisq.test(weekday_table)
 weekday_res <- glue::glue(
   "$\\chi^2_{(..weekday$parameter..)}$",
@@ -241,10 +244,10 @@ weekday_res <- glue::glue(
 ```
 
 The aggregated dataset describes `r nrow(data_clean) |> pretty()` observations of daily physical activity and sleep from `r n_participants |> pretty()` unique participants.
-Of these, **XXX** days were excluded as they had insufficient wear time, which also resulted in the exclusion of **XXX** participants.
+Of these, `r (nrow(data_clean) - nrow(data_clean_eligible)) |> pretty()` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r (n_participants - n_participants_eligible) |> pretty()` participants.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
-Observations were not uniform across the days of the week `r weekday_res`.
-There were fewer observations on Monday (z = `r weekday$stdres["Monday"]`) and Sunday  (z = `r weekday$stdres["Sunday"]`); and more on Wednesday (z = `r weekday$stdres["Wednesday"]`).
+Valid observations were not uniform across the days of the week (`r weekday_res`).
+Weekends were overrepresented (Saturday: z = `r weekday$stdres["Saturday"]`; Sunday: z = `r weekday$stdres["Sunday"]`), while Wednesdays (z = `r weekday$stdres["Wednesday"]`) and Thursdays (z = `r weekday$stdres["Thursday"]`) were underrepresented.
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
