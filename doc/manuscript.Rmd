@@ -251,7 +251,7 @@ Weekends were overrepresented (Saturday: z = `r weekday$stdres["Saturday"]`; Sun
 A table of study characteristics can be found in supplementary materials.
 
 ```{r demo-participants}
-n_missing_age <- dplyr::filter(data_clean, is.na(age)) |>
+n_missing_age <- dplyr::filter(data_clean_eligible, is.na(age)) |>
   dplyr::distinct(participant_id) |>
   nrow()
 
@@ -261,7 +261,7 @@ papaja::apa_table(demog_table,
     "{n_missing_age |> pretty()} participants had missing age data. ",
     "For categorical variables the value is the count, and percentage. ",
     "For numeric variables the value is the Mean and SD. ",
-    "N = {n_participants |> pretty()}"
+    "N = {n_participants_eligible |> pretty()}"
   ),
   landscape = TRUE,
   col_spanners = list("Age group" = c(2, 6))

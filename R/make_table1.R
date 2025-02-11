@@ -12,12 +12,13 @@ make_participant_summary <- function(data_clean) {
   require(labelled)
 
   d <- data_clean %>%
+    filter(eligible) %>%
     select(
-      acc_wear_loc, age, bmi, city, country, daylight_hours, eligible,
-      ethnicity, height, n_valid_hours, pa_intensity, pa_volume, participant_id,
-      region, screen_time, season, ses, sex, sleep_conditions, sleep_duration,
-      sleep_efficiency, sleep_onset, sleep_regularity, sleep_wakeup, studyid,
-      waist_circumference, weight
+      participant_id, studyid, acc_wear_loc, age, bmi, city, country,
+      daylight_hours, eligible, ethnicity, height, n_valid_hours, pa_intensity,
+      pa_volume, region, screen_time, season, ses, sex, sleep_conditions,
+      sleep_duration, sleep_efficiency, sleep_onset, sleep_regularity,
+      sleep_wakeup, waist_circumference, weight
     ) %>%
     mutate(
       studyid = as.factor(studyid),
@@ -30,7 +31,8 @@ make_participant_summary <- function(data_clean) {
     summarise(
       across(where(is.numeric), mean, na.rm = TRUE),
       across(where(is.factor), find_max),
-      across(where(is.logical), any)
+      across(where(is.logical), any),
+      n_valid_days = n()
     ) %>%
     mutate(sleep_conditions = as.factor(sleep_conditions))
 
@@ -41,6 +43,7 @@ make_participant_summary <- function(data_clean) {
     daylight_hours = "Daylight Hours",
     height = "Height",
     n_valid_hours = "Valid Weartime Hours",
+    n_valid_days = "Valid Weatime Days",
     pa_intensity = "PA Intensity",
     pa_volume = "PA Volume",
     screen_time = "Screen Time",
@@ -59,8 +62,7 @@ make_participant_summary <- function(data_clean) {
     ses = "Socioeconomic Status",
     sex = "Sex",
     sleep_conditions = "Sleep Conditions Reported",
-    studyid = "Study ID",
-    eligible = "Any Observations Met Weartime Criteria"
+    studyid = "Study ID"
   )
 
   participants

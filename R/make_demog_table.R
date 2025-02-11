@@ -9,16 +9,15 @@ make_demog_table <- function(participant_summary) {
   require(labelled)
   require(dplyr)
 
-  participants <- participant_summary
-  # First I select all eligible participants
-  participants <- dplyr::filter(participants, eligible == TRUE) |>
+  participants <- participant_summary |>
     # I remove variables we don't want in the table
     dplyr::select(
       -c(
         waist_circumference, screen_time, daylight_hours, city, studyid, eligible,
         height, weight, sleep_wakeup
       )
-    )
+    ) %>%
+    dplyr::relocate(n_valid_days, .after = n_valid_hours)
 
   # Create age bins with specified age points
   age_breaks <- c(0, 11, 18, 35, 65, Inf)
@@ -55,6 +54,11 @@ make_demog_table <- function(participant_summary) {
     {
       m <- papaja::print_num(mean(value, na.rm = TRUE))
       sd <- papaja::print_num(sd(value, na.rm = TRUE))
+      if (name == "sleep_onset") {
+        m <- convert_decimal_time(as.numeric(m))
+        sd <- convert_decimal_time(as.numeric(sd))
+      }
+
       .(out = glue::glue("{m} ({sd})"), variable = "Numeric variables")
     },
     by = c("name", "age_cat")
@@ -109,7 +113,7 @@ make_demog_table <- function(participant_summary) {
   tab1$level[tab1$level == "PA Volume"] <- "PA Volume (average acceleration in mg)"
   tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
   tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
-  tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (clock time)"
+  tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (HH:MM clock time)"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
@@ -135,4 +139,11 @@ make_demog_table <- function(participant_summary) {
     out_tab$`Socioeconomic Status`[order(out_tab$`Socioeconomic Status`$Characteristic), ]
 
   out_tab
+}
+
+convert_decimal_time <- function(decimal_time) {
+  # Convert a decimal time (e.g., 22.30) to HH:MM format (e.g., 22:30)
+  hours <- floor(decimal_time)
+  minutes <- round((decimal_time - hours) * 60)
+  sprintf("%02d:%02d", hours, minutes)
 }
