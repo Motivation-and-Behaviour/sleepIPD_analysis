@@ -1481,7 +1481,7 @@ activity in promoting stable sleep schedules rather than framing
 physical activity as a universal solution for improving sleep. We note,
 however, that we did not examine the these relationships in individuals
 with sleep disorders or other health conditions. Physical activity
-interventions may still be a useful treatment for these conditions
+interventions may still be a useful treatment for these conditions.
 Promoting more regular sleep may also be a useful strategy for
 increasing physical activity, although our results suggest a limited
 benefit from targeting other aspects of sleep quality.
