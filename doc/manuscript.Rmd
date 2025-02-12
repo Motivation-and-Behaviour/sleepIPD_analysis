@@ -222,7 +222,7 @@ To streamline our analysis and reduce redundancy, we made some changes to our pr
 
 We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
 But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
-This approach allows us to account for variability between studies without fully partialing out study effects, thereby better modelling common phenomena.
+This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
 While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
 The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials, and are qualitatively similar to the main results.
 
@@ -252,7 +252,7 @@ The aggregated dataset describes `r ms_info$n_obs` observations of daily physica
 Of these, `r ms_info$n_obs_excluded` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r ms_info$n_pts_excluded` participants.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
 The majority of participants came from Europe, Oceania, and South America, with limited data from other regions.
-There was a near-even split by sex (`r ms_info$p_female`), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
+There was a near-even split by sex (`r ms_info$p_female` female), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
 
 Valid observations were not uniform across the days of the week (`r ms_info$weekday_res`).
 Weekends were over-represented (Saturday: z = `r ms_info$weekday$stdres["Saturday"]`; Sunday: z = `r ms_info$weekday$stdres["Sunday"]`), while Wednesdays (z = `r ms_info$weekday$stdres["Wednesday"]`) and Thursdays (z = `r ms_info$weekday$stdres["Thursday"]`) were under-represented.

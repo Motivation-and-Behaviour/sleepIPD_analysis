@@ -181,7 +181,7 @@ study selection was not random. But, as we aimed for our findings to
 generalise to other studies and populations, we instead opted to include
 random intercepts for Study ID which can better model generalisable
 patterns. This approach allows us to account for variability between
-studies without fully partialing out study effects, thereby better
+studies without fully partialling out study effects, thereby better
 modelling common phenomena. While this change lessened the strength of
 model intercepts, it did not significantly alter model slopes. The
 results using Study ID as a fixed effect (i.e., those that align with
@@ -228,16 +228,16 @@ resulted in the exclusion of 4,214 participants. Table
 @ref(tab:demo-participants) shows demographic information for the
 included participants. The majority of participants came from Europe,
 Oceania, and South America, with limited data from other regions. There
-was a near-even split by sex (50.5%), but age skewed towards both
+was a near-even split by sex (50.5% female), but age skewed towards both
 younger children (2-11 years, 39.8%) and older adults (66+ years,
 26.8%).
 
 Valid observations were not uniform across the days of the week
 (*χ*<sub>(6)</sub><sup>2</sup> = 298.93, p = &lt; .001). Weekends were
-over-represented (Saturday: z = 6.091796; Sunday: z = 11.4415408), while
-Wednesdays (z = -9.7650549) and Thursdays (z = -8.5367594) were
-under-represented. A table of study characteristics can be found in
-supplementary materials.
+over-represented (Saturday: z = 6.09; Sunday: z = 11.44), while
+Wednesdays (z = -9.77) and Thursdays (z = -8.54) were under-represented.
+A table of study characteristics can be found in supplementary
+materials.
 
 <table>
 <caption>(#tab:demo-participants) Participant characteristics</caption>
@@ -942,7 +942,7 @@ the column headers.
 
  
 
-<img src="../Figures/Sleep on scale_pa_volume by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age." width="110%" />
+<img src="../Figures/main/Sleep on scale_pa_volume by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age." width="110%" />
 <p class="caption">
 Sleep metrics predicted by physical activity volume. The panels on the
 left show the curvilinear relationship between PA volume and each of the
@@ -971,7 +971,7 @@ significantly modified the relationship between physical activity
 intensity and sleep duration, efficiency, and regularity, the effect was
 negligible.
 
-<img src="../Figures/Sleep on scale_pa_intensity by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/Sleep on scale_pa_intensity by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Sleep metrics predicted by physical activity intensity. The panels on
 the left show the curvilinear relationship between PA intensity and each
@@ -1337,7 +1337,7 @@ the row headers.
 
  
 
-<img src="../Figures/PA on scale_sleep_duration_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/PA on scale_sleep_duration_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Physical activity predicted by previous night sleep duration. The panels
 on the left show the curvilinear relationship between sleep duration and
@@ -1356,7 +1356,7 @@ There was a negligible relationship between sleep efficiency and
 physical activity volume and a weak linear association between sleep
 efficiency and more intense physical activity.
 
-<img src="../Figures/PA on scale_sleep_efficiency_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/PA on scale_sleep_efficiency_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Physical activity predicted by previous night sleep efficiency. The
 panels on the left show the curvilinear relationship between sleep
@@ -1374,7 +1374,7 @@ Results, controlling for sex, SES, and BMI are presented in Table
 were weak curvilinear relationships where average sleep onset was linked
 to the highest levels of physical activity volume, but not intensity.
 
-<img src="../Figures/PA on scale_sleep_onset_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/PA on scale_sleep_onset_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Physical activity predicted by previous night sleep onset. The panels on
 the left show the curvilinear relationship between sleep onset and each
@@ -1394,7 +1394,7 @@ both physical activity volume and intensity. These relationships were
 slightly attenuated with age, such that for older adults the effect was
 negligible.
 
-<img src="../Figures/PA on scale_sleep_regularity_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/PA on scale_sleep_regularity_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Physical activity predicted by previous night sleep regularity. The
 panels on the left show the curvilinear relationship between sleep

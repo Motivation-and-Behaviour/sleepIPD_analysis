@@ -120,8 +120,15 @@ produce_purdy_pictures <- function(model_list, ...) {
     outcome <- unique(gsub(" .*", "", pdat$outcome))
     if (length(outcome) > 1) stop("Outcome length is greater than 1")
 
+    if (moderator == "age" && add_filename == "_nolog") {
+      out_folder <- "main"
+    } else {
+      out_folder <- "supplementary"
+    }
+    out_folder
+
     filename <- glue::glue(
-      "Figures/{outcome} on {x_var} by ",
+      "Figures/{out_folder}/{outcome} on {x_var} by ",
       "{stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}",
       ".jpg"
     )

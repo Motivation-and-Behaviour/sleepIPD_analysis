@@ -16,17 +16,15 @@ make_manuscript_info <- function(data_clean, participant_summary) {
   ms_info <- list()
 
   ## Results
+  n_pts <- length(unique(data_clean$participant_id))
+  n_pts_eligible <- length(unique(data_clean_eligible$participant_id))
+
   ms_info$n_obs <- nrow(data_clean) |> pretty()
-  ms_info$n_pts <- length(unique(data_clean$participant_id)) |>
-    pretty()
-  ms_info$n_pts_eligible <-
-    length(unique(data_clean_eligible$participant_id)) |>
-    pretty()
+  ms_info$n_pts <- n_pts |> pretty()
+  ms_info$n_pts_eligible <- n_pts_eligible |> pretty()
   ms_info$n_obs_excluded <- (nrow(data_clean) - nrow(data_clean_eligible)) |>
     pretty()
-  ms_info$n_pts_excluded <-
-    (length(unique(data_clean$participant_id)) -
-      length(unique(data_clean_eligible$participant_id))) |> pretty()
+  ms_info$n_pts_excluded <- (n_pts - n_pts_eligible) |> pretty()
   ms_info$n_missing_age <- dplyr::filter(data_clean_eligible, is.na(age)) |>
     dplyr::distinct(participant_id) |>
     nrow()
@@ -44,7 +42,6 @@ make_manuscript_info <- function(data_clean, participant_summary) {
       na.rm = TRUE
     ))
 
-
   weekday_table <- (data_clean_eligible$weekday) |> table()
   weekday <- chisq.test(weekday_table)
   ms_info$weekday_res <- glue::glue(
@@ -55,6 +52,8 @@ make_manuscript_info <- function(data_clean, participant_summary) {
   )
 
   ms_info$weekday <- weekday
+
+  ms_info$weekday$stdres <- format(round(weekday$stdres, 2), nsmall = 2)
 
   ms_info
 }
