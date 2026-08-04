@@ -62,8 +62,8 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[c(participant_invar)] <- "2lonly.pmm"
   meth["sex"] <- "2lonly.pmm"
 
-  # Run imps with better settings
-  future_cores <- min(parallel::detectCores() - 1, n_imps, 4)
+  # Run imps with better settings.
+  future_cores <- min(parallel::detectCores() - 1, n_imps, 8)
 
   dist_core <- cut(
     1:n_imps, future_cores,
@@ -74,6 +74,7 @@ make_data_imp <- function(data, n_imps = 3) {
   future::plan("multisession",
     workers = future_cores
   )
+  on.exit(future::plan(future::sequential), add = TRUE)
 
   imps <- furrr::future_map(n_imp_core, function(x) {
     mice(
@@ -87,8 +88,6 @@ make_data_imp <- function(data, n_imps = 3) {
   },
   .options = furrr::furrr_options(seed = TRUE, packages = c("mice", "miceadds"))
   )
-
-  future::plan(future::sequential)
 
   # postprocess clustered imputation into a mids object
   imp <- imps[[1]]

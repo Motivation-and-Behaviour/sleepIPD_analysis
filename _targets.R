@@ -8,9 +8,12 @@ set.seed(42)
 tar_option_set(
   packages = c("data.table", "magrittr", "readr"),
   controller = crew::crew_controller_local(
-    workers = max(1, min(parallel::detectCores() - 2, 20)),
-    seconds_idle = 15
+    workers = max(1, min(parallel::detectCores() - 2, 16)),
+    seconds_idle = 15,
+    garbage_collection = TRUE
   ),
+  memory = "transient", # drops target values from the main process once done
+  garbage_collection = 1,
   format = "qs"
 )
 tar_source()

@@ -36,39 +36,45 @@ check_list <- function(model_list){
     gsub("pa|Pa", "PA", x = _ ) |>
     gsub("_", " ", x = _ )
 
-  info[, .("Model name" = model_name, Skewness, Kurtosis, `Converged (\\%)`)]
+  info[, .(
+    "Model name" = model_name, Skewness, Kurtosis,
+    `Converged (\\%)`, `Singular (\\%)`
+  )]
 
 
 }
 
 #' check_model
 #'
-#' Check the assumptions of a single model
-#' @param model list of models
-#' @param conv convergence proportion
-#' @test model <- model_list_by_age
+#' Summarise the assumption checks for one model across imputations
+#' @param resids list of per-imputation residual moments, from `resid_moments()`
+#' @param conv proportion of imputations where the optimizer converged
+#' @param singular proportion of imputations that produced a singular fit
+#' @details Singularity is reported alongside, not folded into, convergence. A
+#' singular fit is a variance component estimated at the boundary, not an
+#' optimizer failure — see `is_converged()` in `R/model_builder.R`.
 
-check_model <- function(model, conv){
-    p_conv <- conv *100
-    pc_conv <- papaja::print_num(p_conv) |>
-      paste0("%")
+check_model <- function(resids, conv, singular) {
+  as_pc <- function(x) paste0(papaja::print_num(x * 100), "%")
 
-    cbind(check_resids(model),
-          "Converged (\\%)" = pc_conv) |> data.table::data.table()
+  dt <- data.table::rbindlist(resids)
+
+  cbind(
+    dt[, lapply(.SD, function(x) mean(x, na.rm = TRUE))],
+    "Converged (\\%)" = as_pc(conv),
+    "Singular (\\%)" = as_pc(singular)
+  ) |> data.table::data.table()
 }
 
-#' check_resids
+#' resid_moments
 #'
-#' Get skewness and kurtosis for models
-#' @param model list of models
+#' Skewness and excess kurtosis of one model's residuals
+#' @param model a single fitted model
 
-check_resids <- function(model){
-  require(dplyr)
-  dt <- model |> lapply(function(x){
-    resid <- residuals(x)
-    tibble(Skewness = moments::skewness(resid),
-           Kurtosis = moments::kurtosis(resid) - 3)
-
-  }) |> data.table::rbindlist()
-  dt[, lapply(.SD, function(x) mean(x, na.rm = TRUE))]
+resid_moments <- function(model) {
+  resid <- residuals(model)
+  data.table::data.table(
+    Skewness = moments::skewness(resid),
+    Kurtosis = moments::kurtosis(resid) - 3
+  )
 }
