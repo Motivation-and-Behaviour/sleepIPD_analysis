@@ -1,30 +1,19 @@
 # Allow multible R sessions to be used
 library(targets)
 library(tarchetypes)
-library(future)
 
 set.seed(42)
 
-plan(future.callr::callr)
-
 # Load required functions and packages
-lapply(list.files("./R", full.names = TRUE), source)
-tar_option_set(packages = c("data.table", "magrittr", "readr"))
-
-# Check if GCS is available to use
-if (Sys.getenv("GCS_AUTH_FILE") != "") {
-  tar_option_set(
-    resources = tar_resources(
-      gcp = tar_resources_gcp(bucket = "sleepipdtargets", prefix = "sleepipd")
-    )
-  )
-
-  format <- "qs"
-  repository <- "gcp"
-} else {
-  format <- targets::tar_option_get("format")
-  repository <- targets::tar_option_get("repository")
-}
+tar_option_set(
+  packages = c("data.table", "magrittr", "readr"),
+  controller = crew::crew_controller_local(
+    workers = max(1, min(parallel::detectCores() - 2, 20)),
+    seconds_idle = 15
+  ),
+  format = "qs"
+)
+tar_source()
 
 # Invalidate refactors target if sheet has been updated
 if (tar_read(refactors_change) != sheet_last_modified()) {
@@ -40,42 +29,48 @@ list(
     datasets,
     list.files("data", pattern = "\\d+_[A-Za-z]+\\.csv", full.names = TRUE)
   ),
-  tar_target(data_raw,
-    readr::read_csv(datasets,
-      col_types = list(.default = "c"),
-      id = "studyid"
-    ),
-    pattern = map(datasets), iteration = "list"
+  tar_target(
+    data_raw,
+    readr::read_csv(datasets, col_types = list(.default = "c"), id = "studyid"),
+    pattern = map(datasets),
+    iteration = "list"
   ),
   tar_target(refactors_change, sheet_last_modified()),
   tar_target(
     refactors,
-    sapply(c("Sleep conditions", "Ethnicity", "SES"), sheet_read,
-      simplify = FALSE, USE.NAMES = TRUE
+    sapply(
+      c("Sleep conditions", "Ethnicity", "SES"),
+      sheet_read,
+      simplify = FALSE,
+      USE.NAMES = TRUE
     )
   ),
   # Data targets
-  tar_target(data_joined, dplyr::bind_rows(data_raw),
-    pattern = map(data_raw),
-    format = format, repository = repository
+  tar_target(
+    data_joined,
+    dplyr::bind_rows(data_raw),
+    pattern = map(data_raw)
   ),
-  tar_target(data_clean, clean_data(data_joined, region_lookup, refactors),
-    format = format, repository = repository
+  tar_target(
+    data_clean,
+    clean_data(data_joined, region_lookup, refactors)
   ),
-  tar_target(data_holdout, make_data_holdout(data_clean),
-    format = format, repository = repository
+  tar_target(
+    data_holdout,
+    make_data_holdout(data_clean)
   ),
   tar_target(participant_summary, make_participant_summary(data_clean)),
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(
-    data_imp, make_data_imp(data_clean, n_imps = 50),
-    deployment = "main",
-    format = format, repository = repository
+    data_imp,
+    make_data_imp(data_clean, n_imps = 50),
+    deployment = "main"
   ),
-  tar_target(imputation_checks, check_imps(data_imp),
-    format = "file",
-    priority = 1
+  tar_target(
+    imputation_checks,
+    check_imps(data_imp),
+    format = "file"
   ),
 
   #################################################################
@@ -87,11 +82,15 @@ list(
     names = model_name,
     tar_target(
       model_list,
-      make_model_list(data_imp,
-        moderator = moderator, moderator_term = mod_term, pa_vars = pa_vars,
-        sleep_vars = sleep_vars, control_vars = cont_vars, ranef = ranef
-      ),
-      format = format, repository = repository
+      make_model_list(
+        data_imp,
+        moderator = moderator,
+        moderator_term = mod_term,
+        pa_vars = pa_vars,
+        sleep_vars = sleep_vars,
+        control_vars = cont_vars,
+        ranef = ranef
+      )
     ),
     tar_target(model_tables, make_model_tables(model_list)),
     tar_target(
@@ -108,11 +107,15 @@ list(
   # Output results section
   tar_target(ms_info, make_manuscript_info(data_clean, participant_summary)),
   tar_target(references, "doc/references.bib", format = "file"),
-  tar_render(manuscript, "doc/manuscript.Rmd", output_format = c(
-    "papaja::apa6_docx",
-    "papaja::apa6_pdf",
-    "md_document"
-  )),
+  tar_render(
+    manuscript,
+    "doc/manuscript.Rmd",
+    output_format = c(
+      "papaja::apa6_docx",
+      "papaja::apa6_pdf",
+      "md_document"
+    )
+  ),
 
   #################################################################
   ##                   SUPPLEMENTARY MATERIALS                   ##
@@ -134,18 +137,27 @@ list(
     ),
     deployment = "main"
   ),
-  tar_target(multiverse_skeleton, "doc/multiverse_skeleton.Rmd",
+  tar_target(
+    multiverse_skeleton,
+    "doc/multiverse_skeleton.Rmd",
     format = "file"
   ),
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
-  tar_target(multiverse_file,
+  tar_target(
+    multiverse_file,
     make_multiverse_file(
-      multiverse_skeleton, multiverse_chunk, model_definitions
+      multiverse_skeleton,
+      multiverse_chunk,
+      model_definitions
     ),
-    format = "file", priority = 1
+    format = "file"
   ),
   ### Produce supplementary material
-  tar_render(multiverse, "doc/multiverse.Rmd", output_format = c(
-    "papaja::apa6_pdf"
-  ))
+  tar_render(
+    multiverse,
+    "doc/multiverse.Rmd",
+    output_format = c(
+      "papaja::apa6_pdf"
+    )
+  )
 )
