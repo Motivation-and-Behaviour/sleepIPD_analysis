@@ -9,31 +9,18 @@ make_demog_table <- function(participant_summary) {
   require(labelled)
   require(dplyr)
 
-  participants <- participant_summary
-  # First I select all eligible participants
-  participants <- dplyr::filter(participants, elible = TRUE) |>
+  participants <- participant_summary |>
     # I remove variables we don't want in the table
     dplyr::select(
       -c(
         waist_circumference, screen_time, daylight_hours, city, studyid, eligible,
         height, weight, sleep_wakeup
       )
-    )
+    ) %>%
+    dplyr::relocate(n_valid_days, .after = n_valid_hours)
 
-  # Create age bins with specified age points
-  age_breaks <- c(0, 11, 18, 35, 65, Inf)
-  age_labels <- c(glue::glue("{floor(min(participants$age, na.rm = TRUE))}-11 years"), "12-18 years", "19-35 years", "36-65 years", "66+ years")
-
-  # Assign age categories to the 'age_cat' column in the 'participants' data frame
-  participants$age_cat <-
-    cut(
-      participants$age,
-      breaks = age_breaks,
-      labels = age_labels,
-      include.lowest = TRUE,
-      right = FALSE,
-      ordered_result = TRUE
-    )
+  # Make sleep_efficiency a percentage value
+  participants$sleep_efficiency <- participants$sleep_efficiency * 100
 
   # I store the variable labels for use in the table and add region
   participant_labels <- var_label(participants)
@@ -52,6 +39,11 @@ make_demog_table <- function(participant_summary) {
     {
       m <- papaja::print_num(mean(value, na.rm = TRUE))
       sd <- papaja::print_num(sd(value, na.rm = TRUE))
+      if (name == "sleep_onset") {
+        m <- convert_decimal_time(as.numeric(m))
+        sd <- convert_decimal_time(as.numeric(sd))
+      }
+
       .(out = glue::glue("{m} ({sd})"), variable = "Numeric variables")
     },
     by = c("name", "age_cat")
@@ -94,14 +86,20 @@ make_demog_table <- function(participant_summary) {
   tab1 <- tab1 |> tidyr::pivot_wider(values_from = out, names_from = age_cat)
 
   # Pivot wider is annoying and ignores factor levels
+  age_labels <- levels(participants$age_cat)
   non_age_names <- names(tab1)[!names(tab1) %in% age_labels]
   tab1 <- tab1[, c(non_age_names, age_labels)]
 
   # I recode the names using variable labels
   tab1$name <- dplyr::recode(tab1$name, !!!participant_labels)
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
-  tab1$level <- stringr::str_to_sentence(tab1$level)
+  tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
+  tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
+  tab1$level[tab1$level == "PA Volume"] <- "PA Volume (average acceleration in mg)"
+  tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
+  tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
+  tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (HH:MM clock time)"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
@@ -127,4 +125,11 @@ make_demog_table <- function(participant_summary) {
     out_tab$`Socioeconomic Status`[order(out_tab$`Socioeconomic Status`$Characteristic), ]
 
   out_tab
+}
+
+convert_decimal_time <- function(decimal_time) {
+  # Convert a decimal time (e.g., 22.30) to HH:MM format (e.g., 22:30)
+  hours <- floor(decimal_time)
+  minutes <- round((decimal_time - hours) * 60)
+  sprintf("%02d:%02d", hours, minutes)
 }

@@ -1,0 +1,45 @@
+{
+  "language": "en-GB",
+  "files": [
+    "**/*.Rmd"
+  ],
+  "patterns": [
+    {
+      "name": "references",
+      "pattern": "@\\w+"
+    },
+    {
+      "name": "code_fence",
+      "pattern": "```[\\s\\S]*?```"
+    },
+    {
+      "name": "inline_r_code",
+      "pattern": "`r [^`]+`"
+    },
+    {
+      "name": "yaml_header",
+      "pattern": "^---[\\s\\S]*?---"
+    }
+  ],
+  "ignoreRegExpList": [
+    "references",
+    "code_fence",
+    "inline_r_code",
+    "yaml_header"
+  ],
+  "words": [
+    "accelerometry",
+    "ANZCTR",
+    "arraystretch",
+    "confounders",
+    "deidentified",
+    "filho",
+    "Gába",
+    "GGIR",
+    "ICTRP",
+    "ISRCTN",
+    "newpage",
+    "refs",
+    "renewcommand"
+  ]
+}

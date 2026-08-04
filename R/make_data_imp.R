@@ -15,7 +15,8 @@ make_data_imp <- function(data, n_imps = 3) {
 
   imp_data <- data %>%
     dplyr::select(-n_valid_hours, -n_hours, -day_zero) |>
-    dplyr::mutate(participant_id = as.integer(factor(participant_id)))
+    dplyr::mutate(participant_id = as.integer(factor(participant_id))) |>
+    dplyr::filter(eligible)
 
   # Empty imputation to change defaults:
   m0 <- mice(imp_data, maxit = 0)
@@ -62,7 +63,7 @@ make_data_imp <- function(data, n_imps = 3) {
   meth["sex"] <- "2lonly.pmm"
 
   # Run imps with better settings
-  future_cores <- min(parallel::detectCores() - 1, n_imps, 16)
+  future_cores <- min(parallel::detectCores() - 1, n_imps, 4)
 
   dist_core <- cut(
     1:n_imps, future_cores,

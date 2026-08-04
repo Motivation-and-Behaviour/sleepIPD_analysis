@@ -1,14 +1,5 @@
 #!/usr/bin/env Rscript
 args <- commandArgs(trailingOnly = TRUE)
-# Check for GCS
-if (Sys.getenv("GCS_AUTH_FILE") == "") {
-  usethis::ui_warn(
-    c(
-      "GCS_AUTH_FILE not set, using local storage.
-      Please do not commit {usethis::ui_path('_targets/meta/meta')}."
-    )
-  )
-}
 
 # Easier running of the pipeline
 library(targets)
@@ -16,8 +7,17 @@ library(targets)
 if ("--watch" %in% args) {
   # Start a UI to monitor pipeline
   tar_watch(
-    seconds = 45, targets_only = TRUE, outdated = TRUE, display = "graph"
+    seconds = 45,
+    targets_only = TRUE,
+    outdated = TRUE,
+    display = "graph"
   )
+}
+
+if ("--manuscript-only" %in% args) {
+  # Only update manuscript and direct dependencies
+  targets::tar_make(c(references, manuscript), shortcut = TRUE)
+  quit(status = 0)
 }
 
 if ("--parallel" %in% args) {
@@ -26,7 +26,9 @@ if ("--parallel" %in% args) {
 
   # Run everything else in parallel
   # No advantage after 14 cores
-  tar_make_future(-manuscript, workers = min(parallel::detectCores(), 8))
+  tar_make(-manuscript, workers = min(parallel::detectCores(), 8))
+
+  targets::tar_make(manuscript, shortcut = TRUE)
 } else {
   # Run everything sequentially
   tar_make()
