@@ -124,22 +124,23 @@ tar_load(ms_info)
 
 # Introduction
 
-Sleep is an important determinant of population health [@luysterSleepHealthImperative2012].
-The consequences of poor sleep are profound and include increased all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
-Poor sleep is common: over 50% of children and adolescents [@wheatonShortSleepDuration2018] and 35% of adults [@liuPrevalenceHealthySleep2016] report lower sleep duration than recommended.
-Improving sleep should be a priority for public health policy and more safe and accessible strategies that promote sleep are needed [@klinePhysicalActivitySleep2021].
-In adults, being physically active appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015] and the World Health Organisation recommends physical activity as a method to improve sleep in adults [@bullWorldHealthOrganization2020].
+Sleep is an important determinant of population health across the lifespan[@luysterSleepHealthImperative2012].
+The consequences of poor sleep include increased all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
+Poor sleep - characteristed by low sleep quality, duration, or the presence of sleep disorders - is a frequent health problem: 14-68% of children and adolescents [@gariepyHowAreAdolescents2020] and 35% of adults [@liuPrevalenceHealthySleep2016] report lower sleep duration than recommended [@hirshkowitzNationalSleepFoundations2015].
+Improving sleep should be a priority for public health policy, and more safe and accessible strategies that promote sleep are needed [@klinePhysicalActivitySleep2021].
+In adults, being physically active appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015].
+The World Health Organization recommends physical activity as a method to improve sleep in adults [@bullWorldHealthOrganisation2020].
 In children, adolescents, and older adults associations are unclear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016] and guidelines do not currently support a role for physical activity to improve sleep.
 
-Promoting physical activity may be an effective method to improve sleep across the lifespan but the published literature to date has at least two limitations that prevent firm conclusions to support health guidelines.
+Promoting physical activity may be an effective method to improve sleep across the lifespan, but the published literature has at least two limitations.
 First, most studies have relied on self-report measures of sleep and physical activity [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016], which could confound associations and limit the precision of analyses designed to identify a dose-response relationship between physical activity and sleep.
-Second, no study has collected data from a large sample that included participants across the lifespan.
-Umbrella reviews [@klinePhysicalActivitySleep2021] and meta-analyses [@aielloEffectExerciseTraining2016; @antczakPhysicalActivitySleep2020; @bannoExerciseCanImprove2018; @bartelProtectiveRiskFactors2015; @edwardsAssessingImpactDiet2019; @gaoShorttermEfficacyMinimally2019; @iftikharComparativeEfficacyCPAP2017; @iftikharEffectsExerciseTraining2014; @janssenAssociationsScreenTime2020; @kredlowEffectsPhysicalActivity2015; @kwokSelfReportedSleep2018; @langRelationshipPhysicalActivity2016; @ledermanDoesExerciseImprove2019; @lins-filhoEffectExerciseTraining2020; @maSleepDurationTotal2016; @mendelsonObstructiveSleepApnea2018; @rubio-ariasEffectExerciseSleep2017; @stutzEffectsEveningExercise2019; @yangEffectsExerciseSleep2020; @yangExerciseTrainingImproves2012; @yangSedentaryBehaviorSleep2017] have provided some suggestive evidence about how physical activity as a means of improving sleep may vary across the lifespan.
+Second, no study has collected day-to-day data from a large and geographically diversesample that included participants across the lifespan.
+Umbrella reviews [@klinePhysicalActivitySleep2021] and meta-analyses [@aielloEffectExerciseTraining2016; @antczakPhysicalActivitySleep2020; @bannoExerciseCanImprove2018; @bartelProtectiveRiskFactors2015; @edwardsAssessingImpactDiet2019; @gaoShorttermEfficacyMinimally2019; @iftikharComparativeEfficacyCPAP2017; @iftikharEffectsExerciseTraining2014; @janssenAssociationsScreenTime2020; @kredlowEffectsPhysicalActivity2015; @kwokSelfReportedSleep2018; @langRelationshipPhysicalActivity2016; @ledermanDoesExerciseImprove2019; @lins-filhoEffectExerciseTraining2020; @maSleepDurationTotal2016; @mendelsonObstructiveSleepApnea2018; @rubio-ariasEffectExerciseSleep2017; @stutzEffectsEveningExercise2019; @yangEffectsExerciseSleep2020; @yangExerciseTrainingImproves2012; @yangSedentaryBehaviorSleep2017] have provided some suggestive evidence about how physical activity may improve sleep across the lifespan.
 However, their reliance on aggregated study-level effects limits the quality and scope of data that can be used to analyse the influence of age [@rileyUsingIndividualParticipant2023].
-Individual participant data (IPD) analysis can overcome these limitations [@ioannidisNextgenerationSystematicReviews2017].
+Device-measured individual participant data analysis can overcome these limitations [@ioannidisNextgenerationSystematicReviews2017].
 
-In this study we harmonised individual participant data (IPD) from activity monitor observations obtained from studies around the world.
-The objective of this pooled IPD study was to investigate the relationship between device-measured physical activity and sleep across the lifespan.
+In this study we harmonised individual participant data from accelerometer observations obtained from studies around the world.
+The aim of this pooled study was to investigate the relationship between device-measured physical activity and sleep across the lifespan.
 We examined whether individuals who are more physically active have better sleep, whether age, sex, and socio-cultural factors moderate the association between physical activity and sleep, and whether there is a bidirectional association between physical activity and sleep.
 
 # Methods
@@ -148,34 +149,34 @@ We pre-registered all methods and analyses on the Open Science Framework (OSF) b
 
 ## Data sources and data acquisition
 
-We included data from studies, with any design, that used activity monitors and a 24-hour wear time protocol over a minimum of 4 days, including 1 weekend day.
-Studies needed to have used research-grade accelerometers from which raw accelerations ($m/s^2$ or $mg$) could be obtained.
-Studies could use any wear location for the accelerometer (hip, wrist, or thigh).
+We included data from studies, with any design, that used research-grade accelerometers and a 24-hour wear time protocol over a minimum of 4 days, including 1 weekend day.
+Studies needed to have used accelerometers from which raw accelerations ($m/s^2$ or $mg$) could be obtained.
+Studies could use any wear location for the accelerometer (hip, wrist, or thigh) or accelerometer brand.
 
 We identified potentially relevant studies by examining the reference lists of recent systematic reviews that explored the relationship between sleep and physical activity in children, adolescents, and adults [@antczakPhysicalActivitySleep2020; @kredlowEffectsPhysicalActivity2015; @langRelationshipPhysicalActivity2016].
 We then used forward searching on potentially eligible studies [@hindeBidirectionalCitationSearching2015].
-We additionally performed a literature search to identify accelerometry consortiums and individual studies, searched trial registries (ANZCTR, ICTRP, ISRCTN) and the Open Science Framework for unpublished results, and we asked collaborators to help identify any additional studies.
+We additionally performed a literature search to identify accelerometry consortiums and individual studies, searched trial registries (ANZCTR, ICTRP, ISRCTN) and the Open Science Framework for unpublished results, and asked collaborators to help identify any additional studies.
 
 We contacted chief investigators or consortium leads by email to request access to deidentified individual data.
 To make the data acquisition manageable, we only invited studies with sample sizes larger than 400 participants.
 If required by the contributing research group, the contributing investigators or their university signed a data transfer agreement.
-All studies included in the pooled data meta-analysis had to have been approved by their local institutional ethical committees, and all participants had to have provided written informed consent.
+All studies included in the pooled data meta-analysis had to have been approved by their local or institutional ethical committees, and all participants had to have provided written informed consent.
 The lead university's Research Ethics Committee granted permission for each study's data to be obtained, and investigators transferred their deidentified data via a secure file-sharing system.
 
 ## Data harmonisation and outcomes 
 
-All activity monitor data were harmonised by reprocessing raw accelerometer files using an open-source GGIR package in R to produce physical activity and sleep outcomes [@miguelesGGIRResearchCommunity2019; @vanheesEstimatingSleepParameters2018].
-By reprocessing all raw accelerometer data, we were able to generate outcomes that could be compared across studies, devices wear location, and populations [@rowlandsProvidingBasisHarmonization2019].
-Data were reprocessed by the core research team, or by data contributors themselves using the GGIR package processing script provided by the core research team.
+All accelerometer-derived data were harmonised by reprocessing raw files using an open-source GGIR package in R to produce physical activity and sleep outcomes [@miguelesGGIRResearchCommunity2019; @vanheesEstimatingSleepParameters2018].
+By reprocessing all raw accelerometer data, we were able to generate outcomes that could be compared across studies, device wear locations, and populations [@rowlandsProvidingBasisHarmonization2019].
+Data were reprocessed by the core research team or the data contributors themselves using the GGIR package processing script provided by the core research team.
 Reprocessed individual study datasets were then pooled into a single dataset.
 A detailed description of the reprocessing method and decisions for specific accelerometer devices is available in an online supplementary file.
 
-For sleep, GGIR produced the following metrics; total sleep time (minutes), sleep efficiency (percentage of time asleep within the sleep period), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle).
+For sleep, GGIR produced the following metrics: total sleep time (minutes), sleep efficiency after onset (percentage of time asleep within the sleep period), sleep regularity (regularity of sleep and awake patterns on a day-to-day basis calculated as the sleep regularity index), and timing (time of sleep and awakening within the 24-hour time cycle).
 For physical activity, we used volume and intensity metrics proposed by Rowlands et al @rowlandsMovingForwardAccelerometerAssessed2018.
 These measures are 1) average acceleration (measure of physical activity volume) and 2) intensity gradient (measure of intensity distribution where the natural logs of time and intensity are used to produce a straight-line graph with the slope of the graph being the intensity gradient).
-We used this approach to model the full continuum of physical activity intensity for our main analyses [@rowlandsEnhancingValueAccelerometerassessed2019] and avoid collapsing physical activity data into population-specific intensity categories which occurs when intensity cut-points are applied to accelerometer data [@rowlandsDatadrivenMeaningfulEasy2019].
+We used this approach to model the entire continuum of physical activity intensity for our primary analyses [@rowlandsEnhancingValueAccelerometerassessed2019] and avoid collapsing physical activity data into population-specific intensity categories, which occurs when intensity cut-points are applied to accelerometer data [@rowlandsDatadrivenMeaningfulEasy2019].
 
-For the purposes of translating physical activity data for interpretation and public health recommendations and for time-use based analyses we then determined; 1) the number of minutes spent in acceleration intensity bands in $50mg$ increments [@rowlandsMovingForwardAccelerometerAssessed2018], 2) the number of minutes spent in light and moderate to vigorous physical activity using age appropriate cut-points applied to the time in intensity bands data, and 3) the minimum acceleration measured for a range of different durations, this is the $MX$ metric where $X$ refers to the duration.
+To translate physical activity data for interpretation and public health recommendations and for time-use based analyses we then determined; 1) the number of minutes spent in acceleration intensity bands in $50mg$ increments [@rowlandsMovingForwardAccelerometerAssessed2018], 2) the number of minutes spent in light and moderate to vigorous physical activity using age appropriate cut-points applied to the time in intensity bands data, and 3) the minimum acceleration measured for a range of different durations, this is the $MX$ metric where $X$ refers to the duration.
 For example, $M60$ refers to the minimum acceleration for the most active 60 minutes of the day [@rowlandsEnhancingValueAccelerometerassessed2019].
 We also categorise all awake time into bout lengths for sedentary, light, and moderate to vigorous physical activity bouts using the categories defined by Gába et al @gabaHowShortSleepers2020.
 After extracting sleep and physical activity, the remaining time within the 24-hour time cycle was classified as sedentary behaviour.
@@ -184,7 +185,7 @@ These data were classified as missing and imputed using the accelerometer data f
 
 ## Covariates and moderators 
 
-The following individual participant data were obtained when available; age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
+The following individual participant data were obtained when available: age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
 The country, city, time zone, daylight length, and season in which data were collected were also obtained.
 
 ## Statistical analysis 
@@ -193,25 +194,25 @@ To reduce the risk of bias in secondary data analysis of IPD, we used a blind an
 We developed and tested models on a 10% holdout subsample of the dataset.
 When the analysis code was ready, we conducted the final analysis [@maccounBlindAnalysisHide2015].
 
-We checked all data for implausibly low or high measurements which were excluded if they fell outside of ±4SD of the mean, as these likely indicate measurement device failures.
-We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputation by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide 50 imputed datasets.
+We checked all data for implausibly low or high measurements, which were excluded if they fell outside of ±4 SD of the mean, as these likely indicate measurement device failures.
+We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputations by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide 50 imputed datasets.
 Specifically, we used multilevel predictive mean matching imputation clustered by participants.
 We used Rubin's rule to pool the results from analyses conducted using each imputed dataset into one single set of results.
-For all analyses, we examined 95% confidence intervals and used P < 0.05 to assess for statistical significance.
+We examined 95% confidence intervals for all analyses and used P<0.05 to assess for statistical significance.
 We used R (version `r paste(R.Version()[c("major", "minor")], collapse = ".")`) for all data cleaning and analysis.
 We report mean and 95% confidence intervals.
 For categorical variables, percentages are reported.
 We examined model diagnostics from all models (see supplementary materials).
 
-To examine the relationship between sleep and physical activity (Research Questions 1-2) we fit mixed-effects models with random intercepts for study ID to account for the nesting of participants in studies [@curranIntegrativeDataAnalysis2009].
-We predict each sleep indicator by each physical activity indicator controlling for sex, body mass index (BMI) and region.
+To examine the relationship between sleep and physical activity (Research Questions 1-2) we ran mixed-effects models with random intercepts for study ID to account for the nesting of participants in studies [@curranIntegrativeDataAnalysis2009].
+We predicted each sleep indicator by each physical activity indicator controlling for sex, body mass index (BMI), and region.
 Quadratic terms were introduced in each model to allow for curvilinear relationships to be modelled.
 We interacted each predictor with age to reveal how the relationship between physical activity and sleep changes over the lifespan.
 
 ## Protocol deviations
 
 This paper addresses Hypotheses 1 and 2 from our registered protocol.
-We will address remaining hypotheses in future research.
+We will address the remaining hypotheses in future research.
 To streamline our analysis and reduce redundancy, we made some changes to our protocol while working with the holdout data.
 
 ### Using Study ID as fixed effect
@@ -220,27 +221,28 @@ We initially planned to use Study ID as a fixed effect, given that our study sel
 But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
 This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
 While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
-The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials, and are qualitatively similar to the main results.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials and are qualitatively similar to the main results.
 
 ### Sleep indicator variable
 
 Our research examines various metrics of sleep: onset, duration, regularity, and efficiency.
 We initially planned to merge these variables into a single indicator to simplify analysis.
 However, no validated indicator existed which could be estimated from our measured variables.
-We decided against creating one, as we could not validate it with our data.
-Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep quality and physical activity.
+We decided against creating one as we could not validate it with our data.
+Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep and physical activity.
 
 ### Log transformation
 
 We aimed to improve model diagnostics using log transformations of skewed variables.
 Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
-Accordingly, we do not use log transformations in the main paper, however these models can be found in supplementary materials.
+Accordingly, we do not use log transformations in the main paper.
+However, these models can be found in supplementary materials.
 
 ## Patient and public involvement
 
 Patients and members of the public were not involved in the design, analysis or interpretation of this IPD study using secondary data.
-Results of this study have broad public health interest, particularly policymakers.
-Findings from this study will be disseminated through institutional websites, press and media platform releases, and tailored messages to public health organisations and governing bodies.
+The results of this study have broad public health interest, particularly for policymakers.
+Findings from this study will be disseminated through institutional websites, press and media platform releases, and tailored messages to public health Organizations and governing bodies.
 
 # Results
 
