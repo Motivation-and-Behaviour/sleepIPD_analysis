@@ -1,8 +1,9 @@
 #' produce_purdy_pictures
 #' @param model_list model_list
 #' @example  model_list <- model_list_by_age
-#' @details I check the proporiton of models that converged. If less then 75% of models converged
-#' then I overlay the message "DID NOT CONVERGE" providing the percent of models which did not converge
+#' @details I check the proporiton of models that converged. If less then 75% of
+#' models converged then I overlay the message "DID NOT CONVERGE" providing the
+#' percent of models which did not converge
 
 produce_purdy_pictures <- function(model_list, ...) {
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
@@ -26,7 +27,10 @@ produce_purdy_pictures <- function(model_list, ...) {
   }
 
   plot_dat <- data.table::rbindlist(dat_list) |>
-    prepare_plot_data(paste_facet_labels, scale_descriptives = attr(model_list, "scale_descriptives"))
+    prepare_plot_data(
+      paste_facet_labels,
+      scale_descriptives = attr(model_list, "scale_descriptives")
+    )
 
   # Im the moderator is age, then, retrieve granular age predictions
 
@@ -39,8 +43,9 @@ produce_purdy_pictures <- function(model_list, ...) {
 
     tile_dat <- tile_dat |>
       prepare_plot_data(paste_facet_labels,
-                        scale_descriptives = attr(model_list, "scale_descriptives"),
-                        debug = FALSE)
+        scale_descriptives = attr(model_list, "scale_descriptives"),
+        debug = FALSE
+      )
 
     tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
@@ -52,7 +57,6 @@ produce_purdy_pictures <- function(model_list, ...) {
   require(ggplot2)
 
   p <- function(x_var, x_lab, rq) {
-
     pdat <- plot_dat[x_name == x_var & RQ == rq]
 
     conv_message_dat <- unique(pdat[, c("outcome", "group", "message")])
@@ -66,7 +70,7 @@ produce_purdy_pictures <- function(model_list, ...) {
     ) +
       geom_line() +
       geom_ribbon(alpha = .5) +
-      facet_grid(rows = vars(outcome), cols = vars(group)) +
+      facet_grid(rows = vars(outcome), cols = vars(group), switch = "y") +
       labs(
         x = x_lab,
         fill = stringr::str_to_sentence(unique(plot_dat$moderator))
@@ -88,12 +92,6 @@ produce_purdy_pictures <- function(model_list, ...) {
 
       tdat <- tile_dat[x_name == x_var & RQ == rq]
 
-      predictor <- gsub("\\[.*", "", unique(tdat$x_name)) |>
-        gsub("_", " ", x = _) |>
-        stringr::str_to_sentence() |>
-        gsub("Pa", "PA", x = _)
-
-      fig <- fig + theme(strip.text.y = element_blank())
       tdat$facet_label <- "Age continuous"
       fig2 <-
         ggplot(tdat, aes(x = x, y = group, fill = predicted)) +
@@ -107,8 +105,8 @@ produce_purdy_pictures <- function(model_list, ...) {
           labels = c("-2 <", -1, 0, 1, "2 +")
         ) +
         scale_y_continuous(n.breaks = 5) +
-        scale_x_continuous(limits = c(-2,2)) +
-        labs(y = "Age", x = predictor, fill = "predicted") +
+        scale_x_continuous(limits = c(-2, 2)) +
+        labs(y = "Age", x = x_lab, fill = "predicted") +
         geom_tile() +
         figure_theme()
       fig <- cowplot::plot_grid(fig, fig2, rel_widths = c(1, .72))
@@ -122,8 +120,19 @@ produce_purdy_pictures <- function(model_list, ...) {
     outcome <- unique(gsub(" .*", "", pdat$outcome))
     if (length(outcome) > 1) stop("Outcome length is greater than 1")
 
-    filename <- "Figures/{outcome} on {x_var} by {stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}.jpg" |>
-      glue::glue()
+    if (moderator == "age" && add_filename == "_nolog") {
+      out_folder <- "main"
+    } else {
+      out_folder <- "supplementary"
+    }
+    out_folder
+
+    filename <- glue::glue(
+      "Figures/{out_folder}/{outcome} on {x_var} by ",
+      "{stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}",
+      ".jpg"
+    )
+
 
     if (outcome == "Sleep") {
       height <- 15
@@ -131,7 +140,10 @@ produce_purdy_pictures <- function(model_list, ...) {
       height <- 9
     }
 
-    ggsave(filename, plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi)
+    ggsave(
+      filename,
+      plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi
+    )
   }
 
   vars <- attr(model_list, "vars")
@@ -169,9 +181,10 @@ produce_purdy_pictures <- function(model_list, ...) {
 
 prepare_plot_data <- function(plot_dat, paste_facet_labels,
                               scale_descriptives, debug = FALSE) {
-  if(debug) browser()
+  if (debug) browser()
   is_scale <- grepl("scale_", plot_dat$outcome)
-  plot_dat$outcome[is_scale] <- gsub("scale_", "", plot_dat$outcome[is_scale])|>
+  plot_dat$outcome[is_scale] <-
+    gsub("scale_", "", plot_dat$outcome[is_scale]) |>
     gsub("_", " ", x = _) |>
     stringr::str_to_title() |>
     paste("(z)")
@@ -182,58 +195,67 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
   log_outcome_vars <- unique(plot_dat$outcome[is_log_outcome])
   log_predictor_vars <- unique(plot_dat$x_name[is_log_predictor])
 
-  if(length(log_outcome_vars) > 0){
-  # Rescale log outcomes variables
-    for(i in seq_along(log_outcome_vars)){
+  if (length(log_outcome_vars) > 0) {
+    # Rescale log outcomes variables
+    for (i in seq_along(log_outcome_vars)) {
       var_i <- log_outcome_vars[i]
       to_transf <- is_log_outcome & plot_dat$outcome == var_i
-      dt <- scale_descriptives[var == gsub("log_","",var_i)]
+      dt <- scale_descriptives[var == gsub("log_", "", var_i)]
 
       # exponentiate outcome variables
       plot_dat[to_transf, "predicted"] <-
         ln_to_z(plot_dat[to_transf, "predicted"],
-                mean = dt$mean, sd = dt$sd)
+          mean = dt$mean, sd = dt$sd
+        )
       plot_dat[to_transf, "conf.low"] <-
         ln_to_z(plot_dat[to_transf, "conf.low"],
-                mean = dt$mean, sd = dt$sd)
+          mean = dt$mean, sd = dt$sd
+        )
       plot_dat[to_transf, "conf.high"] <-
         ln_to_z(plot_dat[to_transf, "conf.high"],
-                mean = dt$mean, sd = dt$sd)
+          mean = dt$mean, sd = dt$sd
+        )
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
     }
-
   }
 
-  if(length(log_predictor_vars) > 0){
+  if (length(log_predictor_vars) > 0) {
     # Rescale log outcomes variables
-    for(i in seq_along(log_predictor_vars)){
+    for (i in seq_along(log_predictor_vars)) {
       var_i <- log_predictor_vars[i]
       to_transf <- is_log_predictor & plot_dat$x_name == var_i
-      dt <- scale_descriptives[var == gsub("log_","",gsub("\\[.*","",var_i))]
+      dt <-
+        scale_descriptives[var == gsub("log_", "", gsub("\\[.*", "", var_i))]
 
       plot_dat[to_transf, "x"] <-
         ln_to_z(plot_dat[to_transf, "x"],
-                mean = dt$mean, sd = dt$sd)
+          mean = dt$mean, sd = dt$sd
+        )
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
     }
-
   }
 
 
-plot_dat$outcome[is_log_outcome] <- gsub("log_", "", plot_dat$outcome[is_log_outcome]) |>
-  gsub("_", " ", x = _) |>
-  stringr::str_to_title() |>
-  paste("(z*)")
+  plot_dat$outcome[is_log_outcome] <-
+    gsub("log_", "", plot_dat$outcome[is_log_outcome]) |>
+    gsub("_", " ", x = _) |>
+    stringr::str_to_title() |>
+    paste("(z*)")
 
   # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
   plot_dat$outcome <- factor(plot_dat$outcome)
-  volume_level <- grep("Volume", levels(plot_dat$outcome), value = TRUE, ignore.case = TRUE)
-  plot_dat$outcome <- forcats::fct_relevel(plot_dat$outcome, volume_level, after = 0)
+  volume_level <- grep("Volume", levels(plot_dat$outcome),
+    value = TRUE,
+    ignore.case = TRUE
+  )
+  plot_dat$outcome <- forcats::fct_relevel(plot_dat$outcome, volume_level,
+    after = 0
+  )
 
   levels(plot_dat$group) <- paste0(levels(plot_dat$group), paste_facet_labels)
   plot_dat$x_name <- gsub("\\[.*", "", plot_dat$x_name)
@@ -241,7 +263,6 @@ plot_dat$outcome[is_log_outcome] <- gsub("log_", "", plot_dat$outcome[is_log_out
   plot_dat
 }
 
-ln_to_z <- function(x, mean, sd){
+ln_to_z <- function(x, mean, sd) {
   (exp(x) - mean) / sd
 }
-
