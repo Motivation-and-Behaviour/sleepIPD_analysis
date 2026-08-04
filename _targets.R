@@ -15,11 +15,6 @@ tar_option_set(
 )
 tar_source()
 
-# Invalidate refactors target if sheet has been updated
-if (tar_read(refactors_change) != sheet_last_modified()) {
-  tar_invalidate(refactors)
-}
-
 # Pipeline
 list(
   ##################################################################
@@ -35,22 +30,18 @@ list(
     pattern = map(datasets),
     iteration = "list"
   ),
-  tar_target(refactors_change, sheet_last_modified()),
-  tar_target(
+  tar_change(
     refactors,
-    sapply(
+    command = sapply(
       c("Sleep conditions", "Ethnicity", "SES"),
       sheet_read,
       simplify = FALSE,
       USE.NAMES = TRUE
-    )
+    ),
+    change = sheet_last_modified()
   ),
   # Data targets
-  tar_target(
-    data_joined,
-    dplyr::bind_rows(data_raw),
-    pattern = map(data_raw)
-  ),
+  tar_target(data_joined, dplyr::bind_rows(data_raw)),
   tar_target(
     data_clean,
     clean_data(data_joined, region_lookup, refactors)
