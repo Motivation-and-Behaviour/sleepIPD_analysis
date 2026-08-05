@@ -13,35 +13,36 @@ make_model_diagnostics <- function(...) {
   lst <- lapply(lst, check_list)
 
   names(lst) <- names_lst |>
-    gsub("model_list_by", "models moderated by", x = _ ) |>
+    gsub("model_list_by", "models moderated by", x = _) |>
     stringr::str_to_sentence() |>
-    gsub("scale_", "", x = _ ) |>
-    gsub("_lag", "(lagged)", x = _ ) |>
-    gsub("pa|Pa", "PA", x = _ ) |>
-    gsub("_", " ", x = _ )
+    gsub("scale_", "", x = _) |>
+    gsub("_lag", "(lagged)", x = _) |>
+    gsub("pa|Pa", "PA", x = _) |>
+    gsub("_", " ", x = _)
 
   lst
 }
 
-check_list <- function(model_list){
-
-  info <- lapply(model_list, function(x){
+check_list <- function(model_list) {
+  info <- lapply(model_list, function(x) {
     x$model_assets$diagnostics
-  }) |> data.table::rbindlist()
+  }) |>
+    data.table::rbindlist()
 
-  info$model_name <- names(model_list)|>
+  info$model_name <- names(model_list) |>
     stringr::str_to_sentence() |>
-    gsub("scale_", "", x = _ ) |>
-    gsub("_lag", "(lagged)", x = _ ) |>
-    gsub("pa|Pa", "PA", x = _ ) |>
-    gsub("_", " ", x = _ )
+    gsub("scale_", "", x = _) |>
+    gsub("_lag", "(lagged)", x = _) |>
+    gsub("pa|Pa", "PA", x = _) |>
+    gsub("_", " ", x = _)
 
   info[, .(
-    "Model name" = model_name, Skewness, Kurtosis,
-    `Converged (\\%)`, `Singular (\\%)`
+    "Model name" = model_name,
+    Skewness,
+    Kurtosis,
+    `Converged (\\%)`,
+    `Singular (\\%)`
   )]
-
-
 }
 
 #' check_model
@@ -63,7 +64,8 @@ check_model <- function(resids, conv, singular) {
     dt[, lapply(.SD, function(x) mean(x, na.rm = TRUE))],
     "Converged (\\%)" = as_pc(conv),
     "Singular (\\%)" = as_pc(singular)
-  ) |> data.table::data.table()
+  ) |>
+    data.table::data.table()
 }
 
 #' resid_moments

@@ -42,7 +42,9 @@ fit_model <- function(..., data, max_iter = 1e6) {
       optCtrl <- list()
     }
 
-    for (nm in maxit_names[[i]]) optCtrl[[nm]] <- max_iter
+    for (nm in maxit_names[[i]]) {
+      optCtrl[[nm]] <- max_iter
+    }
 
     mod <- lme4::lmer(
       ...,
@@ -69,7 +71,6 @@ fit_model <- function(..., data, max_iter = 1e6) {
 }
 
 
-
 #' model_builder
 #'
 #' Create models for data_imp
@@ -87,15 +88,17 @@ fit_model <- function(..., data, max_iter = 1e6) {
 #' @test-arguments outcome = "sleep_duration", predictors = "scale_pa_volume * age + I(scale_pa_volume^2) * age", control_vars = c(), table_only = FALSE, ranef  = "(1|studyid) + (1|participant_id)", terms = c("scale_pa_volume[-4:4 by = 0.1]", "age [11, 18, 35, 65]"), moderator = "age"
 
 model_builder <-
-  function(data_imp,
-           outcome,
-           predictors,
-           moderator,
-           control_vars = c(),
-           table_only = TRUE,
-           ranef,
-           terms,
-           RQ) {
+  function(
+    data_imp,
+    outcome,
+    predictors,
+    moderator,
+    control_vars = c(),
+    table_only = TRUE,
+    ranef,
+    terms,
+    RQ
+  ) {
     require(broom.mixed)
     require(lme4)
     require(data.table)
@@ -112,7 +115,8 @@ model_builder <-
     if (!table_only && moderator == "age") {
       predictor_term <- gsub("\\[.*", "", terms[1])
       age_terms <- c(
-        paste0(predictor_term, "[-5:5 by=0.1]"), "age[10:80 by = 1]"
+        paste0(predictor_term, "[-5:5 by=0.1]"),
+        "age[10:80 by = 1]"
       )
     } else {
       age_terms <- NULL
@@ -155,7 +159,7 @@ model_builder <-
     conv_p <- mean(converged)
     sing_p <- mean(singular)
 
-    # pool.table() applies Rubin's rules to the stacked tidy estimates. 
+    # pool.table() applies Rubin's rules to the stacked tidy estimates.
     pool_summary <- data.table(
       mice::pool.table(rbindlist(tidy_list), type = "all")
     )
@@ -165,8 +169,7 @@ model_builder <-
     pool_summary$upper <-
       papaja::print_num(with(pool_summary, estimate + crit.val * std.error))
 
-    tabby <- data.table(pool_summary)[
-      ,
+    tabby <- data.table(pool_summary)[,
       list(
         term = term,
         "b [95\\% CI]" = with(
@@ -183,7 +186,9 @@ model_builder <-
     if (conv_p < .75) {
       conv_print <- papaja::print_num(conv_p * 100)
       tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\dagger$")
-      note <- as.character(glue::glue("$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."))
+      note <- as.character(glue::glue(
+        "$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."
+      ))
     }
 
     tabby <- tabby[!grepl("studyid", term), ]

@@ -36,11 +36,13 @@ make_manuscript_info <- function(data_clean, participant_summary) {
       mean(participant_summary$sex == "Female", na.rm = TRUE)
     )
   ms_info$p_young <-
-    scales::label_percent(0.1)(mean(participant_summary$age_cat == "2-11 years",
+    scales::label_percent(0.1)(mean(
+      participant_summary$age_cat == "2-11 years",
       na.rm = TRUE
     ))
   ms_info$p_old <-
-    scales::label_percent(0.1)(mean(participant_summary$age_cat == "66+ years",
+    scales::label_percent(0.1)(mean(
+      participant_summary$age_cat == "66+ years",
       na.rm = TRUE
     ))
 
@@ -50,7 +52,8 @@ make_manuscript_info <- function(data_clean, participant_summary) {
     "$\\chi^2_{(..weekday$parameter..)}$",
     " = ..papaja::print_num(weekday$statistic).., ",
     "p = ..papaja::print_p(weekday$p.value)..",
-    .open = "..", .close = ".."
+    .open = "..",
+    .close = ".."
   )
 
   ms_info$weekday <- weekday

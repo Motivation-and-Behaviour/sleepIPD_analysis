@@ -37,12 +37,14 @@ produce_purdy_pictures <- function(model_list, ...) {
   if (moderator == "age") {
     tile_dat <- lapply(seq_len(length(model_list)), function(i) {
       model_list[[i]]$model_assets$pred_matrix
-    }) |> rbindlist()
+    }) |>
+      rbindlist()
     tile_dat$group <- as.numeric(tile_dat$group)
     # hide non-sig predictions
 
     tile_dat <- tile_dat |>
-      prepare_plot_data(paste_facet_labels,
+      prepare_plot_data(
+        paste_facet_labels,
         scale_descriptives = attr(model_list, "scale_descriptives"),
         debug = FALSE
       )
@@ -63,9 +65,12 @@ produce_purdy_pictures <- function(model_list, ...) {
     fig <- ggplot(
       pdat,
       aes(
-        x = x, y = predicted,
-        ymin = conf.low, ymax = conf.high,
-        group = group, fill = group
+        x = x,
+        y = predicted,
+        ymin = conf.low,
+        ymax = conf.high,
+        group = group,
+        fill = group
       )
     ) +
       geom_line() +
@@ -80,10 +85,16 @@ produce_purdy_pictures <- function(model_list, ...) {
       scale_x_continuous(limits = c(-2, 2)) +
       scale_y_continuous(limits = c(-2, 2)) +
       geom_text(
-        data = conv_message_dat, aes(x = 0, y = 0, label = message, ),
-        hjust = .5, vjust = .5, size = 2, color = "black", family = "serif",
+        data = conv_message_dat,
+        aes(x = 0, y = 0, label = message, ),
+        hjust = .5,
+        vjust = .5,
+        size = 2,
+        color = "black",
+        family = "serif",
         fontface = "bold",
-        show.legend = FALSE, inherit.aes = FALSE
+        show.legend = FALSE,
+        inherit.aes = FALSE
       )
 
     # If moderator is equal to age, append a heat map to the main figure
@@ -118,7 +129,9 @@ produce_purdy_pictures <- function(model_list, ...) {
     }
 
     outcome <- unique(gsub(" .*", "", pdat$outcome))
-    if (length(outcome) > 1) stop("Outcome length is greater than 1")
+    if (length(outcome) > 1) {
+      stop("Outcome length is greater than 1")
+    }
 
     if (moderator == "age" && add_filename == "_nolog") {
       out_folder <- "main"
@@ -133,7 +146,6 @@ produce_purdy_pictures <- function(model_list, ...) {
       ".jpg"
     )
 
-
     if (outcome == "Sleep") {
       height <- 15
     } else {
@@ -142,7 +154,11 @@ produce_purdy_pictures <- function(model_list, ...) {
 
     ggsave(
       filename,
-      plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi
+      plot = fig,
+      height = height,
+      width = width + 5,
+      units = "cm",
+      dpi = dpi
     )
   }
 
@@ -179,9 +195,15 @@ produce_purdy_pictures <- function(model_list, ...) {
 
 #' prepare_plot_data
 
-prepare_plot_data <- function(plot_dat, paste_facet_labels,
-                              scale_descriptives, debug = FALSE) {
-  if (debug) browser()
+prepare_plot_data <- function(
+  plot_dat,
+  paste_facet_labels,
+  scale_descriptives,
+  debug = FALSE
+) {
+  if (debug) {
+    browser()
+  }
   is_scale <- grepl("scale_", plot_dat$outcome)
   plot_dat$outcome[is_scale] <-
     gsub("scale_", "", plot_dat$outcome[is_scale]) |>
@@ -204,17 +226,11 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
 
       # exponentiate outcome variables
       plot_dat[to_transf, "predicted"] <-
-        ln_to_z(plot_dat[to_transf, "predicted"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "predicted"], mean = dt$mean, sd = dt$sd)
       plot_dat[to_transf, "conf.low"] <-
-        ln_to_z(plot_dat[to_transf, "conf.low"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "conf.low"], mean = dt$mean, sd = dt$sd)
       plot_dat[to_transf, "conf.high"] <-
-        ln_to_z(plot_dat[to_transf, "conf.high"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "conf.high"], mean = dt$mean, sd = dt$sd)
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
@@ -230,15 +246,12 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
         scale_descriptives[var == gsub("log_", "", gsub("\\[.*", "", var_i))]
 
       plot_dat[to_transf, "x"] <-
-        ln_to_z(plot_dat[to_transf, "x"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "x"], mean = dt$mean, sd = dt$sd)
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
     }
   }
-
 
   plot_dat$outcome[is_log_outcome] <-
     gsub("log_", "", plot_dat$outcome[is_log_outcome]) |>
@@ -249,11 +262,15 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
   # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
   plot_dat$outcome <- factor(plot_dat$outcome)
-  volume_level <- grep("Volume", levels(plot_dat$outcome),
+  volume_level <- grep(
+    "Volume",
+    levels(plot_dat$outcome),
     value = TRUE,
     ignore.case = TRUE
   )
-  plot_dat$outcome <- forcats::fct_relevel(plot_dat$outcome, volume_level,
+  plot_dat$outcome <- forcats::fct_relevel(
+    plot_dat$outcome,
+    volume_level,
     after = 0
   )
 

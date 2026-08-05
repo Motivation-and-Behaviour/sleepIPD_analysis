@@ -13,8 +13,15 @@ make_demog_table <- function(participant_summary) {
     # I remove variables we don't want in the table
     dplyr::select(
       -c(
-        waist_circumference, screen_time, daylight_hours, city, studyid, eligible,
-        height, weight, sleep_wakeup
+        waist_circumference,
+        screen_time,
+        daylight_hours,
+        city,
+        studyid,
+        eligible,
+        height,
+        weight,
+        sleep_wakeup
       )
     ) %>%
     dplyr::relocate(n_valid_days, .after = n_valid_hours)
@@ -26,11 +33,19 @@ make_demog_table <- function(participant_summary) {
   participant_labels <- var_label(participants)
 
   # I select all character variables and create a long from dataset
-  participants_character <- dplyr::select(participants, where(is.character) | where(is.factor)) |>
+  participants_character <- dplyr::select(
+    participants,
+    where(is.character) | where(is.factor)
+  ) |>
     tidyr::pivot_longer(-c(participant_id, age_cat)) |>
     data.table()
   # I select all numeric variables and create a long form dataset
-  participants_numeric <- dplyr::select(participants, where(is.numeric), participant_id, age_cat) |>
+  participants_numeric <- dplyr::select(
+    participants,
+    where(is.numeric),
+    participant_id,
+    age_cat
+  ) |>
     tidyr::pivot_longer(-c(participant_id, age_cat)) |>
     data.table()
 
@@ -49,14 +64,17 @@ make_demog_table <- function(participant_summary) {
     by = c("name", "age_cat")
   ]
 
-
   Ns <-
-    data.table::data.table(participants)[, .(
-      out = glue::as_glue(format(length(unique(participant_id)), big.mark = ",")),
-      level = "N",
-      variable = "Numeric variables"
-    ),
-    by = "age_cat"
+    data.table::data.table(participants)[,
+      .(
+        out = glue::as_glue(format(
+          length(unique(participant_id)),
+          big.mark = ","
+        )),
+        level = "N",
+        variable = "Numeric variables"
+      ),
+      by = "age_cat"
     ]
 
   # For the character variables I get counts and percents
@@ -80,7 +98,10 @@ make_demog_table <- function(participant_summary) {
   ]
 
   # I join these datasets together
-  tab1 <- rbindlist(list(Ns, participants_numeric, participants_character), fill = TRUE)
+  tab1 <- rbindlist(
+    list(Ns, participants_numeric, participants_character),
+    fill = TRUE
+  )
   # There were a few people for which we could not determine their age
   tab1 <- tab1[!is.na(tab1$age_cat)]
   tab1 <- tab1 |> tidyr::pivot_wider(values_from = out, names_from = age_cat)
@@ -96,7 +117,9 @@ make_demog_table <- function(participant_summary) {
   tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
   tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
-  tab1$level[tab1$level == "PA Volume"] <- "PA Volume (average acceleration in mg)"
+  tab1$level[
+    tab1$level == "PA Volume"
+  ] <- "PA Volume (average acceleration in mg)"
   tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
   tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
   tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (HH:MM clock time)"
@@ -104,25 +127,35 @@ make_demog_table <- function(participant_summary) {
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
   tab1$name[tab1$variable == "Numeric variables"] <- "Numeric variables"
-  for (j in names(tab1)) set(tab1, which(is.na(tab1[[j]])), j, " - ")
+  for (j in names(tab1)) {
+    set(tab1, which(is.na(tab1[[j]])), j, " - ")
+  }
   out_tab <- tab1 |>
     dplyr::select(-c(variable, name)) |>
     dplyr::rename(Characteristic = level) |>
     split(tab1$name)
 
   out_tab <-
-    append(out_tab["Numeric variables"], out_tab[!names(out_tab) %in% "Numeric variables"])
+    append(
+      out_tab["Numeric variables"],
+      out_tab[!names(out_tab) %in% "Numeric variables"]
+    )
 
   # Reorder socioeconomic status
   out_tab$`Socioeconomic Status`$Characteristic <-
-    factor(out_tab$`Socioeconomic Status`$Characteristic,
+    factor(
+      out_tab$`Socioeconomic Status`$Characteristic,
       levels = c("Low", "Medium", "High")
     )
   out_tab$`Sleep Conditions Reported` <-
-    out_tab$`Sleep Conditions Reported`[out_tab$`Sleep Conditions Reported`$Characteristic == "Yes", ]
+    out_tab$`Sleep Conditions Reported`[
+      out_tab$`Sleep Conditions Reported`$Characteristic == "Yes",
+    ]
 
   out_tab$`Socioeconomic Status` <-
-    out_tab$`Socioeconomic Status`[order(out_tab$`Socioeconomic Status`$Characteristic), ]
+    out_tab$`Socioeconomic Status`[
+      order(out_tab$`Socioeconomic Status`$Characteristic),
+    ]
 
   out_tab
 }

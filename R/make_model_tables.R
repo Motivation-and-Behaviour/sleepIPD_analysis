@@ -9,7 +9,11 @@
 #' @test model_list <- model_list_by_wear_location
 #' @export
 make_model_tables <- function(model_list) {
-  recode_var <- c("ses"= "SES" ,"bmi" = "BMI", "studyid" = "the fixed effects of study IDs")
+  recode_var <- c(
+    "ses" = "SES",
+    "bmi" = "BMI",
+    "studyid" = "the fixed effects of study IDs"
+  )
   control_vars <- model_list[[1]]$control_vars |>
     dplyr::recode(!!!recode_var)
 
@@ -28,11 +32,15 @@ make_model_tables <- function(model_list) {
 
   sleep_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      sleep, "by", pa_vars[[1]],
+      sleep,
+      "by",
+      pa_vars[[1]],
       collapse = " "
     )
     model2_name <- paste(
-      sleep, "by", pa_vars[[2]],
+      sleep,
+      "by",
+      pa_vars[[2]],
       collapse = " "
     )
 
@@ -44,13 +52,23 @@ make_model_tables <- function(model_list) {
   })
 
   sleep_table$caption <-
-    glue::glue("Physical activity predicting sleep controlling for {control_vars}.")
-  sleep_table$note <- paste0(note, ". Outcomes variables are listed in the column headers.")
+    glue::glue(
+      "Physical activity predicting sleep controlling for {control_vars}."
+    )
+  sleep_table$note <- paste0(
+    note,
+    ". Outcomes variables are listed in the column headers."
+  )
 
-  sleep_conv_issue <- any(sapply(sleep_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
+  sleep_conv_issue <- any(sapply(sleep_table$data, function(x) {
+    any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))
+  }))
 
-  if(sleep_conv_issue){
-    sleep_table$note <- paste0(sleep_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
+  if (sleep_conv_issue) {
+    sleep_table$note <- paste0(
+      sleep_table$note,
+      ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged."
+    )
   }
 
   sleep_table$col_spanners <- list(
@@ -62,11 +80,15 @@ make_model_tables <- function(model_list) {
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
     model1_name <- paste(
-      pa_vars[[1]], "by", paste0(sleep, "_lag"),
+      pa_vars[[1]],
+      "by",
+      paste0(sleep, "_lag"),
       collapse = " "
     )
     model2_name <- paste(
-      pa_vars[[2]], "by", paste0(sleep, "_lag"),
+      pa_vars[[2]],
+      "by",
+      paste0(sleep, "_lag"),
       collapse = " "
     )
 
@@ -78,13 +100,23 @@ make_model_tables <- function(model_list) {
   })
 
   pa_table$caption <-
-    glue::glue("Sleep predicting physical activity controlling for {control_vars}")
-  pa_table$note <- paste0(note, ". Outcomes variables are listed in the row headers.")
+    glue::glue(
+      "Sleep predicting physical activity controlling for {control_vars}"
+    )
+  pa_table$note <- paste0(
+    note,
+    ". Outcomes variables are listed in the row headers."
+  )
 
-  pa_conv_issue <- any(sapply(pa_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
+  pa_conv_issue <- any(sapply(pa_table$data, function(x) {
+    any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))
+  }))
 
-  if(pa_conv_issue){
-    pa_table$note <- paste0(pa_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
+  if (pa_conv_issue) {
+    pa_table$note <- paste0(
+      pa_table$note,
+      ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged."
+    )
   }
 
   pa_table$col_spanners <- list(
@@ -106,20 +138,23 @@ format_table <- function(tab, conv_daggers = FALSE) {
   tab$term <- gsub("I\\(", "", tab$term) |>
     gsub("_", " ", x = _) |>
     gsub("\\^2\\)", "$^2$", x = _) |>
-    gsub("accelerometer wear location", "", x = _ )
+    gsub("accelerometer wear location", "", x = _)
   tab <- tab[!grepl("^ses", tab$term), ]
   tab <- tab[!grepl("^sex", tab$term), ]
   tab <- tab[!grepl("^bmi", tab$term), ]
   tab$term <- stringr::str_to_sentence(tab$term)
   tab$term <- gsub(
-    "(S|s)cale pa (intensity|volume)", "Physical activity", tab$term
+    "(S|s)cale pa (intensity|volume)",
+    "Physical activity",
+    tab$term
   )
   tab$term <- gsub(
-    "(S|s)cale sleep", "Sleep", tab$term
+    "(S|s)cale sleep",
+    "Sleep",
+    tab$term
   )
   tab$term <- gsub("\\slag", "", tab$term)
   tab$term <- gsub(":", " $\\\\times$ ", tab$term)
   names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
   tab
 }
-

@@ -14,11 +14,33 @@ make_participant_summary <- function(data_clean) {
   d <- data_clean %>%
     filter(eligible) %>%
     select(
-      participant_id, studyid, acc_wear_loc, age, bmi, city, country,
-      daylight_hours, eligible, ethnicity, height, n_valid_hours, pa_intensity,
-      pa_volume, region, screen_time, season, ses, sex, sleep_conditions,
-      sleep_duration, sleep_efficiency, sleep_onset, sleep_regularity,
-      sleep_wakeup, waist_circumference, weight
+      participant_id,
+      studyid,
+      acc_wear_loc,
+      age,
+      bmi,
+      city,
+      country,
+      daylight_hours,
+      eligible,
+      ethnicity,
+      height,
+      n_valid_hours,
+      pa_intensity,
+      pa_volume,
+      region,
+      screen_time,
+      season,
+      ses,
+      sex,
+      sleep_conditions,
+      sleep_duration,
+      sleep_efficiency,
+      sleep_onset,
+      sleep_regularity,
+      sleep_wakeup,
+      waist_circumference,
+      weight
     ) %>%
     mutate(
       studyid = as.factor(studyid),

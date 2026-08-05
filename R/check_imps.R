@@ -16,11 +16,13 @@ check_imps <- function(data_imp) {
   # Invariant variables should be the same within participants in each imp
   participant_invar <- c("age", "weight", "height", "bmi")
   stopifnot(
-    "An invariant variable varies within a particpant" =
-      all(sapply(participant_invar, function(x) {
+    "An invariant variable varies within a particpant" = all(sapply(
+      participant_invar,
+      function(x) {
         n_distinct(select(imps, .imp, participant_id)) ==
           n_distinct(select(imps, .imp, participant_id, {{ x }}))
-      }))
+      }
+    ))
   )
 
   # Some variables should always be positive
@@ -43,20 +45,38 @@ check_imps <- function(data_imp) {
   )
 
   stopifnot(
-    "A postive variable contains negative numbers" =
-      all(sapply(positive_vars, function(x) {
+    "A postive variable contains negative numbers" = all(sapply(
+      positive_vars,
+      function(x) {
         nrow(filter(imps, .imp > 0 & !!sym(x) < 0)) == 0
-      }))
+      }
+    ))
   )
 
   # Make some density plots
   imps_long <- imps %>%
     select(
-      ".imp", ".id", "pa_volume", "pa_intensity", "pa_intensity_m16",
-      "sleep_duration", "sleep_efficiency", "sleep_onset", "sleep_wakeup",
-      "sleep_regularity", "sleep_efficiency_lag", "sleep_onset_lag",
-      "sleep_wakeup_lag", "sleep_regularity_lag", "sleep_duration_lag",
-      "age", "weight", "height", "bmi", "daylight_hours", "pa_mostactivehr"
+      ".imp",
+      ".id",
+      "pa_volume",
+      "pa_intensity",
+      "pa_intensity_m16",
+      "sleep_duration",
+      "sleep_efficiency",
+      "sleep_onset",
+      "sleep_wakeup",
+      "sleep_regularity",
+      "sleep_efficiency_lag",
+      "sleep_onset_lag",
+      "sleep_wakeup_lag",
+      "sleep_regularity_lag",
+      "sleep_duration_lag",
+      "age",
+      "weight",
+      "height",
+      "bmi",
+      "daylight_hours",
+      "pa_mostactivehr"
     ) %>%
     reshape2::melt(c(".imp", ".id")) %>%
     mutate(
@@ -66,8 +86,10 @@ check_imps <- function(data_imp) {
 
   plot <- ggplot(imps_long, aes(x = value, group = .imp, colour = imputed)) +
     stat_density(
-      geom = "path", position = "identity",
-      alpha = 0.4, linewidth = 0.5
+      geom = "path",
+      position = "identity",
+      alpha = 0.4,
+      linewidth = 0.5
     ) +
     facet_wrap(~variable, ncol = 4, scales = "free")
 

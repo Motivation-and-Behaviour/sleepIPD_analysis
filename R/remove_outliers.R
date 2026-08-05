@@ -1,9 +1,17 @@
 # The variables the +/-4SD screen applies to.
 outlier_screen_vars <- c(
-  "pa_volume", "pa_intensity", "pa_intensity_m16",
-  "sleep_duration", "sleep_efficiency", "sleep_onset", "sleep_wakeup",
+  "pa_volume",
+  "pa_intensity",
+  "pa_intensity_m16",
+  "sleep_duration",
+  "sleep_efficiency",
+  "sleep_onset",
+  "sleep_wakeup",
   "sleep_regularity",
-  "weight", "height", "waist_circumference", "bmi"
+  "weight",
+  "height",
+  "waist_circumference",
+  "bmi"
 )
 
 #' remove_outliers

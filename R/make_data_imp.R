@@ -24,9 +24,17 @@ make_data_imp <- function(data, n_imps = 3) {
   # Don't do imputation based on these vars:
   dont_imp <- c("filename", "calendar_date")
   dont_use <- c(
-    "age_cat", "studyid", "participant_id", "country", "region",
-    "acc_wear_loc", "accelerometer_model", "pa_intensity_m16",
-    "pa_mostactivehr", "weekday", "ethnicity"
+    "age_cat",
+    "studyid",
+    "participant_id",
+    "country",
+    "region",
+    "acc_wear_loc",
+    "accelerometer_model",
+    "pa_intensity_m16",
+    "pa_mostactivehr",
+    "weekday",
+    "ethnicity"
   )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
@@ -56,7 +64,10 @@ make_data_imp <- function(data, n_imps = 3) {
 
   # Multi-level imputation, consider correlations within participant
   pred["sex", ] <- 0
-  pred["sex", c("age", "bmi", "pa_intensity", "screen_time", "sleep_regularity")] <- 1
+  pred[
+    "sex",
+    c("age", "bmi", "pa_intensity", "screen_time", "sleep_regularity")
+  ] <- 1
   pred[c(participant_cont, participant_invar, "sex"), "participant_id"] <- -2L
   meth[c(participant_cont)] <- "2l.pmm"
   meth[c(participant_invar)] <- "2lonly.pmm"
@@ -66,27 +77,31 @@ make_data_imp <- function(data, n_imps = 3) {
   future_cores <- min(parallel::detectCores() - 1, n_imps, 8)
 
   dist_core <- cut(
-    1:n_imps, future_cores,
+    1:n_imps,
+    future_cores,
     labels = paste0("core", 1:future_cores)
   )
   n_imp_core <- as.vector(table(dist_core))
 
-  future::plan("multisession",
-    workers = future_cores
-  )
+  future::plan("multisession", workers = future_cores)
   on.exit(future::plan(future::sequential), add = TRUE)
 
-  imps <- furrr::future_map(n_imp_core, function(x) {
-    mice(
-      data = imp_data,
-      m = x,
-      predictorMatrix = pred,
-      method = meth,
-      printFlag = FALSE,
-      seed = NA
+  imps <- furrr::future_map(
+    n_imp_core,
+    function(x) {
+      mice(
+        data = imp_data,
+        m = x,
+        predictorMatrix = pred,
+        method = meth,
+        printFlag = FALSE,
+        seed = NA
+      )
+    },
+    .options = furrr::furrr_options(
+      seed = TRUE,
+      packages = c("mice", "miceadds")
     )
-  },
-  .options = furrr::furrr_options(seed = TRUE, packages = c("mice", "miceadds"))
   )
 
   # postprocess clustered imputation into a mids object
@@ -123,8 +138,12 @@ make_data_imp <- function(data, n_imps = 3) {
   imp_list <- data.table(complete(imp, action = "long", include = TRUE))
 
   for (v in seq_along(variables_to_scale)) {
-    imp_list[, (eval(scale_names[v])) :=
-      as.numeric(scale(eval(parse(text = variables_to_scale[v])))), by = ".imp"]
+    imp_list[,
+      (eval(scale_names[v])) := as.numeric(scale(eval(parse(
+        text = variables_to_scale[v]
+      )))),
+      by = ".imp"
+    ]
   }
 
   imp_list$log_pa_volume <- log(imp_list$pa_volume)

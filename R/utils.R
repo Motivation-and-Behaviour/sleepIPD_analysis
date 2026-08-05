@@ -1,6 +1,9 @@
 create_distinct <- function(df) {
   variables <- c(
-    "SES", "Ethnicity", "Sleep conditions", "Maturational status",
+    "SES",
+    "Ethnicity",
+    "Sleep conditions",
+    "Maturational status",
     "Sleep medications"
   )
 
@@ -102,7 +105,10 @@ age_categories <- function(age) {
     breaks = c(0, 11, 18, 35, 65, Inf),
     labels = c(
       glue::glue("{min_age}-11 years"),
-      "12-18 years", "19-35 years", "36-65 years", "66+ years"
+      "12-18 years",
+      "19-35 years",
+      "36-65 years",
+      "66+ years"
     ),
     right = TRUE,
     include.lowest = TRUE
@@ -143,10 +149,13 @@ get_scale_descriptives <- function(data, ...) {
     tidyr::pivot_longer(-.imp, names_to = "var") |>
     data.table()
   # get mean and sd by variable and imp
-  dt_2 <- dt[, .(
-    mean = mean(value, na.rm = TRUE),
-    sd = sd(value, na.rm = TRUE)
-  ), by = c(".imp", "var")] |>
+  dt_2 <- dt[,
+    .(
+      mean = mean(value, na.rm = TRUE),
+      sd = sd(value, na.rm = TRUE)
+    ),
+    by = c(".imp", "var")
+  ] |>
     tidyr::pivot_longer(-c(.imp, var)) |>
     data.table()
 
@@ -164,7 +173,8 @@ plot_percentile <- function(var) {
 
   p <- lapply(seq(0, 1, by = 0.005), function(x) {
     data.frame(p = x * 100, value = quantile(var, x, na.rm = TRUE))
-  }) |> data.table::rbindlist()
+  }) |>
+    data.table::rbindlist()
 
   ggplot(p, aes(x = p, y = value)) +
     geom_point() +
@@ -176,7 +186,9 @@ sheet_read <- function(sheet_name) {
   googlesheets4::gs4_deauth()
   googlesheets4::read_sheet(
     sheetid,
-    sheet = sheet_name, col_types = "c", range = "A:C"
+    sheet = sheet_name,
+    col_types = "c",
+    range = "A:C"
   )
 }
 

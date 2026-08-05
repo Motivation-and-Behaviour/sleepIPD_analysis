@@ -8,8 +8,11 @@
 #' @param model_definitions
 #' @return
 #' @export
-make_multiverse_file <- function(multiverse_skeleton,
-                                 multiverse_chunk, model_definitions) {
+make_multiverse_file <- function(
+  multiverse_skeleton,
+  multiverse_chunk,
+  model_definitions
+) {
   multiverse_skeleton_lines <- readLines(multiverse_skeleton)
 
   moderator_df <- model_definitions %>%

@@ -7,18 +7,23 @@
 #' @return
 #' @author conig
 #' @export
-make_model_list <- function(data_imp,
-                            moderator = "age",
-                            moderator_term = "11, 18, 35, 65",
-                            control_vars = c("ses", "age", "sex", "bmi"),
-                            ranef = "(1|studyid) + (1|participant_id)",
-                            sleep_vars = c(
-                              "scale_sleep_duration", "scale_sleep_efficiency",
-                              "scale_sleep_onset", "scale_sleep_regularity"
-                            ),
-                            pa_vars = c(
-                              "log_pa_volume", "scale_pa_intensity"
-                            )) {
+make_model_list <- function(
+  data_imp,
+  moderator = "age",
+  moderator_term = "11, 18, 35, 65",
+  control_vars = c("ses", "age", "sex", "bmi"),
+  ranef = "(1|studyid) + (1|participant_id)",
+  sleep_vars = c(
+    "scale_sleep_duration",
+    "scale_sleep_efficiency",
+    "scale_sleep_onset",
+    "scale_sleep_regularity"
+  ),
+  pa_vars = c(
+    "log_pa_volume",
+    "scale_pa_intensity"
+  )
+) {
   control_vars <- control_vars[!control_vars == moderator]
 
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
@@ -50,7 +55,8 @@ make_model_list <- function(data_imp,
   instructions <- rbind(instructions_rq1, instructions_rq3)
 
   instructions$model_name <- with(
-    instructions, glue::glue("{outcome} by {gsub(' .*', '', predictors)}")
+    instructions,
+    glue::glue("{outcome} by {gsub(' .*', '', predictors)}")
   )
 
   out <- lapply(
@@ -66,7 +72,9 @@ make_model_list <- function(data_imp,
         ranef = ranef,
         terms = c(
           paste0(
-            gsub(" .*", "", instructions[i, "predictors"]), "[-5:5 by = 0.05]"),
+            gsub(" .*", "", instructions[i, "predictors"]),
+            "[-5:5 by = 0.05]"
+          ),
           glue::glue("{moderator} [{moderator_term}]")
         ),
         RQ = instructions[i, "RQ"]
@@ -82,7 +90,12 @@ make_model_list <- function(data_imp,
   # Add some attributes used in other targets
   names(out) <- instructions[, "model_name"]
   attr(out, "vars") <- list(sleep_vars = sleep_vars, pa_vars = pa_vars)
-  attr(out, "scale_descriptives") <- get_scale_descriptives(data_imp, sleep_vars, sleep_lag_vars, pa_vars)
+  attr(out, "scale_descriptives") <- get_scale_descriptives(
+    data_imp,
+    sleep_vars,
+    sleep_lag_vars,
+    pa_vars
+  )
   attr(out, "filename_suffix") <-
     dplyr::case_when(
       "studyid" %in% control_vars ~ "_fixedef",
@@ -92,4 +105,3 @@ make_model_list <- function(data_imp,
 
   out
 }
-
