@@ -13,8 +13,8 @@ check_imps <- function(data_imp) {
 
   imps <- as_tibble(mice::complete(data_imp, action = "long", include = TRUE))
 
-  # Invariant variables should be the same within participants in each imp
-  participant_invar <- c("age", "weight", "height", "bmi")
+  # Invariant variables should be the same within participants in each imp.
+  participant_invar <- c("age", "weight", "height", "bmi", "bmi_z")
   stopifnot(
     "An invariant variable varies within a particpant" = all(sapply(
       participant_invar,
@@ -53,35 +53,37 @@ check_imps <- function(data_imp) {
     ))
   )
 
-  # Make some density plots
+  # Make some density plots.
+  density_vars <- c(
+    "pa_volume",
+    "pa_intensity",
+    "pa_intensity_m16",
+    "sleep_duration",
+    "sleep_efficiency",
+    "sleep_onset",
+    "sleep_wakeup",
+    "sleep_regularity",
+    "sleep_efficiency_lag",
+    "sleep_onset_lag",
+    "sleep_wakeup_lag",
+    "sleep_regularity_lag",
+    "sleep_duration_lag",
+    "age",
+    "weight",
+    "height",
+    "bmi",
+    "bmi_z",
+    "daylight_hours",
+    "pa_mostactivehr"
+  )
+
   imps_long <- imps %>%
-    select(
-      ".imp",
-      ".id",
-      "pa_volume",
-      "pa_intensity",
-      "pa_intensity_m16",
-      "sleep_duration",
-      "sleep_efficiency",
-      "sleep_onset",
-      "sleep_wakeup",
-      "sleep_regularity",
-      "sleep_efficiency_lag",
-      "sleep_onset_lag",
-      "sleep_wakeup_lag",
-      "sleep_regularity_lag",
-      "sleep_duration_lag",
-      "age",
-      "weight",
-      "height",
-      "bmi",
-      "daylight_hours",
-      "pa_mostactivehr"
-    ) %>%
-    reshape2::melt(c(".imp", ".id")) %>%
+    select(".imp", ".id", all_of(density_vars)) %>%
+    tidyr::pivot_longer(-c(".imp", ".id"), names_to = "variable") %>%
     mutate(
       imputed = if_else(.imp == 0, "Observed", "Imputed"),
-      value = as.numeric(value)
+      value = as.numeric(value),
+      variable = factor(variable, levels = density_vars)
     )
 
   plot <- ggplot(imps_long, aes(x = value, group = .imp, colour = imputed)) +
