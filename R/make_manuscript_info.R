@@ -32,7 +32,9 @@ make_manuscript_info <- function(data_clean, participant_summary) {
   ms_info$n_studies <- length(unique(data_clean$studyid))
 
   ms_info$p_female <-
-    scales::label_percent(0.1)(mean(participant_summary$sex == "Female"))
+    scales::label_percent(0.1)(
+      mean(participant_summary$sex == "Female", na.rm = TRUE)
+    )
   ms_info$p_young <-
     scales::label_percent(0.1)(mean(participant_summary$age_cat == "2-11 years",
       na.rm = TRUE

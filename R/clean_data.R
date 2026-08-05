@@ -28,26 +28,82 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       sleep_regularity = sleep_regularity_index,
       acc_wear_loc = accelerometer_wear_location
     ) %>%
-    # remove all the ggir data execpt the columns that we're using
-    select(
-      -ig_gradient_enmo_0_24hr:-thresh_wear_loc, -contains("guider_"), -id,
-      -dupes,
-      measurementday, pa_volume, pa_intensity, pa_intensity_m16,
-      pa_mostactivehr, sleep_duration, sleep_efficiency, sleep_onset,
-      sleep_wakeup, sleep_onset_time, sleep_wakeup_time, sleep_regularity
-    ) %>%
+    # Keep only the columns we actually use.
+    select(all_of(c(
+      "studyid",
+      "filename",
+      "n_valid_hours",
+      "n_hours",
+      "weekday_x",
+      "measurementday",
+      "calendar_date",
+      "sex",
+      "age",
+      "weight",
+      "height",
+      "ses",
+      "ethnicity",
+      "country",
+      "accelerometer_model",
+      "acc_wear_loc",
+      "sleep_conditions",
+      "city",
+      "waist_circumference",
+      "maturational_status",
+      "screen_time",
+      "season",
+      "sleep_medications",
+      "pa_volume",
+      "pa_intensity",
+      "pa_intensity_m16",
+      "pa_mostactivehr",
+      "sleep_duration",
+      "sleep_efficiency",
+      "sleep_onset",
+      "sleep_wakeup",
+      "sleep_onset_time",
+      "sleep_wakeup_time",
+      "sleep_regularity"
+    ))) %>%
     # convert numeric variables to numeric
-    mutate(across(c(
-      pa_volume, pa_intensity, pa_intensity_m16, sleep_duration,
-      sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity, age,
-      n_valid_hours, n_hours, measurementday, weight, height, screen_time,
-      waist_circumference
-    ), as.numeric)) %>%
+    mutate(across(
+      c(
+        pa_volume,
+        pa_intensity,
+        pa_intensity_m16,
+        sleep_duration,
+        sleep_efficiency,
+        sleep_onset,
+        sleep_wakeup,
+        sleep_regularity,
+        age,
+        n_valid_hours,
+        n_hours,
+        measurementday,
+        weight,
+        height,
+        screen_time,
+        waist_circumference
+      ),
+      as.numeric
+    )) %>%
     # convert charcter variables to factors
-    mutate(across(c(
-      studyid, sex, ethnicity, ses, sleep_medications, sleep_conditions,
-      country, season, acc_wear_loc, weekday_x, accelerometer_model
-    ), as.factor)) %>%
+    mutate(across(
+      c(
+        studyid,
+        sex,
+        ethnicity,
+        ses,
+        sleep_medications,
+        sleep_conditions,
+        country,
+        season,
+        acc_wear_loc,
+        weekday_x,
+        accelerometer_model
+      ),
+      as.factor
+    )) %>%
     rename(weekday = weekday_x) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
@@ -59,7 +115,10 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     mutate(
       across(
         c(
-          sleep_duration, sleep_efficiency, sleep_onset, sleep_wakeup,
+          sleep_duration,
+          sleep_efficiency,
+          sleep_onset,
+          sleep_wakeup,
           sleep_regularity
         ),
         ~ if_else(sleep_wakeup_time == times("23:59:55"), NA_real_, .x)
@@ -67,13 +126,24 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     ) %>%
     # Filter for OK data
     # Decision rules for this
-    mutate(eligible = (n_valid_hours > 10) &
-      (is.na(sleep_duration) | sleep_duration > 200) &
-      # Must have either some PA data, or some sleep data
-      ((!is.na(pa_volume) | !is.na(pa_intensity)) |
-        (!is.na(sleep_duration) | !is.na(sleep_efficiency) |
-          !is.na(sleep_onset) | !is.na(sleep_regularity)))) %>%
-    remove_outliers(ignore_cols = c("age")) %>%
+    mutate(
+      eligible = (n_valid_hours > 10) &
+        (is.na(sleep_duration) | sleep_duration > 200) &
+        # Must have either some PA data, or some sleep data
+        ((!is.na(pa_volume) | !is.na(pa_intensity)) |
+          (!is.na(sleep_duration) |
+            !is.na(sleep_efficiency) |
+            !is.na(sleep_onset) |
+            !is.na(sleep_regularity)))
+    ) %>%
+    mutate(
+      # remove implausible heights
+      height = ifelse(height > 30, height, NA),
+      # also calculate bmi
+      bmi = weight / ((height / 100)^2)
+    ) %>%
+    remove_outliers(cols = outlier_screen_vars, by = "studyid") %>%
+    mutate(bmi_z = make_bmi_z(bmi, age, sex, participant_id)) %>%
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
@@ -85,25 +155,25 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     # if the new measurement day is absurdly high, use old one,s
     # and fix calendar day using the old one too)
     mutate(
-      calendar_date = as.Date(ifelse(measurement_day > 10 * measurementday,
-        day_zero + lubridate::days(measurementday),
-        calendar_date
-      ), "1970-01-01"),
-      measurement_day = ifelse(measurement_day > 10 * measurementday,
+      calendar_date = as.Date(
+        ifelse(
+          measurement_day > 10 * measurementday,
+          day_zero + lubridate::days(measurementday),
+          calendar_date
+        ),
+        "1970-01-01"
+      ),
+      measurement_day = ifelse(
+        measurement_day > 10 * measurementday,
         measurementday,
         measurement_day
-      ),
-      # remove implausible heights
-      height = ifelse(height > 30, height, NA),
-      # also calculate bmi
-      bmi = weight / ((height / 100)^2)
+      )
     ) %>%
     select(-measurementday, -sleep_onset_time, -sleep_wakeup_time) %>%
     # Fix up the most active time
     mutate(
-      pa_mostactivehr =
-        lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
-          lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
+      pa_mostactivehr = lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
+        lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
     )
   # read in sleep conditions harmonisation data
 
@@ -121,7 +191,8 @@ clean_data <- function(data_joined, region_lookup, refactors) {
   # when sleep_conditions matches column 2,
   # and studyid matches column 1, replace with column 3
   d <- d %>%
-    left_join(sleep_refactors,
+    left_join(
+      sleep_refactors,
       by = c(
         "studyid" = "studyid",
         "sleep_conditions" = "sleep_conditions"
@@ -141,7 +212,8 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     )
   d <- d %>%
     mutate(ses = tolower(ses)) %>%
-    left_join(ses_refactors,
+    left_join(
+      ses_refactors,
       by = c(
         "studyid" = "studyid",
         "ses" = "ses"
@@ -161,7 +233,8 @@ clean_data <- function(data_joined, region_lookup, refactors) {
 
   d <- d %>%
     mutate(ethnicity = tolower(ethnicity)) %>%
-    left_join(ethnicity_refactors,
+    left_join(
+      ethnicity_refactors,
       by = c("studyid" = "studyid", "ethnicity" = "ethnicity")
     ) %>%
     mutate(
@@ -173,18 +246,15 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     ) %>%
     select(-harmonized)
 
-  d$age_cat <- cut(d$age,
-    breaks = c(0, 11, 18, 35, 65, 100),
-    labels = c(
-      "0-11 years", "12-18 years", "19-35 years", "36-65 years", "65+ years"
-    )
-  )
+  # Shared with make_participant_summary() — see age_categories() in R/utils.R
+  d$age_cat <- age_categories(d$age)
 
   # removing some variables we can't harmonise
-  d <- d %>% select(
-    -sleep_medications,
-    -maturational_status
-  )
+  d <- d %>%
+    select(
+      -sleep_medications,
+      -maturational_status
+    )
 
   # Clean the country names
   d <- d %>%
@@ -239,10 +309,11 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       )
     )
 
-  d <- d %>% mutate(
-    country = as.factor(country),
-    location = paste(city, country, sep = ", ")
-  )
+  d <- d %>%
+    mutate(
+      country = as.factor(country),
+      location = paste(city, country, sep = ", ")
+    )
 
   d <- left_join(d, region_lookup, by = "country")
 
@@ -255,6 +326,16 @@ clean_data <- function(data_joined, region_lookup, refactors) {
   latlong <- read.csv("data/latlong.csv") %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
+  unmatched <- sort(unique(d$location[is.na(d$lat) | is.na(d$lon)]))
+  if (length(unmatched) > 0) {
+    warning(
+      "No coordinates in data/latlong.csv for ",
+      length(unmatched),
+      " location(s); daylight_hours and season will be NA for these rows: ",
+      paste(unmatched, collapse = "; "),
+      call. = FALSE
+    )
+  }
 
   # use suncalc to find sunrise and sunset times
   sunlight <- d %>%
@@ -266,12 +347,15 @@ clean_data <- function(data_joined, region_lookup, refactors) {
 
   sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
 
-  d <- d %>% left_join(distinct(sunlight),
-    by = c(
-      "calendar_date" = "date",
-      "lat", "lon"
+  d <- d %>%
+    left_join(
+      distinct(sunlight),
+      by = c(
+        "calendar_date" = "date",
+        "lat",
+        "lon"
+      )
     )
-  )
 
   d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
 
@@ -291,7 +375,10 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     group_by(studyid, filename) %>%
     mutate(across(
       c(
-        sleep_efficiency, sleep_onset, sleep_wakeup, sleep_regularity,
+        sleep_efficiency,
+        sleep_onset,
+        sleep_wakeup,
+        sleep_regularity,
         sleep_duration
       ),
       ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),

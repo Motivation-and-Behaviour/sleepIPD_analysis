@@ -34,7 +34,7 @@ make_data_imp <- function(data, n_imps = 3) {
   meth[names(meth) %in% dont_imp] <- ""
   pred[, colnames(pred) %in% c(dont_use, dont_imp)] <- 0
 
-  participant_invar <- c("age", "weight", "height", "bmi")
+  participant_invar <- c("age", "weight", "height", "bmi", "bmi_z")
 
   participant_cont <-
     c(

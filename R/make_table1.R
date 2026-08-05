@@ -29,30 +29,15 @@ make_participant_summary <- function(data_clean) {
   participants <- d %>%
     group_by(participant_id) %>%
     summarise(
-      across(where(is.numeric), mean, na.rm = TRUE),
+      across(where(is.numeric), \(x) mean(x, na.rm = TRUE)),
       across(where(is.factor), find_max),
       across(where(is.logical), any),
       n_valid_days = n()
     ) %>%
     mutate(sleep_conditions = as.factor(sleep_conditions))
 
-  # Create age bins with specified age points
-  age_breaks <- c(0, 11, 18, 35, 65, Inf)
-  age_labels <-
-    c(glue::glue(
-      "{floor(min(participants$age, na.rm = TRUE))}-11 years"
-    ), "12-18 years", "19-35 years", "36-65 years", "66+ years")
-
-  # Assign age categories to the 'age_cat' column
-  participants$age_cat <-
-    cut(
-      participants$age,
-      breaks = age_breaks,
-      labels = age_labels,
-      include.lowest = TRUE,
-      right = FALSE,
-      ordered_result = TRUE
-    )
+  # Age bins — see age_categories() in R/utils.R for the definition.
+  participants$age_cat <- age_categories(participants$age)
 
   var_label(participants) <- list(
     participant_id = "Participant ID",

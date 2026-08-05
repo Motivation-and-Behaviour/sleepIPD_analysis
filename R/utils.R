@@ -61,6 +61,9 @@ apa_style <- function(x) {
 #'
 
 get_season <- function(date, lat) {
+  if (is.na(lat) || is.na(date)) {
+    return(NA_character_)
+  }
   if (lat > 0) {
     if (lubridate::month(date) %in% c(3:5)) {
       "spring"
@@ -85,7 +88,25 @@ get_season <- function(date, lat) {
 }
 
 find_max <- function(x) {
-  names(which.max(table(x)))
+  counts <- table(x)
+  if (length(counts) == 0L || sum(counts) == 0L) {
+    return(NA_character_)
+  }
+  names(which.max(counts))
+}
+
+age_categories <- function(age) {
+  min_age <- floor(min(age, na.rm = TRUE))
+  cut(
+    age,
+    breaks = c(0, 11, 18, 35, 65, Inf),
+    labels = c(
+      glue::glue("{min_age}-11 years"),
+      "12-18 years", "19-35 years", "36-65 years", "66+ years"
+    ),
+    right = TRUE,
+    include.lowest = TRUE
+  )
 }
 
 #' Generates display names for variables

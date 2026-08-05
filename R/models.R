@@ -7,7 +7,8 @@ dflt_sleep <- c(
 )
 dflt_ranef <- "(1|studyid) + (1|participant_id)"
 fixedef <- "(1|participant_id)"
-dflt_con <- c("ses", "age", "sex", "bmi")
+# bmi_z, not raw bmi
+dflt_con <- c("ses", "age", "sex", "bmi_z")
 
 # nolint start styler: off
 models_df <- dplyr::tribble(
@@ -15,7 +16,7 @@ models_df <- dplyr::tribble(
   "by_age",             "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_age_fixedef",     "age",             "11, 18, 35, 65", "age",              dflt_pa,  dflt_sleep,  fixedef,    c(dflt_con, "studyid"),
   "by_age_log",         "age",             "11, 18, 35, 65", "age",              log_pa,   dflt_sleep,  dflt_ranef, dflt_con,
-  "by_bmi",             "bmi",             "18, 22, 25, 30", "BMI",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
+  "by_bmi",             "bmi_z",           "-2, -1, 0, 1",   "BMI z-score",      dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_ses",             "ses",             "all",            "SES",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_sex",             "sex",             "all",            "sex",              dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,
   "by_weekday",         "weekday",         "all",            "weekday",          dflt_pa,  dflt_sleep,  dflt_ranef, dflt_con,

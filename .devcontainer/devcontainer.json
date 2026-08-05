@@ -3,7 +3,7 @@
 	"image": "ghcr.io/tarensanders/r-base:latest",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "butcher, chron, cowplot, dfoptim, future.apply, ggeffects, ggmap, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, readr, suncalc, TAM, webshot2",
+			"packages": "butcher, childsds, chron, cowplot, dfoptim, future.apply, ggeffects, ggmap, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, readr, suncalc, TAM, webshot2",
 			"installSystemRequirements": true
 		}
 	},
