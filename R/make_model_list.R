@@ -22,7 +22,8 @@ make_model_list <- function(
   pa_vars = c(
     "log_pa_volume",
     "scale_pa_intensity"
-  )
+  ),
+  min_wear_days = min_wear_days_primary
 ) {
   control_vars <- control_vars[!control_vars == moderator]
 
@@ -77,7 +78,8 @@ make_model_list <- function(
           ),
           glue::glue("{moderator} [{moderator_term}]")
         ),
-        RQ = instructions[i, "RQ"]
+        RQ = instructions[i, "RQ"],
+        min_wear_days = min_wear_days
       )
 
       attr(model, "RQ") <- instructions[i, "RQ"] # nolint: object_name_linter.
@@ -99,6 +101,7 @@ make_model_list <- function(
   attr(out, "filename_suffix") <-
     dplyr::case_when(
       "studyid" %in% control_vars ~ "_fixedef",
+      min_wear_days == 0 ~ "_allwear",
       "scale_pa_volume" %in% pa_vars ~ "_nolog",
       TRUE ~ ""
     )

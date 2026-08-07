@@ -7,12 +7,16 @@
 #' @return gt object with table1
 #' @author noetel & conigrave
 #' @export
-make_participant_summary <- function(data_clean) {
+make_participant_summary <- function(
+  data_clean,
+  min_wear_days = min_wear_days_primary
+) {
   require(dplyr)
   require(labelled)
 
   d <- data_clean %>%
-    filter(eligible) %>%
+    # Same analytic sample as the primary models — see models_df$min_wear_days.
+    filter(eligible, n_valid_wear_days >= min_wear_days) %>%
     select(
       participant_id,
       studyid,

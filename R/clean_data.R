@@ -201,8 +201,21 @@ clean_data <- function(data_joined, region_lookup, refactors) {
         "sleep_conditions" = "sleep_conditions"
       )
     ) %>%
-    mutate(sleep_conditions = as.factor(harmonized)) %>%
+    mutate(
+      sleep_conditions = factor(
+        dplyr::coalesce(harmonized, "Not reported"),
+        levels = c("No", "Yes", "Not reported")
+      )
+    ) %>%
     select(-harmonized)
+
+  if (anyNA(d$sleep_conditions)) {
+    stop(
+      "Harmonised sleep_conditions contains values outside No/Yes; ",
+      "check the 'Sleep conditions' harmonisation sheet.",
+      call. = FALSE
+    )
+  }
 
   # do the same thing for ses
   ses_refactors <-
@@ -377,6 +390,11 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     # Sort desc by valid hours because `distinct` takes first row
     arrange(studyid, filename, calendar_date, desc(n_valid_hours)) %>%
     distinct(studyid, filename, calendar_date, .keep_all = TRUE)
+
+  d <- d %>%
+    group_by(participant_id) %>%
+    mutate(n_valid_wear_days = sum(n_valid_hours > 10)) %>%
+    ungroup()
 
   # Observed lags. make_data_imp() rederives these after imputation.
   d <- add_sleep_lags(d, by = c("studyid", "filename"))

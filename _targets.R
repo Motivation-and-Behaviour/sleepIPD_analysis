@@ -90,7 +90,8 @@ list(
         pa_vars = pa_vars,
         sleep_vars = sleep_vars,
         control_vars = cont_vars,
-        ranef = ranef
+        ranef = ranef,
+        min_wear_days = min_wear_days
       )
     ),
     tar_target(model_tables, make_model_tables(model_list)),
@@ -127,6 +128,7 @@ list(
       model_list_by_age,
       model_list_by_age_fixedef,
       model_list_by_age_log,
+      model_list_by_age_allwear,
       model_list_by_bmi,
       model_list_by_ses,
       model_list_by_weekday,

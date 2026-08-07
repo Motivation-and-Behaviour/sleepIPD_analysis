@@ -172,7 +172,8 @@ model_builder <-
     table_only = TRUE,
     ranef,
     terms,
-    RQ
+    RQ,
+    min_wear_days = 0
   ) {
     require(broom.mixed)
     require(lme4)
@@ -212,6 +213,20 @@ model_builder <-
 
     for (i in seq_len(n_imp)) {
       dat <- mice::complete(data_imp, i)
+
+      if (min_wear_days > 0) {
+        if (is.null(dat[["n_valid_wear_days"]])) {
+          stop(
+            "min_wear_days = ",
+            min_wear_days,
+            " but the imputed data has no n_valid_wear_days column. ",
+            "clean_data() adds it and make_data_imp() must carry it through.",
+            call. = FALSE
+          )
+        }
+        dat <- dat[dat[["n_valid_wear_days"]] >= min_wear_days, ]
+      }
+
       mod <- fit_model(formula = model_formula, data = dat)
 
       converged[i] <- is_converged(mod)

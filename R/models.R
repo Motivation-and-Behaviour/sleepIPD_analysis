@@ -12,21 +12,24 @@ fixedef <- "(1|participant_id)"
 # bmi_z, not raw bmi
 dflt_con <- c("ses", "age", "sex", "bmi_z")
 
+min_wear_days_primary <- 4
+
 # nolint start styler: off
 models_df <- dplyr::tribble(
-  ~model_name          , ~moderator        , ~mod_term        , ~mod_formal        , ~pa_vars , ~sleep_vars , ~ranef     , ~cont_vars             ,
-  "by_age"             , "age"             , "11, 18, 35, 65" , "age"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_age_fixedef"     , "age"             , "11, 18, 35, 65" , "age"              , dflt_pa  , dflt_sleep  , fixedef    , c(dflt_con, "studyid") ,
-  "by_age_log"         , "age"             , "11, 18, 35, 65" , "age"              , log_pa   , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_bmi"             , "bmi_z"           , "-2, -1, 0, 1"   , "BMI z-score"      , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_ses"             , "ses"             , "all"            , "SES"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_sex"             , "sex"             , "all"            , "sex"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_weekday"         , "weekday"         , "all"            , "weekday"          , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_season"          , "season"          , "all"            , "season"           , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_region"          , "region"          , "all"            , "region"           , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_daylight"        , "daylight_hours"  , "8, 10, 12, 14"  , "daylight hours"   , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_wear_location"   , "acc_wear_loc"    , "all"            , "wear location"    , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_pa_mostactivehr" , "pa_mostactivehr" , "5, 9, 14, 19"   , "most active hour" , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,
-  "by_ethnicity"       , "ethnicity"       , "all"            , "ethnicity"        , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con
+  ~model_name          , ~moderator        , ~mod_term        , ~mod_formal        , ~pa_vars , ~sleep_vars , ~ranef     , ~cont_vars             , ~min_wear_days        ,
+  "by_age"             , "age"             , "11, 18, 35, 65" , "age"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_age_fixedef"     , "age"             , "11, 18, 35, 65" , "age"              , dflt_pa  , dflt_sleep  , fixedef    , c(dflt_con, "studyid") , min_wear_days_primary ,
+  "by_age_log"         , "age"             , "11, 18, 35, 65" , "age"              , log_pa   , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_age_allwear"     , "age"             , "11, 18, 35, 65" , "age"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               ,                     0 ,
+  "by_bmi"             , "bmi_z"           , "-2, -1, 0, 1"   , "BMI z-score"      , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_ses"             , "ses"             , "all"            , "SES"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_sex"             , "sex"             , "all"            , "sex"              , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_weekday"         , "weekday"         , "all"            , "weekday"          , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_season"          , "season"          , "all"            , "season"           , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_region"          , "region"          , "all"            , "region"           , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_daylight"        , "daylight_hours"  , "8, 10, 12, 14"  , "daylight hours"   , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_wear_location"   , "acc_wear_loc"    , "all"            , "wear location"    , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_pa_mostactivehr" , "pa_mostactivehr" , "5, 9, 14, 19"   , "most active hour" , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary ,
+  "by_ethnicity"       , "ethnicity"       , "all"            , "ethnicity"        , dflt_pa  , dflt_sleep  , dflt_ranef , dflt_con               , min_wear_days_primary
 )
 # nolint end styler: on

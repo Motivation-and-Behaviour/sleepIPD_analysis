@@ -43,7 +43,8 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
     "pa_intensity_m16",
     "weight",
     "height",
-    "bmi_z"
+    "bmi_z",
+    "n_valid_wear_days"
   )
   # Not used as predictors. city/country are near-collinear with studyid; both
   # are character, which mice silently drops
@@ -62,7 +63,8 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
     # Incomplete and not imputed, so they cannot be predictors either.
     "weight",
     "height",
-    "bmi_z"
+    "bmi_z",
+    "n_valid_wear_days"
   )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method

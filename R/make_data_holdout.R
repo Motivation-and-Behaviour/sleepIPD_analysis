@@ -7,8 +7,14 @@
 #' @return
 #' @author tarensanders
 #' @export
-make_data_holdout <- function(data_clean) {
+make_data_holdout <- function(
+  data_clean,
+  min_wear_days = min_wear_days_primary
+) {
   require(dplyr)
+
+  data_clean <- data_clean %>%
+    filter(n_valid_wear_days >= min_wear_days)
 
   rand_ids <-
     data_clean %>%

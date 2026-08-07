@@ -151,9 +151,14 @@ make_demog_table <- function(participant_summary) {
       out_tab$`Socioeconomic Status`$Characteristic,
       levels = c("Low", "Medium", "High")
     )
+  out_tab$`Sleep Conditions Reported`$Characteristic <-
+    factor(
+      out_tab$`Sleep Conditions Reported`$Characteristic,
+      levels = c("No", "Yes", "Not Reported")
+    )
   out_tab$`Sleep Conditions Reported` <-
     out_tab$`Sleep Conditions Reported`[
-      out_tab$`Sleep Conditions Reported`$Characteristic == "Yes",
+      order(out_tab$`Sleep Conditions Reported`$Characteristic),
     ]
 
   out_tab$`Socioeconomic Status` <-

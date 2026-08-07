@@ -9,9 +9,16 @@
 #' @param participant_summary
 #' @return List containing information for the manuscript
 #' @author Taren Sanders
-make_manuscript_info <- function(data_clean, participant_summary) {
+make_manuscript_info <- function(
+  data_clean,
+  participant_summary,
+  min_wear_days = min_wear_days_primary
+) {
   data_clean_eligible <- data_clean |>
     dplyr::filter(eligible)
+
+  data_clean_analytic <- data_clean_eligible |>
+    dplyr::filter(n_valid_wear_days >= min_wear_days)
 
   ms_info <- list()
 
@@ -25,7 +32,17 @@ make_manuscript_info <- function(data_clean, participant_summary) {
   ms_info$n_obs_excluded <- (nrow(data_clean) - nrow(data_clean_eligible)) |>
     pretty()
   ms_info$n_pts_excluded <- (n_pts - n_pts_eligible) |> pretty()
-  ms_info$n_missing_age <- dplyr::filter(data_clean_eligible, is.na(age)) |>
+
+  # The wear-time criterion, applied on top of eligibility.
+  n_pts_analytic <- length(unique(data_clean_analytic$participant_id))
+  ms_info$min_wear_days <- min_wear_days
+  ms_info$n_pts_analytic <- n_pts_analytic |> pretty()
+  ms_info$n_pts_excluded_wear <- (n_pts_eligible - n_pts_analytic) |> pretty()
+  ms_info$n_obs_analytic <- nrow(data_clean_analytic) |> pretty()
+  ms_info$n_obs_excluded_wear <-
+    (nrow(data_clean_eligible) - nrow(data_clean_analytic)) |> pretty()
+
+  ms_info$n_missing_age <- dplyr::filter(data_clean_analytic, is.na(age)) |>
     dplyr::distinct(participant_id) |>
     nrow()
 
@@ -40,7 +57,7 @@ make_manuscript_info <- function(data_clean, participant_summary) {
   # those lags after the eligibility filter, so days whose predecessor is
   # missing or ineligible carry no lag and drop from those models.
   ms_info$n_obs_eligible <- nrow(data_clean_eligible) |> pretty()
-  ms_info$n_obs_lagged <- data_clean_eligible |>
+  ms_info$n_obs_lagged <- data_clean_analytic |>
     dplyr::arrange(participant_id, calendar_date) |>
     dplyr::group_by(participant_id) |>
     dplyr::summarise(
@@ -68,7 +85,7 @@ make_manuscript_info <- function(data_clean, participant_summary) {
       na.rm = TRUE
     ))
 
-  weekday_table <- (data_clean_eligible$weekday) |> table()
+  weekday_table <- (data_clean_analytic$weekday) |> table()
   weekday <- chisq.test(weekday_table)
   ms_info$weekday_res <- glue::glue(
     "$\\chi^2_{(..weekday$parameter..)}$",
