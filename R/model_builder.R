@@ -1,3 +1,67 @@
+check_model_environment <- function() {
+  require(lme4)
+
+  fit <- lme4::lmer(
+    Reaction ~ Days + (Days | Subject),
+    data = lme4::sleepstudy,
+    control = lme4::lmerControl(optimizer = "bobyqa", calc.derivs = TRUE)
+  )
+
+  if (is.null(fit@optinfo$derivs) || !isTRUE(is_converged(fit))) {
+    stop(
+      "lme4 ",
+      utils::packageVersion("lme4"),
+      " leaves @optinfo$derivs empty even with calc.derivs = TRUE, so ",
+      "is_converged() can never return TRUE. fit_model() would run all seven ",
+      "optimizers on every fit",
+      call. = FALSE
+    )
+  }
+
+  use_fixed_effects_prediction_se()
+
+  probe <- suppressWarnings(stats::predict(
+    fit,
+    newdata = data.frame(Days = 0:4, Subject = lme4::sleepstudy$Subject[1]),
+    re.form = NA,
+    allow.new.levels = TRUE,
+    se.fit = TRUE
+  ))
+
+  if (is.list(probe)) {
+    stop(
+      "predict.merMod() is still returning standard errors, so ggeffects ",
+      "(>= 1.3.3) will take them from lme4::vcov_full() — the joint ",
+      "fixed+random covariance, 24,638 x 24,638 here, rebuilt on every ",
+      "ggpredict() call at ~44 s and ~11 GB each. ",
+      "use_fixed_effects_prediction_se() did not take effect. ",
+      call. = FALSE
+    )
+  }
+
+  invisible(TRUE)
+}
+
+use_fixed_effects_prediction_se <- function() {
+  lme4_predict <- utils::getS3method(
+    "predict",
+    "merMod",
+    envir = asNamespace("lme4")
+  )
+
+  if (!"se.fit" %in% names(formals(lme4_predict))) {
+    return(invisible(FALSE))
+  }
+
+  shim <- function(object, ..., se.fit = FALSE) {
+    lme4_predict(object, ..., se.fit = FALSE)
+  }
+
+  registerS3method("predict", "merMod", shim, envir = asNamespace("stats"))
+
+  invisible(TRUE)
+}
+
 #' is_converged
 #'
 #' Did the optimizer converge?
@@ -51,9 +115,20 @@ fit_model <- function(..., data, max_iter = 1e6) {
       data = data,
       control = lmerControl(
         optimizer = meth.tab[i, 1],
-        optCtrl = optCtrl
+        optCtrl = optCtrl,
+        # Explicit because lme4 >= 2.0 changed the default
+        calc.derivs = TRUE
       )
     )
+    if (i == 1L && is.null(mod@optinfo$derivs)) {
+      stop(
+        "lmer() returned no @optinfo$derivs despite calc.derivs = TRUE, so ",
+        "is_converged() can never return TRUE and every model would be ",
+        "recorded as unconverged. See C24 in CODE_REVIEW.md.",
+        call. = FALSE
+      )
+    }
+
     mod@call$control$optimizer <- unname(meth.tab[i, 1])
     mod@call$control$optCtrl <- unlist(optCtrl)
 
@@ -102,6 +177,10 @@ model_builder <-
     require(broom.mixed)
     require(lme4)
     require(data.table)
+
+    # Must run inside the worker, before any ggpredict() call below. See the
+    # function's @details: without it each prediction costs ~44 s and ~11 GB.
+    use_fixed_effects_prediction_se()
 
     formula <-
       glue::glue(

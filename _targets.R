@@ -18,6 +18,9 @@ tar_option_set(
 )
 tar_source()
 
+# Check that the models won't die during a run
+check_model_environment()
+
 # Pipeline
 list(
   ##################################################################
@@ -57,8 +60,12 @@ list(
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(
+    bmi_z_ref,
+    bmi_z_adult_ref(data_clean$bmi, data_clean$age, data_clean$participant_id)
+  ),
+  tar_target(
     data_imp,
-    make_data_imp(data_clean, n_imps = 50),
+    make_data_imp(data_clean, n_imps = 5, adult_ref = bmi_z_ref),
     deployment = "main"
   ),
   tar_target(

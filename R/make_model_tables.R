@@ -12,6 +12,7 @@ make_model_tables <- function(model_list) {
   recode_var <- c(
     "ses" = "SES",
     "bmi" = "BMI",
+    "bmi_z" = "BMI z-score",
     "studyid" = "the fixed effects of study IDs"
   )
   control_vars <- model_list[[1]]$control_vars |>

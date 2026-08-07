@@ -13,6 +13,38 @@ check_imps <- function(data_imp) {
 
   imps <- as_tibble(mice::complete(data_imp, action = "long", include = TRUE))
 
+  # mice drops variables it cannot handle (character columns, constants,
+  # collinear predictors) without erroring, so record what it dropped.
+  logged <- data_imp$loggedEvents
+  logged_file <- "Figures/explore/imps_logged_events.csv"
+  if (is.null(logged)) {
+    logged <- data.frame(
+      it = integer(),
+      im = integer(),
+      dep = character(),
+      meth = character(),
+      out = character()
+    )
+  }
+  write.csv(logged, logged_file, row.names = FALSE)
+  if (nrow(logged) > 0) {
+    # `out` is NA for events that dropped nothing (e.g. constant predictors).
+    out_lists <- strsplit(stats::na.omit(logged$out), ", ")
+    dropped <- sort(unique(unlist(out_lists)))
+    warning(
+      "mice logged ",
+      nrow(logged),
+      " event(s) dropping ",
+      length(dropped),
+      " predictor(s); see ",
+      logged_file,
+      ": ",
+      paste(utils::head(dropped, 20), collapse = ", "),
+      if (length(dropped) > 20) ", ..." else "",
+      call. = FALSE
+    )
+  }
+
   # Invariant variables should be the same within participants in each imp.
   participant_invar <- c("age", "weight", "height", "bmi", "bmi_z")
   stopifnot(
@@ -77,6 +109,13 @@ check_imps <- function(data_imp) {
     "pa_mostactivehr"
   )
 
+  na_observed <- colSums(is.na(imps[imps$.imp == 0, density_vars]))
+  na_completed <-
+    colSums(is.na(imps[imps$.imp > 0, density_vars])) / data_imp$m
+  not_imputed <- density_vars[
+    na_observed > 0 & abs(na_completed - na_observed) < 0.5
+  ]
+
   imps_long <- imps %>%
     select(".imp", ".id", all_of(density_vars)) %>%
     tidyr::pivot_longer(-c(".imp", ".id"), names_to = "variable") %>%
@@ -93,10 +132,20 @@ check_imps <- function(data_imp) {
       alpha = 0.4,
       linewidth = 0.5
     ) +
-    facet_wrap(~variable, ncol = 4, scales = "free")
+    facet_wrap(~variable, ncol = 4, scales = "free") +
+    labs(
+      caption = if (length(not_imputed) > 0) {
+        paste0(
+          "Carried through un-imputed (both curves are the same data): ",
+          paste(not_imputed, collapse = ", ")
+        )
+      } else {
+        NULL
+      }
+    )
 
   filename <- "Figures/explore/imps_density.png"
   ggsave(filename, plot, width = 12, height = 12, dpi = 300)
 
-  return(filename)
+  c(filename, logged_file)
 }

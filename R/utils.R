@@ -98,11 +98,14 @@ find_max <- function(x) {
   names(which.max(counts))
 }
 
+#' age_categories
+#'
+#' Bin continuous age into the five reporting bands.
 age_categories <- function(age) {
   min_age <- floor(min(age, na.rm = TRUE))
   cut(
     age,
-    breaks = c(0, 11, 18, 35, 65, Inf),
+    breaks = c(0, 12, 19, 36, 66, Inf),
     labels = c(
       glue::glue("{min_age}-11 years"),
       "12-18 years",
@@ -110,7 +113,7 @@ age_categories <- function(age) {
       "36-65 years",
       "66+ years"
     ),
-    right = TRUE,
+    right = FALSE,
     include.lowest = TRUE
   )
 }
@@ -148,24 +151,15 @@ get_scale_descriptives <- function(data, ...) {
   dt <- dat[, c(vars, ".imp"), with = FALSE] |>
     tidyr::pivot_longer(-.imp, names_to = "var") |>
     data.table()
-  # get mean and sd by variable and imp
-  dt_2 <- dt[,
+
+  # Mean and SD of the stacked imputations
+  dt[,
     .(
       mean = mean(value, na.rm = TRUE),
       sd = sd(value, na.rm = TRUE)
     ),
-    by = c(".imp", "var")
-  ] |>
-    tidyr::pivot_longer(-c(.imp, var)) |>
-    data.table()
-
-  # get mean of each mean and sd across imps
-  descriptives <-
-    dt_2[, .(value = mean(value)), by = c("name", "var")] |>
-    tidyr::pivot_wider(values_from = value, names_from = name) |>
-    data.table()
-
-  descriptives
+    by = "var"
+  ]
 }
 
 plot_percentile <- function(var) {

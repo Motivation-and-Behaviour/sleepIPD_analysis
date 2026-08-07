@@ -19,6 +19,7 @@ make_participant_summary <- function(data_clean) {
       acc_wear_loc,
       age,
       bmi,
+      bmi_z,
       city,
       country,
       daylight_hours,
@@ -44,6 +45,7 @@ make_participant_summary <- function(data_clean) {
     ) %>%
     mutate(
       studyid = as.factor(studyid),
+      country = as.factor(country),
       city = as.factor(city),
       season = as.factor(season)
     )
@@ -66,6 +68,7 @@ make_participant_summary <- function(data_clean) {
     age = "Age",
     age_cat = "Age Category",
     bmi = "BMI",
+    bmi_z = "BMI z-score",
     daylight_hours = "Daylight Hours",
     height = "Height",
     n_valid_hours = "Valid Weartime Hours",
@@ -82,6 +85,7 @@ make_participant_summary <- function(data_clean) {
     weight = "Weight",
     acc_wear_loc = "Accelerometer Wear Location",
     city = "City",
+    country = "Country",
     ethnicity = "Ethnicity",
     region = "Region",
     season = "Season",

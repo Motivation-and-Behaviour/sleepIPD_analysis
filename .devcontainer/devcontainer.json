@@ -11,6 +11,9 @@
 		"source=claude-code-config-${devcontainerId},target=/home/rstudio/.claude,type=volume",
 		"source=gh-config-${devcontainerId},target=/home/rstudio/.gh,type=volume"
 	],
-	"postCreateCommand": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
+	"postCreateCommand": {
+		"claude": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
+		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add"
+	},
 	"shutdownAction": "none"
 }

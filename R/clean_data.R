@@ -142,6 +142,9 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       # also calculate bmi
       bmi = weight / ((height / 100)^2)
     ) %>%
+
+    null_bad_accel_files(limit = 200) %>%
+    apply_plausibility_bounds() %>%
     remove_outliers(cols = outlier_screen_vars, by = "studyid") %>%
     mutate(bmi_z = make_bmi_z(bmi, age, sex, participant_id)) %>%
     # recalculate measurement day by getting the minimum
@@ -345,7 +348,12 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       keep = c("sunrise", "sunset")
     )
 
-  sunlight$daylight_hours <- sunlight$sunset - sunlight$sunrise
+  # getSunlightTimes returns UTC times clamped to the requested date, so sunset
+  # lands before sunrise wherever the local day straddles the UTC boundary and
+  # the difference comes out 24 h short.
+  sunlight$daylight_hours <-
+    as.numeric(difftime(sunlight$sunset, sunlight$sunrise, units = "hours")) %%
+    24
 
   d <- d %>%
     left_join(
@@ -357,7 +365,8 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       )
     )
 
-  d$season <- mapply(get_season, date = d$calendar_date, lat = d$lat)
+  # Factor, not character: mice drops character columns
+  d$season <- factor(mapply(get_season, date = d$calendar_date, lat = d$lat))
 
   d <- d %>%
     mutate(daylight_hours = as.numeric(daylight_hours)) %>%
@@ -369,22 +378,8 @@ clean_data <- function(data_joined, region_lookup, refactors) {
     arrange(studyid, filename, calendar_date, desc(n_valid_hours)) %>%
     distinct(studyid, filename, calendar_date, .keep_all = TRUE)
 
-  # Add lagged sleep variables
-  d <- d %>%
-    arrange(studyid, filename, calendar_date) %>%
-    group_by(studyid, filename) %>%
-    mutate(across(
-      c(
-        sleep_efficiency,
-        sleep_onset,
-        sleep_wakeup,
-        sleep_regularity,
-        sleep_duration
-      ),
-      ~ ifelse(lag(calendar_date) == calendar_date - 1, lag(.x), NA),
-      .names = "{.col}_lag"
-    )) %>%
-    ungroup()
+  # Observed lags. make_data_imp() rederives these after imputation.
+  d <- add_sleep_lags(d, by = c("studyid", "filename"))
 
   # Setting up variables for fixed-effects nested analysis
   # I don't think it's appropriate for participants to be nested within

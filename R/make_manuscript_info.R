@@ -31,18 +31,40 @@ make_manuscript_info <- function(data_clean, participant_summary) {
 
   ms_info$n_studies <- length(unique(data_clean$studyid))
 
+  # Accelerometer files judged miscalibrated by null_bad_accel_files().
+  ms_info$n_accel_flagged <-
+    length(unique(data_clean$participant_id[data_clean$accel_file_flagged]))
+  ms_info$pa_volume_limit <- plausible_ranges$pa_volume[2]
+
+  # RQ3 predicts activity from the previous day's sleep. make_data_imp() builds
+  # those lags after the eligibility filter, so days whose predecessor is
+  # missing or ineligible carry no lag and drop from those models.
+  ms_info$n_obs_eligible <- nrow(data_clean_eligible) |> pretty()
+  ms_info$n_obs_lagged <- data_clean_eligible |>
+    dplyr::arrange(participant_id, calendar_date) |>
+    dplyr::group_by(participant_id) |>
+    dplyr::summarise(
+      n = sum(dplyr::lag(calendar_date) == calendar_date - 1, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    dplyr::pull(n) |>
+    sum() |>
+    pretty()
+
   ms_info$p_female <-
     scales::label_percent(0.1)(
       mean(participant_summary$sex == "Female", na.rm = TRUE)
     )
+  # Take the band names from the factor rather than hard-coding them
+  age_bands <- levels(participant_summary$age_cat)
   ms_info$p_young <-
     scales::label_percent(0.1)(mean(
-      participant_summary$age_cat == "2-11 years",
+      participant_summary$age_cat == age_bands[1],
       na.rm = TRUE
     ))
   ms_info$p_old <-
     scales::label_percent(0.1)(mean(
-      participant_summary$age_cat == "66+ years",
+      participant_summary$age_cat == age_bands[length(age_bands)],
       na.rm = TRUE
     ))
 

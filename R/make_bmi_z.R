@@ -8,9 +8,19 @@
 #' @param sex factor or character, levels "Female" / "Male"
 #' @param participant_id vector identifying participants
 #' @param adult_age age at which the adult branch takes over (default 18)
+#' @param adult_ref optional `list(mean =, sd =)` from `bmi_z_adult_ref()`. Pass
+#'   one shared set when standardising multiple imputations, so they end up on
+#'   the same scale. Computed from the data given when NULL.
 #' @return numeric vector of z-scores
 #'
-make_bmi_z <- function(bmi, age, sex, participant_id, adult_age = 18) {
+make_bmi_z <- function(
+  bmi,
+  age,
+  sex,
+  participant_id,
+  adult_age = 18,
+  adult_ref = NULL
+) {
   stopifnot(
     length(bmi) == length(age),
     length(age) == length(sex),
@@ -38,11 +48,27 @@ make_bmi_z <- function(bmi, age, sex, participant_id, adult_age = 18) {
 
   # Adults — standardised on the adult participants of this sample.
   if (any(is_adult)) {
-    adult_rows <- is_adult & !duplicated(participant_id)
-    mu <- mean(bmi[adult_rows], na.rm = TRUE)
-    sigma <- stats::sd(bmi[adult_rows], na.rm = TRUE)
-    z[is_adult] <- (bmi[is_adult] - mu) / sigma
+    if (is.null(adult_ref)) {
+      adult_ref <- bmi_z_adult_ref(bmi, age, participant_id, adult_age)
+    }
+    z[is_adult] <- (bmi[is_adult] - adult_ref$mean) / adult_ref$sd
   }
 
   z
+}
+
+#' bmi_z_adult_ref
+#'
+#' Mean and SD of adult BMI, one row per participant.
+#'
+#' @param participant_id participant key; include the imputation number when
+#'   the input stacks several imputations, so each is counted once
+#' @return list with `mean` and `sd`
+#'
+bmi_z_adult_ref <- function(bmi, age, participant_id, adult_age = 18) {
+  rows <- !is.na(age) & age >= adult_age & !duplicated(participant_id)
+  list(
+    mean = mean(bmi[rows], na.rm = TRUE),
+    sd = stats::sd(bmi[rows], na.rm = TRUE)
+  )
 }

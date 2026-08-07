@@ -112,10 +112,14 @@ make_demog_table <- function(participant_summary) {
   tab1 <- tab1[, c(non_age_names, age_labels)]
 
   # I recode the names using variable labels
-  tab1$name <- dplyr::recode(tab1$name, !!!participant_labels)
+  labelled <- participant_labels[
+    !vapply(participant_labels, is.null, logical(1))
+  ]
+  tab1$name <- dplyr::recode(tab1$name, !!!labelled)
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
   tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
+  tab1$level[tab1$level == "Bmi Z-Score"] <- "BMI z-score"
   tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
   tab1$level[
     tab1$level == "PA Volume"

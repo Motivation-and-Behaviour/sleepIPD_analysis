@@ -1,3 +1,18 @@
+# Hard physiological limits.
+# pa_volume is daily average ENMO in mg; 200 sits above any achievable 24 h
+# average and above the highest legitimate participant in these data (172).
+plausible_ranges <- list(
+  pa_volume = c(0, 200)
+)
+
+# Accelerometer-derived variables nulled when a file is judged miscalibrated.
+bad_accel_vars <- c(
+  "pa_volume",
+  "pa_intensity",
+  "pa_intensity_m16",
+  "pa_mostactivehr"
+)
+
 # The variables the +/-4SD screen applies to.
 outlier_screen_vars <- c(
   "pa_volume",
@@ -13,6 +28,74 @@ outlier_screen_vars <- c(
   "waist_circumference",
   "bmi"
 )
+
+#' apply_plausibility_bounds
+#'
+#' Set values outside a fixed physiological range to NA.
+#'
+#' @param data data frame
+#' @param ranges named list of `c(lower, upper)`, one per column to bound
+#'
+#' @details Must run **before** `remove_outliers()`.
+apply_plausibility_bounds <- function(data, ranges = plausible_ranges) {
+  missing_cols <- setdiff(names(ranges), names(data))
+  if (length(missing_cols) > 0) {
+    stop(
+      "Columns not found in data: ",
+      paste(missing_cols, collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  for (var in names(ranges)) {
+    limits <- ranges[[var]]
+    x <- data[[var]]
+    x[!is.na(x) & (x < limits[1] | x > limits[2])] <- NA
+    data[[var]] <- x
+  }
+
+  data
+}
+
+#' null_bad_accel_files
+#'
+#' Null every acceleration-derived variable for files whose mean `var` breaches
+#' `limit`.
+#'
+#' @param data data frame
+#' @param limit mean above which the file is treated as miscalibrated
+#' @param by column identifying the accelerometer file
+#' @param var the variable the limit applies to
+#' @param vars columns to set to NA for a flagged file
+
+null_bad_accel_files <- function(
+  data,
+  limit = 200,
+  by = "participant_id",
+  var = "pa_volume",
+  vars = bad_accel_vars
+) {
+  missing_cols <- setdiff(c(by, var, vars), names(data))
+  if (length(missing_cols) > 0) {
+    stop(
+      "Columns not found in data: ",
+      paste(missing_cols, collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  file_mean <- tapply(data[[var]], data[[by]], mean, na.rm = TRUE)
+  bad <- names(file_mean)[!is.na(file_mean) & file_mean > limit]
+  flagged <- data[[by]] %in% bad
+
+  for (v in vars) {
+    data[[v]][flagged] <- NA
+  }
+
+  data$accel_file_flagged <- flagged
+
+  data
+}
 
 #' remove_outliers
 #'
@@ -30,9 +113,6 @@ outlier_screen_vars <- c(
 #' protocol and population rather than by implausible measurements, so it
 #' trimmed the tails of the age and study distributions instead. Groups with
 #' fewer than two observed values, or zero variance, are left untouched.
-#'
-#' `doc/manuscript.Rmd` (~line 196) says only "outside of +/-4SD of the mean"
-#' and must be updated to name the reference distribution (Step 6).
 remove_outliers <- function(data, cols, by = NULL, sd_threshold = 4) {
   missing_cols <- setdiff(c(cols, by), names(data))
   if (length(missing_cols) > 0) {

@@ -11,7 +11,7 @@ make_model_list <- function(
   data_imp,
   moderator = "age",
   moderator_term = "11, 18, 35, 65",
-  control_vars = c("ses", "age", "sex", "bmi"),
+  control_vars = c("ses", "age", "sex", "bmi_z"),
   ranef = "(1|studyid) + (1|participant_id)",
   sleep_vars = c(
     "scale_sleep_duration",
