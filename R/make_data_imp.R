@@ -13,6 +13,10 @@
 make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
   require(mice)
 
+  # The main process does the mice setup, add_sleep_lags(), the scaling and
+  # as.mids() single-threaded. See cap_blas_threads().
+  cap_blas_threads()
+
   imp_data <- data %>%
     dplyr::mutate(participant_id = as.integer(factor(participant_id))) |>
     dplyr::filter(eligible) |>
@@ -44,7 +48,13 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
     "weight",
     "height",
     "bmi_z",
-    "n_valid_wear_days"
+    "n_valid_wear_days",
+    # Recorded by 9 of 20 studies on three incompatible scales: minutes/day in
+    # 102/103/104/107/110/115/221, hours/day in 222, and an apparent proportion
+    # of the day in 105 (median 0.06). Unlike the accelerometer variables it
+    # does not come from GGIR, so nothing harmonises it. No model, figure or
+    # table reads it, so imputing it only propagates the mismatch.
+    "screen_time"
   )
   # Not used as predictors. city/country are near-collinear with studyid; both
   # are character, which mice silently drops
@@ -64,7 +74,10 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
     "weight",
     "height",
     "bmi_z",
-    "n_valid_wear_days"
+    "n_valid_wear_days",
+    # See dont_imp: one common slope cannot fit a predictor measured in minutes
+    # for one study and proportions for another.
+    "screen_time"
   )
   # Don't imp some vars, and disable some as predictors
   meth <- m0$method
@@ -88,6 +101,8 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
 
   # Multi-level imputation, consider correlations within participant
   pred["sex", ] <- 0
+  # This runs after the dont_use zeroing above and would otherwise put
+  # screen_time back, so it is dropped here too.
   pred[
     "sex",
     c(
@@ -95,7 +110,6 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
       "age",
       "bmi",
       "pa_intensity",
-      "screen_time",
       "sleep_regularity"
     )
   ] <- 1
@@ -105,14 +119,59 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
   meth["sex"] <- "2lonly.pmm"
 
   # Run imps with better settings.
-  future_cores <- min(parallel::detectCores() - 1, n_imps, 8)
+  future_cores <- max(1, min(parallel::detectCores() - 1, n_imps, 8))
 
-  dist_core <- cut(
-    1:n_imps,
-    future_cores,
-    labels = paste0("core", 1:future_cores)
+  if (future_cores == 1) {
+    # cut() cannot split a single value into a single interval — cut(1:1, 1)
+    # errors with "invalid number of intervals" — and there is nothing to
+    # distribute when there is only one worker anyway.
+    n_imp_core <- n_imps
+  } else {
+    dist_core <- cut(
+      1:n_imps,
+      future_cores,
+      labels = paste0("core", 1:future_cores)
+    )
+    n_imp_core <- as.vector(table(dist_core))
+  }
+
+  # miceadds' 2l.pmm builds its imputation formula as a *string* and re-parses
+  # it, pasting each factor level onto its column name. A level that is not a
+  # valid symbol once pasted (e.g. "Not reported" -> `sleep_conditionsNot
+  # reported`) fails with an opaque "<text>:1:84: unexpected symbol" about 90
+  # seconds into the run, naming no variable. Fail here instead, with the
+  # column and the offending levels. Only columns that survive as predictors
+  # matter, so this reads the finished predictor matrix — factors excluded via
+  # dont_use (region, ethnicity, acc_wear_loc) never reach a formula and are
+  # free to keep display-friendly levels.
+  predictor_cols <- colnames(pred)[apply(pred != 0, 2, any)]
+  unsafe <- vapply(
+    predictor_cols,
+    function(v) {
+      x <- imp_data[[v]]
+      if (!is.factor(x)) {
+        return(NA_character_)
+      }
+      terms <- paste0(v, levels(x))
+      bad <- levels(x)[terms != make.names(terms)]
+      if (length(bad)) {
+        paste0(v, ": ", paste(sQuote(bad), collapse = ", "))
+      } else {
+        NA_character_
+      }
+    },
+    character(1)
   )
-  n_imp_core <- as.vector(table(dist_core))
+  unsafe <- unsafe[!is.na(unsafe)]
+  if (length(unsafe) > 0) {
+    stop(
+      "These factor levels do not form valid R symbols when pasted onto their ",
+      "column name, and mice re-parses them as formula terms:\n  ",
+      paste(unsafe, collapse = "\n  "),
+      "\nRename the levels in clean_data() and map them back for display.",
+      call. = FALSE
+    )
+  }
 
   future::plan("multisession", workers = future_cores)
   on.exit(future::plan(future::sequential), add = TRUE)
@@ -120,6 +179,10 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
   imps <- furrr::future_map(
     n_imp_core,
     function(x) {
+      # Must run here, not at the top of make_data_imp(): each multisession
+      # worker is a fresh R process, so the parent's thread cap does not
+      # propagate. See cap_blas_threads().
+      cap_blas_threads()
       mice(
         data = imp_data,
         m = x,

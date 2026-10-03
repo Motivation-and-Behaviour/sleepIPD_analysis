@@ -1,5 +1,62 @@
+# Proportion of imputations that must converge before a pooled estimate is
+# reported without a caveat. Shared by model_builder(), pool_effects() and
+# make_model_tables(), which previously each hardcoded 0.75 / "75\\%".
+convergence_threshold <- 0.75
+
+# The optimizer escalation ladder fit_model() walks. Transcribed from
+# lme4:::meth.tab.0 (lme4 2.0.6) so the pipeline no longer reaches into an
+# unexported object. Each entry carries its own iteration-cap argument name,
+# which used to live in a parallel `maxit_names` list keyed by row position —
+# so a reorder upstream would have silently paired the wrong cap with the wrong
+# optimizer. check_model_environment() compares this against lme4's own table
+# when it can still be reached.
+optimizer_ladder <- list(
+  list(optimizer = "bobyqa", method = "", max_iter_arg = "maxfun"),
+  list(optimizer = "Nelder_Mead", method = "", max_iter_arg = "maxfun"),
+  list(
+    optimizer = "nlminbwrap",
+    method = "",
+    max_iter_arg = c("iter.max", "eval.max")
+  ),
+  list(optimizer = "nmkbw", method = "", max_iter_arg = "maxfeval"),
+  list(optimizer = "optimx", method = "L-BFGS-B", max_iter_arg = "maxit"),
+  list(
+    optimizer = "nloptwrap",
+    method = "NLOPT_LN_NELDERMEAD",
+    max_iter_arg = "maxeval"
+  ),
+  list(
+    optimizer = "nloptwrap",
+    method = "NLOPT_LN_BOBYQA",
+    max_iter_arg = "maxeval"
+  )
+)
+
 check_model_environment <- function() {
   require(lme4)
+
+  # Soft check: warn if lme4's own ladder has moved away from our transcription.
+  # Not an error — our copy is authoritative for this analysis, and lme4 is free
+  # to drop the internal entirely.
+  upstream <- tryCatch(
+    utils::getFromNamespace("meth.tab.0", "lme4"),
+    error = function(e) NULL
+  )
+  if (!is.null(upstream)) {
+    ours <- cbind(
+      vapply(optimizer_ladder, `[[`, character(1), "optimizer"),
+      vapply(optimizer_ladder, `[[`, character(1), "method")
+    )
+    if (!identical(unname(as.matrix(upstream)), unname(ours))) {
+      warning(
+        "lme4's optimizer table no longer matches optimizer_ladder in ",
+        "R/model_builder.R. The analysis still uses optimizer_ladder; check ",
+        "whether the upstream change should be adopted. See E2 in ",
+        "CODE_REVIEW.md.",
+        call. = FALSE
+      )
+    }
+  }
 
   fit <- lme4::lmer(
     Reaction ~ Days + (Days | Subject),
@@ -86,27 +143,13 @@ fit_model <- function(..., data, max_iter = 1e6) {
 
   conv <- FALSE
   i <- 1
-  meth.tab <- lme4:::meth.tab.0
 
-  maxit_names <- list(
-    "maxfun", # bobyqa
-    "maxfun", # Nelder_Mead
-    c("iter.max", "eval.max"), # nlminbwrap
-    "maxfeval", # nmkbw
-    "maxit", # optimx (L-BFGS-B)
-    "maxeval", # nloptwrap (NLOPT_LN_NELDERMEAD)
-    "maxeval" # nloptwrap (NLOPT_LN_BOBYQA)
-  )
-  stopifnot(length(maxit_names) == nrow(meth.tab))
+  while (!conv & i <= length(optimizer_ladder)) {
+    step <- optimizer_ladder[[i]]
 
-  while (!conv & i <= nrow(meth.tab)) {
-    if (meth.tab[i, 2] != "") {
-      optCtrl <- list(method = unname(meth.tab[i, 2]))
-    } else {
-      optCtrl <- list()
-    }
+    optCtrl <- if (nzchar(step$method)) list(method = step$method) else list()
 
-    for (nm in maxit_names[[i]]) {
+    for (nm in step$max_iter_arg) {
       optCtrl[[nm]] <- max_iter
     }
 
@@ -114,7 +157,7 @@ fit_model <- function(..., data, max_iter = 1e6) {
       ...,
       data = data,
       control = lmerControl(
-        optimizer = meth.tab[i, 1],
+        optimizer = step$optimizer,
         optCtrl = optCtrl,
         # Explicit because lme4 >= 2.0 changed the default
         calc.derivs = TRUE
@@ -129,7 +172,7 @@ fit_model <- function(..., data, max_iter = 1e6) {
       )
     }
 
-    mod@call$control$optimizer <- unname(meth.tab[i, 1])
+    mod@call$control$optimizer <- step$optimizer
     mod@call$control$optCtrl <- unlist(optCtrl)
 
     if (is_converged(mod)) {
@@ -183,6 +226,10 @@ model_builder <-
     # function's @details: without it each prediction costs ~44 s and ~11 GB.
     use_fixed_effects_prediction_se()
 
+    # Same reason — this runs in the crew worker, and the BLAS thread pool is
+    # per-process. See cap_blas_threads().
+    cap_blas_threads()
+
     formula <-
       glue::glue(
         "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + {ranef}"
@@ -195,8 +242,10 @@ model_builder <-
     if (!table_only && moderator == "age") {
       predictor_term <- gsub("\\[.*", "", terms[1])
       age_terms <- c(
-        paste0(predictor_term, "[-5:5 by=0.1]"),
-        "age[10:80 by = 1]"
+        # Half the resolution of terms[1] — this grid feeds the heat-map panel,
+        # where each cell is a tile rather than a point on a line.
+        predictor_grid(data_imp, predictor_term, n = 100),
+        predictor_grid(data_imp, "age", step = 1)
       )
     } else {
       age_terms <- NULL
@@ -257,11 +306,14 @@ model_builder <-
     pool_summary <- data.table(
       mice::pool.table(rbindlist(tidy_list), type = "all")
     )
-    crit.val <- qnorm(1 - 0.05 / 2)
-    pool_summary$lower <-
-      papaja::print_num(with(pool_summary, estimate - crit.val * std.error))
-    pool_summary$upper <-
-      papaja::print_num(with(pool_summary, estimate + crit.val * std.error))
+    # pool.table(type = "all") already returns conf.low/conf.high on the pooled
+    # Barnard-Rubin degrees of freedom, the same df behind `statistic` and
+    # `p.value` below. Building the interval from qnorm() instead let the CI and
+    # the p-value disagree at the significance boundary, and the gap is widest
+    # exactly where it matters: df shrink as the fraction of missing information
+    # rises.
+    pool_summary$lower <- papaja::print_num(pool_summary$conf.low)
+    pool_summary$upper <- papaja::print_num(pool_summary$conf.high)
 
     tabby <- data.table(pool_summary)[,
       list(
@@ -275,13 +327,21 @@ model_builder <-
         p = papaja::print_p(p.value)
       )
     ]
-    note <- "All models converged." # Add blank note
-
-    if (conv_p < .75) {
-      conv_print <- papaja::print_num(conv_p * 100)
+    # conv_p is the proportion of imputations that DID converge, so the note is
+    # built from it rather than defaulting to "All models converged." — which
+    # previously reported anything from 74% to 99% as if it were 100%.
+    conv_print <- papaja::print_num(conv_p * 100)
+    if (conv_p == 1) {
+      note <- "All models converged."
+    } else if (conv_p >= convergence_threshold) {
+      note <- as.character(glue::glue(
+        "{conv_print}% of models converged."
+      ))
+    } else {
       tabby$`b [95\\% CI]` <- paste0(tabby$`b [95\\% CI]`, "$^\\dagger$")
       note <- as.character(glue::glue(
-        "$^\\dagger$ these values were derived from a pooled model where fewer than {conv_print}% of models had converged."
+        "$^\\dagger$ these values were derived from a pooled model where only ",
+        "{conv_print}% of models converged."
       ))
     }
 
@@ -342,6 +402,8 @@ model_builder <-
 pool_effects <- function(predictions, moderator, terms, outcome, conv, RQ) {
   effects <- ggeffects::pool_predictions(predictions)
 
+  # (1 - conv) is the proportion that did NOT converge, which is what the
+  # overlay reports.
   conv_print <- paste0(papaja::print_num((1 - conv) * 100), "%")
 
   dt <- data.table(effects)
@@ -351,7 +413,7 @@ pool_effects <- function(predictions, moderator, terms, outcome, conv, RQ) {
   dt$RQ <- RQ
   dt$moderator <- moderator
   dt$conv_p <- conv
-  if (conv < .75) {
+  if (conv < convergence_threshold) {
     dt$message <- as.character(glue::glue("DID NOT CONVERGE ({conv_print})"))
   } else {
     dt$message <- " "

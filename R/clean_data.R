@@ -7,7 +7,12 @@
 #' @return
 #' @author
 #' @export
-clean_data <- function(data_joined, region_lookup, refactors) {
+clean_data <- function(
+  data_joined,
+  region_lookup,
+  refactors,
+  latlong_file = "data/latlong.csv"
+) {
   require(chron)
   require(dplyr)
 
@@ -202,9 +207,14 @@ clean_data <- function(data_joined, region_lookup, refactors) {
       )
     ) %>%
     mutate(
+      # "Not_reported", not "Not reported". This is an imputation predictor, and
+      # miceadds' 2l.pmm builds its formula as text and re-parses it, so mice
+      # sees the term `sleep_conditionsNot reported` and dies on the space with
+      # an opaque "unexpected symbol". make_demog_table() puts the space back
+      # for display; make_data_imp() guards against this recurring.
       sleep_conditions = factor(
-        dplyr::coalesce(harmonized, "Not reported"),
-        levels = c("No", "Yes", "Not reported")
+        dplyr::coalesce(harmonized, "Not_reported"),
+        levels = c("No", "Yes", "Not_reported")
       )
     ) %>%
     select(-harmonized)
@@ -336,10 +346,14 @@ clean_data <- function(data_joined, region_lookup, refactors) {
   locations <- unique(d$location)
   locations <- locations[!is.na(locations)]
 
-  # Update longitude and latitude for study locations
+  # Update longitude and latitude for study locations. This early-returns unless
+  # a location is missing, and errors loudly (naming them) if it would need a
+  # Google key. If it ever does append a row, `latlong_file` changes underneath
+  # the target that hashed it, so the next tar_make() reruns data_clean once and
+  # then settles — the same two-pass behaviour noted for the multiverse.
   update_latlong(locations)
 
-  latlong <- read.csv("data/latlong.csv") %>% select(-X)
+  latlong <- read.csv(latlong_file) %>% select(-X)
   d <- d %>% left_join(latlong, by = "location")
 
   unmatched <- sort(unique(d$location[is.na(d$lat) | is.na(d$lon)]))

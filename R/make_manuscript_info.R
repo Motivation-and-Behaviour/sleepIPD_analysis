@@ -12,6 +12,7 @@
 make_manuscript_info <- function(
   data_clean,
   participant_summary,
+  data_imp = NULL,
   min_wear_days = min_wear_days_primary
 ) {
   data_clean_eligible <- data_clean |>
@@ -26,27 +27,31 @@ make_manuscript_info <- function(
   n_pts <- length(unique(data_clean$participant_id))
   n_pts_eligible <- length(unique(data_clean_eligible$participant_id))
 
-  ms_info$n_obs <- nrow(data_clean) |> pretty()
-  ms_info$n_pts <- n_pts |> pretty()
-  ms_info$n_pts_eligible <- n_pts_eligible |> pretty()
+  ms_info$n_obs <- nrow(data_clean) |> fmt_n()
+  ms_info$n_pts <- n_pts |> fmt_n()
+  ms_info$n_pts_eligible <- n_pts_eligible |> fmt_n()
   ms_info$n_obs_excluded <- (nrow(data_clean) - nrow(data_clean_eligible)) |>
-    pretty()
-  ms_info$n_pts_excluded <- (n_pts - n_pts_eligible) |> pretty()
+    fmt_n()
+  ms_info$n_pts_excluded <- (n_pts - n_pts_eligible) |> fmt_n()
 
   # The wear-time criterion, applied on top of eligibility.
   n_pts_analytic <- length(unique(data_clean_analytic$participant_id))
   ms_info$min_wear_days <- min_wear_days
-  ms_info$n_pts_analytic <- n_pts_analytic |> pretty()
-  ms_info$n_pts_excluded_wear <- (n_pts_eligible - n_pts_analytic) |> pretty()
-  ms_info$n_obs_analytic <- nrow(data_clean_analytic) |> pretty()
+  ms_info$n_pts_analytic <- n_pts_analytic |> fmt_n()
+  ms_info$n_pts_excluded_wear <- (n_pts_eligible - n_pts_analytic) |> fmt_n()
+  ms_info$n_obs_analytic <- nrow(data_clean_analytic) |> fmt_n()
   ms_info$n_obs_excluded_wear <-
-    (nrow(data_clean_eligible) - nrow(data_clean_analytic)) |> pretty()
+    (nrow(data_clean_eligible) - nrow(data_clean_analytic)) |> fmt_n()
 
   ms_info$n_missing_age <- dplyr::filter(data_clean_analytic, is.na(age)) |>
     dplyr::distinct(participant_id) |>
     nrow()
 
   ms_info$n_studies <- length(unique(data_clean$studyid))
+
+  # Read the imputation count off the run rather than hardcoding it in the
+  # Methods, where it had drifted to 50 while _targets.R was set to 5.
+  ms_info$n_imps <- if (is.null(data_imp)) NA_integer_ else data_imp$m
 
   # Accelerometer files judged miscalibrated by null_bad_accel_files().
   ms_info$n_accel_flagged <-
@@ -56,7 +61,7 @@ make_manuscript_info <- function(
   # RQ3 predicts activity from the previous day's sleep. make_data_imp() builds
   # those lags after the eligibility filter, so days whose predecessor is
   # missing or ineligible carry no lag and drop from those models.
-  ms_info$n_obs_eligible <- nrow(data_clean_eligible) |> pretty()
+  ms_info$n_obs_eligible <- nrow(data_clean_eligible) |> fmt_n()
   ms_info$n_obs_lagged <- data_clean_analytic |>
     dplyr::arrange(participant_id, calendar_date) |>
     dplyr::group_by(participant_id) |>
@@ -66,7 +71,7 @@ make_manuscript_info <- function(
     ) |>
     dplyr::pull(n) |>
     sum() |>
-    pretty()
+    fmt_n()
 
   ms_info$p_female <-
     scales::label_percent(0.1)(
@@ -102,4 +107,4 @@ make_manuscript_info <- function(
   ms_info
 }
 
-pretty <- function(x) format(x, big.mark = ",")
+fmt_n <- function(x) format(x, big.mark = ",")

@@ -104,7 +104,9 @@ output            : papaja::apa6_docx
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 source("R/utils.R")
-options(warn = -1)
+# options(warn = -1) used to sit here. It suppressed genuine mice and lme4
+# warnings along with the cosmetic ones, so a real problem during rendering
+# would have been invisible.
 knitr::opts_chunk$set(out.width = "110%")
 ```
 
@@ -188,26 +190,60 @@ These data were classified as missing and imputed using the accelerometer data f
 The following individual participant data were obtained when available: age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
 The country, city, time zone, daylight length, and season in which data were collected were also obtained.
 
+<!-- NEW PARAGRAPH, REVIEW -->
+Body mass index was converted to an age- and sex-standardised z-score.
+For participants under 18 years we used the CDC 2000 BMI-for-age growth reference, applied with the *childsds* package.
+No age-based growth reference applies from 18 years, so for adults we standardised body mass index against the adults in this sample.
+The two halves are consequently not the same quantity: below 18 the z-score is expressed relative to an external growth reference, and at 18 and above relative to this sample.
+We use the z-score in place of raw body mass index throughout, both as a covariate and as a moderator, so that a given value carries a comparable meaning at every age.
+
 ## Statistical analysis 
 
 To reduce the risk of bias in secondary data analysis of IPD, we used a blind analysis approach [@westonRecommendationsIncreasingTransparency2019].
 We developed and tested models on a 10% holdout subsample of the dataset.
 When the analysis code was ready, we conducted the final analysis [@maccounBlindAnalysisHide2015].
 
-We checked all data for implausibly low or high measurements, which were excluded if they fell outside of ±4 SD of the mean, as these likely indicate measurement device failures.
-We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputations by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide 50 imputed datasets.
+<!-- REVIEW THIS PARAGRAPH ===== -->
+We screened all data for implausibly low or high measurements, as these likely indicate measurement device failures.
+Screening had three stages.
+First, we excluded values falling outside fixed physiological limits; for average acceleration this was `r ms_info$pa_volume_limit` mg, a value above any sustainable 24-hour average.
+Second, because a miscalibrated accelerometer corrupts every variable derived from acceleration magnitude rather than isolated days, we excluded all physical activity variables for files whose mean average acceleration exceeded that limit (`r ms_info$n_accel_flagged` participants).
+Third, we excluded remaining values falling outside ±4 SD of the mean **of their own study**, rather than of the pooled sample, so that the threshold reflected implausible measurement rather than between-study differences in device, protocol and population.
+The fixed limits were applied before the ±4 SD screen because the mean and standard deviation are themselves distorted by the values they are used to detect.
+Values excluded at any stage were treated as missing and imputed alongside genuinely missing data.
+
+<!-- ===== NEW PARAGRAPH, REVIEW ===== -->
+A day contributed to the analysis if it recorded more than 10 hours of wear time and, where sleep was detected, a sleep period longer than 200 minutes.
+Participants were additionally required to have at least `r ms_info$min_wear_days` days of valid wear time.
+`r ms_info$n_pts_excluded_wear` participants, contributing `r ms_info$n_obs_excluded_wear` person-days, did not meet this criterion, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days for analysis.
+Because the criterion is applied after imputation, the primary analysis and a sensitivity analysis that retains every eligible participant regardless of the number of valid wear days share the same imputations and the same standardisation constants, and are therefore directly comparable; the sensitivity analysis is reported in the supplementary materials.
+
+We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputations by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide `r ms_info$n_imps` imputed datasets.
 Specifically, we used multilevel predictive mean matching imputation clustered by participants.
 We used Rubin's rule to pool the results from analyses conducted using each imputed dataset into one single set of results.
 We examined 95% confidence intervals for all analyses and used P<0.05 to assess for statistical significance.
+<!-- =====  NEW SENTENCES, REVIEW  -->
+Both the intervals and the p-values are computed on the pooled Barnard-Rubin degrees of freedom, which account for the additional uncertainty introduced by imputation.
+We fitted 16 models for each moderator and report all of them without adjustment for multiple comparisons, so p-values close to 0.05 should be interpreted with corresponding caution.
 We used R (version `r paste(R.Version()[c("major", "minor")], collapse = ".")`) for all data cleaning and analysis.
 We report mean and 95% confidence intervals.
 For categorical variables, percentages are reported.
 We examined model diagnostics from all models (see supplementary materials).
+<!-- NEW SENTENCES, REVIEW  -->
+Convergence and singularity are reported separately.
+A singular fit is one in which the optimiser succeeded but placed a variance component at zero, which indicates that the data do not support that random effect rather than that estimation failed.
 
-To examine the relationship between sleep and physical activity (Research Questions 1-2) we ran mixed-effects models with random intercepts for study ID to account for the nesting of participants in studies [@curranIntegrativeDataAnalysis2009].
-We predicted each sleep indicator by each physical activity indicator controlling for sex, body mass index (BMI), and region.
+To examine the relationship between sleep and physical activity (Research Questions 1-2) <!-- REVIEW  -->
+we ran mixed-effects models with random intercepts for study ID and for participant, accounting for the nesting of repeated days within participants and of participants within studies [@curranIntegrativeDataAnalysis2009].
+
+<!--REVIEW -->
+We predicted each sleep indicator by each physical activity indicator controlling for socioeconomic status, sex, and body mass index z-score.
 Quadratic terms were introduced in each model to allow for curvilinear relationships to be modelled.
 We interacted each predictor with age to reveal how the relationship between physical activity and sleep changes over the lifespan.
+
+<!-- NEW PARAGRAPH, REVIEW  -->
+Models predicting physical activity from the preceding night's sleep (Research Question 3) use each sleep indicator lagged by one day, constructed within participants after eligibility screening so that the lagged value is always an eligible measurement from the immediately preceding calendar day.
+Person-days whose preceding day was absent from the data or did not meet the eligibility criteria therefore have no lagged value and do not contribute to these models, leaving `r ms_info$n_obs_lagged` of `r ms_info$n_obs_eligible` eligible person-days.
 
 ## Protocol deviations
 
@@ -248,6 +284,8 @@ Findings from this study will be disseminated through institutional websites, pr
 
 The aggregated dataset describes `r ms_info$n_obs` observations of daily physical activity and sleep from `r ms_info$n_pts` unique participants.
 Of these, `r ms_info$n_obs_excluded` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r ms_info$n_pts_excluded` participants.
+<!-- NEW SENTENCE, REVIEW  -->
+A further `r ms_info$n_pts_excluded_wear` participants (`r ms_info$n_obs_excluded_wear` days) were excluded for having fewer than `r ms_info$min_wear_days` days of valid wear time, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
 The majority of participants came from Europe, Oceania, and South America, with limited data from other regions.
 There was a near-even split by sex (`r ms_info$p_female` female), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
@@ -260,10 +298,12 @@ A table of study characteristics can be found in supplementary materials.
 papaja::apa_table(demog_table,
   caption = "Participant characteristics",
   note = glue::glue(
-    "{ms_info$n_missing_age} participants had missing age data. ",
     "For categorical variables the value is the count, and percentage. ",
     "For numeric variables the value is the Mean and SD. ",
-    "Total N = {ms_info$n_pts_eligible}"
+    "Sleep onset is a clock time; its SD is a duration in hours:minutes. ",
+    "Total N = {ms_info$n_pts_analytic}. ",
+    "{ms_info$n_missing_age} participants had missing age data and are ",
+    "counted in the total but not in any age band."
   ),
   landscape = TRUE,
   col_spanners = list("Age group" = c(2, 6))
@@ -422,6 +462,9 @@ We also chose to maximise the data available for analysis, at the expense of som
 Specifically, we included participants with four or more nights of valid sleep, while some recommend at least seven nights to estimate metrics such as sleep regularity [@lokHowManyDays2024].
 However, the processing method we used specifically allows for comparisons to day-pairs and this methodology has been used by others [e.g., @windredSleepRegularityStronger2024].
 Additionally, although we controlled for several potential confounders, there may still be unmeasured factors affecting the observed associations.
+<!-- NEW SENTENCES, REVIEW  -->
+Our imputation model included study, but not the remaining moderators or their interactions with physical activity and sleep.
+It is therefore uncongenial with the analysis models, and moderator effects may be attenuated towards the null as a result.
 Finally, while our study captured data from across the lifespan, the limited representation of certain age groups, especially adolescents and young adults, restricts the generalisability of our conclusions to these populations.
 The limited research on those aged 18-35 is particularly concerning given the high prevalence of poor sleep in this age group [@liuPrevalenceHealthySleep2016].
 

@@ -26,6 +26,11 @@ make_demog_table <- function(participant_summary) {
     ) %>%
     dplyr::relocate(n_valid_days, .after = n_valid_hours)
 
+  # clean_data() has to store this level as "Not_reported" so mice can parse it
+  # as a formula term; it is only ever displayed here, so put the space back.
+  levels(participants$sleep_conditions) <-
+    gsub("_", " ", levels(participants$sleep_conditions))
+
   # Make sleep_efficiency a percentage value
   participants$sleep_efficiency <- participants$sleep_efficiency * 100
 
@@ -56,7 +61,8 @@ make_demog_table <- function(participant_summary) {
       sd <- papaja::print_num(sd(value, na.rm = TRUE))
       if (name == "sleep_onset") {
         m <- convert_decimal_time(as.numeric(m))
-        sd <- convert_decimal_time(as.numeric(sd))
+        # A standard deviation is a duration, not a time of day.
+        sd <- convert_decimal_time(as.numeric(sd), wrap = FALSE)
       }
 
       .(out = glue::glue("{m} ({sd})"), variable = "Numeric variables")
@@ -126,7 +132,9 @@ make_demog_table <- function(participant_summary) {
   ] <- "PA Volume (average acceleration in mg)"
   tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
   tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
-  tab1$level[tab1$level == "Sleep Onset"] <- "Sleep Onset (HH:MM clock time)"
+  tab1$level[
+    tab1$level == "Sleep Onset"
+  ] <- "Sleep Onset (clock time; SD in h:mm)"
   tab1$level <- gsub("Pa", "PA", tab1$level)
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
@@ -169,9 +177,27 @@ make_demog_table <- function(participant_summary) {
   out_tab
 }
 
-convert_decimal_time <- function(decimal_time) {
-  # Convert a decimal time (e.g., 22.30) to HH:MM format (e.g., 22:30)
-  hours <- floor(decimal_time)
-  minutes <- round((decimal_time - hours) * 60)
-  sprintf("%02d:%02d", hours, minutes)
+#' convert_decimal_time
+#'
+#' Convert decimal hours (e.g. 22.5) to HH:MM (e.g. "22:30").
+#'
+#' @param decimal_time hours as a number
+#' @param wrap wrap at 24 h. TRUE for a time of day, FALSE for a duration.
+#'
+#' @details `sleep_onset` is coded as hours from midnight of the recording day
+#' and runs past 24 for post-midnight onsets — the 66+ band's mean is 24.38.
+#' Without the wrap that printed as "24:23" under a header saying clock time.
+#' A standard deviation is a duration rather than a time of day, so it must not
+#' wrap; pass `wrap = FALSE`. Working in whole minutes also stops `round()`
+#' producing "01:60".
+convert_decimal_time <- function(decimal_time, wrap = TRUE) {
+  total_minutes <- round(decimal_time * 60)
+  if (wrap) {
+    total_minutes <- total_minutes %% (24 * 60)
+  }
+  sprintf(
+    "%02d:%02d",
+    as.integer(total_minutes %/% 60),
+    as.integer(total_minutes %% 60)
+  )
 }

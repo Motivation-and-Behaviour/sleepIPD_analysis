@@ -3,7 +3,7 @@
 	"image": "ghcr.io/tarensanders/r-base:latest",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "butcher, childsds, chron, cowplot, dfoptim, future.apply, ggeffects, ggmap, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, readr, RhpcBLASctl, suncalc, TAM, webshot2",
+			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
 			"installSystemRequirements": true
 		}
 	},

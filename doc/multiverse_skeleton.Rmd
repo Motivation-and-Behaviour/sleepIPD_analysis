@@ -67,7 +67,7 @@ I needed to add maxdeadcycles and more floats to support how many figures are in
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.pos = "!htbp")
 source("R/utils.R")
-options(warn = -1)
+# options(warn = -1) used to sit here — see the note in manuscript.Rmd.
 knitr::opts_chunk$set(out.width = "110%")
 ```
 
@@ -80,7 +80,7 @@ library(papaja)
 
 ```{r load-targets, include=FALSE}
 tar_load(multiverse_file)
-pretty <- function(x) format(x, big.mark = ",")
+fmt_n <- function(x) format(x, big.mark = ",")
 ```
 
 # Results
@@ -131,7 +131,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_vo
 ### The effects of physical activity intensity on sleep
 
 We estimated how physical activity intensity affects sleep across different age groups.
-We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-intensity-fig-fixedef).
+We present the results controlling for SES, sex, BMI z-score, and the fixed effects of study ID, in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-intensity-fig-fixedef).
 
 ```{r sleep-by-intensity-fig-fixedef, fig.cap = "Sleep metrics on Physical activity intensity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_intensity), error = FALSE)
@@ -140,7 +140,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_in
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-duration-fig-fixedef).
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-duration-fig-fixedef).
 
 ```{r pa-outcomes-fixedef}
 papaja::apa_table(
@@ -160,7 +160,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep
 ### The effects of sleep efficiency on physical activity
 
 We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-fixedef).
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-fixedef).
 
 ```{r PA-by-sleep-efficiency-fig-fixedef, fig.cap = "Physical activity by sleep efficiency"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_efficiency_lag), error = FALSE)
@@ -169,7 +169,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep
 ### The effects of sleep onset on physical activity
 
 We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-onset-fig-fixedef).
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-onset-fig-fixedef).
 
 ```{r PA-by-sleep-onset-fig-fixedef, fig.cap = "Physical activity by sleep onset"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_onset_lag), error = FALSE)
@@ -178,7 +178,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-regularity-fig-fixedef).
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-regularity-fig-fixedef).
 
 ```{r PA-by-sleep-regularity-fig-fixedef, fig.cap = "Physical activity by sleep regularity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
@@ -216,7 +216,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_pa_volume
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-duration-fig-log).
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-duration-fig-log).
 
 ```{r pa-outcomes-log}
 papaja::apa_table(
@@ -236,7 +236,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_dur
 ### The effects of sleep efficiency on physical activity
 
 We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-log).
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-log).
 
 ```{r PA-by-sleep-efficiency-fig-log, fig.cap = "Physical activity by sleep efficiency"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_efficiency_lag), error = FALSE)
@@ -245,7 +245,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_eff
 ### The effects of sleep onset on physical activity
 
 We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-onset-fig-log).
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-onset-fig-log).
 
 ```{r PA-by-sleep-onset-fig-log, fig.cap = "Physical activity by sleep onset"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_onset_lag), error = FALSE)
@@ -254,7 +254,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_ons
 ### The effects of sleep regularity on physical activity
 
 We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-regularity-fig-log).
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-regularity-fig-log).
 
 ```{r PA-by-sleep-regularity-fig-log, fig.cap = "Physical activity by sleep regularity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_regularity_lag), error = FALSE)

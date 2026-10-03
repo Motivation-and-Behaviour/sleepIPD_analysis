@@ -19,10 +19,6 @@ create_distinct <- function(df) {
   )
 }
 
-load_packages <- function() {
-  invisible(source("./packages.R"))
-}
-
 #' figure_theme
 #'
 #' Attractive ggplot2 theme defaults
@@ -160,6 +156,85 @@ get_scale_descriptives <- function(data, ...) {
     ),
     by = "var"
   ]
+}
+
+#' predictor_grid
+#'
+#' Build a `ggeffects` `terms` string spanning a variable's observed range.
+#'
+#' @param data_imp a `mids` object
+#' @param var variable name
+#' @param n approximate number of grid points, when `step` is not given
+#' @param step explicit grid spacing
+#'
+#' @details Replaces a hardcoded `[-5:5]`. For `log_pa_volume`, observed over
+#' 0.33-5.30, that put 53% of the requested grid below any observed value, and
+#' the heat-map's `age[10:80 by = 1]` omitted both ends of a sample spanning
+#' 2.75-94.1. Every point returned here lies inside the data, so no prediction
+#' is an extrapolation.
+#'
+#' The range comes from `data_imp$data`, the unimputed rows. Every method in
+#' `make_data_imp()` is predictive mean matching (`2l.pmm` / `2lonly.pmm`),
+#' which can only donate values that were observed somewhere, so the completed
+#' range equals the observed range — verified against `mice::complete()` for
+#' all five predictors. Reading it from a single unimputed copy also guarantees
+#' the grid is identical across imputations, which
+#' `ggeffects::pool_predictions()` requires. If a method is ever changed to one
+#' that can generate values outside the observed range, this needs revisiting.
+predictor_grid <- function(data_imp, var, n = 200, step = NULL) {
+  x <- data_imp$data[[var]]
+  if (is.null(x)) {
+    stop(
+      "predictor_grid(): '",
+      var,
+      "' is not a column of the imputed data.",
+      call. = FALSE
+    )
+  }
+  rng <- range(x, na.rm = TRUE)
+  if (is.null(step)) {
+    step <- signif(diff(rng) / n, 3)
+  }
+  # Round the endpoints inward, so rounding cannot put a grid point outside the
+  # observed range and reintroduce the extrapolation this function exists to
+  # remove.
+  scale <- 10^4
+  lower <- ceiling(rng[1] * scale) / scale
+  upper <- floor(rng[2] * scale) / scale
+  as.character(glue::glue("{var}[{lower}:{upper} by = {step}]"))
+}
+
+#' cap_blas_threads
+#'
+#' Limit this process's BLAS/OpenMP thread pool.
+#'
+#' @param n threads to allow
+#'
+#' @details R here links `openblas-pthread`, which spawns one BLAS thread per
+#' core (48) in *every* process. Measured on a live run: 8 imputation workers
+#' carrying 49 threads each, ~346 CPU-hours of BLAS-thread time in 7.6 h wall,
+#' load average 182; and each crew worker carrying 79 threads, which at
+#' `workers = 16` is ~1,264 threads on 48 cores. At this problem size 48-thread
+#' BLAS is not faster than single-threaded (0.16 s vs 0.14 s on a 20,000 x 200
+#' crossprod), so that CPU time is pure loss.
+#'
+#' `OPENBLAS_NUM_THREADS` cannot fix it from inside R: OpenBLAS reads the
+#' variable when the shared library loads, which is before R evaluates
+#' `.Renviron`, so neither a project `.Renviron`, `Sys.setenv()` nor crew's
+#' `rscript_envs` has any effect. The thread pool is per-process, so this has to
+#' be called *inside* each process that does the work — hence the calls in the
+#' `furrr` callback and at the top of `model_builder()` rather than once in
+#' `_targets.R`.
+#'
+#' Guarded rather than hard-required, so a missing package cannot kill a
+#' multi-hour run. Note that changing the thread count can reorder
+#' floating-point summation, so results may differ in the last few bits.
+cap_blas_threads <- function(n = 1L) {
+  if (requireNamespace("RhpcBLASctl", quietly = TRUE)) {
+    RhpcBLASctl::blas_set_num_threads(n)
+    RhpcBLASctl::omp_set_num_threads(n)
+  }
+  invisible(NULL)
 }
 
 plot_percentile <- function(var) {

@@ -41,7 +41,7 @@ knitr::include_graphics(here::here(purdy_pictures__::model_name::_$predictor_pa_
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by _::moderator_formal::_.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-_::moderator_fig::_).
+Results, controlling for _::control_text::_ are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-duration-fig-by-_::moderator_fig::_).
 
 
 ```{r pa-outcomes-by-_::moderator_fig::_}
@@ -62,7 +62,7 @@ knitr::include_graphics(here::here(purdy_pictures__::model_name::_$predictor_sle
 ### The effects of sleep efficiency on physical activity
 
 We estimated the effect of sleep efficiency on physical activity by _::moderator_formal::_.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-_::moderator_fig::_).
+Results, controlling for _::control_text::_ are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-by-_::moderator_fig::_).
 
 
 ```{r PA-by-sleep-efficiency-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep efficiency moderated by _::moderator_formal::_"}
@@ -72,7 +72,7 @@ knitr::include_graphics(here::here(purdy_pictures__::model_name::_$predictor_sle
 ### The effects of sleep onset on physical activity
 
 We estimated the effect of sleep onset on physical activity by _::moderator_formal::_.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-onset-fig-by-_::moderator_fig::_).
+Results, controlling for _::control_text::_ are presented in Table \@ref(tab:pa-outcomes-by-_::moderator_fig::_) and Figure \@ref(fig:PA-by-sleep-onset-fig-by-_::moderator_fig::_).
 
 
 ```{r PA-by-sleep-onset-fig-by-_::moderator_fig::_, fig.cap = "Physical activity by sleep onset moderated by _::moderator_formal::_"}

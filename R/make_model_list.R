@@ -72,9 +72,9 @@ make_model_list <- function(
         table_only = FALSE,
         ranef = ranef,
         terms = c(
-          paste0(
-            gsub(" .*", "", instructions[i, "predictors"]),
-            "[-5:5 by = 0.05]"
+          predictor_grid(
+            data_imp,
+            gsub(" .*", "", instructions[i, "predictors"])
           ),
           glue::glue("{moderator} [{moderator_term}]")
         ),

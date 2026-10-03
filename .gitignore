@@ -38,15 +38,18 @@ rsconnect/
 # renv via capsule
 renv/
 
-# Data and temporary files
-data/
+data/*
 temp/
+
+# Static reference data
+!data/latlong.csv
 
 # Markdown rubbish
 doc/*.fff
 doc/*.log
 doc/*.ttt
 doc/*.tex
+doc/manuscript_files/*
 
 # Others
 .vscode
