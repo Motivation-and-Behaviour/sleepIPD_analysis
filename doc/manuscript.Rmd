@@ -284,15 +284,14 @@ Findings from this study will be disseminated through institutional websites, pr
 
 The aggregated dataset describes `r ms_info$n_obs` observations of daily physical activity and sleep from `r ms_info$n_pts` unique participants.
 Of these, `r ms_info$n_obs_excluded` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r ms_info$n_pts_excluded` participants.
-<!-- NEW SENTENCE, REVIEW  -->
 A further `r ms_info$n_pts_excluded_wear` participants (`r ms_info$n_obs_excluded_wear` days) were excluded for having fewer than `r ms_info$min_wear_days` days of valid wear time, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days.
 Table \@ref(tab:demo-participants) shows demographic information for the included participants.
-The majority of participants came from Europe, Oceania, and South America, with limited data from other regions.
+Most participants came from Europe, Oceania, and South America, with limited data from other regions.
 There was a near-even split by sex (`r ms_info$p_female` female), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
 
 Valid observations were not uniform across the days of the week (`r ms_info$weekday_res`).
 Weekends were over-represented (Saturday: z = `r ms_info$weekday$stdres["Saturday"]`; Sunday: z = `r ms_info$weekday$stdres["Sunday"]`), while Wednesdays (z = `r ms_info$weekday$stdres["Wednesday"]`) and Thursdays (z = `r ms_info$weekday$stdres["Thursday"]`) were under-represented.
-A table of study characteristics can be found in supplementary materials.
+A table of study characteristics can be found in the supplementary materials.
 
 ```{r demo-participants}
 papaja::apa_table(demog_table,
@@ -310,12 +309,12 @@ papaja::apa_table(demog_table,
 )
 ```
 
-## The effects of physical activity volume on sleep
+## The association between physical activity volume and sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
-The effect of physical activity volume on sleep by age are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig).
+We estimated the association between physical activity and sleep (RQ1) using mixed-effects models.
+These associations by age are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig).
 Higher physical activity volume was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
-While we observed statistically significant curvilinear relationships, these did not appear to meaningfully change the effect.
+Although we observed statistically significant curvilinear relationships, these did not appear to meaningfully change the associations.
 The relationship between physical activity volume and sleep duration, efficiency, and onset was consistent across the age groups, with some negligible evidence that the relationship with sleep regularity grew stronger with age.
 
 ```{r sleep-outcomes}
@@ -329,32 +328,32 @@ papaja::apa_table(
 )
 ```
 
-```{r sleep-by-volume-fig, fig.cap = "Sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age."}
+```{r sleep-by-volume-fig, fig.cap = "Standardized sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_pa_volume),
   error = FALSE
 )
 ```
 
-## The effects of physical activity intensity on sleep
+## The association between physical activity intensity and sleep
 
-We estimated how physical activity intensity affects sleep across different age groups and present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
+We estimated how physical activity intensity is associated with sleep across different age groups and present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
 We observed weak associations between physical activity intensity and sleep duration, sleep efficiency, and sleep onset, with a stronger relationship observed with sleep regularity.
-As with physical activity volume, we observed statistically significant curvilinear relationships, but these were only meaningful for the impact of physical activity intensity on sleep regularity, in which very low levels of intensity were strongly associated with poor sleep regularity and the benefits of increasing intensity diminished past one standard deviation above the mean.
-While age statistically significantly modified the relationship between physical activity intensity and sleep duration, efficiency, and regularity, the effect was negligible.
+As with physical activity volume, we observed statistically significant curvilinear relationships, but these were only meaningful for the association between physical activity intensity and sleep regularity, in which very low levels of intensity were strongly associated with poor sleep regularity and the benefits of increasing intensity diminished past one standard deviation above the mean.
+While age modified the relationship between physical activity intensity and sleep duration, efficiency, and regularity, the effect was negligible.
 
-```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r sleep-by-intensity-fig, fig.cap = "Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_pa_intensity),
   error = FALSE
 )
 ```
 
-## The effects of sleep duration on physical activity
+## The association between of sleep duration and physical activity
 
-We estimated the effect of sleep duration on physical activity by age.
+We estimated the association between sleep duration and physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig).
-As age increases, both physical activity volume and intensity decrease.
+At higher ages, both physical activity volume and intensity are lower than for lower ages.
 We found no evidence for an association between average sleep duration and physical activity volume or intensity.
 
 ```{r pa-outcomes}
@@ -368,18 +367,18 @@ papaja::apa_table(
 )
 ```
 
-```{r PA-by-sleep-duration-fig, fig.cap = "Physical activity predicted by previous night sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
+```{r PA-by-sleep-duration-fig, fig.cap = "Physical activity is predicted by the duration of sleep the previous night. The panels on the left show the curvilinear relationship between sleep duration and the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_duration_lag),
   error = FALSE
 )
 ```
 
-## The effects of sleep efficiency on physical activity
+## The association between sleep efficiency and physical activity
 
-We estimated the effect of sleep efficiency on physical activity by age.
+We estimated the association between sleep efficiency and physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-efficiency-fig).
-There was a negligible relationship between sleep efficiency and physical activity volume and a weak linear association between sleep efficiency and more intense physical activity.
+There was a negligible positive association between sleep efficiency and physical activity volume and a weak linear association between sleep efficiency and more intense physical activity.
 
 ```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
@@ -388,11 +387,11 @@ knitr::include_graphics(
 )
 ```
 
-## The effects of sleep onset on physical activity
+## The association between sleep onset and physical activity
 
-We estimated the effect of sleep onset on physical activity by age.
+We estimated the association between sleep onset and physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-onset-fig).
-There were weak curvilinear relationships where average sleep onset was linked to the highest levels of physical activity volume, but not intensity.
+There were weak curvilinear relationships where average sleep onset was linked to the highest levels of physical activity volume but not intensity.
 
 ```{r PA-by-sleep-onset-fig, fig.cap = "Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
@@ -401,12 +400,12 @@ knitr::include_graphics(
 )
 ```
 
-## The effects of sleep regularity on physical activity
+## The association between sleep regularity and physical activity
 
-We estimated the effect of sleep regularity on physical activity by age.
+We estimated the association between sleep regularity and physical activity by age.
 Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig).
 There was a positive linear relationship between sleep regularity and both physical activity volume and intensity.
-These relationships were slightly attenuated with age, such that for older adults the effect was negligible.
+These relationships were slightly attenuated with age, such that for older adults the effect size was negligible.
 
 ```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
@@ -417,16 +416,17 @@ knitr::include_graphics(
 
 # Discussion
 
-In this study, we collated and harmonised device-measured physical activity and sleep data from `r ms_info$n_studies` studies around the world, covering participants across the lifespan.
-We found that both the volume and intensity of physical activity was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
-These relationships were the strongest for sleep regularity, although the the relationship between physical activity intensity weakened with age.
+In this study, we collated and harmonised accelerometer-assessed physical activity and sleep data from `r ms_info$n_studies` studies around the world, covering participants across the lifespan.
+We found that both the volume and intensity of physical activity were associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
+These relationships were the strongest for sleep regularity, although the relationship with physical activity intensity weakened with age.
+Although robust, these associations were small: changes of 1 SD in the physical activity metrics were associated with an average of <-- TODO --> SD in the sleep metrics.
 
-When examining the reverse direction, we observed those who fell asleep earlier and at a more regular time engaged in more total physical activity, with an additional negligible benefit for those who slept more efficiently.
+When examining the reverse direction, we observed that those who fell asleep earlier or at a more regular time engaged in more total physical activity, with an additional negligible benefit for those who slept more efficiently.
 Similarly, those who slept at a more regular time and with more efficiency engaged in more intense physical activity.
-These findings were largely robust to the decisions made during analysis (see supplementary materials for all analyses).
+Our sensitivity analyses suggest that these findings were largely robust to the decisions made during analysis.
 
 Our findings broadly align with meta-analyses of experimental research, although the strengths of the relationships we observed were much weaker [@kredlowEffectsPhysicalActivity2015].
-For example, @kredlowEffectsPhysicalActivity2015 found small ($0.22 < d < 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
+For example, @kredlowEffectsPhysicalActivity2015 found small ($0.22 - 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
 It is difficult to directly compare these effect sizes, however, as the experimental studies directly manipulated physical activity, whereas our study examined the relationship between habitual physical activity and sleep.
 It may be that the routine nature of individuals' physical activity makes associations more difficult to detect.
 Similarly, most of the previous studies which have examined acute changes to physical activity were conducted in laboratory settings.

@@ -68,7 +68,7 @@ make_model_tables <- function(model_list) {
     )
   sleep_table$note <- paste0(
     note,
-    ". Outcomes variables are listed in the column headers."
+    ". Outcomes variables are listed in the column headers. Standardized (z-scores) are indicated with '(z)'."
   )
 
   sleep_conv_issue <- any(sapply(sleep_table$data, function(x) {
