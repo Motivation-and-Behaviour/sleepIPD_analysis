@@ -302,7 +302,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-bmi-z) and Figure \@
 knitr::include_graphics(here::here(purdy_pictures_by_bmi$predictor_pa_intensity), error = FALSE)
 ```
 
-
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by BMI z-score.
@@ -390,7 +389,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-ses) and Figure \@re
 ```{r sleep-by-intensity-fig-by-ses, fig.cap = "Sleep metrics on Physical activity intensity moderated by SES"}
 knitr::include_graphics(here::here(purdy_pictures_by_ses$predictor_pa_intensity), error = FALSE)
 ```
-
 
 ### The effects of sleep duration on physical activity
 
@@ -480,7 +478,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-sex) and Figure \@re
 knitr::include_graphics(here::here(purdy_pictures_by_sex$predictor_pa_intensity), error = FALSE)
 ```
 
-
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by sex.
@@ -568,7 +565,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-weekday) and Figure 
 ```{r sleep-by-intensity-fig-by-weekday, fig.cap = "Sleep metrics on Physical activity intensity moderated by weekday"}
 knitr::include_graphics(here::here(purdy_pictures_by_weekday$predictor_pa_intensity), error = FALSE)
 ```
-
 
 ### The effects of sleep duration on physical activity
 
@@ -658,7 +654,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-season) and Figure \
 knitr::include_graphics(here::here(purdy_pictures_by_season$predictor_pa_intensity), error = FALSE)
 ```
 
-
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by season.
@@ -746,7 +741,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-region) and Figure \
 ```{r sleep-by-intensity-fig-by-region, fig.cap = "Sleep metrics on Physical activity intensity moderated by region"}
 knitr::include_graphics(here::here(purdy_pictures_by_region$predictor_pa_intensity), error = FALSE)
 ```
-
 
 ### The effects of sleep duration on physical activity
 
@@ -836,7 +830,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-daylight-hours) and 
 knitr::include_graphics(here::here(purdy_pictures_by_daylight$predictor_pa_intensity), error = FALSE)
 ```
 
-
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by daylight hours.
@@ -924,7 +917,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-acc-wear-loc) and Fi
 ```{r sleep-by-intensity-fig-by-acc-wear-loc, fig.cap = "Sleep metrics on Physical activity intensity moderated by wear location"}
 knitr::include_graphics(here::here(purdy_pictures_by_wear_location$predictor_pa_intensity), error = FALSE)
 ```
-
 
 ### The effects of sleep duration on physical activity
 
@@ -1014,7 +1006,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-pa-mostactivehr) and
 knitr::include_graphics(here::here(purdy_pictures_by_pa_mostactivehr$predictor_pa_intensity), error = FALSE)
 ```
 
-
 ### The effects of sleep duration on physical activity
 
 We estimated the effect of sleep duration on physical activity by most active hour.
@@ -1102,7 +1093,6 @@ We present the results in Table \@ref(tab:sleep-outcomes-by-ethnicity) and Figur
 ```{r sleep-by-intensity-fig-by-ethnicity, fig.cap = "Sleep metrics on Physical activity intensity moderated by ethnicity"}
 knitr::include_graphics(here::here(purdy_pictures_by_ethnicity$predictor_pa_intensity), error = FALSE)
 ```
-
 
 ### The effects of sleep duration on physical activity
 

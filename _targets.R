@@ -68,7 +68,7 @@ list(
   ),
   tar_target(
     data_imp,
-    make_data_imp(data_clean, n_imps = 3, adult_ref = bmi_z_ref), # TODO: make 50 before final run
+    make_data_imp(data_clean, n_imps = 50, adult_ref = bmi_z_ref),
     deployment = "main"
   ),
   tar_target(

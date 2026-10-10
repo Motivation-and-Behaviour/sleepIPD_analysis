@@ -190,7 +190,7 @@ in the supplementary materials.
 We assumed missing covariate and moderator data to be missing at random
 or completely at random and imputed these missing values using multiple
 imputations by chained equations with the *mice* package in R \[42\] to
-provide 3 imputed datasets. Specifically, we used multilevel predictive
+provide 50 imputed datasets. Specifically, we used multilevel predictive
 mean matching imputation clustered by participants. We used Rubin’s rule
 to pool the results from analyses conducted using each imputed dataset
 into one single set of results. We examined 95% confidence intervals for
@@ -293,14 +293,13 @@ messages to public health Organizations and governing bodies.
 The aggregated dataset describes 220,760 observations of daily physical
 activity and sleep from 28,823 unique participants. Of these, 71,546
 days were excluded as they had insufficient wear time, which also
-resulted in the exclusion of 4,214 participants.
-<!-- NEW SENTENCE, REVIEW  --> A further 345 participants (465 days)
-were excluded for having fewer than 4 days of valid wear time, leaving
-24,264 participants and 148,749 person-days. Table
-@ref(tab:demo-participants) shows demographic information for the
-included participants. The majority of participants came from Europe,
-Oceania, and South America, with limited data from other regions. There
-was a near-even split by sex (50.4% female), but age skewed towards both
+resulted in the exclusion of 4,214 participants. A further 345
+participants (465 days) were excluded for having fewer than 4 days of
+valid wear time, leaving 24,264 participants and 148,749 person-days.
+Table @ref(tab:demo-participants) shows demographic information for the
+included participants. Most participants came from Europe, Oceania, and
+South America, with limited data from other regions. There was a
+near-even split by sex (50.4% female), but age skewed towards both
 younger children (2-11 years, 44.9%) and older adults (66+ years,
 25.1%).
 
@@ -308,7 +307,7 @@ Valid observations were not uniform across the days of the week
 (*χ*<sub>(6)</sub><sup>2</sup> = 310.72, p = &lt; .001). Weekends were
 over-represented (Saturday: z = 6.08; Sunday: z = 11.62), while
 Wednesdays (z = -9.91) and Thursdays (z = -8.85) were under-represented.
-A table of study characteristics can be found in supplementary
+A table of study characteristics can be found in the supplementary
 materials.
 
 <table>
@@ -832,19 +831,19 @@ total but not in any age band.
 
  
 
-## The effects of physical activity volume on sleep
+## The association between physical activity volume and sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using
-mixed-effects models. The effect of physical activity volume on sleep by
-age are presented in Table @ref(tab:sleep-outcomes) and Figure
-@ref(fig:sleep-by-volume-fig). Higher physical activity volume was
-associated with longer sleep duration, higher sleep efficiency, earlier
-sleep onset, and more regular sleep. While we observed statistically
-significant curvilinear relationships, these did not appear to
-meaningfully change the effect. The relationship between physical
-activity volume and sleep duration, efficiency, and onset was consistent
-across the age groups, with some negligible evidence that the
-relationship with sleep regularity grew stronger with age.
+We estimated the association between physical activity and sleep (RQ1)
+using mixed-effects models. These associations by age are presented in
+Table @ref(tab:sleep-outcomes) and Figure @ref(fig:sleep-by-volume-fig).
+Higher physical activity volume was associated with longer sleep
+duration, higher sleep efficiency, earlier sleep onset, and more regular
+sleep. Although we observed statistically significant curvilinear
+relationships, these did not appear to meaningfully change the
+associations. The relationship between physical activity volume and
+sleep duration, efficiency, and onset was consistent across the age
+groups, with some negligible evidence that the relationship with sleep
+regularity grew stronger with age.
 
 <table>
 <caption>(#tab:sleep-outcomes) Physical activity predicting sleep
@@ -879,34 +878,34 @@ class="math inline"><em>β</em></span> [95% CI]</th>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
 <td style="text-align: left;">0.08 [-0.09, 0.25]</td>
-<td style="text-align: left;">0.08</td>
-<td style="text-align: left;">0.95</td>
-<td style="text-align: left;">.342</td>
+<td style="text-align: left;">0.09</td>
+<td style="text-align: left;">0.91</td>
+<td style="text-align: left;">.364</td>
 <td style="text-align: left;">0.08 [-0.08, 0.24]</td>
 <td style="text-align: left;">0.08</td>
 <td style="text-align: left;">1.00</td>
-<td style="text-align: left;">.315</td>
+<td style="text-align: left;">.320</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
 <td style="text-align: left;">0.10 [0.09, 0.12]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">13.00</td>
+<td style="text-align: left;">11.23</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.09 [0.06, 0.12]</td>
+<td style="text-align: left;">0.09 [0.06, 0.11]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">7.59</td>
+<td style="text-align: left;">7.80</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.34</td>
+<td style="text-align: left;">-3.32</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.42</td>
+<td style="text-align: left;">-3.45</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -914,23 +913,23 @@ class="math inline"><em>β</em></span> [95% CI]</th>
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.64</td>
+<td style="text-align: left;">-3.43</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.01 [0.00, 0.02]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">1.59</td>
-<td style="text-align: left;">.130</td>
+<td style="text-align: left;">1.86</td>
+<td style="text-align: left;">.063</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity <span
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-4.25</td>
+<td style="text-align: left;">-4.00</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-5.32</td>
+<td style="text-align: left;">-5.09</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -938,12 +937,12 @@ class="math inline">×</span> Age</td>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.57</td>
-<td style="text-align: left;">.135</td>
+<td style="text-align: left;">-0.85</td>
+<td style="text-align: left;">.397</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.41</td>
-<td style="text-align: left;">.003</td>
+<td style="text-align: left;">-3.73</td>
+<td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep efficiency (z)</td>
@@ -958,47 +957,47 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.16 [0.00, 0.32]</td>
+<td style="text-align: left;">0.16 [0.00, 0.33]</td>
 <td style="text-align: left;">0.08</td>
-<td style="text-align: left;">2.00</td>
-<td style="text-align: left;">.046</td>
+<td style="text-align: left;">1.98</td>
+<td style="text-align: left;">.048</td>
 <td style="text-align: left;">0.19 [0.01, 0.36]</td>
 <td style="text-align: left;">0.09</td>
 <td style="text-align: left;">2.11</td>
-<td style="text-align: left;">.035</td>
+<td style="text-align: left;">.034</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">0.11 [0.09, 0.13]</td>
+<td style="text-align: left;">0.11 [0.10, 0.13]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">13.39</td>
+<td style="text-align: left;">14.52</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.07 [0.05, 0.10]</td>
+<td style="text-align: left;">0.07 [0.05, 0.09]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">7.52</td>
+<td style="text-align: left;">7.98</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-0.61</td>
-<td style="text-align: left;">.545</td>
+<td style="text-align: left;">-0.56</td>
+<td style="text-align: left;">.573</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.53</td>
-<td style="text-align: left;">.127</td>
+<td style="text-align: left;">-1.49</td>
+<td style="text-align: left;">.136</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.02 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-12.56</td>
+<td style="text-align: left;">-12.10</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.04 [-0.05, -0.03]</td>
-<td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-7.47</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">-7.59</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1006,11 +1005,11 @@ class="math inline"><sup>2</sup></span></td>
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-11.89</td>
+<td style="text-align: left;">-12.11</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-6.78</td>
+<td style="text-align: left;">-7.12</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1018,11 +1017,11 @@ class="math inline">×</span> Age</td>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">2.59</td>
-<td style="text-align: left;">.010</td>
+<td style="text-align: left;">2.41</td>
+<td style="text-align: left;">.016</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">6.40</td>
+<td style="text-align: left;">6.18</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1040,8 +1039,8 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">   (Intercept)</td>
 <td style="text-align: left;">0.10 [-0.18, 0.37]</td>
 <td style="text-align: left;">0.14</td>
-<td style="text-align: left;">0.71</td>
-<td style="text-align: left;">.479</td>
+<td style="text-align: left;">0.70</td>
+<td style="text-align: left;">.485</td>
 <td style="text-align: left;">0.10 [-0.17, 0.36]</td>
 <td style="text-align: left;">0.13</td>
 <td style="text-align: left;">0.72</td>
@@ -1049,36 +1048,36 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">-0.02 [-0.03, -0.01]</td>
+<td style="text-align: left;">-0.02 [-0.04, -0.01]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-4.22</td>
+<td style="text-align: left;">-3.95</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.06 [-0.08, -0.05]</td>
+<td style="text-align: left;">-0.06 [-0.07, -0.05]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-8.98</td>
+<td style="text-align: left;">-9.61</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.61</td>
-<td style="text-align: left;">.111</td>
+<td style="text-align: left;">-1.65</td>
+<td style="text-align: left;">.099</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-0.69</td>
-<td style="text-align: left;">.493</td>
+<td style="text-align: left;">-0.74</td>
+<td style="text-align: left;">.457</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-7.33</td>
+<td style="text-align: left;">-6.43</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.03 [-0.04, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-7.50</td>
+<td style="text-align: left;">-8.22</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1086,23 +1085,23 @@ class="math inline"><sup>2</sup></span></td>
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-15.31</td>
+<td style="text-align: left;">-14.02</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">1.85</td>
-<td style="text-align: left;">.068</td>
+<td style="text-align: left;">1.84</td>
+<td style="text-align: left;">.066</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">9.23</td>
+<td style="text-align: left;">8.11</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">10.73</td>
+<td style="text-align: left;">10.79</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1118,47 +1117,47 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.15 [-0.01, 0.32]</td>
-<td style="text-align: left;">0.08</td>
-<td style="text-align: left;">1.95</td>
-<td style="text-align: left;">.067</td>
-<td style="text-align: left;">0.31 [0.13, 0.49]</td>
+<td style="text-align: left;">0.12 [-0.02, 0.27]</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">1.67</td>
+<td style="text-align: left;">.096</td>
+<td style="text-align: left;">0.28 [0.11, 0.45]</td>
 <td style="text-align: left;">0.09</td>
-<td style="text-align: left;">3.40</td>
-<td style="text-align: left;">.001</td>
+<td style="text-align: left;">3.16</td>
+<td style="text-align: left;">.002</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">0.25 [0.21, 0.29]</td>
+<td style="text-align: left;">0.25 [0.23, 0.26]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">17.91</td>
+<td style="text-align: left;">28.89</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.29 [0.26, 0.32]</td>
+<td style="text-align: left;">0.29 [0.27, 0.31]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">22.24</td>
+<td style="text-align: left;">28.95</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">0.00 [-0.01, 0.01]</td>
+<td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-0.14</td>
-<td style="text-align: left;">.900</td>
+<td style="text-align: left;">0.45</td>
+<td style="text-align: left;">.656</td>
 <td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.62</td>
-<td style="text-align: left;">.036</td>
+<td style="text-align: left;">-3.57</td>
+<td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.02 [-0.03, -0.01]</td>
+<td style="text-align: left;">-0.02 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-6.60</td>
-<td style="text-align: left;">.002</td>
+<td style="text-align: left;">-8.56</td>
+<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.11 [-0.12, -0.10]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-19.48</td>
+<td style="text-align: left;">-17.67</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1166,11 +1165,11 @@ class="math inline"><sup>2</sup></span></td>
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.49</td>
-<td style="text-align: left;">.211</td>
+<td style="text-align: left;">-1.33</td>
+<td style="text-align: left;">.186</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-19.73</td>
+<td style="text-align: left;">-20.95</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1178,68 +1177,69 @@ class="math inline">×</span> Age</td>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-15.25</td>
+<td style="text-align: left;">-8.31</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">9.81</td>
+<td style="text-align: left;">8.92</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 </tbody>
 </table>
 
 *Note.* Adjusted for SES, sex, and BMI z-score. Outcomes variables are
-listed in the column headers.
+listed in the column headers. Standardized (z-scores) are indicated with
+‘(z)’.
 
  
 
-<img src="../Figures/main/Sleep on scale_pa_volume by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age." width="110%" />
+<img src="../Figures/main/Sleep on scale_pa_volume by Age_nolog.jpg" alt="Standardized sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero. These plots demonstrate exact turning points where the effects of PA volume change by age." width="110%" />
 <p class="caption">
-Sleep metrics predicted by physical activity volume. The panels on the
-left show the curvilinear relationship between PA volume and each of the
-sleep outcomes at the ages indicated in each column. The panels on the
-right show the same relationships but by age continuously. The white
-band indicates predictions which were not significantly different from
-zero. These plots demonstrate exact turning points where the effects of
-PA volume change by age.
+Standardized sleep metrics predicted by physical activity volume. The
+panels on the left show the curvilinear relationship between PA volume
+and each of the sleep outcomes at the ages indicated in each column. The
+panels on the right show the same relationships but by age continuously.
+The white band indicates predictions which were not significantly
+different from zero. These plots demonstrate exact turning points where
+the effects of PA volume change by age.
 </p>
 
-## The effects of physical activity intensity on sleep
+## The association between physical activity intensity and sleep
 
-We estimated how physical activity intensity affects sleep across
-different age groups and present the results controlling for sex, SES,
-and BMI, in Table @ref(tab:sleep-outcomes) and Figure
+We estimated how physical activity intensity is associated with sleep
+across different age groups and present the results controlling for sex,
+SES, and BMI, in Table @ref(tab:sleep-outcomes) and Figure
 @ref(fig:sleep-by-intensity-fig). We observed weak associations between
 physical activity intensity and sleep duration, sleep efficiency, and
 sleep onset, with a stronger relationship observed with sleep
 regularity. As with physical activity volume, we observed statistically
 significant curvilinear relationships, but these were only meaningful
-for the impact of physical activity intensity on sleep regularity, in
-which very low levels of intensity were strongly associated with poor
-sleep regularity and the benefits of increasing intensity diminished
-past one standard deviation above the mean. While age statistically
-significantly modified the relationship between physical activity
-intensity and sleep duration, efficiency, and regularity, the effect was
-negligible.
+for the association between physical activity intensity and sleep
+regularity, in which very low levels of intensity were strongly
+associated with poor sleep regularity and the benefits of increasing
+intensity diminished past one standard deviation above the mean. While
+age modified the relationship between physical activity intensity and
+sleep duration, efficiency, and regularity, the effect was negligible.
 
-<img src="../Figures/main/Sleep on scale_pa_intensity by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/Sleep on scale_pa_intensity by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
 Sleep metrics predicted by physical activity intensity. The panels on
-the left show the curvilinear relationship between PA intensity and each
-of the sleep outcomes at the ages indicated in each column. The panels
-on the right show the same relationships but by age continuously. The
-white band indicates predictions which were not significantly different
-from zero.
+the left show the curvilinear relationship between PA intensity and
+sleep outcomes at the ages indicated in each column. The panels on the
+right show the same relationships but by age continuously. The white
+band indicates predictions which were not significantly different from
+zero.
 </p>
 
-## The effects of sleep duration on physical activity
+## The association between of sleep duration and physical activity
 
-We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table
-@ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-duration-fig). As
-age increases, both physical activity volume and intensity decrease. We
-found no evidence for an association between average sleep duration and
-physical activity volume or intensity.
+We estimated the association between sleep duration and physical
+activity by age. Results, controlling for sex, SES, and BMI are
+presented in Table @ref(tab:pa-outcomes) and Figure
+@ref(fig:PA-by-sleep-duration-fig). At higher ages, both physical
+activity volume and intensity are lower than for lower ages. We found no
+evidence for an association between average sleep duration and physical
+activity volume or intensity.
 
 <table>
 <caption>(#tab:pa-outcomes) Sleep predicting physical activity
@@ -1273,9 +1273,9 @@ class="math inline"><em>β</em></span> [95% CI]</th>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">1.18 [0.83, 1.52]</td>
+<td style="text-align: left;">1.17 [0.82, 1.52]</td>
 <td style="text-align: left;">0.18</td>
-<td style="text-align: left;">6.63</td>
+<td style="text-align: left;">6.62</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">1.01 [0.88, 1.14]</td>
 <td style="text-align: left;">0.07</td>
@@ -1286,34 +1286,34 @@ class="math inline"><em>β</em></span> [95% CI]</th>
 <td style="text-align: left;">   Sleep duration</td>
 <td style="text-align: left;">0.05 [0.04, 0.06]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">10.43</td>
+<td style="text-align: left;">11.10</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.04 [0.03, 0.05]</td>
+<td style="text-align: left;">0.04 [0.03, 0.04]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">8.38</td>
+<td style="text-align: left;">8.13</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-38.85</td>
+<td style="text-align: left;">-38.57</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.03]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-48.18</td>
+<td style="text-align: left;">-47.70</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep duration<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.03 [-0.03, -0.02]</td>
+<td style="text-align: left;">-0.03 [-0.04, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-9.32</td>
+<td style="text-align: left;">-9.73</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-5.72</td>
+<td style="text-align: left;">-6.35</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1321,24 +1321,24 @@ class="math inline"><sup>2</sup></span></td>
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-12.00</td>
+<td style="text-align: left;">-12.36</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-3.04</td>
-<td style="text-align: left;">.002</td>
+<td style="text-align: left;">-2.87</td>
+<td style="text-align: left;">.004</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep duration<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">2.60</td>
-<td style="text-align: left;">.010</td>
+<td style="text-align: left;">2.75</td>
+<td style="text-align: left;">.006</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">2.33</td>
-<td style="text-align: left;">.022</td>
+<td style="text-align: left;">2.62</td>
+<td style="text-align: left;">.009</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep efficiency (z)</td>
@@ -1353,35 +1353,35 @@ Sleep duration<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">1.16 [0.82, 1.51]</td>
+<td style="text-align: left;">1.16 [0.81, 1.50]</td>
 <td style="text-align: left;">0.18</td>
-<td style="text-align: left;">6.59</td>
+<td style="text-align: left;">6.58</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">1.00 [0.87, 1.13]</td>
 <td style="text-align: left;">0.07</td>
-<td style="text-align: left;">15.02</td>
+<td style="text-align: left;">15.01</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep efficiency</td>
 <td style="text-align: left;">0.00 [-0.01, 0.01]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-0.13</td>
-<td style="text-align: left;">.900</td>
+<td style="text-align: left;">0.02</td>
+<td style="text-align: left;">.981</td>
 <td style="text-align: left;">0.01 [0.00, 0.02]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">2.33</td>
-<td style="text-align: left;">.023</td>
+<td style="text-align: left;">2.30</td>
+<td style="text-align: left;">.022</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-38.47</td>
+<td style="text-align: left;">-38.30</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.03]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-47.92</td>
+<td style="text-align: left;">-47.48</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1389,11 +1389,11 @@ Sleep duration<span class="math inline"><sup>2</sup></span></td>
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-6.73</td>
+<td style="text-align: left;">-6.26</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
+<td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-4.49</td>
+<td style="text-align: left;">-4.59</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1401,24 +1401,24 @@ class="math inline"><sup>2</sup></span></td>
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">2.19</td>
-<td style="text-align: left;">.029</td>
+<td style="text-align: left;">2.05</td>
+<td style="text-align: left;">.041</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.59</td>
-<td style="text-align: left;">.114</td>
+<td style="text-align: left;">-1.52</td>
+<td style="text-align: left;">.128</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep efficiency<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">2.77</td>
-<td style="text-align: left;">.006</td>
+<td style="text-align: left;">2.66</td>
+<td style="text-align: left;">.008</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">1.03</td>
-<td style="text-align: left;">.304</td>
+<td style="text-align: left;">0.80</td>
+<td style="text-align: left;">.423</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep onset (z)</td>
@@ -1435,33 +1435,33 @@ Sleep efficiency<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">   (Intercept)</td>
 <td style="text-align: left;">1.18 [0.82, 1.54]</td>
 <td style="text-align: left;">0.18</td>
-<td style="text-align: left;">6.42</td>
+<td style="text-align: left;">6.40</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">1.00 [0.86, 1.13]</td>
 <td style="text-align: left;">0.07</td>
-<td style="text-align: left;">14.47</td>
+<td style="text-align: left;">14.48</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep onset</td>
 <td style="text-align: left;">-0.14 [-0.15, -0.12]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-20.95</td>
+<td style="text-align: left;">-20.83</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.07 [-0.08, -0.06]</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;">-11.53</td>
+<td style="text-align: left;">-11.37</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-39.55</td>
+<td style="text-align: left;">-39.21</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.03]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-48.40</td>
+<td style="text-align: left;">-47.94</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1469,23 +1469,23 @@ Sleep efficiency<span class="math inline"><sup>2</sup></span></td>
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.03 [-0.04, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-7.92</td>
+<td style="text-align: left;">-8.21</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [-0.01, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-0.67</td>
-<td style="text-align: left;">.506</td>
+<td style="text-align: left;">-0.84</td>
+<td style="text-align: left;">.398</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep onset <span
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">13.34</td>
+<td style="text-align: left;">13.43</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">9.48</td>
+<td style="text-align: left;">9.46</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1493,12 +1493,12 @@ class="math inline">×</span> Age</td>
 Sleep onset<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">4.11</td>
+<td style="text-align: left;">4.31</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">0.03</td>
-<td style="text-align: left;">.975</td>
+<td style="text-align: left;">0.05</td>
+<td style="text-align: left;">.963</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep regularity (z)</td>
@@ -1513,59 +1513,59 @@ Sleep onset<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">1.11 [0.77, 1.44]</td>
+<td style="text-align: left;">1.10 [0.77, 1.44]</td>
 <td style="text-align: left;">0.17</td>
 <td style="text-align: left;">6.50</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.97 [0.85, 1.09]</td>
 <td style="text-align: left;">0.06</td>
-<td style="text-align: left;">15.33</td>
+<td style="text-align: left;">15.35</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep regularity</td>
 <td style="text-align: left;">0.16 [0.15, 0.17]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">36.63</td>
+<td style="text-align: left;">38.12</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.12 [0.11, 0.13]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">29.40</td>
+<td style="text-align: left;">28.26</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
 <td style="text-align: left;">-0.02 [-0.03, -0.02]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-36.44</td>
+<td style="text-align: left;">-37.25</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.03 [-0.03, -0.03]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-47.16</td>
+<td style="text-align: left;">-46.89</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep regularity<span
 class="math inline"><sup>2</sup></span></td>
+<td style="text-align: left;">0.01 [0.00, 0.01]</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">2.12</td>
+<td style="text-align: left;">.034</td>
 <td style="text-align: left;">0.00 [0.00, 0.01]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">1.86</td>
-<td style="text-align: left;">.070</td>
-<td style="text-align: left;">0.00 [0.00, 0.01]</td>
-<td style="text-align: left;">0.00</td>
-<td style="text-align: left;">0.44</td>
-<td style="text-align: left;">.659</td>
+<td style="text-align: left;">0.62</td>
+<td style="text-align: left;">.536</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep regularity <span
 class="math inline">×</span> Age</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-19.43</td>
+<td style="text-align: left;">-19.27</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-17.15</td>
+<td style="text-align: left;">-18.06</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1573,12 +1573,12 @@ class="math inline">×</span> Age</td>
 Sleep regularity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-1.04</td>
-<td style="text-align: left;">.316</td>
+<td style="text-align: left;">-1.23</td>
+<td style="text-align: left;">.218</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;">-0.16</td>
-<td style="text-align: left;">.871</td>
+<td style="text-align: left;">-0.85</td>
+<td style="text-align: left;">.396</td>
 </tr>
 </tbody>
 </table>
@@ -1588,24 +1588,25 @@ listed in the row headers.
 
  
 
-<img src="../Figures/main/PA on scale_sleep_duration_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep duration. The panels on the left show the curvilinear relationship between sleep duration and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
+<img src="../Figures/main/PA on scale_sleep_duration_lag by Age_nolog.jpg" alt="Physical activity is predicted by the duration of sleep the previous night. The panels on the left show the curvilinear relationship between sleep duration and the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
-Physical activity predicted by previous night sleep duration. The panels
-on the left show the curvilinear relationship between sleep duration and
-each of the physical activity outcomes at the ages indicated in each
-column. The panels on the right show the same relationships but by age
-continuously. The white band indicates predictions which were not
+Physical activity is predicted by the duration of sleep the previous
+night. The panels on the left show the curvilinear relationship between
+sleep duration and the physical activity outcomes at the ages indicated
+in each column. The panels on the right show the same relationships but
+by age continuously. The white band indicates predictions which were not
 significantly different from zero.
 </p>
 
-## The effects of sleep efficiency on physical activity
+## The association between sleep efficiency and physical activity
 
-We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table
-@ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-efficiency-fig).
-There was a negligible relationship between sleep efficiency and
-physical activity volume and a weak linear association between sleep
-efficiency and more intense physical activity.
+We estimated the association between sleep efficiency and physical
+activity by age. Results, controlling for sex, SES, and BMI are
+presented in Table @ref(tab:pa-outcomes) and Figure
+@ref(fig:PA-by-sleep-efficiency-fig). There was a negligible positive
+association between sleep efficiency and physical activity volume and a
+weak linear association between sleep efficiency and more intense
+physical activity.
 
 <img src="../Figures/main/PA on scale_sleep_efficiency_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1617,13 +1618,14 @@ relationships but by age continuously. The white band indicates
 predictions which were not significantly different from zero.
 </p>
 
-## The effects of sleep onset on physical activity
+## The association between sleep onset and physical activity
 
-We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table
-@ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-onset-fig). There
-were weak curvilinear relationships where average sleep onset was linked
-to the highest levels of physical activity volume, but not intensity.
+We estimated the association between sleep onset and physical activity
+by age. Results, controlling for sex, SES, and BMI are presented in
+Table @ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-onset-fig).
+There were weak curvilinear relationships where average sleep onset was
+linked to the highest levels of physical activity volume but not
+intensity.
 
 <img src="../Figures/main/PA on scale_sleep_onset_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1635,15 +1637,15 @@ continuously. The white band indicates predictions which were not
 significantly different from zero.
 </p>
 
-## The effects of sleep regularity on physical activity
+## The association between sleep regularity and physical activity
 
-We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table
-@ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-regularity-fig).
-There was a positive linear relationship between sleep regularity and
-both physical activity volume and intensity. These relationships were
-slightly attenuated with age, such that for older adults the effect was
-negligible.
+We estimated the association between sleep regularity and physical
+activity by age. Results, controlling for sex, SES, and BMI are
+presented in Table @ref(tab:pa-outcomes) and Figure
+@ref(fig:PA-by-sleep-regularity-fig). There was a positive linear
+relationship between sleep regularity and both physical activity volume
+and intensity. These relationships were slightly attenuated with age,
+such that for older adults the effect size was negligible.
 
 <img src="../Figures/main/PA on scale_sleep_regularity_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1657,28 +1659,30 @@ predictions which were not significantly different from zero.
 
 # Discussion
 
-In this study, we collated and harmonised device-measured physical
-activity and sleep data from 20 studies around the world, covering
-participants across the lifespan. We found that both the volume and
-intensity of physical activity was associated with longer sleep
+In this study, we collated and harmonised accelerometer-assessed
+physical activity and sleep data from 20 studies around the world,
+covering participants across the lifespan. We found that both the volume
+and intensity of physical activity were associated with longer sleep
 duration, higher sleep efficiency, earlier sleep onset, and more regular
 sleep. These relationships were the strongest for sleep regularity,
-although the the relationship between physical activity intensity
-weakened with age.
+although the relationship with physical activity intensity weakened with
+age. Although robust, these associations were small: changes of 1 SD in
+the physical activity metrics were associated with an average of &lt;–
+TODO –&gt; SD in the sleep metrics.
 
-When examining the reverse direction, we observed those who fell asleep
-earlier and at a more regular time engaged in more total physical
+When examining the reverse direction, we observed that those who fell
+asleep earlier or at a more regular time engaged in more total physical
 activity, with an additional negligible benefit for those who slept more
 efficiently. Similarly, those who slept at a more regular time and with
-more efficiency engaged in more intense physical activity. These
-findings were largely robust to the decisions made during analysis (see
-supplementary materials for all analyses).
+more efficiency engaged in more intense physical activity. Our
+sensitivity analyses suggest that these findings were largely robust to
+the decisions made during analysis.
 
 Our findings broadly align with meta-analyses of experimental research,
 although the strengths of the relationships we observed were much weaker
-\[10\]. For example, \[10\] found small (0.22 &lt; *d* &lt; 0.30) but
-significant relationships between physical activity and sleep duration
-and efficiency in adults using experimental studies for both acute and
+\[10\]. For example, \[10\] found small (0.22 − 0.30) but significant
+relationships between physical activity and sleep duration and
+efficiency in adults using experimental studies for both acute and
 regular physical activity. It is difficult to directly compare these
 effect sizes, however, as the experimental studies directly manipulated
 physical activity, whereas our study examined the relationship between
@@ -1691,9 +1695,10 @@ mechanisms, are not ecologically valid and may not reflect the
 relationship between physical activity and sleep in the real world.
 Laboratory studies also tend to use more sensitive measures of sleep and
 physical activity, which may generate less statistical noise and make
-relationships easier to detect. It could also be that duration of sleep
-is set more by parameters external to the individual, such as work
-schedules or parenting duties, than by individual health behaviours.
+relationships easier to detect. It is important to note that sleep
+duration will sometimes be influenced by parameters external to the
+individual, such as work or school schedules or parenting duties, rather
+than by individual health behaviours.
 
 We found the most evidence for relationships between sleep regularity
 with physical activity volume and intensity. This relationship appeared
@@ -1707,76 +1712,87 @@ than sleep duration \[44\], and so the finding that physical activity is
 associated with sleep regularity may be particularly important.
 
 Contrary to expectations, we found little evidence to suggest that the
-associations between physical activity and sleep differed by age. While
-several of the analyses suggested statistically significant interactions
-between age and physical activity, these were too small to be clinically
-meaningful. This suggests that the benefits of physical activity and
-sleep are consistent across the lifespan, which is inconsistent with
-previous meta-analyses conducted on different ages. More specifically,
-meta-analyses in adult populations have generally found associations
-\[10\] while those conducted in children and adolescents are less clear
-\[9,11,12\]. This would seem to suggest that the differences in findings
-across these meta-analyses are due to differences beyond just the age of
-the populations, such as the type of study designs used or the measures
-of physical activity and sleep. It also demonstrates the importance of
-using individual participant data meta-analyses to examine these types
-of questions.
+associations of physical activity with next day sleep differed by age.
+While several of the analyses suggested statistically significant
+interactions between age and physical activity, these were too small to
+be clinically meaningful. This suggests that the interrelationship
+between physical activity and sleep are consistent across the lifespan,
+which is inconsistent with previous meta-analyses conducted on different
+ages. More specifically, meta-analyses in adult populations have
+generally found associations \[10\] while those conducted in children
+and adolescents are less clear \[9,11,12\]. This would seem to suggest
+that the differences in findings across these meta-analyses are due to
+differences beyond just the age of the populations, such as the type of
+study designs used or the measures of physical activity and sleep. It
+also demonstrates the importance of using individual participant data
+meta-analyses to examine these types of questions.
 
 These findings have implications for public health recommendations. Our
-results support encouraging physical activity for maintaining regular
-sleep patterns across the lifespan. Sleep health may contribute to
-overall better health outcomes \[2,3\], and so promoting physical
-activity may be a useful strategy for improving population health.
-Public health messages should, therefore, emphasise the role of physical
-activity in promoting stable sleep schedules rather than framing
-physical activity as a universal solution for improving sleep. We note,
-however, that we did not examine the these relationships in individuals
-with sleep disorders or other health conditions. Physical activity
-interventions may still be a useful treatment for these conditions.
-Promoting more regular sleep may also be a useful strategy for
-increasing physical activity, although our results suggest a limited
-benefit from targeting other aspects of sleep quality.
+results support promotioning physical activity as a strategy for
+maintaining regular sleep patterns across the lifespan. Given the
+well-established links between sleep and overall health \[2,3\],
+incorporating physical activity into public health messaging may have
+downstream benefits for population health. However, our findings suggest
+that physical activity is not a universal solution for improving all
+aspects of sleep. Public health messages should, therefore, emphasise
+the role of physical activity in promoting consistent sleep schedules
+rather than framing physical activity as a universal solution for
+improving sleep. Additionally, we did not examine these relationships
+specifically in individuals with sleep disorders or other health
+conditions, where the effects of physical activity may differ. Future
+research should explore whether targeting sleep regularity through
+physical activity interventions can provide meaningful health benefits
+beyond sleep itself.
 
-Our study has several strengths, including the use of device-based
-measures, which reduce the bias associated with self-reported sleep and
-activity data, and the harmonisation of individual data from multiple
-studies, conducted in geographically diverse regions and among multiple
-age groups, allowing for robust and generalisable findings. We also used
-modern methods for processing and estimating physical activity,
-including using the full 24 hours of data, and avoiding the use of
-intensity cut-points. However, the study is not without limitations.
-Despite our efforts to harmonise data, variability in accelerometer wear
-locations and slight differences in data collection protocols across
-studies may have introduced measurement inconsistencies. We also chose
-to maximise the data available for analysis, at the expense of some
-precision in the estimates. Specifically, we included participants with
-four or more nights of valid sleep, while some recommend at least seven
-nights to estimate metrics such as sleep regularity \[45\]. However, the
-processing method we used specifically allows for comparisons to
-day-pairs and this methodology has been used by others \[e.g., 44\].
-Additionally, although we controlled for several potential confounders,
-there may still be unmeasured factors affecting the observed
-associations. <!-- NEW SENTENCES, REVIEW  --> Our imputation model
-included study, but not the remaining moderators or their interactions
-with physical activity and sleep. It is therefore uncongenial with the
-analysis models, and moderator effects may be attenuated towards the
-null as a result. Finally, while our study captured data from across the
-lifespan, the limited representation of certain age groups, especially
-adolescents and young adults, restricts the generalisability of our
-conclusions to these populations. The limited research on those aged
-18-35 is particularly concerning given the high prevalence of poor sleep
-in this age group \[7\].
+Our study has several strengths, including the use of
+accelerometer-assessed measures, which reduce the bias associated with
+self-reported sleep and activity data, and the harmonisation of
+individual data from multiple studies, conducted in geographically
+diverse regions and among multiple age groups, allowing for robust and
+generalisable findings. We also used modern methods for processing and
+estimating physical activity, including using the full 24 hours of data,
+and avoiding the use of intensity cut-points. However, the study is not
+without limitations. Despite our efforts to harmonise data, variability
+in accelerometer wear locations and slight differences in data
+collection protocols across studies may have introduced measurement
+inconsistencies. We also chose to maximise the data available for
+analysis, at the expense of some precision in the estimates.
+Specifically, we included participants with four or more nights of valid
+sleep, while some recommend at least seven nights to estimate metrics
+such as sleep regularity \[45\]. However, the processing method we used
+specifically allows for comparisons to day-pairs and this methodology
+has been used by others \[e.g., 44\]. Additionally, although we
+controlled for several potential confounders, there may still be
+unmeasured factors affecting the observed associations. Finally, while
+our study captured data from across the lifespan, the limited
+representation of certain age groups, especially adolescents and young
+adults, restricts the generalisability of our conclusions to these
+populations. The limited research on those aged 18-35 is particularly
+concerning given the high prevalence of poor sleep in this age group
+\[7\].
 
 # Conclusion
 
-Our findings contribute to the growing body of literature that
-highlights the complex relationship between physical activity and sleep.
-While physical activity appears to benefit sleep regularity, its effects
-on other sleep metrics are less clear, particularly when considering age
-differences. Future research should aim to explore mechanisms underlying
-these associations and identify specific intervention strategies that
-can effectively enhance both sleep and physical activity behaviours for
-diverse populations.
+Our study provides new insights into the relationship between physical
+activity and sleep across the lifespan using a large, globally diverse
+dataset with device-based measurements. We found that physical activity
+was most consistently associated with sleep regularity, with weaker and
+less consistent associations observed for sleep duration, efficiency,
+and onset. Additionally, our analyses revealed beneficial associations,
+where higher physical activity levels were associated with greater sleep
+regularity, and more regular sleep patterns predicted higher physical
+activity the following day. However, this bidirectional association was
+attenuated in older adults, suggesting that the interplay between sleep
+and physical activity may change with age. Findings suggest that public
+health efforts to promote physical activity may be particularly valuable
+for improving sleep consistency rather than sleep duration or
+efficiency. While physical activity is unlikely to be a universal
+solution for sleep improvement, encouraging regular movement could
+support stable sleep patterns, which are increasingly recognized as a
+key determinant of overall health. Future research should explore how
+targeted interventions—particularly those addressing sleep
+regularity—may enhance both sleep and physical activity behaviours
+across different age groups and populations.
 
 # References
 
