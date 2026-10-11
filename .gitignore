@@ -58,3 +58,5 @@ googlecloudstorager-auth-key.json
 
 /.quarto/
 **/*.quarto_ipynb
+literature/*
+other_docs/*
