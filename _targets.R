@@ -63,6 +63,13 @@ list(
   tar_target(region_lookup, make_region_lookup()),
   tar_target(demog_table, make_demog_table(participant_summary)),
   tar_target(
+    study_references_file,
+    "data/study_references.csv",
+    format = "file"
+  ),
+  tar_target(study_table, make_study_table(data_clean, study_references_file)),
+  tar_target(ses_table, make_ses_table(refactors)),
+  tar_target(
     bmi_z_ref,
     bmi_z_adult_ref(data_clean$bmi, data_clean$age, data_clean$participant_id)
   ),
@@ -81,6 +88,7 @@ list(
   ##                          MODELLING                          ##
   #################################################################
   tar_target(model_definitions, models_df),
+  tar_target(age_centre, compute_age_centre(data_clean)),
   tar_map(
     values = models_df,
     names = model_name,
@@ -94,7 +102,8 @@ list(
         sleep_vars = sleep_vars,
         control_vars = cont_vars,
         ranef = ranef,
-        min_wear_days = min_wear_days
+        min_wear_days = min_wear_days,
+        age_centre = age_centre
       )
     ),
     tar_target(model_tables, make_model_tables(model_list)),
@@ -129,7 +138,13 @@ list(
   # comes from the run rather than a hardcoded number (C26).
   tar_target(
     ms_info,
-    make_manuscript_info(data_clean, participant_summary, data_imp)
+    make_manuscript_info(
+      data_clean,
+      participant_summary,
+      data_imp,
+      model_list_by_age = model_list_by_age,
+      model_list_by_age_7days = model_list_by_age_7days
+    )
   ),
   tar_target(references, "doc/references.bib", format = "file"),
   tar_render(
@@ -152,6 +167,7 @@ list(
       model_list_by_age_fixedef,
       model_list_by_age_log,
       model_list_by_age_allwear,
+      model_list_by_age_7days,
       model_list_by_bmi,
       model_list_by_ses,
       model_list_by_weekday,

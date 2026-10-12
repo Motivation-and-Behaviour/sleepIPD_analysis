@@ -54,15 +54,20 @@ make_demog_table <- function(participant_summary) {
     tidyr::pivot_longer(-c(participant_id, age_cat)) |>
     data.table()
 
+  two_dp <- c("pa_intensity", "bmi_z")
+
   # For the numeric variables I calculate means and SDs
   participants_numeric <- participants_numeric[,
     {
-      m <- papaja::print_num(mean(value, na.rm = TRUE))
-      sd <- papaja::print_num(sd(value, na.rm = TRUE))
+      mean_raw <- mean(value, na.rm = TRUE)
+      sd_raw <- sd(value, na.rm = TRUE)
+      digits <- if (name %in% two_dp) 2 else 1
+      m <- papaja::print_num(mean_raw, digits = digits)
+      sd <- papaja::print_num(sd_raw, digits = digits)
       if (name == "sleep_onset") {
-        m <- convert_decimal_time(as.numeric(m))
+        m <- convert_decimal_time(mean_raw)
         # A standard deviation is a duration, not a time of day.
-        sd <- convert_decimal_time(as.numeric(sd), wrap = FALSE)
+        sd <- convert_decimal_time(sd_raw, wrap = FALSE)
       }
 
       .(out = glue::glue("{m} ({sd})"), variable = "Numeric variables")
@@ -95,7 +100,7 @@ make_demog_table <- function(participant_summary) {
       list(
         level = as.character(num$value),
         out = glue::glue(
-          "{format(num$Freq, big.mark = ',')} ({papaja::print_num(percent$Freq*100)}%)"
+          "{format(num$Freq, big.mark = ',')} ({papaja::print_num(percent$Freq*100, digits = 1)}%)"
         ),
         variable = "Categorical variables"
       )
@@ -124,9 +129,10 @@ make_demog_table <- function(participant_summary) {
   tab1$name <- dplyr::recode(tab1$name, !!!labelled)
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
   tab1$level <- stringr::str_to_title(tab1$level)
+  tab1$level <- gsub("Pa", "PA", tab1$level)
   tab1$level[tab1$level == "Bmi"] <- "BMI"
   tab1$level[tab1$level == "Bmi Z-Score"] <- "BMI z-score"
-  tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient"
+  tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient (unitless)"
   tab1$level[
     tab1$level == "PA Volume"
   ] <- "PA Volume (average acceleration in mg)"
@@ -135,7 +141,7 @@ make_demog_table <- function(participant_summary) {
   tab1$level[
     tab1$level == "Sleep Onset"
   ] <- "Sleep Onset (clock time; SD in h:mm)"
-  tab1$level <- gsub("Pa", "PA", tab1$level)
+  tab1$level[tab1$level == "Unclear"] <- "Other or unknown"
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
   tab1$name[tab1$variable == "Numeric variables"] <- "Numeric variables"

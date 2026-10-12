@@ -39,27 +39,57 @@ make_model_tables <- function(model_list) {
   sleep_vars <- vars$sleep_vars
   pa_vars <- vars$pa_vars
 
-  sleep_table <- list()
-
-  sleep_table$data <- lapply(sleep_vars, function(sleep) {
-    model1_name <- paste(
-      sleep,
-      "by",
-      pa_vars[[1]],
-      collapse = " "
-    )
-    model2_name <- paste(
-      sleep,
-      "by",
-      pa_vars[[2]],
-      collapse = " "
-    )
-
+  # Word drops apa_table() column spanners, so columns name their variable
+  pa_short <- gsub("^Physical activity", "PA", names(pa_vars))
+  table_columns <- c(
+    "Term",
+    paste(pa_short[1], "$\\beta$ [95\\% CI]"),
+    paste(pa_short[1], "$p$"),
+    paste(pa_short[2], "$\\beta$ [95\\% CI]"),
+    paste(pa_short[2], "$p$")
+  )
+  pair_tables <- function(model1_name, model2_name) {
     tab <- cbind(
       format_table(model_list[[model1_name]]$table, adjusted_for, moderator),
       format_table(model_list[[model2_name]]$table, adjusted_for, moderator)
+    )[, c(1, 2, 5, 7, 10)]
+    names(tab) <- table_columns
+    tab
+  }
+
+  note_terms <- paste0(
+    "Variables marked (z) are standardised",
+    if (any(grepl("^log_", pa_vars))) " and (ln) natural-log transformed",
+    "; $^2$ denotes a quadratic term and $\\times$ an interaction."
+  )
+  if (moderator == "age") {
+    age_centre <- attr(model_list, "age_centre")
+    note_terms <- paste0(
+      note_terms,
+      " Age was centred at ",
+      age_centre,
+      " years (the mean across person-days) and scaled per 10 years, so ",
+      "main effects are associations at age ",
+      age_centre,
+      " and age interactions are the change per 10 years."
     )
-    tab[, c(1:5, 7:10)]
+  }
+  conv_note <- paste0(
+    " $^\\dagger$ value came from a pooled model where fewer than ",
+    papaja::print_num(convergence_threshold * 100),
+    "\\% of models converged."
+  )
+  has_dagger <- function(tabs) {
+    any(vapply(tabs, function(x) any(grepl("\\\\dagger", unlist(x))), TRUE))
+  }
+
+  sleep_table <- list()
+
+  sleep_table$data <- lapply(sleep_vars, function(sleep) {
+    pair_tables(
+      paste(sleep, "by", pa_vars[[1]]),
+      paste(sleep, "by", pa_vars[[2]])
+    )
   })
 
   sleep_table$caption <-
@@ -68,48 +98,20 @@ make_model_tables <- function(model_list) {
     )
   sleep_table$note <- paste0(
     note,
-    ". Outcomes variables are listed in the column headers. Standardized (z-scores) are indicated with '(z)'."
+    ". Rows are grouped by sleep outcome; columns give the physical activity ",
+    "predictor. ",
+    note_terms
   )
-
-  sleep_conv_issue <- any(sapply(sleep_table$data, function(x) {
-    any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))
-  }))
-
-  if (sleep_conv_issue) {
-    sleep_table$note <- paste0(
-      sleep_table$note,
-      ". $^\\dagger$ value came from a pooled model where fewer than ",
-      papaja::print_num(convergence_threshold * 100),
-      "\\% of models converged."
-    )
+  if (has_dagger(sleep_table$data)) {
+    sleep_table$note <- paste0(sleep_table$note, conv_note)
   }
-
-  sleep_table$col_spanners <- list(
-    c(2, 5),
-    c(6, 9)
-  )
-  names(sleep_table$col_spanners) <- names(pa_vars)
 
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
-    model1_name <- paste(
-      pa_vars[[1]],
-      "by",
-      paste0(sleep, "_lag"),
-      collapse = " "
+    pair_tables(
+      paste(pa_vars[[1]], "by", paste0(sleep, "_lag")),
+      paste(pa_vars[[2]], "by", paste0(sleep, "_lag"))
     )
-    model2_name <- paste(
-      pa_vars[[2]],
-      "by",
-      paste0(sleep, "_lag"),
-      collapse = " "
-    )
-
-    tab <- cbind(
-      format_table(model_list[[model1_name]]$table, adjusted_for, moderator),
-      format_table(model_list[[model2_name]]$table, adjusted_for, moderator)
-    )
-    tab[, c(1:5, 7:10)]
   })
 
   pa_table$caption <-
@@ -118,27 +120,13 @@ make_model_tables <- function(model_list) {
     )
   pa_table$note <- paste0(
     note,
-    ". Outcomes variables are listed in the row headers."
+    ". Rows are grouped by the previous night's sleep predictor; columns give ",
+    "the physical activity outcome. ",
+    note_terms
   )
-
-  pa_conv_issue <- any(sapply(pa_table$data, function(x) {
-    any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))
-  }))
-
-  if (pa_conv_issue) {
-    pa_table$note <- paste0(
-      pa_table$note,
-      ". $^\\dagger$ value came from a pooled model where fewer than ",
-      papaja::print_num(convergence_threshold * 100),
-      "\\% of models converged."
-    )
+  if (has_dagger(pa_table$data)) {
+    pa_table$note <- paste0(pa_table$note, conv_note)
   }
-
-  pa_table$col_spanners <- list(
-    c(2, 5),
-    c(6, 9)
-  )
-  names(pa_table$col_spanners) <- names(pa_vars)
 
   return(list(sleep = sleep_table, physical_activity = pa_table))
 }
@@ -167,7 +155,12 @@ format_table <- function(
   moderator = NULL,
   conv_daggers = FALSE
 ) {
-  term <- as.character(tab$term)
+  # Centred age (see age_term()) back to plain "age"
+  term <- gsub(
+    "I\\(\\(age - [0-9.]+\\)/10\\)",
+    "age",
+    as.character(tab$term)
+  )
 
   # Main effects of the adjustment variables only: never an interaction, and
   # never the moderator, which make_model_list() removes from control_vars.

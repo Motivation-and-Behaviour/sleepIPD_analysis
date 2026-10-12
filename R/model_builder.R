@@ -201,6 +201,8 @@ fit_model <- function(..., data, max_iter = 1e6) {
 #' @param ranef random effects to paste to formula
 #' @param terms character string of terms to pass to ggeffects
 #' @param RQ numeric to pass to pool_effects
+#' @param min_wear_days participants with fewer valid wear days are dropped
+#' @param age_centre age (years) that age is centred on in the formula
 #' @protocol to examine the relationship between sleep and physical activity (Research Questions 1-2) we will use study fixed-effects to account for the nesting of participants in studies (Curran et al 2009). Fixed-effects (not the same as complete pooling analysis that ignores data nesting) control for all time-invariant between-study variance and will allow us to explore within study associations and moderators. We will nest individuals within days, and days within study. We will examine both main effects and subpopulation effects (using separate models), including the following pre-specified individual-level moderators; age (chronological), body mass index z-score (z transformed), SES, ethnicity, and sex as categorical. Day of the week, season (summer vs winter), geographic location, and daylight length will also be included as moderators because these influence sleep and physical activity. Accelerometer wear location will be included as a moderator. Sleep and physical activity may be temporally related where early morning and late evening physical activity can negatively influence optimum sleep duration and sleep quality. To account for this, we will include the time of the day corresponding to the most active periods of physical activity as a moderator. The most active 60, 30, 15, 10 and 5 minutes within 4 windows of time; midnight to 6am (early), 6am to 12pm (normal), 12pm -6pm (normal), 6pm -midnight (late) will be extracted from GGIR and used to test the effect of physical activity proximity to bedtime and wake time on sleep.
 
 #' @test-arguments outcome = "sleep_duration", predictors = "scale_pa_volume * age + I(scale_pa_volume^2) * age", control_vars = c(), table_only = FALSE, ranef  = "(1|studyid) + (1|participant_id)", terms = c("scale_pa_volume[-4:4 by = 0.1]", "age [11, 18, 35, 65]"), moderator = "age"
@@ -216,7 +218,8 @@ model_builder <-
     ranef,
     terms,
     RQ,
-    min_wear_days = 0
+    min_wear_days = 0,
+    age_centre
   ) {
     require(broom.mixed)
     require(lme4)
@@ -230,9 +233,10 @@ model_builder <-
     # per-process. See cap_blas_threads().
     cap_blas_threads()
 
+    formula_controls <- formula_term(control_vars, age_centre)
     formula <-
       glue::glue(
-        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(control_vars, collapse = ' + ')} + {ranef}"
+        "{outcome} ~ {paste(predictors, collapse = ' + ')} + {paste(formula_controls, collapse = ' + ')} + {ranef}"
       )
 
     formula <- gsub("\\+  \\+", "+", formula)
@@ -249,6 +253,21 @@ model_builder <-
       )
     } else {
       age_terms <- NULL
+    }
+
+    # Slopes at each age in terms[2], pooled with Rubin's rules below
+    if (!table_only && moderator == "age") {
+      slope_ages <- as.numeric(strsplit(
+        gsub(".*\\[|\\].*", "", terms[2]),
+        ","
+      )[[1]])
+      slope_x <- gsub(" .*", "", predictors[1])
+      slope_xa <- paste0(slope_x, ":", age_term(age_centre))
+      slope_weights <- (slope_ages - age_centre) / 10
+      slope_q <- matrix(NA_real_, data_imp$m, length(slope_ages))
+      slope_u <- matrix(NA_real_, data_imp$m, length(slope_ages))
+    } else {
+      slope_ages <- NULL
     }
 
     n_imp <- data_imp$m
@@ -286,6 +305,28 @@ model_builder <-
       tidy_list[[i]] <- tidy_i
 
       resid_list[[i]] <- resid_moments(mod)
+
+      if (!is.null(slope_ages)) {
+        b <- lme4::fixef(mod)
+        v <- as.matrix(stats::vcov(mod))
+        if (!all(c(slope_x, slope_xa) %in% names(b))) {
+          stop(
+            "Age-specific slopes need coefficients '",
+            slope_x,
+            "' and '",
+            slope_xa,
+            "', but the model has: ",
+            paste(names(b), collapse = ", "),
+            call. = FALSE
+          )
+        }
+        slope_q[i, ] <- b[[slope_x]] + slope_weights * b[[slope_xa]]
+        slope_u[i, ] <- v[slope_x, slope_x] +
+          slope_weights^2 * v[slope_xa, slope_xa] +
+          2 * slope_weights * v[slope_x, slope_xa]
+        slope_n <- stats::nobs(mod)
+        slope_k <- length(b)
+      }
 
       if (!table_only) {
         effect_list[[i]] <-
@@ -364,8 +405,32 @@ model_builder <-
       pred_mat <- NULL
     }
 
+    if (!is.null(slope_ages)) {
+      age_slopes <- rbindlist(lapply(seq_along(slope_ages), function(j) {
+        pooled <- mice::pool.scalar(
+          slope_q[, j],
+          slope_u[, j],
+          n = slope_n,
+          k = slope_k
+        )
+        se <- sqrt(pooled$t)
+        crit <- stats::qt(0.975, pooled$df)
+        data.table(
+          age = slope_ages[j],
+          estimate = pooled$qbar,
+          std.error = se,
+          conf.low = pooled$qbar - crit * se,
+          conf.high = pooled$qbar + crit * se,
+          p.value = 2 * stats::pt(-abs(pooled$qbar / se), pooled$df)
+        )
+      }))
+    } else {
+      age_slopes <- NULL
+    }
+
     # Model_assets
     model_assets <- list(
+      age_slopes = age_slopes,
       effects = pool_effects(
         effect_list,
         moderator = moderator,

@@ -158,6 +158,18 @@ get_scale_descriptives <- function(data, ...) {
   ]
 }
 
+#' compute_age_centre
+#'
+#' Mean age across the primary analytic person-days; used by every model family.
+compute_age_centre <- function(
+  data_clean,
+  min_wear_days = min_wear_days_primary
+) {
+  analytic <- data_clean$eligible &
+    data_clean$n_valid_wear_days >= min_wear_days
+  round(mean(data_clean$age[analytic], na.rm = TRUE), 1)
+}
+
 #' predictor_grid
 #'
 #' Build a `ggeffects` `terms` string spanning a variable's observed range.

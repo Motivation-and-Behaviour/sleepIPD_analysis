@@ -23,7 +23,8 @@ make_model_list <- function(
     "log_pa_volume",
     "scale_pa_intensity"
   ),
-  min_wear_days = min_wear_days_primary
+  min_wear_days = min_wear_days_primary,
+  age_centre
 ) {
   control_vars <- control_vars[!control_vars == moderator]
 
@@ -34,7 +35,8 @@ make_model_list <- function(
   names(sleep_lag_vars) <- display_names(sleep_lag_vars)
   names(pa_vars) <- display_names(pa_vars)
 
-  quadratic_pattern <- "{x} * {moderator} + I({x}^2) * {moderator}"
+  mod_formula <- formula_term(moderator, age_centre)
+  quadratic_pattern <- "{x} * {mod_formula} + I({x}^2) * {mod_formula}"
   make_quadratic <- function(x) glue::glue(quadratic_pattern)
 
   instructions_rq1 <-
@@ -79,7 +81,8 @@ make_model_list <- function(
           glue::glue("{moderator} [{moderator_term}]")
         ),
         RQ = instructions[i, "RQ"],
-        min_wear_days = min_wear_days
+        min_wear_days = min_wear_days,
+        age_centre = age_centre
       )
 
       attr(model, "RQ") <- instructions[i, "RQ"] # nolint: object_name_linter.
@@ -98,10 +101,12 @@ make_model_list <- function(
     sleep_lag_vars,
     pa_vars
   )
+  attr(out, "age_centre") <- age_centre
   attr(out, "filename_suffix") <-
     dplyr::case_when(
       "studyid" %in% control_vars ~ "_fixedef",
       min_wear_days == 0 ~ "_allwear",
+      min_wear_days != min_wear_days_primary ~ paste0("_", min_wear_days, "days"),
       "scale_pa_volume" %in% pa_vars ~ "_nolog",
       TRUE ~ ""
     )

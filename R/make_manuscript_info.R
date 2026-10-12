@@ -13,6 +13,8 @@ make_manuscript_info <- function(
   data_clean,
   participant_summary,
   data_imp = NULL,
+  model_list_by_age = NULL,
+  model_list_by_age_7days = NULL,
   min_wear_days = min_wear_days_primary
 ) {
   data_clean_eligible <- data_clean |>
@@ -104,7 +106,108 @@ make_manuscript_info <- function(
 
   ms_info$weekday$stdres <- format(round(weekday$stdres, 2), nsmall = 2)
 
+  ms_info$age_range <- paste(
+    floor(min(data_clean_analytic$age, na.rm = TRUE)),
+    "to",
+    floor(max(data_clean_analytic$age, na.rm = TRUE))
+  )
+  ms_info$n_pts_7days <- data_clean_analytic |>
+    dplyr::filter(n_valid_wear_days >= 7) |>
+    dplyr::distinct(participant_id) |>
+    nrow() |>
+    fmt_n()
+
+  if (!is.null(model_list_by_age)) {
+    ms_info$age_centre <- attr(model_list_by_age, "age_centre")
+    ms_info$slopes <- format_age_slopes(model_list_by_age)
+    ms_info$sd <- format_predictor_sds(model_list_by_age)
+  }
+  if (!is.null(model_list_by_age_7days)) {
+    ms_info$slopes_7days <- format_age_slopes(model_list_by_age_7days)
+  }
+
   ms_info
 }
 
 fmt_n <- function(x) format(x, big.mark = ",")
+
+# Multiplier from each variable's stored scale to its reported unit
+raw_units <- data.table::data.table(
+  var = c(
+    "sleep_duration",
+    "sleep_efficiency",
+    "sleep_onset",
+    "sleep_regularity",
+    "pa_volume",
+    "pa_intensity"
+  ),
+  mult = c(1, 100, 60, 1, 1, 1),
+  unit = c("min", "percentage points", "min", "points", "mg", ""),
+  digits = c(1, 1, 0, 1, 1, 2)
+)
+
+format_predictor_sds <- function(model_list) {
+  sds <- attr(model_list, "scale_descriptives")
+  sds <- sds[!grepl("_lag$", var)]
+  out <- lapply(seq_len(nrow(sds)), function(i) {
+    u <- raw_units[var == sds$var[i]]
+    trimws(paste(
+      papaja::print_num(sds$sd[i] * u$mult, digits = u$digits),
+      u$unit
+    ))
+  })
+  names(out) <- sds$var
+  out
+}
+
+#' format_age_slopes
+#'
+#' @return list keyed "<outcome>_by_<predictor>", then "a<age>", holding `b`,
+#'   `ci`, `p`, and `raw` (outcome units per 1 SD of the predictor)
+format_age_slopes <- function(model_list) {
+  sds <- attr(model_list, "scale_descriptives")
+  out <- lapply(names(model_list), function(nm) {
+    slopes <- model_list[[nm]]$model_assets$age_slopes
+    outcome <- gsub("^(scale|log)_", "", sub(" by .*", "", nm))
+    u <- raw_units[var == outcome]
+    sd_outcome <- sds[var == outcome, sd]
+    per_age <- lapply(seq_len(nrow(slopes)), function(j) {
+      s <- slopes[j]
+      list(
+        b = papaja::print_num(s$estimate),
+        ci = paste0(
+          papaja::print_num(s$estimate),
+          " [",
+          papaja::print_num(s$conf.low),
+          ", ",
+          papaja::print_num(s$conf.high),
+          "]"
+        ),
+        p = papaja::print_p(s$p.value),
+        raw = trimws(paste(
+          papaja::print_num(
+            abs(s$estimate) * sd_outcome * u$mult,
+            digits = u$digits
+          ),
+          u$unit
+        ))
+      )
+    })
+    names(per_age) <- paste0("a", slopes$age)
+    per_age
+  })
+  names(out) <- vapply(
+    names(model_list),
+    function(nm) {
+      parts <- strsplit(nm, " by ")[[1]]
+      paste(
+        gsub("^(scale|log)_|_lag$", "", parts[1]),
+        "by",
+        gsub("^(scale|log)_|_lag$", "", parts[2]),
+        sep = "_"
+      )
+    },
+    character(1)
+  )
+  out
+}
