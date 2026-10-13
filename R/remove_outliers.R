@@ -5,6 +5,12 @@ plausible_ranges <- list(
   pa_volume = c(0, 200)
 )
 
+# CDC biologically implausible value cut-offs for children
+implausible_growth_z <- list(
+  height = list(item = "height2_20", limits = c(-5, 4)),
+  weight = list(item = "weight2_20", limits = c(-5, 8))
+)
+
 # Accelerometer-derived variables nulled when a file is judged miscalibrated.
 bad_accel_vars <- c(
   "pa_volume",
@@ -52,6 +58,43 @@ apply_plausibility_bounds <- function(data, ranges = plausible_ranges) {
     x <- data[[var]]
     x[!is.na(x) & (x < limits[1] | x > limits[2])] <- NA
     data[[var]] <- x
+  }
+
+  data
+}
+
+#' remove_implausible_growth
+#'
+#' Set children's height and weight to NA when they are implausible for their
+#' age and sex, scored against the CDC 2000 growth reference.
+#'
+#' @param data data frame with `age`, `sex`, `height` and `weight`
+#' @param cutoffs see `implausible_growth_z`
+#' @param adult_age age from which the child reference no longer applies
+#'
+#' @details Must run **before** BMI is calculated.
+remove_implausible_growth <- function(
+  data,
+  cutoffs = implausible_growth_z,
+  adult_age = 18
+) {
+  child <- !is.na(data$age) & data$age < adult_age
+
+  for (var in names(cutoffs)) {
+    z <- childsds::sds(
+      value = data[[var]][child],
+      age = data$age[child],
+      sex = as.character(data$sex[child]),
+      item = cutoffs[[var]]$item,
+      ref = childsds::cdc.ref,
+      type = "SDS",
+      male = "Male",
+      female = "Female"
+    )
+    limits <- cutoffs[[var]]$limits
+    x <- data[[var]][child]
+    x[!is.na(z) & (z < limits[1] | z > limits[2])] <- NA
+    data[[var]][child] <- x
   }
 
   data

@@ -144,15 +144,27 @@ clean_data <- function(
     ) %>%
     mutate(
       # remove implausible heights
-      height = ifelse(height > 30, height, NA),
-      # also calculate bmi
-      bmi = weight / ((height / 100)^2)
+      height = ifelse(height > 30, height, NA)
     ) %>%
+    remove_implausible_growth() %>%
+    # also calculate bmi
+    mutate(bmi = weight / ((height / 100)^2)) %>%
 
     null_bad_accel_files(limit = 200) %>%
     apply_plausibility_bounds() %>%
     remove_outliers(cols = outlier_screen_vars, by = "studyid") %>%
+    # Drop BMIs whose height or weight the screen removed
+    mutate(bmi = ifelse(is.na(height) | is.na(weight), NA, bmi)) %>%
     mutate(bmi_z = make_bmi_z(bmi, age, sex, participant_id)) %>%
+    # CDC biologically implausible BMI-for-age; NA so it is imputed instead
+    mutate(
+      bmi = ifelse(
+        !is.na(bmi_z) & age < 18 & (bmi_z < -4 | bmi_z > 8),
+        NA,
+        bmi
+      ),
+      bmi_z = ifelse(is.na(bmi), NA, bmi_z)
+    ) %>%
     # recalculate measurement day by getting the minimum
     # date for each person
     group_by(participant_id) %>%
