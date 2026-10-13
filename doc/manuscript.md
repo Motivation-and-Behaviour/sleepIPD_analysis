@@ -187,10 +187,10 @@ treated as missing and imputed alongside genuinely missing data.
 A day contributed to the analysis if it recorded more than 10 hours of
 wear time and, where sleep was detected, a sleep period longer than 200
 minutes. Participants were additionally required to have at least 4 days
-of valid wear time. 345 participants, contributing 465 person-days, did
-not meet this criterion, leaving 24,264 participants and 148,749
+of valid wear time. 413 participants, contributing 619 person-days, did
+not meet this criterion, leaving 27,236 participants and 167,994
 person-days for analysis. A sensitivity analysis restricted the sample
-to the 14,961 participants with at least seven days of valid wear time.
+to the 14,981 participants with at least seven days of valid wear time.
 
 We assumed missing covariate and moderator data to be missing at random
 or completely at random and imputed these missing values using multiple
@@ -219,14 +219,14 @@ socioeconomic status, sex, and body mass index z-score. Quadratic terms
 were introduced in each model to allow for curvilinear relationships to
 be modelled. We interacted each predictor with age to reveal how the
 relationship between physical activity and sleep changes over the
-lifespan (RQ2). Age was centred at its mean across person-days (39
+lifespan (RQ2). Age was centred at its mean across person-days (35.6
 years) and scaled per 10 years, and we report each association at ages
 11, 18, 35, and 65, pooled across imputations with Rubin’s rules. Models
 predicting physical activity from the preceding night’s sleep (RQ3) use
 each sleep indicator lagged by one day. Person-days whose preceding day
 was absent from the data or did not meet the eligibility criteria
 therefore have no lagged value and do not contribute to these models,
-leaving 120,660 of 149,214 eligible person-days.
+leaving 136,319 of 168,613 eligible person-days.
 
 ## Protocol deviations
 
@@ -288,23 +288,23 @@ messages to public health Organizations and governing bodies.
 
 # Results
 
-The aggregated dataset describes 220,760 observations of daily physical
-activity and sleep from 28,823 unique participants. Of these, 71,546
+The aggregated dataset describes 220,988 observations of daily physical
+activity and sleep from 28,824 unique participants. Of these, 52,375
 days were excluded as they had insufficient wear time, which also
-resulted in the exclusion of 4,214 participants. A further 345
-participants (465 days) were excluded for having fewer than 4 days of
-valid wear time, leaving 24,264 participants and 148,749 person-days.
+resulted in the exclusion of 1,175 participants. A further 413
+participants (619 days) were excluded for having fewer than 4 days of
+valid wear time, leaving 27,236 participants and 167,994 person-days.
 Table @ref(tab:demo-participants) shows demographic information for the
 included participants. Most participants came from Europe, Oceania, and
 South America, with limited data from other regions. Participants were
-aged 2 to 94 years. There was a near-even split by sex (50.4% female),
-but age skewed towards both younger children (2-11 years, 44.9%) and
-older adults (66+ years, 25.1%).
+aged 2 to 94 years. There was a near-even split by sex (50.3% female),
+but age skewed towards both younger children (2-11 years, 50.9%) and
+older adults (66+ years, 22.3%).
 
 Valid observations were not uniform across the days of the week
-(*χ*<sub>(6)</sub><sup>2</sup> = 310.72, p = &lt; .001). Weekends were
-over-represented (Saturday: z = 6.08; Sunday: z = 11.62), while
-Wednesdays (z = -9.91) and Thursdays (z = -8.85) were under-represented.
+(*χ*<sub>(6)</sub><sup>2</sup> = 343.32, p = &lt; .001). Weekends were
+over-represented (Saturday: z = 11.24; Sunday: z = 7.84), while
+Wednesdays (z = -9.30) and Thursdays (z = -2.46) were under-represented.
 A table of study characteristics can be found in the supplementary
 materials.
 
@@ -331,15 +331,15 @@ materials.
 </tr>
 <tr>
 <td style="text-align: left;">   N</td>
-<td style="text-align: left;">10,857</td>
-<td style="text-align: left;">1,921</td>
-<td style="text-align: left;">308</td>
-<td style="text-align: left;">5,040</td>
-<td style="text-align: left;">6,066</td>
+<td style="text-align: left;">13,820</td>
+<td style="text-align: left;">1,923</td>
+<td style="text-align: left;">310</td>
+<td style="text-align: left;">5,044</td>
+<td style="text-align: left;">6,067</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">9.7 (1.5)</td>
+<td style="text-align: left;">8.5 (2.8)</td>
 <td style="text-align: left;">15.7 (1.7)</td>
 <td style="text-align: left;">29.2 (5.1)</td>
 <td style="text-align: left;">57.7 (7.4)</td>
@@ -347,39 +347,39 @@ materials.
 </tr>
 <tr>
 <td style="text-align: left;">   BMI</td>
-<td style="text-align: left;">18.0 (3.2)</td>
+<td style="text-align: left;">17.7 (3.0)</td>
 <td style="text-align: left;">21.6 (3.8)</td>
-<td style="text-align: left;">26.5 (6.4)</td>
+<td style="text-align: left;">26.5 (6.5)</td>
 <td style="text-align: left;">26.8 (4.8)</td>
 <td style="text-align: left;">27.1 (4.3)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   BMI z-score</td>
-<td style="text-align: left;">0.25 (1.07)</td>
+<td style="text-align: left;">0.31 (1.10)</td>
 <td style="text-align: left;">0.09 (1.02)</td>
-<td style="text-align: left;">-0.09 (1.38)</td>
-<td style="text-align: left;">-0.02 (1.03)</td>
+<td style="text-align: left;">-0.07 (1.40)</td>
+<td style="text-align: left;">-0.01 (1.03)</td>
 <td style="text-align: left;">0.05 (0.93)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Valid Weartime Hours</td>
-<td style="text-align: left;">23.1 (1.6)</td>
-<td style="text-align: left;">23.2 (1.5)</td>
-<td style="text-align: left;">23.3 (1.6)</td>
-<td style="text-align: left;">23.7 (0.8)</td>
+<td style="text-align: left;">23.4 (1.3)</td>
+<td style="text-align: left;">23.4 (1.5)</td>
+<td style="text-align: left;">23.3 (1.7)</td>
+<td style="text-align: left;">23.8 (0.7)</td>
 <td style="text-align: left;">23.9 (0.4)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Valid Weartime Days</td>
-<td style="text-align: left;">5.6 (1.9)</td>
+<td style="text-align: left;">5.7 (1.8)</td>
 <td style="text-align: left;">5.0 (1.3)</td>
-<td style="text-align: left;">4.8 (1.3)</td>
-<td style="text-align: left;">7.3 (2.5)</td>
-<td style="text-align: left;">6.5 (2.1)</td>
+<td style="text-align: left;">5.0 (1.4)</td>
+<td style="text-align: left;">7.5 (2.3)</td>
+<td style="text-align: left;">6.6 (2.1)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   PA Intensity Gradient (unitless)</td>
-<td style="text-align: left;">-2.13 (0.19)</td>
+<td style="text-align: left;">-2.10 (0.18)</td>
 <td style="text-align: left;">-2.23 (0.19)</td>
 <td style="text-align: left;">-2.43 (0.19)</td>
 <td style="text-align: left;">-2.50 (0.19)</td>
@@ -388,40 +388,40 @@ materials.
 <tr>
 <td style="text-align: left;">   PA Volume (average acceleration in
 mg)</td>
-<td style="text-align: left;">42.5 (24.3)</td>
+<td style="text-align: left;">49.0 (26.4)</td>
 <td style="text-align: left;">46.7 (14.3)</td>
-<td style="text-align: left;">39.5 (10.7)</td>
+<td style="text-align: left;">39.3 (10.6)</td>
 <td style="text-align: left;">38.8 (11.6)</td>
 <td style="text-align: left;">30.9 (9.7)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep Duration (min)</td>
-<td style="text-align: left;">486.9 (53.0)</td>
-<td style="text-align: left;">416.7 (55.3)</td>
-<td style="text-align: left;">421.1 (62.5)</td>
-<td style="text-align: left;">408.4 (55.8)</td>
-<td style="text-align: left;">404.2 (63.3)</td>
+<td style="text-align: left;">471.7 (61.5)</td>
+<td style="text-align: left;">416.4 (55.0)</td>
+<td style="text-align: left;">421.0 (64.0)</td>
+<td style="text-align: left;">409.1 (55.8)</td>
+<td style="text-align: left;">404.3 (63.9)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep Efficiency (%)</td>
-<td style="text-align: left;">80.7 (7.4)</td>
+<td style="text-align: left;">80.9 (7.0)</td>
 <td style="text-align: left;">87.1 (6.3)</td>
-<td style="text-align: left;">87.3 (6.1)</td>
+<td style="text-align: left;">87.4 (6.2)</td>
 <td style="text-align: left;">87.8 (5.5)</td>
-<td style="text-align: left;">86.5 (6.0)</td>
+<td style="text-align: left;">86.4 (6.2)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep Onset (clock time; SD in
 h:mm)</td>
-<td style="text-align: left;">20:55 (01:09)</td>
-<td style="text-align: left;">23:30 (01:27)</td>
-<td style="text-align: left;">23:39 (01:46)</td>
-<td style="text-align: left;">23:42 (01:23)</td>
-<td style="text-align: left;">00:23 (01:14)</td>
+<td style="text-align: left;">21:32 (01:42)</td>
+<td style="text-align: left;">23:29 (01:27)</td>
+<td style="text-align: left;">23:33 (01:49)</td>
+<td style="text-align: left;">23:25 (01:17)</td>
+<td style="text-align: left;">23:57 (01:16)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep Regularity Index</td>
-<td style="text-align: left;">54.0 (12.7)</td>
+<td style="text-align: left;">53.4 (12.2)</td>
 <td style="text-align: left;">57.0 (12.1)</td>
 <td style="text-align: left;">55.8 (12.8)</td>
 <td style="text-align: left;">59.4 (11.4)</td>
@@ -437,15 +437,15 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Wrist</td>
-<td style="text-align: left;">2,567 (23.6%)</td>
-<td style="text-align: left;">1,883 (98.0%)</td>
-<td style="text-align: left;">308 (100.0%)</td>
-<td style="text-align: left;">5,040 (100.0%)</td>
-<td style="text-align: left;">6,066 (100.0%)</td>
+<td style="text-align: left;">5,509 (39.9%)</td>
+<td style="text-align: left;">1,885 (98.0%)</td>
+<td style="text-align: left;">310 (100.0%)</td>
+<td style="text-align: left;">5,044 (100.0%)</td>
+<td style="text-align: left;">6,067 (100.0%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Hip</td>
-<td style="text-align: left;">8,290 (76.4%)</td>
+<td style="text-align: left;">8,311 (60.1%)</td>
 <td style="text-align: left;">   38 (2.0%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -461,15 +461,15 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Australia</td>
-<td style="text-align: left;">1,505 (13.9%)</td>
-<td style="text-align: left;">303 (15.8%)</td>
-<td style="text-align: left;">108 (35.1%)</td>
-<td style="text-align: left;">  186 (3.7%)</td>
+<td style="text-align: left;">1,510 (10.9%)</td>
+<td style="text-align: left;">305 (15.9%)</td>
+<td style="text-align: left;">110 (35.5%)</td>
+<td style="text-align: left;">  188 (3.7%)</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Finland</td>
-<td style="text-align: left;">  508 (4.7%)</td>
+<td style="text-align: left;">  508 (3.7%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">  801 (15.9%)</td>
@@ -477,16 +477,16 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   New Zealand</td>
-<td style="text-align: left;">  455 (4.2%)</td>
+<td style="text-align: left;">  455 (3.3%)</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">37 (12.0%)</td>
-<td style="text-align: left;">  151 (3.0%)</td>
+<td style="text-align: left;">37 (11.9%)</td>
+<td style="text-align: left;">  152 (3.0%)</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Spain</td>
-<td style="text-align: left;">  934 (8.6%)</td>
-<td style="text-align: left;">  5 (0.3%)</td>
+<td style="text-align: left;">  809 (5.9%)</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">   37 (0.7%)</td>
 <td style="text-align: left;">2,386 (39.3%)</td>
@@ -496,20 +496,20 @@ h:mm)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">1,904 (37.8%)</td>
+<td style="text-align: left;">1,905 (37.8%)</td>
 <td style="text-align: left;">1,023 (16.9%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   United Kingdom</td>
-<td style="text-align: left;">  447 (4.1%)</td>
+<td style="text-align: left;">  447 (3.2%)</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">144 (46.8%)</td>
+<td style="text-align: left;">144 (46.5%)</td>
 <td style="text-align: left;">1,961 (38.9%)</td>
-<td style="text-align: left;">2,657 (43.8%)</td>
+<td style="text-align: left;">2,658 (43.8%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Brazil</td>
-<td style="text-align: left;">  486 (4.5%)</td>
+<td style="text-align: left;">3,425 (24.8%)</td>
 <td style="text-align: left;">727 (37.8%)</td>
 <td style="text-align: left;">10 (3.2%)</td>
 <td style="text-align: left;">-</td>
@@ -517,7 +517,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Czech Republic</td>
-<td style="text-align: left;">  281 (2.6%)</td>
+<td style="text-align: left;">  281 (2.0%)</td>
 <td style="text-align: left;">848 (44.1%)</td>
 <td style="text-align: left;">  9 (2.9%)</td>
 <td style="text-align: left;">-</td>
@@ -525,15 +525,23 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Canada</td>
-<td style="text-align: left;">  522 (4.8%)</td>
+<td style="text-align: left;">  522 (3.8%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr>
+<td style="text-align: left;">   Chile</td>
+<td style="text-align: left;">  138 (1.0%)</td>
+<td style="text-align: left;">  5 (0.3%)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
 <td style="text-align: left;">   China</td>
-<td style="text-align: left;">  124 (1.1%)</td>
+<td style="text-align: left;">  125 (0.9%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -541,7 +549,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Colombia</td>
-<td style="text-align: left;">  889 (8.2%)</td>
+<td style="text-align: left;">  889 (6.4%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -549,7 +557,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Denmark</td>
-<td style="text-align: left;">  689 (6.3%)</td>
+<td style="text-align: left;">  689 (5.0%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -557,7 +565,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Ecuador</td>
-<td style="text-align: left;">  981 (9.0%)</td>
+<td style="text-align: left;">  981 (7.1%)</td>
 <td style="text-align: left;">38 (2.0%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -565,7 +573,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   India</td>
-<td style="text-align: left;">  574 (5.3%)</td>
+<td style="text-align: left;">  575 (4.2%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -573,7 +581,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Kenya</td>
-<td style="text-align: left;">  525 (4.8%)</td>
+<td style="text-align: left;">  528 (3.8%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -581,7 +589,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Portugal</td>
-<td style="text-align: left;">  702 (6.5%)</td>
+<td style="text-align: left;">  702 (5.1%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -589,7 +597,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   South Africa</td>
-<td style="text-align: left;">  506 (4.7%)</td>
+<td style="text-align: left;">  507 (3.7%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -597,7 +605,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   United States</td>
-<td style="text-align: left;">  729 (6.7%)</td>
+<td style="text-align: left;">  729 (5.3%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -613,7 +621,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Non-White</td>
-<td style="text-align: left;">2,127 (19.6%)</td>
+<td style="text-align: left;">2,672 (19.3%)</td>
 <td style="text-align: left;">  169 (8.8%)</td>
 <td style="text-align: left;">14 (4.5%)</td>
 <td style="text-align: left;">   94 (1.9%)</td>
@@ -621,19 +629,19 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Other or unknown</td>
-<td style="text-align: left;">4,433 (40.8%)</td>
-<td style="text-align: left;">1,192 (62.1%)</td>
-<td style="text-align: left;">152 (49.4%)</td>
-<td style="text-align: left;">1,337 (26.5%)</td>
+<td style="text-align: left;">4,780 (34.6%)</td>
+<td style="text-align: left;">1,194 (62.1%)</td>
+<td style="text-align: left;">154 (49.7%)</td>
+<td style="text-align: left;">1,340 (26.6%)</td>
 <td style="text-align: left;">2,424 (40.0%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   White</td>
-<td style="text-align: left;">4,297 (39.6%)</td>
-<td style="text-align: left;">  560 (29.2%)</td>
-<td style="text-align: left;">142 (46.1%)</td>
-<td style="text-align: left;">3,609 (71.6%)</td>
-<td style="text-align: left;">3,402 (56.1%)</td>
+<td style="text-align: left;">6,368 (46.1%)</td>
+<td style="text-align: left;">  560 (29.1%)</td>
+<td style="text-align: left;">142 (45.8%)</td>
+<td style="text-align: left;">3,610 (71.6%)</td>
+<td style="text-align: left;">3,403 (56.1%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">Region</td>
@@ -645,31 +653,31 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Europe</td>
-<td style="text-align: left;">3,561 (32.8%)</td>
-<td style="text-align: left;">853 (44.4%)</td>
-<td style="text-align: left;">153 (49.7%)</td>
-<td style="text-align: left;">4,703 (93.3%)</td>
-<td style="text-align: left;">6,066 (100.0%)</td>
+<td style="text-align: left;">3,436 (24.9%)</td>
+<td style="text-align: left;">848 (44.1%)</td>
+<td style="text-align: left;">153 (49.4%)</td>
+<td style="text-align: left;">4,704 (93.3%)</td>
+<td style="text-align: left;">6,067 (100.0%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Oceania</td>
-<td style="text-align: left;">1,960 (18.1%)</td>
-<td style="text-align: left;">303 (15.8%)</td>
-<td style="text-align: left;">145 (47.1%)</td>
-<td style="text-align: left;">  337 (6.7%)</td>
+<td style="text-align: left;">1,965 (14.2%)</td>
+<td style="text-align: left;">305 (15.9%)</td>
+<td style="text-align: left;">147 (47.4%)</td>
+<td style="text-align: left;">  340 (6.7%)</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">   South America</td>
-<td style="text-align: left;">2,356 (21.7%)</td>
-<td style="text-align: left;">765 (39.8%)</td>
+<td style="text-align: left;">5,433 (39.3%)</td>
+<td style="text-align: left;">770 (40.0%)</td>
 <td style="text-align: left;">10 (3.2%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Africa</td>
-<td style="text-align: left;">1,031 (9.5%)</td>
+<td style="text-align: left;">1,035 (7.5%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -677,7 +685,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Asia</td>
-<td style="text-align: left;">  698 (6.4%)</td>
+<td style="text-align: left;">  700 (5.1%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -685,7 +693,7 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   North America</td>
-<td style="text-align: left;">1,251 (11.5%)</td>
+<td style="text-align: left;">1,251 (9.1%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -701,34 +709,34 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Autumn</td>
-<td style="text-align: left;">3,387 (31.2%)</td>
-<td style="text-align: left;">  446 (23.2%)</td>
-<td style="text-align: left;">39 (12.7%)</td>
+<td style="text-align: left;">4,672 (33.8%)</td>
+<td style="text-align: left;">  445 (23.1%)</td>
+<td style="text-align: left;">39 (12.6%)</td>
 <td style="text-align: left;">1,241 (24.6%)</td>
 <td style="text-align: left;">1,268 (20.9%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Spring</td>
-<td style="text-align: left;">2,687 (24.7%)</td>
-<td style="text-align: left;">1,228 (63.9%)</td>
-<td style="text-align: left;">124 (40.3%)</td>
-<td style="text-align: left;">1,224 (24.3%)</td>
-<td style="text-align: left;">1,989 (32.8%)</td>
+<td style="text-align: left;">2,859 (20.7%)</td>
+<td style="text-align: left;">1,230 (64.0%)</td>
+<td style="text-align: left;">125 (40.3%)</td>
+<td style="text-align: left;">1,226 (24.3%)</td>
+<td style="text-align: left;">1,988 (32.8%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Summer</td>
-<td style="text-align: left;">1,381 (12.7%)</td>
-<td style="text-align: left;">   85 (4.4%)</td>
-<td style="text-align: left;">85 (27.6%)</td>
-<td style="text-align: left;">1,270 (25.2%)</td>
-<td style="text-align: left;">1,250 (20.6%)</td>
+<td style="text-align: left;">2,113 (15.3%)</td>
+<td style="text-align: left;">   82 (4.3%)</td>
+<td style="text-align: left;">85 (27.4%)</td>
+<td style="text-align: left;">1,271 (25.2%)</td>
+<td style="text-align: left;">1,252 (20.6%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Winter</td>
-<td style="text-align: left;">3,402 (31.3%)</td>
-<td style="text-align: left;">  162 (8.4%)</td>
-<td style="text-align: left;">60 (19.5%)</td>
-<td style="text-align: left;">1,305 (25.9%)</td>
+<td style="text-align: left;">4,176 (30.2%)</td>
+<td style="text-align: left;">  166 (8.6%)</td>
+<td style="text-align: left;">61 (19.7%)</td>
+<td style="text-align: left;">1,306 (25.9%)</td>
 <td style="text-align: left;">1,559 (25.7%)</td>
 </tr>
 <tr>
@@ -741,19 +749,19 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Female</td>
-<td style="text-align: left;">5,693 (52.4%)</td>
-<td style="text-align: left;">1,002 (52.2%)</td>
-<td style="text-align: left;">222 (72.1%)</td>
-<td style="text-align: left;">2,714 (53.8%)</td>
-<td style="text-align: left;">2,551 (42.1%)</td>
+<td style="text-align: left;">7,154 (51.8%)</td>
+<td style="text-align: left;">1,002 (52.1%)</td>
+<td style="text-align: left;">222 (71.6%)</td>
+<td style="text-align: left;">2,717 (53.9%)</td>
+<td style="text-align: left;">2,551 (42.0%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Male</td>
-<td style="text-align: left;">5,162 (47.6%)</td>
-<td style="text-align: left;">  919 (47.8%)</td>
-<td style="text-align: left;">86 (27.9%)</td>
-<td style="text-align: left;">2,326 (46.2%)</td>
-<td style="text-align: left;">3,515 (57.9%)</td>
+<td style="text-align: left;">6,664 (48.2%)</td>
+<td style="text-align: left;">  921 (47.9%)</td>
+<td style="text-align: left;">88 (28.4%)</td>
+<td style="text-align: left;">2,327 (46.1%)</td>
+<td style="text-align: left;">3,516 (58.0%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep Conditions Reported</td>
@@ -765,26 +773,26 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   No</td>
-<td style="text-align: left;">   625 (5.8%)</td>
+<td style="text-align: left;">   625 (4.5%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">3,511 (69.7%)</td>
-<td style="text-align: left;">5,140 (84.7%)</td>
+<td style="text-align: left;">3,512 (69.6%)</td>
+<td style="text-align: left;">5,141 (84.7%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Yes</td>
-<td style="text-align: left;">    50 (0.5%)</td>
+<td style="text-align: left;">    50 (0.4%)</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">  310 (6.2%)</td>
+<td style="text-align: left;">  310 (6.1%)</td>
 <td style="text-align: left;">  626 (10.3%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Not Reported</td>
-<td style="text-align: left;">10,182 (93.8%)</td>
-<td style="text-align: left;">1,921 (100.0%)</td>
-<td style="text-align: left;">308 (100.0%)</td>
-<td style="text-align: left;">1,219 (24.2%)</td>
+<td style="text-align: left;">13,145 (95.1%)</td>
+<td style="text-align: left;">1,923 (100.0%)</td>
+<td style="text-align: left;">310 (100.0%)</td>
+<td style="text-align: left;">1,222 (24.2%)</td>
 <td style="text-align: left;">  300 (4.9%)</td>
 </tr>
 <tr>
@@ -797,26 +805,26 @@ h:mm)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Low</td>
-<td style="text-align: left;">2,306 (25.2%)</td>
-<td style="text-align: left;">208 (11.6%)</td>
+<td style="text-align: left;">2,892 (24.1%)</td>
+<td style="text-align: left;">208 (11.5%)</td>
 <td style="text-align: left;">  2 (0.7%)</td>
 <td style="text-align: left;">1,074 (22.0%)</td>
 <td style="text-align: left;">2,388 (39.4%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Medium</td>
-<td style="text-align: left;">2,920 (31.9%)</td>
-<td style="text-align: left;">884 (49.1%)</td>
-<td style="text-align: left;">191 (70.7%)</td>
-<td style="text-align: left;">2,407 (49.3%)</td>
-<td style="text-align: left;">2,324 (38.3%)</td>
+<td style="text-align: left;">4,638 (38.7%)</td>
+<td style="text-align: left;">885 (49.1%)</td>
+<td style="text-align: left;">191 (70.2%)</td>
+<td style="text-align: left;">2,409 (49.3%)</td>
+<td style="text-align: left;">2,325 (38.3%)</td>
 </tr>
 <tr>
 <td style="text-align: left;">   High</td>
-<td style="text-align: left;">3,916 (42.8%)</td>
-<td style="text-align: left;">707 (39.3%)</td>
-<td style="text-align: left;">77 (28.5%)</td>
-<td style="text-align: left;">1,405 (28.8%)</td>
+<td style="text-align: left;">4,456 (37.2%)</td>
+<td style="text-align: left;">708 (39.3%)</td>
+<td style="text-align: left;">79 (29.0%)</td>
+<td style="text-align: left;">1,406 (28.8%)</td>
 <td style="text-align: left;">1,352 (22.3%)</td>
 </tr>
 </tbody>
@@ -825,7 +833,7 @@ h:mm)</td>
 *Note.* For categorical variables the value is the count, and
 percentage. For numeric variables the value is the Mean and SD. Sleep
 onset is a clock time; its SD is a duration in hours:minutes. Total N =
-24,264. 72 participants had missing age data and are counted in the
+27,236. 72 participants had missing age data and are counted in the
 total but not in any age band.
 
  
@@ -840,12 +848,12 @@ duration, higher sleep efficiency, earlier sleep onset, and more regular
 sleep. Although we observed statistically significant curvilinear
 relationships, these did not appear to meaningfully change the
 associations. The association with sleep regularity was the largest and
-was similar at all ages (*β* = 0.24 \[0.23, 0.26\] at age 11 and 0.23
-\[0.20, 0.25\] at age 65). The associations with sleep duration and
+was similar at all ages (*β* = 0.26 \[0.24, 0.27\] at age 11 and 0.22
+\[0.19, 0.25\] at age 65). The associations with sleep duration and
 efficiency weakened with age, and by age 65 higher volume was associated
 with slightly lower sleep efficiency (*β* = -0.02 \[-0.04, -0.01\]),
 whereas the association with earlier sleep onset strengthened with age
-(*β* = -0.04 \[-0.05, -0.03\] at age 11 and -0.14 \[-0.15, -0.13\] at
+(*β* = -0.09 \[-0.11, -0.07\] at age 11 and -0.14 \[-0.16, -0.13\] at
 age 65).
 
 <table>
@@ -874,37 +882,37 @@ class="math inline"><em>p</em></span></th>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">-0.01 [-0.18, 0.15]</td>
-<td style="text-align: left;">.890</td>
-<td style="text-align: left;">-0.01 [-0.17, 0.14]</td>
-<td style="text-align: left;">.862</td>
+<td style="text-align: left;">-0.01 [-0.16, 0.15]</td>
+<td style="text-align: left;">.933</td>
+<td style="text-align: left;">-0.01 [-0.15, 0.13]</td>
+<td style="text-align: left;">.918</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">0.08 [0.06, 0.09]</td>
+<td style="text-align: left;">0.09 [0.08, 0.11]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.05 [0.04, 0.06]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.02 [-0.04, -0.01]</td>
-<td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.02 [-0.04, -0.01]</td>
-<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">-0.02 [-0.03, 0.00]</td>
+<td style="text-align: left;">.015</td>
+<td style="text-align: left;">-0.02 [-0.03, 0.00]</td>
+<td style="text-align: left;">.017</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.01 [-0.02, 0.00]</td>
-<td style="text-align: left;">.001</td>
-<td style="text-align: left;">0.00 [-0.01, 0.00]</td>
-<td style="text-align: left;">.202</td>
+<td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
+<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">0.00 [0.00, 0.01]</td>
+<td style="text-align: left;">.492</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
+<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
@@ -912,9 +920,9 @@ class="math inline">×</span> Age</td>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.397</td>
 <td style="text-align: left;">0.00 [-0.01, 0.00]</td>
+<td style="text-align: left;">.068</td>
+<td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -928,8 +936,8 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">   (Intercept)</td>
 <td style="text-align: left;">0.15 [-0.01, 0.31]</td>
 <td style="text-align: left;">.067</td>
-<td style="text-align: left;">0.15 [-0.03, 0.32]</td>
-<td style="text-align: left;">.095</td>
+<td style="text-align: left;">0.15 [-0.02, 0.31]</td>
+<td style="text-align: left;">.088</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
@@ -940,15 +948,15 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">0.00 [-0.02, 0.01]</td>
-<td style="text-align: left;">.573</td>
+<td style="text-align: left;">-0.01 [-0.02, 0.01]</td>
+<td style="text-align: left;">.354</td>
 <td style="text-align: left;">-0.01 [-0.03, 0.00]</td>
-<td style="text-align: left;">.136</td>
+<td style="text-align: left;">.093</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
+<td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
@@ -956,16 +964,16 @@ class="math inline"><sup>2</sup></span></td>
 <tr>
 <td style="text-align: left;">   Physical activity <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">-0.02 [-0.02, -0.02]</td>
+<td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
+<td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.016</td>
+<td style="text-align: left;">.153</td>
 <td style="text-align: left;">0.01 [0.00, 0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
@@ -978,45 +986,45 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.06 [-0.21, 0.33]</td>
-<td style="text-align: left;">.654</td>
-<td style="text-align: left;">0.08 [-0.18, 0.34]</td>
-<td style="text-align: left;">.546</td>
+<td style="text-align: left;">0.10 [-0.16, 0.37]</td>
+<td style="text-align: left;">.442</td>
+<td style="text-align: left;">0.13 [-0.13, 0.38]</td>
+<td style="text-align: left;">.325</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">-0.09 [-0.10, -0.09]</td>
+<td style="text-align: left;">-0.11 [-0.13, -0.10]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.05 [-0.06, -0.05]</td>
+<td style="text-align: left;">-0.06 [-0.07, -0.05]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.01 [-0.02, 0.00]</td>
-<td style="text-align: left;">.099</td>
-<td style="text-align: left;">0.00 [-0.01, 0.01]</td>
-<td style="text-align: left;">.457</td>
+<td style="text-align: left;">-0.01 [-0.03, 0.00]</td>
+<td style="text-align: left;">.040</td>
+<td style="text-align: left;">-0.01 [-0.02, 0.01]</td>
+<td style="text-align: left;">.302</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">0.01 [0.01, 0.02]</td>
+<td style="text-align: left;">0.02 [0.01, 0.03]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.00 [-0.01, 0.00]</td>
-<td style="text-align: left;">.174</td>
+<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
+<td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">-0.02 [-0.02, -0.02]</td>
+<td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.066</td>
+<td style="text-align: left;">0.01 [0.00, 0.01]</td>
+<td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Physical activity<span class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">0.01 [0.00, 0.01]</td>
+<td style="text-align: left;">0.01 [0.01, 0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.01 [0.01, 0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
@@ -1030,38 +1038,38 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.15 [0.02, 0.27]</td>
-<td style="text-align: left;">.019</td>
-<td style="text-align: left;">0.08 [-0.08, 0.23]</td>
-<td style="text-align: left;">.328</td>
+<td style="text-align: left;">0.15 [0.03, 0.28]</td>
+<td style="text-align: left;">.014</td>
+<td style="text-align: left;">0.08 [-0.07, 0.23]</td>
+<td style="text-align: left;">.291</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity</td>
-<td style="text-align: left;">0.24 [0.22, 0.25]</td>
+<td style="text-align: left;">0.24 [0.22, 0.26]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.12 [0.11, 0.13]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">0.01 [-0.02, 0.03]</td>
-<td style="text-align: left;">.656</td>
-<td style="text-align: left;">-0.05 [-0.08, -0.02]</td>
+<td style="text-align: left;">0.01 [-0.01, 0.04]</td>
+<td style="text-align: left;">.240</td>
+<td style="text-align: left;">-0.05 [-0.07, -0.02]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.08 [-0.10, -0.07]</td>
+<td style="text-align: left;">-0.10 [-0.11, -0.09]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.07 [-0.08, -0.06]</td>
+<td style="text-align: left;">-0.08 [-0.08, -0.07]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Physical activity <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">0.00 [-0.01, 0.00]</td>
-<td style="text-align: left;">.186</td>
+<td style="text-align: left;">-0.01 [-0.01, 0.00]</td>
+<td style="text-align: left;">.010</td>
 <td style="text-align: left;">-0.04 [-0.05, -0.04]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
@@ -1079,9 +1087,9 @@ Physical activity<span class="math inline"><sup>2</sup></span></td>
 *Note.* Adjusted for SES, sex, and BMI z-score. Rows are grouped by
 sleep outcome; columns give the physical activity predictor. Variables
 marked (z) are standardised; <sup>2</sup> denotes a quadratic term and ×
-an interaction. Age was centred at 39 years (the mean across
+an interaction. Age was centred at 35.6 years (the mean across
 person-days) and scaled per 10 years, so main effects are associations
-at age 39 and age interactions are the change per 10 years.
+at age 35.6 and age interactions are the change per 10 years.
 
  
 
@@ -1112,8 +1120,8 @@ low levels of intensity were strongly associated with poor sleep
 regularity and the benefits of increasing intensity diminished past one
 standard deviation above the mean. The associations with sleep duration
 and efficiency weakened with age, and the association with sleep
-regularity declined markedly, from *β* = 0.24 \[0.23, 0.26\] at age 11
-to 0.01 \[-0.01, 0.02\] at age 65.
+regularity declined markedly, from *β* = 0.22 \[0.21, 0.24\] at age 11
+to 0.00 \[-0.02, 0.01\] at age 65.
 
 <img src="../Figures/main/Sleep on scale_pa_intensity by Age_nolog.jpg" alt="Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1163,23 +1171,23 @@ class="math inline"><em>p</em></span></th>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.18 [-0.17, 0.52]</td>
-<td style="text-align: left;">.316</td>
-<td style="text-align: left;">-0.07 [-0.20, 0.06]</td>
-<td style="text-align: left;">.270</td>
+<td style="text-align: left;">0.13 [-0.17, 0.43]</td>
+<td style="text-align: left;">.388</td>
+<td style="text-align: left;">-0.07 [-0.19, 0.05]</td>
+<td style="text-align: left;">.238</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep duration</td>
-<td style="text-align: left;">0.01 [0.00, 0.01]</td>
-<td style="text-align: left;">.003</td>
-<td style="text-align: left;">0.03 [0.02, 0.03]</td>
+<td style="text-align: left;">0.02 [0.01, 0.02]</td>
+<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">0.02 [0.02, 0.03]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.26 [-0.27, -0.24]</td>
+<td style="text-align: left;">-0.23 [-0.24, -0.21]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.28 [-0.29, -0.27]</td>
+<td style="text-align: left;">-0.27 [-0.28, -0.26]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1187,7 +1195,7 @@ class="math inline"><em>p</em></span></th>
 class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">-0.02 [-0.03, -0.02]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
+<td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1196,15 +1204,15 @@ class="math inline">×</span> Age</td>
 <td style="text-align: left;">-0.01 [-0.01, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.004</td>
+<td style="text-align: left;">.076</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep duration<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.006</td>
+<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.009</td>
+<td style="text-align: left;">.227</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep efficiency (z)</td>
@@ -1215,23 +1223,23 @@ Sleep duration<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.17 [-0.18, 0.51]</td>
-<td style="text-align: left;">.340</td>
-<td style="text-align: left;">-0.08 [-0.20, 0.05]</td>
-<td style="text-align: left;">.246</td>
+<td style="text-align: left;">0.12 [-0.18, 0.42]</td>
+<td style="text-align: left;">.425</td>
+<td style="text-align: left;">-0.07 [-0.19, 0.05]</td>
+<td style="text-align: left;">.224</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep efficiency</td>
+<td style="text-align: left;">0.00 [0.00, 0.01]</td>
+<td style="text-align: left;">.552</td>
 <td style="text-align: left;">0.01 [0.00, 0.01]</td>
-<td style="text-align: left;">.005</td>
-<td style="text-align: left;">0.01 [0.00, 0.01]</td>
-<td style="text-align: left;">.035</td>
+<td style="text-align: left;">.037</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.25 [-0.27, -0.24]</td>
+<td style="text-align: left;">-0.23 [-0.24, -0.21]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.28 [-0.29, -0.26]</td>
+<td style="text-align: left;">-0.27 [-0.28, -0.26]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
@@ -1245,18 +1253,18 @@ class="math inline"><sup>2</sup></span></td>
 <tr>
 <td style="text-align: left;">   Sleep efficiency <span
 class="math inline">×</span> Age</td>
+<td style="text-align: left;">0.00 [0.00, 0.01]</td>
+<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.041</td>
-<td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.128</td>
+<td style="text-align: left;">.455</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep efficiency<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.008</td>
+<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.423</td>
+<td style="text-align: left;">.182</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep onset (z)</td>
@@ -1267,48 +1275,48 @@ Sleep efficiency<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.17 [-0.19, 0.53]</td>
-<td style="text-align: left;">.362</td>
-<td style="text-align: left;">-0.09 [-0.22, 0.04]</td>
-<td style="text-align: left;">.190</td>
+<td style="text-align: left;">0.12 [-0.18, 0.42]</td>
+<td style="text-align: left;">.423</td>
+<td style="text-align: left;">-0.08 [-0.21, 0.04]</td>
+<td style="text-align: left;">.181</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep onset</td>
-<td style="text-align: left;">-0.06 [-0.07, -0.06]</td>
+<td style="text-align: left;">-0.02 [-0.03, -0.02]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.02 [-0.03, -0.01]</td>
+<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.26 [-0.27, -0.25]</td>
+<td style="text-align: left;">-0.22 [-0.23, -0.21]</td>
 <td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">-0.28 [-0.29, -0.27]</td>
+<td style="text-align: left;">-0.27 [-0.28, -0.26]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep onset<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
-<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.00 [-0.01, 0.00]</td>
-<td style="text-align: left;">.135</td>
+<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">0.00 [0.00, 0.00]</td>
+<td style="text-align: left;">.425</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep onset <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">0.02 [0.02, 0.02]</td>
-<td style="text-align: left;">&lt; .001</td>
-<td style="text-align: left;">0.01 [0.01, 0.02]</td>
+<td style="text-align: left;">0.00 [0.00, 0.01]</td>
+<td style="text-align: left;">.003</td>
+<td style="text-align: left;">0.01 [0.01, 0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep onset<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">.013</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.963</td>
+<td style="text-align: left;">.052</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sleep regularity (z)</td>
@@ -1319,21 +1327,21 @@ Sleep onset<span class="math inline"><sup>2</sup></span></td>
 </tr>
 <tr>
 <td style="text-align: left;">   (Intercept)</td>
-<td style="text-align: left;">0.15 [-0.18, 0.48]</td>
-<td style="text-align: left;">.386</td>
-<td style="text-align: left;">-0.09 [-0.21, 0.03]</td>
-<td style="text-align: left;">.140</td>
+<td style="text-align: left;">0.10 [-0.18, 0.39]</td>
+<td style="text-align: left;">.470</td>
+<td style="text-align: left;">-0.09 [-0.20, 0.02]</td>
+<td style="text-align: left;">.126</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep regularity</td>
-<td style="text-align: left;">0.09 [0.09, 0.10]</td>
+<td style="text-align: left;">0.09 [0.08, 0.09]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">0.05 [0.05, 0.06]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age</td>
-<td style="text-align: left;">-0.25 [-0.26, -0.23]</td>
+<td style="text-align: left;">-0.22 [-0.23, -0.21]</td>
 <td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.27 [-0.28, -0.26]</td>
 <td style="text-align: left;">&lt; .001</td>
@@ -1341,26 +1349,26 @@ Sleep onset<span class="math inline"><sup>2</sup></span></td>
 <tr>
 <td style="text-align: left;">   Sleep regularity<span
 class="math inline"><sup>2</sup></span></td>
-<td style="text-align: left;">0.00 [0.00, 0.01]</td>
-<td style="text-align: left;">.124</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.828</td>
+<td style="text-align: left;">.593</td>
+<td style="text-align: left;">0.00 [0.00, 0.00]</td>
+<td style="text-align: left;">.855</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Sleep regularity <span
 class="math inline">×</span> Age</td>
-<td style="text-align: left;">-0.02 [-0.02, -0.02]</td>
-<td style="text-align: left;">&lt; .001</td>
 <td style="text-align: left;">-0.02 [-0.02, -0.01]</td>
+<td style="text-align: left;">&lt; .001</td>
+<td style="text-align: left;">-0.01 [-0.02, -0.01]</td>
 <td style="text-align: left;">&lt; .001</td>
 </tr>
 <tr>
 <td style="text-align: left;">   Age <span class="math inline">×</span>
 Sleep regularity<span class="math inline"><sup>2</sup></span></td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.218</td>
+<td style="text-align: left;">.616</td>
 <td style="text-align: left;">0.00 [0.00, 0.00]</td>
-<td style="text-align: left;">.396</td>
+<td style="text-align: left;">.206</td>
 </tr>
 </tbody>
 </table>
@@ -1368,9 +1376,10 @@ Sleep regularity<span class="math inline"><sup>2</sup></span></td>
 *Note.* Adjusted for SES, sex, and BMI z-score. Rows are grouped by the
 previous night’s sleep predictor; columns give the physical activity
 outcome. Variables marked (z) are standardised; <sup>2</sup> denotes a
-quadratic term and × an interaction. Age was centred at 39 years (the
+quadratic term and × an interaction. Age was centred at 35.6 years (the
 mean across person-days) and scaled per 10 years, so main effects are
-associations at age 39 and age interactions are the change per 10 years.
+associations at age 35.6 and age interactions are the change per 10
+years.
 
  
 
@@ -1411,8 +1420,8 @@ by age. Results, controlling for sex, SES, and BMI are presented in
 Table @ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-onset-fig).
 Earlier sleep onset was associated with higher next-day physical
 activity volume and, more weakly, intensity, although these associations
-were attenuated at older ages (volume: *β* = -0.12 \[-0.13, -0.11\] at
-age 11 and -0.01 \[-0.02, 0.00\] at age 65).
+were attenuated at older ages (volume: *β* = -0.03 \[-0.04, -0.02\] at
+age 11 and -0.01 \[-0.02, -0.01\] at age 65).
 
 <img src="../Figures/main/PA on scale_sleep_onset_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1431,8 +1440,8 @@ activity by age. Results, controlling for sex, SES, and BMI are
 presented in Table @ref(tab:pa-outcomes) and Figure
 @ref(fig:PA-by-sleep-regularity-fig). There was a positive linear
 relationship between sleep regularity and both physical activity volume
-and intensity. These relationships weakened with age (volume: *β* = 0.14
-\[0.14, 0.15\] at age 11 and 0.05 \[0.04, 0.05\] at age 65), and the
+and intensity. These relationships weakened with age (volume: *β* = 0.13
+\[0.12, 0.13\] at age 11 and 0.04 \[0.03, 0.05\] at age 65), and the
 association with intensity was negligible in older adults (*β* = 0.01
 \[0.00, 0.02\] at age 65).
 
@@ -1455,11 +1464,11 @@ and intensity of physical activity were associated with longer sleep
 duration, higher sleep efficiency, earlier sleep onset, and more regular
 sleep. These relationships were the strongest for sleep regularity,
 although the relationship with physical activity intensity weakened with
-age. Although robust, these associations were small: a 1 SD (21.0 mg)
-higher physical activity volume was associated with 3.9 points higher
-sleep regularity, 8.2 min longer sleep, and 6 min earlier sleep onset at
-age 11, and with 3.7 points, 5.0 min, and 18 min, respectively, at age
-65.
+age. Although robust, these associations were small: a 1 SD (23.7 mg)
+higher physical activity volume was associated with 4.1 points higher
+sleep regularity, 11.2 min longer sleep, and 11 min earlier sleep onset
+at age 11, and with 3.5 points, 4.4 min, and 18 min, respectively, at
+age 65.
 
 When examining the reverse direction, we observed that those who fell
 asleep earlier or at a more regular time engaged in more total and more
@@ -1597,8 +1606,8 @@ than a month of data \[74\]. However, the processing method we used
 specifically allows for comparisons to day-pairs and this methodology
 has been used by others \[e.g., 67\]. Restricting the sample to
 participants with at least seven valid days gave a similar association
-between physical activity volume and sleep regularity (*β* = 0.24
-\[0.22, 0.26\] at age 11 and 0.20 \[0.17, 0.23\] at age 65). Sleep
+between physical activity volume and sleep regularity (*β* = 0.26
+\[0.24, 0.28\] at age 11 and 0.19 \[0.15, 0.23\] at age 65). Sleep
 regularity scores also depend on the software used to calculate them,
 with *GGIR* producing scores around 20 points lower than the *sleepreg*
 package \[75\], so absolute values from our data should not be compared
