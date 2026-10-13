@@ -1,5 +1,4 @@
 Package versions recorded 2026-10-06, before the production run.
-CODE_REVIEW.md production checklist item 7 (the lesson of C23/C24).
 
 R version 4.5.3 (2026-03-11) 
 Platform: x86_64-pc-linux-gnu 

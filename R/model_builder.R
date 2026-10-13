@@ -51,8 +51,7 @@ check_model_environment <- function() {
       warning(
         "lme4's optimizer table no longer matches optimizer_ladder in ",
         "R/model_builder.R. The analysis still uses optimizer_ladder; check ",
-        "whether the upstream change should be adopted. See E2 in ",
-        "CODE_REVIEW.md.",
+        "whether the upstream change should be adopted.",
         call. = FALSE
       )
     }
@@ -167,7 +166,7 @@ fit_model <- function(..., data, max_iter = 1e6) {
       stop(
         "lmer() returned no @optinfo$derivs despite calc.derivs = TRUE, so ",
         "is_converged() can never return TRUE and every model would be ",
-        "recorded as unconverged. See C24 in CODE_REVIEW.md.",
+        "recorded as unconverged.",
         call. = FALSE
       )
     }

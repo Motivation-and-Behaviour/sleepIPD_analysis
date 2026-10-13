@@ -61,3 +61,4 @@ googlecloudstorager-auth-key.json
 **/*.quarto_ipynb
 literature/*
 other_docs/*
+datasets/*

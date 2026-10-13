@@ -1,3 +1,7 @@
+weekday_names <- c(
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+)
+
 #' .. content for \description{} (no empty lines) ..
 #'
 #' .. content for \details{} ..
@@ -23,7 +27,7 @@ clean_data <- function(
       pa_volume = acc_day_mg,
       pa_intensity = ig_gradient,
       pa_intensity_m16 = m16_ig_gradient_enmo_mg_0_24hr,
-      pa_mostactivehr = m1time,
+      pa_mostactivehr = m1time_num,
       sleep_duration = dur_spt_sleep_min,
       sleep_efficiency = sleep_efficiency,
       sleep_onset = sleeponset_p5,
@@ -39,7 +43,6 @@ clean_data <- function(
       "filename",
       "n_valid_hours",
       "n_hours",
-      "weekday_x",
       "measurementday",
       "calendar_date",
       "sex",
@@ -104,12 +107,10 @@ clean_data <- function(
         country,
         season,
         acc_wear_loc,
-        weekday_x,
         accelerometer_model
       ),
       as.factor
     )) %>%
-    rename(weekday = weekday_x) %>%
     # convert calendar_date to date
     mutate(calendar_date = as.Date(calendar_date)) %>%
     # Add participant ID using the study and filename
@@ -177,12 +178,16 @@ clean_data <- function(
         measurement_day
       )
     ) %>%
+    # From the date, not GGIR's part 2 weekday, which is a day behind for
+    # recordings that start before the UTC offset hour east of UTC
+    mutate(weekday = factor(
+      weekday_names[as.POSIXlt(calendar_date)$wday + 1],
+      levels = sort(weekday_names, method = "radix")
+    )) %>%
     select(-measurementday, -sleep_onset_time, -sleep_wakeup_time) %>%
-    # Fix up the most active time
-    mutate(
-      pa_mostactivehr = lubridate::hour(lubridate::ymd_hms(pa_mostactivehr)) +
-        lubridate::minute(lubridate::ymd_hms(pa_mostactivehr)) / 60
-    )
+    # GGIR's local clock hour; the M1TIME timestamps were converted to UTC when
+    # part 5 was collated. The 2.4-0 output counts past 24, so wrap it.
+    mutate(pa_mostactivehr = as.numeric(pa_mostactivehr) %% 24)
   # read in sleep conditions harmonisation data
 
   sleep_refactors <-
@@ -298,7 +303,6 @@ clean_data <- function(
         studyid == 108 ~ "Australia",
         studyid == 110 ~ "Finland",
         studyid == 111 ~ "United Kingdom",
-        studyid == 112 ~ "Spain",
         studyid == 114 ~ "United States",
         studyid == 117 ~ "Spain",
         studyid == 118 ~ "Australia",
@@ -325,7 +329,6 @@ clean_data <- function(
         studyid == 105 ~ "Prague",
         studyid == 108 ~ "Sydney",
         studyid == 110 ~ "Southwest Finland",
-        studyid == 112 ~ "Seville",
         studyid == 117 ~ "Madrid",
         studyid == 118 ~ "Sydney",
         studyid == 212 & city == "Mobtellano" ~ "Montellano",

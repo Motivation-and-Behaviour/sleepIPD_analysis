@@ -147,7 +147,7 @@ make_model_tables <- function(model_list) {
 #' moderated by those variables also caught the moderator's own rows *and* its
 #' quadratic interaction — R names that term `moderator:I(x^2)`, so it starts
 #' with the moderator's name. `by_bmi`, `by_ses` and `by_sex` therefore shipped
-#' without the quadratic moderation term. See D8 in CODE_REVIEW.md.
+#' without the quadratic moderation term.
 
 format_table <- function(
   tab,

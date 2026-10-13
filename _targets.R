@@ -48,8 +48,6 @@ list(
   ),
   # Data targets
   tar_target(data_joined, dplyr::bind_rows(data_raw)),
-  # Static reference data (61 city coordinates), tracked so a change to it
-  # invalidates data_clean. See E4 in CODE_REVIEW.md.
   tar_target(latlong_file, "data/latlong.csv", format = "file"),
   tar_target(
     data_clean,
@@ -118,7 +116,7 @@ list(
     # targets the paths to hash. A deleted or hand-edited figure now shows up as
     # an outdated target instead of silently vanishing from the render; it is
     # detection, not self-healing, so fix one with
-    # tar_invalidate(purdy_pictures_<family>). See D11 in CODE_REVIEW.md.
+    # tar_invalidate(purdy_pictures_<family>).
     tar_target(
       purdy_picture_files,
       unname(unlist(purdy_pictures)),
@@ -194,7 +192,7 @@ list(
   # first run writes the new chunks; the second picks up their dependencies.
   # Note make_multiverse_file() also filters out age-moderated families, so
   # by_age_fixedef, by_age_log and by_age_allwear are hand-written sections in
-  # multiverse_skeleton.Rmd. See D10 in CODE_REVIEW.md.
+  # multiverse_skeleton.Rmd.
   tar_target(
     multiverse_file,
     make_multiverse_file(
