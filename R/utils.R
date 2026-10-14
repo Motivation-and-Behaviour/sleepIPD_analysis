@@ -191,7 +191,7 @@ compute_age_centre <- function(
 #' range equals the observed range — verified against `mice::complete()` for
 #' all five predictors. Reading it from a single unimputed copy also guarantees
 #' the grid is identical across imputations, which
-#' `ggeffects::pool_predictions()` requires. If a method is ever changed to one
+#' `pool_predictions_rubin()` requires. If a method is ever changed to one
 #' that can generate values outside the observed range, this needs revisiting.
 predictor_grid <- function(data_imp, var, n = 200, step = NULL) {
   x <- data_imp$data[[var]]

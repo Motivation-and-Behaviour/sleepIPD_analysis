@@ -299,6 +299,11 @@ model_builder <-
       converged[i] <- is_converged(mod)
       singular[i] <- is_singular(mod)
 
+      # Complete-data df (n - k) for Barnard-Rubin pooling of the slopes and
+      # the effects displays
+      pool_n <- stats::nobs(mod)
+      pool_k <- length(lme4::fixef(mod))
+
       tidy_i <- data.table(broom.mixed::tidy(mod, effects = "fixed"))
       tidy_i[, `:=`(.imp = i, df.residual = stats::df.residual(mod))]
       tidy_list[[i]] <- tidy_i
@@ -323,8 +328,6 @@ model_builder <-
         slope_u[i, ] <- v[slope_x, slope_x] +
           slope_weights^2 * v[slope_xa, slope_xa] +
           2 * slope_weights * v[slope_x, slope_xa]
-        slope_n <- stats::nobs(mod)
-        slope_k <- length(b)
       }
 
       if (!table_only) {
@@ -398,7 +401,9 @@ model_builder <-
         terms = age_terms,
         outcome = outcome,
         conv = conv_p,
-        RQ = RQ
+        RQ = RQ,
+        n = pool_n,
+        k = pool_k
       )
     } else {
       pred_mat <- NULL
@@ -409,8 +414,8 @@ model_builder <-
         pooled <- mice::pool.scalar(
           slope_q[, j],
           slope_u[, j],
-          n = slope_n,
-          k = slope_k
+          n = pool_n,
+          k = pool_k
         )
         se <- sqrt(pooled$t)
         crit <- stats::qt(0.975, pooled$df)
@@ -436,7 +441,9 @@ model_builder <-
         terms = terms,
         outcome = outcome,
         conv = conv_p,
-        RQ = RQ
+        RQ = RQ,
+        n = pool_n,
+        k = pool_k
       ),
       conv = conv_p,
       diagnostics = check_model(resid_list, conv = conv_p, singular = sing_p),
@@ -462,9 +469,20 @@ model_builder <-
 #' @param outcome character. outcome variable
 #' @param conv convergence as a proportion
 #' @param RQ Research question number
+#' @param n,k observations and fixed effects in each fit; see
+#'   `pool_predictions_rubin()`
 
-pool_effects <- function(predictions, moderator, terms, outcome, conv, RQ) {
-  effects <- ggeffects::pool_predictions(predictions)
+pool_effects <- function(
+  predictions,
+  moderator,
+  terms,
+  outcome,
+  conv,
+  RQ,
+  n,
+  k
+) {
+  effects <- pool_predictions_rubin(predictions, n = n, k = k)
 
   # (1 - conv) is the proportion that did NOT converge, which is what the
   # overlay reports.
@@ -484,4 +502,69 @@ pool_effects <- function(predictions, moderator, terms, outcome, conv, RQ) {
   }
   attr(dt, "conv") <- conv
   dt
+}
+
+#' pool_predictions_rubin
+#'
+#' Pool per-imputation `ggeffects` predictions point by point with Rubin's
+#' rules.
+#'
+#' @param predictions list of ggeffects objects, one per imputation
+#' @param n,k observations and fixed effects in each fit, giving the
+#'   complete-data df (n - k) for the Barnard-Rubin adjustment
+#' @param ci_level confidence level of the intervals
+#'
+#' @details Replaces `ggeffects::pool_predictions()`. Its pooled standard
+#' errors are right, but (as of 2.3.2) it computes a single Barnard-Rubin df
+#' for the whole display with `m` set to the number of grid points and `b` to
+#' the variance of the pooled curve across the grid, not between imputations.
+#' The steeper or more widely separated the curves, the smaller that df, down
+#' to a floor of 1, so the intervals on the strongest associations were up to
+#' 6.5 times too wide. Here each grid point is pooled with
+#' `mice::pool.scalar()`, the same pooling behind the age-specific slopes, and
+#' gets its own df.
+pool_predictions_rubin <- function(predictions, n, k, ci_level = 0.95) {
+  frames <- lapply(predictions, as.data.frame)
+  value_cols <- c("predicted", "std.error", "conf.low", "conf.high")
+  key_cols <- setdiff(names(frames[[1]]), value_cols)
+
+  same_grid <- vapply(
+    frames,
+    function(f) {
+      identical(names(f), names(frames[[1]])) &&
+        all(vapply(
+          key_cols,
+          function(col) identical(f[[col]], frames[[1]][[col]]),
+          logical(1)
+        ))
+    },
+    logical(1)
+  )
+  if (!all(same_grid)) {
+    stop(
+      "Cannot pool predictions: the prediction grid (",
+      paste(key_cols, collapse = ", "),
+      ") differs between imputations.",
+      call. = FALSE
+    )
+  }
+
+  q <- do.call(cbind, lapply(frames, `[[`, "predicted"))
+  u <- do.call(cbind, lapply(frames, `[[`, "std.error"))^2
+
+  pooled <- lapply(seq_len(nrow(q)), function(r) {
+    mice::pool.scalar(q[r, ], u[r, ], n = n, k = k)
+  })
+  qbar <- vapply(pooled, `[[`, numeric(1), "qbar")
+  se <- sqrt(vapply(pooled, `[[`, numeric(1), "t"))
+  df <- vapply(pooled, `[[`, numeric(1), "df")
+  crit <- stats::qt((1 + ci_level) / 2, df)
+
+  out <- frames[[1]]
+  out$predicted <- qbar
+  out$std.error <- se
+  out$conf.low <- qbar - crit * se
+  out$conf.high <- qbar + crit * se
+  out$df <- df
+  out
 }

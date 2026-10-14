@@ -94,10 +94,12 @@ make_manuscript_info <- function(
 
   weekday_table <- (data_clean_analytic$weekday) |> table()
   weekday <- chisq.test(weekday_table)
+  weekday_p <- papaja::print_p(weekday$p.value)
+  if (!startsWith(weekday_p, "<")) weekday_p <- paste("=", weekday_p)
   ms_info$weekday_res <- glue::glue(
     "$\\chi^2_{(..weekday$parameter..)}$",
     " = ..papaja::print_num(weekday$statistic).., ",
-    "p = ..papaja::print_p(weekday$p.value)..",
+    "p ..weekday_p..",
     .open = "..",
     .close = ".."
   )
