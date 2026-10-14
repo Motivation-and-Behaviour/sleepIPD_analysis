@@ -171,7 +171,7 @@ holdout subsample of the dataset. When the analysis code was ready, we
 conducted the final analysis \[61\].
 
 We screened all data for implausibly low or high measurements, as these
-likely indicate measurement device failures. Screening had three stages.
+likely indicate measurement device failures. Screening had four stages.
 First, we excluded values falling outside fixed physiological limits.
 For average acceleration this was 200 mg, a value above any sustainable
 24-hour average. Second, because a miscalibrated accelerometer corrupts
@@ -181,8 +181,13 @@ average acceleration exceeded that limit (76 participants). Third, we
 excluded remaining values falling outside ±4 SD of the mean **of their
 own study**, rather than of the pooled sample, so that the threshold
 reflected implausible measurement rather than between-study differences
-in device, protocol and population. Values excluded at any stage were
-treated as missing and imputed alongside genuinely missing data.
+in device, protocol and population. Fourth, for participants under 18
+years, we excluded heights, weights, and body mass index values that the
+CDC classifies as biologically implausible for the child’s age and sex
+against its 2000 growth reference (height-for-age z &lt; -5 or &gt; 4,
+weight-for-age z &lt; -5 or &gt; 8, and BMI-for-age z &lt; -4 or &gt;
+8). Values excluded at any stage were treated as missing and imputed
+alongside genuinely missing data.
 
 A day contributed to the analysis if it recorded more than 10 hours of
 wear time and, where sleep was detected, a sleep period longer than 200
@@ -295,18 +300,18 @@ resulted in the exclusion of 1,175 participants. A further 413
 participants (619 days) were excluded for having fewer than 4 days of
 valid wear time, leaving 27,236 participants and 167,994 person-days.
 Table @ref(tab:demo-participants) shows demographic information for the
-included participants. Most participants came from Europe, Oceania, and
-South America, with limited data from other regions. Participants were
-aged 2 to 94 years. There was a near-even split by sex (50.3% female),
-but age skewed towards both younger children (2-11 years, 50.9%) and
-older adults (66+ years, 22.3%).
+included participants. Most participants came from Europe and South
+America, followed by Oceania, with limited data from other regions.
+Participants were aged 2 to 94 years. There was a near-even split by sex
+(50.3% female), but age skewed towards both younger children (2-11
+years, 50.9%) and older adults (66+ years, 22.3%).
 
 Valid observations were not uniform across the days of the week
-(*χ*<sub>(6)</sub><sup>2</sup> = 343.32, p = &lt; .001). Weekends were
-over-represented (Saturday: z = 11.24; Sunday: z = 7.84), while
-Wednesdays (z = -9.30) and Thursdays (z = -2.46) were under-represented.
-A table of study characteristics can be found in the supplementary
-materials.
+(*χ*<sub>(6)</sub><sup>2</sup> = 343.32, p &lt; .001). Weekends and
+Fridays were over-represented (Saturday: z = 11.24; Sunday: z = 7.84;
+Friday: z = 5.57), while Wednesdays (z = -9.30) and Tuesdays (z = -8.22)
+were under-represented. A table of study characteristics can be found in
+the supplementary materials.
 
 <table>
 <caption>(#tab:demo-participants) Participant characteristics</caption>
@@ -847,14 +852,16 @@ Higher physical activity volume was associated with longer sleep
 duration, higher sleep efficiency, earlier sleep onset, and more regular
 sleep. Although we observed statistically significant curvilinear
 relationships, these did not appear to meaningfully change the
-associations. The association with sleep regularity was the largest and
-was similar at all ages (*β* = 0.26 \[0.24, 0.27\] at age 11 and 0.22
-\[0.19, 0.25\] at age 65). The associations with sleep duration and
-efficiency weakened with age, and by age 65 higher volume was associated
-with slightly lower sleep efficiency (*β* = -0.02 \[-0.04, -0.01\]),
-whereas the association with earlier sleep onset strengthened with age
-(*β* = -0.09 \[-0.11, -0.07\] at age 11 and -0.14 \[-0.16, -0.13\] at
-age 65).
+associations, except that in adults the association with sleep
+regularity levelled off at around one standard deviation above the mean
+physical activity volume. The association with sleep regularity was the
+largest and declined only slightly with age (*β* = 0.26 \[0.24, 0.27\]
+at age 11 and 0.22 \[0.19, 0.25\] at age 65). The associations with
+sleep duration and efficiency weakened with age, and by age 65 higher
+volume was associated with slightly lower sleep efficiency (*β* = -0.02
+\[-0.04, -0.01\]), whereas the association with earlier sleep onset
+strengthened with age (*β* = -0.09 \[-0.11, -0.07\] at age 11 and -0.14
+\[-0.16, -0.13\] at age 65).
 
 <table>
 <caption>(#tab:sleep-outcomes) Physical activity predicting sleep
@@ -1142,8 +1149,10 @@ presented in Table @ref(tab:pa-outcomes) and Figure
 activity volume and intensity are lower than for lower ages. There was a
 weak curvilinear association between sleep duration and next-day
 physical activity volume and intensity, with physical activity highest
-following nights of slightly longer than average sleep; these
-associations weakened with age.
+following nights of slightly longer than average sleep. The association
+with volume weakened with age and was slightly negative by age 65 (*β* =
+0.05 \[0.04, 0.05\] at age 11 and -0.02 \[-0.02, -0.01\] at age 65),
+whereas the association with intensity changed little with age.
 
 <table>
 <caption>(#tab:pa-outcomes) Sleep predicting physical activity
@@ -1398,10 +1407,12 @@ significantly different from zero.
 We estimated the association between sleep efficiency and physical
 activity by age. Results, controlling for sex, SES, and BMI are
 presented in Table @ref(tab:pa-outcomes) and Figure
-@ref(fig:PA-by-sleep-efficiency-fig). There was no linear association
-between sleep efficiency and physical activity volume, and only a weak
-positive association between sleep efficiency and more intense physical
-activity.
+@ref(fig:PA-by-sleep-efficiency-fig). At the mean age there was no
+linear association between sleep efficiency and physical activity
+volume; this association shifted slightly with age (*β* = -0.01 \[-0.02,
+0.00\] at age 11 and 0.01 \[0.01, 0.02\] at age 65) but was negligible
+throughout. There was only a weak positive association between sleep
+efficiency and more intense physical activity.
 
 <img src="../Figures/main/PA on scale_sleep_efficiency_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1418,10 +1429,12 @@ predictions which were not significantly different from zero.
 We estimated the association between sleep onset and physical activity
 by age. Results, controlling for sex, SES, and BMI are presented in
 Table @ref(tab:pa-outcomes) and Figure @ref(fig:PA-by-sleep-onset-fig).
-Earlier sleep onset was associated with higher next-day physical
-activity volume and, more weakly, intensity, although these associations
-were attenuated at older ages (volume: *β* = -0.03 \[-0.04, -0.02\] at
-age 11 and -0.01 \[-0.02, -0.01\] at age 65).
+Earlier sleep onset was weakly associated with higher next-day physical
+activity volume and intensity, and these associations were attenuated at
+older ages (volume: *β* = -0.03 \[-0.04, -0.02\] at age 11 and -0.01
+\[-0.02, -0.01\] at age 65). By age 65, earlier sleep onset was
+associated with marginally lower next-day intensity (*β* = 0.01 \[0.00,
+0.02\]).
 
 <img src="../Figures/main/PA on scale_sleep_onset_lag by Age_nolog.jpg" alt="Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero." width="110%" />
 <p class="caption">
@@ -1470,15 +1483,16 @@ sleep regularity, 11.2 min longer sleep, and 11 min earlier sleep onset
 at age 11, and with 3.5 points, 4.4 min, and 18 min, respectively, at
 age 65.
 
-When examining the reverse direction, we observed that those who fell
-asleep earlier or at a more regular time engaged in more total and more
-intense physical activity the following day, although these associations
-weakened with age. Longer sleep duration was associated with slightly
-more physical activity the next day, up to just above average sleep
-duration, while sleep efficiency was only weakly associated with
-physical activity intensity and not with volume. Our sensitivity
-analyses suggest that these findings were largely robust to the
-decisions made during analysis.
+When examining the reverse direction, we observed that those who slept
+at a more regular time engaged in more total and more intense physical
+activity the following day, although this association weakened with age.
+Earlier sleep onset was also associated with more physical activity the
+following day, but this association was small. Longer sleep duration was
+associated with slightly more physical activity the next day, up to just
+above average sleep duration, while sleep efficiency was only weakly
+associated with physical activity intensity and not with volume. Our
+sensitivity analyses suggest that these findings were largely robust to
+the decisions made during analysis.
 
 Our findings broadly align with meta-analyses of experimental research,
 although the strengths of the relationships we observed were much weaker
@@ -1520,49 +1534,50 @@ association with sleep \[26\], that shorter sleep was followed by more
 activity the next day \[26,27\], and that earlier-than-usual sleep onset
 was followed by more moderate-to-vigorous activity \[27\]. Our finding
 that earlier sleep onset preceded more physical activity is consistent
-with these studies, but we found clearer associations between physical
-activity and that night’s sleep, and physical activity was highest after
-slightly longer, rather than shorter, than average sleep. One
-explanation is that our models did not separate within-person
-(day-to-day) from between-person (habitual) associations, which can
-differ \[66\], so our estimates partly reflect stable differences
-between people. Neither wearable study examined sleep regularity, the
-outcome most strongly associated with physical activity in our data.
-However, it was identified as a direction for future research \[27\].
+with these studies, although the association was small in our data.
+However, we found clearer associations between physical activity and
+that night’s sleep, and physical activity was highest after slightly
+longer, rather than shorter, than average sleep. One explanation is that
+our models did not separate within-person (day-to-day) from
+between-person (habitual) associations, which can differ \[66\], so our
+estimates partly reflect stable differences between people. Neither
+wearable study examined sleep regularity, the outcome most strongly
+associated with physical activity in our data. However, it was
+identified as a direction for future research \[27\].
 
 We found the most evidence for relationships between sleep regularity
 with physical activity volume and intensity. This relationship appeared
-to be bi-directional, with sleep onset and regularity predicting
-physical activity the following day, and physical activity predicting
-sleep onset and regularity that night. This is consistent with the idea
-that sleep and physical activity are mutually reinforcing behaviours
-\[15\], or that both reflect shared underlying factors, such as daily
-routines, work or school schedules, and health priorities. Consistent
-physical activity may also help stabilise circadian rhythms \[28\].
-Sleep regularity is a stronger predictor of mortality than sleep
-duration \[67\], and irregular sleepers remain at higher risk of
-cardiovascular events and depression even when they meet sleep duration
-recommendations \[68,69\], so the finding that physical activity is
-associated with sleep regularity may be particularly important. In
-pooled data from six cohorts, the combination of irregular sleep and low
-daily step counts was associated with higher adiposity and a less
-favourable lipid profile \[70\].
+to be bi-directional, with sleep regularity predicting physical activity
+the following day, and physical activity predicting sleep onset and
+regularity that night. This is consistent with the idea that sleep and
+physical activity are mutually reinforcing behaviours \[15\], or that
+both reflect shared underlying factors, such as daily routines, work or
+school schedules, and health priorities. Consistent physical activity
+may also help stabilise circadian rhythms \[28\]. Sleep regularity is a
+stronger predictor of mortality than sleep duration \[67\], and
+irregular sleepers remain at higher risk of cardiovascular events and
+depression even when they meet sleep duration recommendations \[68,69\],
+so the finding that physical activity is associated with sleep
+regularity may be particularly important. In pooled data from six
+cohorts, the combination of irregular sleep and low daily step counts
+was associated with higher adiposity and a less favourable lipid profile
+\[70\].
 
 The association between physical activity volume and sleep regularity
-was consistent across the lifespan, as a large study of adult wearable
-users found for other day-level associations \[26\]. Other associations
-changed with age: those of physical activity intensity with sleep
-regularity, and of sleep with next-day physical activity, weakened with
-age and were small or negligible in older adults, consistent with
-evidence that the interplay between sleep and activity differs in very
-old adults \[66\]. Meta-analyses in adult populations have generally
-found associations \[16\], while those conducted in children and
-adolescents are less clear \[15,21,22\]. That our strongest association,
-with sleep regularity, did not vary with age suggests that differences
-between these meta-analyses may reflect factors beyond the age of their
-populations, such as study design or the measures of physical activity
-and sleep, and demonstrates the value of individual participant data for
-examining these questions.
+was largely consistent across the lifespan, as a large study of adult
+wearable users found for other day-level associations \[26\]. Other
+associations changed more markedly with age: those of physical activity
+intensity with sleep regularity, and of sleep with next-day physical
+activity, weakened with age and were small or negligible in older
+adults, consistent with evidence that the interplay between sleep and
+activity differs in very old adults \[66\]. Meta-analyses in adult
+populations have generally found associations \[16\], while those
+conducted in children and adolescents are less clear \[15,21,22\]. That
+our strongest association, with sleep regularity, varied little with age
+suggests that differences between these meta-analyses may reflect
+factors beyond the age of their populations, such as study design or the
+measures of physical activity and sleep, and demonstrates the value of
+individual participant data for examining these questions.
 
 These findings have implications for public health recommendations. Our
 results support promoting physical activity as a strategy for

@@ -82,8 +82,7 @@ produce_purdy_pictures <- function(model_list, ...) {
       ) +
       figure_theme() +
       theme(legend.position = "none") +
-      scale_x_continuous(limits = c(-2, 2)) +
-      scale_y_continuous(limits = c(-2, 2)) +
+      coord_cartesian(xlim = c(-2, 2), ylim = c(-2, 2)) +
       geom_text(
         data = conv_message_dat,
         aes(x = 0, y = 0, label = message, ),
@@ -116,7 +115,7 @@ produce_purdy_pictures <- function(model_list, ...) {
           labels = c("-2 <", -1, 0, 1, "2 +")
         ) +
         scale_y_continuous(n.breaks = 5) +
-        scale_x_continuous(limits = c(-2, 2)) +
+        coord_cartesian(xlim = c(-2, 2)) +
         labs(y = "Age", x = x_lab, fill = "predicted") +
         geom_tile() +
         figure_theme()

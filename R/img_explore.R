@@ -14,7 +14,9 @@ make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL) {
     stop("argument path must be supplied")
   }
 
-  p <- clean_data |>
+  complete_pair <- !is.na(clean_data[[x]]) & !is.na(clean_data[[y]])
+
+  p <- clean_data[complete_pair, ] |>
     ggplot(ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
     geom_point(alpha = .2) +
     geom_smooth() +

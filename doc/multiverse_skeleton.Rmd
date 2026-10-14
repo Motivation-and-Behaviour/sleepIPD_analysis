@@ -69,6 +69,7 @@ knitr::opts_chunk$set(echo = FALSE, fig.pos = "!htbp")
 source("R/utils.R")
 # options(warn = -1) used to sit here — see the note in manuscript.Rmd.
 knitr::opts_chunk$set(out.width = "110%")
+knitr::opts_chunk$set(out.height = "85%", out.extra = "keepaspectratio")
 ```
 
 ```{r load-libraries}

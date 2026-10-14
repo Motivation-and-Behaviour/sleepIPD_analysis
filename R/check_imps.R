@@ -123,7 +123,9 @@ check_imps <- function(data_imp) {
       imputed = if_else(.imp == 0, "Observed", "Imputed"),
       value = as.numeric(value),
       variable = factor(variable, levels = density_vars)
-    )
+    ) %>%
+    # stat_density() would drop these anyway
+    filter(!is.na(value))
 
   plot <- ggplot(imps_long, aes(x = value, group = .imp, colour = imputed)) +
     stat_density(
