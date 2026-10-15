@@ -38,17 +38,28 @@ rsconnect/
 # renv via capsule
 renv/
 
-# Data and temporary files
-data/
+data/*
 temp/
+
+# Static reference data
+!data/latlong.csv
+!data/study_references.csv
+!data/refactors_*.csv
 
 # Markdown rubbish
 doc/*.fff
 doc/*.log
 doc/*.ttt
 doc/*.tex
+doc/manuscript_files/*
 
 # Others
 .vscode
 .DS_Store
 googlecloudstorager-auth-key.json
+
+/.quarto/
+**/*.quarto_ipynb
+literature/*
+other_docs/*
+datasets/*

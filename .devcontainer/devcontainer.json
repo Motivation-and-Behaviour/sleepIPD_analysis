@@ -1,54 +1,19 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-	"name": "Existing Dockerfile",
-	"build": {
-		// Sets the run context to one level up instead of the .devcontainer folder.
-		"context": "..",
-		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-		"dockerfile": "../Dockerfile"
-	},
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {
-	// 	"ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
-	// 	// "ghcr.io/rocker-org/devcontainer-features/r-apt:0": {
-	// 	// 	"vscodeRSupport": "full",
-	// 	// 	"installDevTools": true,
-	// 	// 	"installRMarkdown": true,
-	// 	// 	"installRadian": true,
-	// 	// 	"installVscDebugger": true,
-	// 	// 	"useTests": true
-	// 	// },
-	// },
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
-	"remoteEnv": {
-		"GCS_AUTH_FILE": "/auth/gcs-auth.json"
+	"name": "SleepIPD Analysis",
+	"image": "ghcr.io/tarensanders/r-base:latest",
+	"features": {
+		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
+			"installSystemRequirements": true
+		}
 	},
 	"mounts": [
-		"source=${localEnv:GCS_AUTH_FILE},target=/auth/gcs-auth.json,type=bind"
+		"source=claude-code-config-${devcontainerId},target=/home/rstudio/.claude,type=volume",
+		"source=gh-config-${devcontainerId},target=/home/rstudio/.gh,type=volume"
 	],
-	// Configure tool-specific properties.
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-azuretools.vscode-docker", // Makes it easy to create, manage, and debug containerized applications
-				"yzhang.markdown-all-in-one", // All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)
-				"tomoki1207.pdf", // Display pdf file in VSCode
-				"REditorSupport.r",
-				"REditorSupport.r-lsp", // R Extension for Visual Studio Code
-				"RDebugger.r-debugger", // R Debugger for VS Code
-				"christian-kohler.path-intellisense", // Visual Studio Code plugin that autocompletes filenames
-				"ionutvmi.path-autocomplete",
-				"GitHub.vscode-pull-request-github",
-				"GitHub.copilot",
-				"GitHub.copilot-chat",
-				"mechatroner.rainbow-csv"
-			]
-		}
-	}
-	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "vscode"
+	"postCreateCommand": {
+		"claude": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
+		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add"
+	},
+	"shutdownAction": "none"
 }

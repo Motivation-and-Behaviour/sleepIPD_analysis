@@ -9,62 +9,83 @@ make_demog_table <- function(participant_summary) {
   require(labelled)
   require(dplyr)
 
-  participants <- participant_summary
-  # First I select all eligible participants
-  participants <- dplyr::filter(participants, elible = TRUE) |>
+  participants <- participant_summary |>
     # I remove variables we don't want in the table
     dplyr::select(
       -c(
-        waist_circumference, screen_time, daylight_hours, city, studyid, eligible,
-        height, weight, sleep_wakeup
+        waist_circumference,
+        screen_time,
+        daylight_hours,
+        city,
+        studyid,
+        eligible,
+        height,
+        weight,
+        sleep_wakeup
       )
-    )
+    ) %>%
+    dplyr::relocate(n_valid_days, .after = n_valid_hours)
 
-  # Create age bins with specified age points
-  age_breaks <- c(0, 11, 18, 35, 65, Inf)
-  age_labels <- c(glue::glue("{floor(min(participants$age, na.rm = TRUE))}-11 years"), "12-18 years", "19-35 years", "36-65 years", "66+ years")
+  # clean_data() has to store this level as "Not_reported" so mice can parse it
+  # as a formula term; it is only ever displayed here, so put the space back.
+  levels(participants$sleep_conditions) <-
+    gsub("_", " ", levels(participants$sleep_conditions))
 
-  # Assign age categories to the 'age_cat' column in the 'participants' data frame
-  participants$age_cat <-
-    cut(
-      participants$age,
-      breaks = age_breaks,
-      labels = age_labels,
-      include.lowest = TRUE,
-      right = FALSE,
-      ordered_result = TRUE
-    )
+  # Make sleep_efficiency a percentage value
+  participants$sleep_efficiency <- participants$sleep_efficiency * 100
 
   # I store the variable labels for use in the table and add region
   participant_labels <- var_label(participants)
 
   # I select all character variables and create a long from dataset
-  participants_character <- dplyr::select(participants, where(is.character) | where(is.factor)) |>
+  participants_character <- dplyr::select(
+    participants,
+    where(is.character) | where(is.factor)
+  ) |>
     tidyr::pivot_longer(-c(participant_id, age_cat)) |>
     data.table()
   # I select all numeric variables and create a long form dataset
-  participants_numeric <- dplyr::select(participants, where(is.numeric), participant_id, age_cat) |>
+  participants_numeric <- dplyr::select(
+    participants,
+    where(is.numeric),
+    participant_id,
+    age_cat
+  ) |>
     tidyr::pivot_longer(-c(participant_id, age_cat)) |>
     data.table()
+
+  two_dp <- c("pa_intensity", "bmi_z")
 
   # For the numeric variables I calculate means and SDs
   participants_numeric <- participants_numeric[,
     {
-      m <- papaja::print_num(mean(value, na.rm = TRUE))
-      sd <- papaja::print_num(sd(value, na.rm = TRUE))
+      mean_raw <- mean(value, na.rm = TRUE)
+      sd_raw <- sd(value, na.rm = TRUE)
+      digits <- if (name %in% two_dp) 2 else 1
+      m <- papaja::print_num(mean_raw, digits = digits)
+      sd <- papaja::print_num(sd_raw, digits = digits)
+      if (name == "sleep_onset") {
+        m <- convert_decimal_time(mean_raw)
+        # A standard deviation is a duration, not a time of day.
+        sd <- convert_decimal_time(sd_raw, wrap = FALSE)
+      }
+
       .(out = glue::glue("{m} ({sd})"), variable = "Numeric variables")
     },
     by = c("name", "age_cat")
   ]
 
-
   Ns <-
-    data.table::data.table(participants)[, .(
-      out = glue::as_glue(format(length(unique(participant_id)), big.mark = ",")),
-      level = "N",
-      variable = "Numeric variables"
-    ),
-    by = "age_cat"
+    data.table::data.table(participants)[,
+      .(
+        out = glue::as_glue(format(
+          length(unique(participant_id)),
+          big.mark = ","
+        )),
+        level = "N",
+        variable = "Numeric variables"
+      ),
+      by = "age_cat"
     ]
 
   # For the character variables I get counts and percents
@@ -79,7 +100,7 @@ make_demog_table <- function(participant_summary) {
       list(
         level = as.character(num$value),
         out = glue::glue(
-          "{format(num$Freq, big.mark = ',')} ({papaja::print_num(percent$Freq*100)}%)"
+          "{format(num$Freq, big.mark = ',')} ({papaja::print_num(percent$Freq*100, digits = 1)}%)"
         ),
         variable = "Categorical variables"
       )
@@ -88,43 +109,101 @@ make_demog_table <- function(participant_summary) {
   ]
 
   # I join these datasets together
-  tab1 <- rbindlist(list(Ns, participants_numeric, participants_character), fill = TRUE)
+  tab1 <- rbindlist(
+    list(Ns, participants_numeric, participants_character),
+    fill = TRUE
+  )
   # There were a few people for which we could not determine their age
   tab1 <- tab1[!is.na(tab1$age_cat)]
   tab1 <- tab1 |> tidyr::pivot_wider(values_from = out, names_from = age_cat)
 
   # Pivot wider is annoying and ignores factor levels
+  age_labels <- levels(participants$age_cat)
   non_age_names <- names(tab1)[!names(tab1) %in% age_labels]
   tab1 <- tab1[, c(non_age_names, age_labels)]
 
   # I recode the names using variable labels
-  tab1$name <- dplyr::recode(tab1$name, !!!participant_labels)
+  labelled <- participant_labels[
+    !vapply(participant_labels, is.null, logical(1))
+  ]
+  tab1$name <- dplyr::recode(tab1$name, !!!labelled)
   tab1$level[is.na(tab1$level)] <- tab1$name[is.na(tab1$level)]
-  tab1$level <- stringr::str_to_sentence(tab1$level)
-  tab1$level[tab1$level == "Bmi"] <- "BMI"
+  tab1$level <- stringr::str_to_title(tab1$level)
   tab1$level <- gsub("Pa", "PA", tab1$level)
+  tab1$level[tab1$level == "Bmi"] <- "BMI"
+  tab1$level[tab1$level == "Bmi Z-Score"] <- "BMI z-score"
+  tab1$level[tab1$level == "PA Intensity"] <- "PA Intensity Gradient (unitless)"
+  tab1$level[
+    tab1$level == "PA Volume"
+  ] <- "PA Volume (average acceleration in mg)"
+  tab1$level[tab1$level == "Sleep Duration"] <- "Sleep Duration (min)"
+  tab1$level[tab1$level == "Sleep Efficiency"] <- "Sleep Efficiency (%)"
+  tab1$level[
+    tab1$level == "Sleep Onset"
+  ] <- "Sleep Onset (clock time; SD in h:mm)"
+  tab1$level[tab1$level == "Unclear"] <- "Other or unknown"
   # I want to have all numeric variables under a single row span so replace their name.
   # The categorical variables will each get their own rowspan
   tab1$name[tab1$variable == "Numeric variables"] <- "Numeric variables"
-  for (j in names(tab1)) set(tab1, which(is.na(tab1[[j]])), j, " - ")
+  for (j in names(tab1)) {
+    set(tab1, which(is.na(tab1[[j]])), j, " - ")
+  }
   out_tab <- tab1 |>
     dplyr::select(-c(variable, name)) |>
     dplyr::rename(Characteristic = level) |>
     split(tab1$name)
 
   out_tab <-
-    append(out_tab["Numeric variables"], out_tab[!names(out_tab) %in% "Numeric variables"])
+    append(
+      out_tab["Numeric variables"],
+      out_tab[!names(out_tab) %in% "Numeric variables"]
+    )
 
   # Reorder socioeconomic status
   out_tab$`Socioeconomic Status`$Characteristic <-
-    factor(out_tab$`Socioeconomic Status`$Characteristic,
+    factor(
+      out_tab$`Socioeconomic Status`$Characteristic,
       levels = c("Low", "Medium", "High")
     )
+  out_tab$`Sleep Conditions Reported`$Characteristic <-
+    factor(
+      out_tab$`Sleep Conditions Reported`$Characteristic,
+      levels = c("No", "Yes", "Not Reported")
+    )
   out_tab$`Sleep Conditions Reported` <-
-    out_tab$`Sleep Conditions Reported`[out_tab$`Sleep Conditions Reported`$Characteristic == "Yes", ]
+    out_tab$`Sleep Conditions Reported`[
+      order(out_tab$`Sleep Conditions Reported`$Characteristic),
+    ]
 
   out_tab$`Socioeconomic Status` <-
-    out_tab$`Socioeconomic Status`[order(out_tab$`Socioeconomic Status`$Characteristic), ]
+    out_tab$`Socioeconomic Status`[
+      order(out_tab$`Socioeconomic Status`$Characteristic),
+    ]
 
   out_tab
+}
+
+#' convert_decimal_time
+#'
+#' Convert decimal hours (e.g. 22.5) to HH:MM (e.g. "22:30").
+#'
+#' @param decimal_time hours as a number
+#' @param wrap wrap at 24 h. TRUE for a time of day, FALSE for a duration.
+#'
+#' @details `sleep_onset` is coded as hours from midnight of the recording day
+#' and runs past 24 for post-midnight onsets — the 66+ band's mean is 24.38.
+#' Without the wrap that printed as "24:23" under a header saying clock time.
+#' A standard deviation is a duration rather than a time of day, so it must not
+#' wrap; pass `wrap = FALSE`. Working in whole minutes also stops `round()`
+#' producing "01:60".
+convert_decimal_time <- function(decimal_time, wrap = TRUE) {
+  total_minutes <- round(decimal_time * 60)
+  if (wrap) {
+    total_minutes <- total_minutes %% (24 * 60)
+  }
+  sprintf(
+    "%02d:%02d",
+    as.integer(total_minutes %/% 60),
+    as.integer(total_minutes %% 60)
+  )
 }

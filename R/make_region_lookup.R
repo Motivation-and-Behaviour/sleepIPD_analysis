@@ -22,33 +22,43 @@ make_region_lookup <- function() {
         "Switzerland",
         "Denmark",
         "New Zealand",
-        "Czech Republic"
+        "Czech Republic",
+        "Chile"
       ),
-      region = factor(c(
-        "Oceania",
-        "Europe",
-        "Europe",
-        "South America",
-        "Africa",
-        "South America",
-        "Africa",
-        "Asia",
-        "North America",
-        "Asia",
-        "North America",
-        "Europe",
-        "Europe",
-        "South America",
-        "Africa",
-        "Europe",
-        "Europe",
-        "Europe",
-        "Europe",
-        "Oceania",
-        "Europe"
-      ), levels = c("Oceania", "Europe", "Africa", "Asia", "North America", "South America")
-    ))
+      region = factor(
+        c(
+          "Oceania",
+          "Europe",
+          "Europe",
+          "South America",
+          "Africa",
+          "South America",
+          "Africa",
+          "Asia",
+          "North America",
+          "Asia",
+          "North America",
+          "Europe",
+          "Europe",
+          "South America",
+          "Africa",
+          "Europe",
+          "Europe",
+          "Europe",
+          "Europe",
+          "Oceania",
+          "Europe",
+          "South America"
+        ),
+        levels = c(
+          "Oceania",
+          "Europe",
+          "Africa",
+          "Asia",
+          "North America",
+          "South America"
+        )
+      )
+    )
   lookup_table
 }
-
-

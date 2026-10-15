@@ -8,10 +8,25 @@
 #' @author Taren Sanders
 #' @test model_list <- model_list_by_wear_location
 #' @export
+# Display names for variables that would otherwise print as their raw column
+# name. Shared by the "Adjusted for ..." note and by format_table(), so a
+# variable cannot be named one way in the note and another in the table.
+term_display_names <- c(
+  "ses" = "SES",
+  "bmi" = "BMI",
+  "bmi_z" = "BMI z-score",
+  "daylight_hours" = "daylight hours",
+  "pa_mostactivehr" = "most active hour",
+  "acc_wear_loc" = "wear location",
+  "studyid" = "the fixed effects of study IDs"
+)
+
 make_model_tables <- function(model_list) {
-  recode_var <- c("ses"= "SES" ,"bmi" = "BMI", "studyid" = "the fixed effects of study IDs")
-  control_vars <- model_list[[1]]$control_vars |>
-    dplyr::recode(!!!recode_var)
+  adjusted_for <- model_list[[1]]$control_vars
+  moderator <- attr(model_list[[1]], "moderator")
+
+  control_vars <- adjusted_for |>
+    dplyr::recode(!!!term_display_names)
 
   control_vars <- paste(control_vars, collapse = ", ") |>
     # replace last comma with and
@@ -24,74 +39,94 @@ make_model_tables <- function(model_list) {
   sleep_vars <- vars$sleep_vars
   pa_vars <- vars$pa_vars
 
+  # Word drops apa_table() column spanners, so columns name their variable
+  pa_short <- gsub("^Physical activity", "PA", names(pa_vars))
+  table_columns <- c(
+    "Term",
+    paste(pa_short[1], "$\\beta$ [95\\% CI]"),
+    paste(pa_short[1], "$p$"),
+    paste(pa_short[2], "$\\beta$ [95\\% CI]"),
+    paste(pa_short[2], "$p$")
+  )
+  pair_tables <- function(model1_name, model2_name) {
+    tab <- cbind(
+      format_table(model_list[[model1_name]]$table, adjusted_for, moderator),
+      format_table(model_list[[model2_name]]$table, adjusted_for, moderator)
+    )[, c(1, 2, 5, 7, 10)]
+    names(tab) <- table_columns
+    tab
+  }
+
+  note_terms <- paste0(
+    "Variables marked (z) are standardised",
+    if (any(grepl("^log_", pa_vars))) " and (ln) natural-log transformed",
+    "; $^2$ denotes a quadratic term and $\\times$ an interaction."
+  )
+  if (moderator == "age") {
+    age_centre <- attr(model_list, "age_centre")
+    note_terms <- paste0(
+      note_terms,
+      " Age was centred at ",
+      age_centre,
+      " years (the mean across person-days) and scaled per 10 years, so ",
+      "main effects are associations at age ",
+      age_centre,
+      " and age interactions are the change per 10 years."
+    )
+  }
+  conv_note <- paste0(
+    " $^\\dagger$ value came from a pooled model where fewer than ",
+    papaja::print_num(convergence_threshold * 100),
+    "\\% of models converged."
+  )
+  has_dagger <- function(tabs) {
+    any(vapply(tabs, function(x) any(grepl("\\\\dagger", unlist(x))), TRUE))
+  }
+
   sleep_table <- list()
 
   sleep_table$data <- lapply(sleep_vars, function(sleep) {
-    model1_name <- paste(
-      sleep, "by", pa_vars[[1]],
-      collapse = " "
+    pair_tables(
+      paste(sleep, "by", pa_vars[[1]]),
+      paste(sleep, "by", pa_vars[[2]])
     )
-    model2_name <- paste(
-      sleep, "by", pa_vars[[2]],
-      collapse = " "
-    )
-
-    tab <- cbind(
-      format_table(model_list[[model1_name]]$table),
-      format_table(model_list[[model2_name]]$table)
-    )
-    tab[, c(1:5, 7:10)]
   })
 
   sleep_table$caption <-
-    glue::glue("Physical activity predicting sleep controlling for {control_vars}.")
-  sleep_table$note <- paste0(note, ". Outcomes variables are listed in the column headers.")
-
-  sleep_conv_issue <- any(sapply(sleep_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
-
-  if(sleep_conv_issue){
-    sleep_table$note <- paste0(sleep_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
-  }
-
-  sleep_table$col_spanners <- list(
-    c(2, 5),
-    c(6, 9)
+    glue::glue(
+      "Physical activity predicting sleep controlling for {control_vars}."
+    )
+  sleep_table$note <- paste0(
+    note,
+    ". Rows are grouped by sleep outcome; columns give the physical activity ",
+    "predictor. ",
+    note_terms
   )
-  names(sleep_table$col_spanners) <- names(pa_vars)
+  if (has_dagger(sleep_table$data)) {
+    sleep_table$note <- paste0(sleep_table$note, conv_note)
+  }
 
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
-    model1_name <- paste(
-      pa_vars[[1]], "by", paste0(sleep, "_lag"),
-      collapse = " "
+    pair_tables(
+      paste(pa_vars[[1]], "by", paste0(sleep, "_lag")),
+      paste(pa_vars[[2]], "by", paste0(sleep, "_lag"))
     )
-    model2_name <- paste(
-      pa_vars[[2]], "by", paste0(sleep, "_lag"),
-      collapse = " "
-    )
-
-    tab <- cbind(
-      format_table(model_list[[model1_name]]$table),
-      format_table(model_list[[model2_name]]$table)
-    )
-    tab[, c(1:5, 7:10)]
   })
 
   pa_table$caption <-
-    glue::glue("Sleep predicting physical activity controlling for {control_vars}")
-  pa_table$note <- paste0(note, ". Outcomes variables are listed in the row headers.")
-
-  pa_conv_issue <- any(sapply(pa_table$data, function(x) any(grepl("\\\\dagger", x$"$\\beta$ [95\\% CI]"))))
-
-  if(pa_conv_issue){
-    pa_table$note <- paste0(pa_table$note, ". $^\\dagger$ value came from a pooled model where fewer than 75\\% of models converged.")
-  }
-
-  pa_table$col_spanners <- list(
-    c(2, 5),
-    c(6, 9)
+    glue::glue(
+      "Sleep predicting physical activity controlling for {control_vars}"
+    )
+  pa_table$note <- paste0(
+    note,
+    ". Rows are grouped by the previous night's sleep predictor; columns give ",
+    "the physical activity outcome. ",
+    note_terms
   )
-  names(pa_table$col_spanners) <- names(pa_vars)
+  if (has_dagger(pa_table$data)) {
+    pa_table$note <- paste0(pa_table$note, conv_note)
+  }
 
   return(list(sleep = sleep_table, physical_activity = pa_table))
 }
@@ -100,26 +135,79 @@ make_model_tables <- function(model_list) {
 #'
 #' A function for taking raw table output and preparing it for publication
 #' @param tab data.frame object
+#' @param control_vars the covariates the model adjusted for. Their main-effect
+#'   rows are hidden, because the table note names them instead.
+#' @param moderator the moderator's variable name, used to strip that name off
+#'   its own factor levels.
 #' @param conv_daggers a bool. If true, daggers will be converted to double daggers.
+#'
+#' @details Rows are selected on the **raw** term names, before any cosmetic
+#' substitution, and only ever on a main effect. The previous version matched the
+#' display strings with `^ses`/`^sex`/`^bmi`, which in the three families
+#' moderated by those variables also caught the moderator's own rows *and* its
+#' quadratic interaction — R names that term `moderator:I(x^2)`, so it starts
+#' with the moderator's name. `by_bmi`, `by_ses` and `by_sex` therefore shipped
+#' without the quadratic moderation term.
 
-format_table <- function(tab, conv_daggers = FALSE) {
-  tab$term <- gsub("I\\(", "", tab$term) |>
+format_table <- function(
+  tab,
+  control_vars,
+  moderator = NULL,
+  conv_daggers = FALSE
+) {
+  # Centred age (see age_term()) back to plain "age"
+  term <- gsub(
+    "I\\(\\(age - [0-9.]+\\)/10\\)",
+    "age",
+    as.character(tab$term)
+  )
+
+  # Main effects of the adjustment variables only: never an interaction, and
+  # never the moderator, which make_model_list() removes from control_vars.
+  # Prefix-matched so factor expansions (sesMedium, sexMale) go too.
+  if (length(control_vars) > 0) {
+    is_covariate <- !grepl(":", term, fixed = TRUE) &
+      Reduce(`|`, lapply(control_vars, function(v) startsWith(term, v)))
+    tab <- tab[!is_covariate, , drop = FALSE]
+    term <- term[!is_covariate]
+  }
+
+  if (!is.null(moderator)) {
+    # R pastes a factor level onto its variable name ("regionNorth America",
+    # "seasonspring"). Drop the name so the level reads as itself. The lookahead
+    # requires something to follow, so a numeric moderator's bare main-effect
+    # term ("age", "bmi_z") is left alone.
+    term <- gsub(paste0(moderator, "(?=[A-Za-z0-9])"), "", term, perl = TRUE)
+    # Numeric moderators have no level suffix, so name them properly instead.
+    if (moderator %in% names(term_display_names)) {
+      term <- gsub(
+        paste0("\\b", moderator, "\\b"),
+        term_display_names[[moderator]],
+        term
+      )
+    }
+  }
+
+  tab$term <- gsub("I\\(", "", term) |>
     gsub("_", " ", x = _) |>
     gsub("\\^2\\)", "$^2$", x = _) |>
-    gsub("accelerometer wear location", "", x = _ )
-  tab <- tab[!grepl("^ses", tab$term), ]
-  tab <- tab[!grepl("^sex", tab$term), ]
-  tab <- tab[!grepl("^bmi", tab$term), ]
-  tab$term <- stringr::str_to_sentence(tab$term)
+    gsub("accelerometer wear location", "", x = _)
+  # Capitalise the first letter of each side of an interaction, and nothing
+  # else. str_to_sentence() lower-cased everything after the first character,
+  # which mangled factor levels into "Regionnorth america".
+  tab$term <- gsub("(^|:)([a-z])", "\\1\\U\\2", tab$term, perl = TRUE)
   tab$term <- gsub(
-    "(S|s)cale pa (intensity|volume)", "Physical activity", tab$term
+    "(S|s)cale pa (intensity|volume)",
+    "Physical activity",
+    tab$term
   )
   tab$term <- gsub(
-    "(S|s)cale sleep", "Sleep", tab$term
+    "(S|s)cale sleep",
+    "Sleep",
+    tab$term
   )
   tab$term <- gsub("\\slag", "", tab$term)
   tab$term <- gsub(":", " $\\\\times$ ", tab$term)
   names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
   tab
 }
-

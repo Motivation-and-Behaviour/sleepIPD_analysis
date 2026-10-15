@@ -10,9 +10,13 @@
 make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL) {
   require(ggplot2)
 
-  if (is.null(path)) stop("argument path must be supplied")
+  if (is.null(path)) {
+    stop("argument path must be supplied")
+  }
 
-  p <- clean_data |>
+  complete_pair <- !is.na(clean_data[[x]]) & !is.na(clean_data[[y]])
+
+  p <- clean_data[complete_pair, ] |>
     ggplot(ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
     geom_point(alpha = .2) +
     geom_smooth() +
@@ -23,8 +27,12 @@ make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL) {
   filename <- glue::glue("Figures/{path}")
 
   ggsave(
-    plot = p, filename = filename,
-    height = 10, width = 12, units = "cm", dpi = 300
+    plot = p,
+    filename = filename,
+    height = 10,
+    width = 12,
+    units = "cm",
+    dpi = 300
   )
 
   return(filename)
@@ -37,7 +45,12 @@ make_lineplot <- function(clean_data, x, y, title = NULL, path = NULL) {
 make_explore_img_list <- function(data_clean) {
   input <- expand.grid(
     x_var = c("pa_volume", "pa_intensity"),
-    y_var = c("sleep_duration", "sleep_efficiency", "sleep_onset", "sleep_regularity"),
+    y_var = c(
+      "sleep_duration",
+      "sleep_efficiency",
+      "sleep_onset",
+      "sleep_regularity"
+    ),
     stringsAsFactors = FALSE
   )
 
