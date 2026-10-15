@@ -193,7 +193,12 @@ compute_age_centre <- function(
 #' the grid is identical across imputations, which
 #' `pool_predictions_rubin()` requires. If a method is ever changed to one
 #' that can generate values outside the observed range, this needs revisiting.
-predictor_grid <- function(data_imp, var, n = 200, step = NULL) {
+#'
+#' Pass `rows` from `analysed_rows()` so the grid spans the data the model
+#' fits. Over all rows, the log-volume grid started below the data in the
+#' sleep-regularity models, which analyse only the days regularity was observed.
+#' @param rows logical vector over `data_imp$data`; `NULL` for all rows
+predictor_grid <- function(data_imp, var, n = 200, step = NULL, rows = NULL) {
   x <- data_imp$data[[var]]
   if (is.null(x)) {
     stop(
@@ -202,6 +207,9 @@ predictor_grid <- function(data_imp, var, n = 200, step = NULL) {
       "' is not a column of the imputed data.",
       call. = FALSE
     )
+  }
+  if (!is.null(rows)) {
+    x <- x[rows]
   }
   rng <- range(x, na.rm = TRUE)
   if (is.null(step)) {

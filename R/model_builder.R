@@ -188,6 +188,49 @@ fit_model <- function(..., data, max_iter = 1e6) {
 }
 
 
+#' analysed_rows
+#'
+#' Rows of `data_imp` a model analyses: outcome, exposure and moderator
+#' observed rather than imputed (covariates may be imputed), and at least
+#' `min_wear_days` valid wear days. Shared by `model_builder()` and the
+#' prediction grids, so the grids span the data the model fits.
+#' @inheritParams model_builder
+#' @return logical vector over `data_imp$data`
+analysed_rows <- function(
+  data_imp,
+  outcome,
+  predictors,
+  moderator,
+  min_wear_days = 0
+) {
+  observed <- c(outcome, gsub(" .*", "", predictors[1]), moderator)
+  not_in_mids <- setdiff(observed, colnames(data_imp$where))
+  if (length(not_in_mids) > 0) {
+    stop(
+      "Cannot tell which values were imputed for: ",
+      paste(not_in_mids, collapse = ", "),
+      call. = FALSE
+    )
+  }
+  rows <- rowSums(data_imp$where[, observed, drop = FALSE]) == 0
+
+  if (min_wear_days > 0) {
+    wear <- data_imp$data[["n_valid_wear_days"]]
+    if (is.null(wear)) {
+      stop(
+        "min_wear_days = ",
+        min_wear_days,
+        " but the imputed data has no n_valid_wear_days column. ",
+        "clean_data() adds it and make_data_imp() must carry it through.",
+        call. = FALSE
+      )
+    }
+    rows <- rows & !is.na(wear) & wear >= min_wear_days
+  }
+
+  rows
+}
+
 #' model_builder
 #'
 #' Create models for data_imp
@@ -241,18 +284,8 @@ model_builder <-
     formula <- gsub("\\+  \\+", "+", formula)
     model_formula <- stats::as.formula(formula, env = globalenv())
 
-    # Analyse observed values of the outcome and the exposure only
     exposure <- gsub(" .*", "", predictors[1])
-    observed_only <- c(outcome, exposure)
-    not_in_mids <- setdiff(observed_only, colnames(data_imp$where))
-    if (length(not_in_mids) > 0) {
-      stop(
-        "Cannot tell which values were imputed for: ",
-        paste(not_in_mids, collapse = ", "),
-        call. = FALSE
-      )
-    }
-    was_imputed <- rowSums(data_imp$where[, observed_only, drop = FALSE]) > 0
+    rows <- analysed_rows(data_imp, outcome, predictors, moderator, min_wear_days)
 
     # Granular age grid for the heat-map panel of the main figure
     if (!table_only && moderator == "age") {
@@ -260,8 +293,8 @@ model_builder <-
       age_terms <- c(
         # Half the resolution of terms[1] — this grid feeds the heat-map panel,
         # where each cell is a tile rather than a point on a line.
-        predictor_grid(data_imp, predictor_term, n = 100),
-        predictor_grid(data_imp, "age", step = 1)
+        predictor_grid(data_imp, predictor_term, n = 100, rows = rows),
+        predictor_grid(data_imp, "age", step = 1, rows = rows)
       )
     } else {
       age_terms <- NULL
@@ -292,20 +325,7 @@ model_builder <-
     singular <- logical(n_imp)
 
     for (i in seq_len(n_imp)) {
-      dat <- mice::complete(data_imp, i)[!was_imputed, ]
-
-      if (min_wear_days > 0) {
-        if (is.null(dat[["n_valid_wear_days"]])) {
-          stop(
-            "min_wear_days = ",
-            min_wear_days,
-            " but the imputed data has no n_valid_wear_days column. ",
-            "clean_data() adds it and make_data_imp() must carry it through.",
-            call. = FALSE
-          )
-        }
-        dat <- dat[dat[["n_valid_wear_days"]] >= min_wear_days, ]
-      }
+      dat <- mice::complete(data_imp, i)[rows, ]
 
       mod <- fit_model(formula = model_formula, data = dat)
 

@@ -1,0 +1,92 @@
+studyid,SES,Harmonized
+100,1,Low
+100,2,Medium
+100,4,High
+100,3,High
+101,High school,Medium
+101,Apprenticeship,Low
+101,Mandatory education,Low
+101,University education,High
+102,Vocational basic training/vocational internship and main course,Medium
+102,Short higher education,High
+102,Long higher education/ Research degree,High
+102,Regular secondary education and vocational secondary education,Medium
+102,Medium higher education,High
+102,Primary school,Low
+102,Unanswered,Missing
+104,Incomplete elementary school,Low
+104,Complete Bachelor degree,High
+104,Incomplete bachelor degree,Medium
+104,Complete high school,Medium
+104,Complete elementary school,Low
+104,Unknown,Missing
+104,Has not studied,Low
+105,vocational education,Medium
+105,high school education,Medium
+105,master's degree or higher,High
+105,bachelor's degree or equivalent,High
+105,10th grade or less,Low
+105,short tertiary education,Medium
+105,26-100 books,Medium
+105,11-25 books,Low
+105,>200 books,High
+105,101-200 books,High
+105,0-10 books,Low
+106,High school or less,Medium
+106,"Technical or further education institutions (e.g., TAFE)",Medium
+106,University degree,High
+107,"Secondary education 2nd stage (i.e., High shool graduate, complete 12th grade or equivalent",Medium
+107,"Incomplete primary education (i.e., less than 6th grade or equivalent)",Low
+107,"Complete primary education (i.e., complete 6th grade or equivalent)",Low
+107,"Medium university studies (i.e., university diplomature or equivalent)",High
+107,"Higher university studies (i.e., Bachelor degree,  Master degree, Doctoral degree or equivalent)",High
+107,"Secondary education 1st stage (i.e., complete 10th grade or equivalent)",Medium
+107,"Illiterate (i.e., not able to read or write)",Low
+108,Enough to fill two bookcases (101-200 Books),High
+108,Enough to fill one shelf (11-25 Books),Low
+108,Enough to fill 3 or more bookcases (more than 200 Books),High
+108,Enough to fill one bookcases (26-100 books),Medium
+108,None or very few (0-10 Books),Low
+110,lower-level non-manual occupation,Medium
+110,higher-level non-manual occupation,High
+110,manual occupation,Low
+110,service occupation,Medium
+113,primary school,Low
+113,university degree,High
+113,bachelor's degree,High
+113,high school,Medium
+113,master's degree or higher,High
+113,vocational training,Medium
+114,poor,Low
+114,O level,Low
+114,A/S level,Low
+114,ba/bsc,Low
+114,higher degree,Low
+114,No academic quals,Low
+115,Medium,Medium
+115,High,High
+115,Low,Low
+117,secondary education,Medium
+117,higher education,High
+117,primary education,Low
+118,2,Low
+118,7,Medium
+118,5,Medium
+118,3,Low
+118,10,High
+118,8,High
+118,9,High
+118,6,Medium
+118,4,Medium
+118,1,Low
+221,O level,Medium
+221,A/S level,Medium
+221,ba/bsc,High
+221,higher degree,High
+221,No academic quals,Low
+111,10,Medium
+222,q5-wealthiest,High
+222,q4,Medium
+222,q3,Medium
+222,q2,Medium
+222,q1-poorest,Low

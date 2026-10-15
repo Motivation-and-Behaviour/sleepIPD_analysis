@@ -39,7 +39,9 @@ produce_purdy_pictures <- function(model_list, ...) {
       model_list[[i]]$model_assets$pred_matrix
     }) |>
       rbindlist()
-    tile_dat$group <- as.numeric(tile_dat$group)
+    # The ages themselves; as.numeric() alone returns the factor's level
+    # positions, which were 1.75 years low while every model shared one grid
+    tile_dat$group <- as.numeric(as.character(tile_dat$group))
     # hide non-sig predictions
 
     tile_dat <- tile_dat |>
@@ -48,6 +50,18 @@ produce_purdy_pictures <- function(model_list, ...) {
         scale_descriptives = attr(model_list, "scale_descriptives"),
         debug = FALSE
       )
+
+    # Each model's grid spans the rows it analyses, so grids differ between
+    # panels and geom_tile()'s default size (the smallest spacing anywhere in
+    # the layer) would leave gaps. Tiles run halfway to each neighbour instead.
+    tile_dat[,
+      c("xmin", "xmax") := tile_edges(x),
+      by = .(outcome, x_name, RQ, group)
+    ]
+    tile_dat[,
+      c("ymin", "ymax") := tile_edges(group),
+      by = .(outcome, x_name, RQ, x)
+    ]
 
     tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
@@ -104,7 +118,10 @@ produce_purdy_pictures <- function(model_list, ...) {
 
       tdat$facet_label <- "Age continuous"
       fig2 <-
-        ggplot(tdat, aes(x = x, y = group, fill = predicted)) +
+        ggplot(
+          tdat,
+          aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = predicted)
+        ) +
         facet_grid(rows = vars(outcome), cols = vars(facet_label)) +
         scale_fill_gradient2(
           low = "#b20000",
@@ -117,7 +134,7 @@ produce_purdy_pictures <- function(model_list, ...) {
         scale_y_continuous(n.breaks = 5) +
         coord_cartesian(xlim = c(-2, 2)) +
         labs(y = "Age", x = x_lab, fill = "predicted") +
-        geom_tile() +
+        geom_rect() +
         figure_theme()
       fig <- cowplot::plot_grid(fig, fig2, rel_widths = c(1, .72))
       width <- 3.25 * length(unique(pdat$group)) + 4.5
@@ -277,6 +294,20 @@ prepare_plot_data <- function(
   plot_dat$x_name <- gsub("\\[.*", "", plot_dat$x_name)
 
   plot_dat
+}
+
+# Edges halfway between neighbouring grid values; the end tiles extend by half
+# the spacing to their one neighbour
+tile_edges <- function(v) {
+  u <- sort(unique(v))
+  if (length(u) == 1) {
+    return(list(v - 0.5, v + 0.5))
+  }
+  mid <- (u[-1] + u[-length(u)]) / 2
+  lo <- c(2 * u[1] - mid[1], mid)
+  hi <- c(mid, 2 * u[length(u)] - mid[length(mid)])
+  i <- match(v, u)
+  list(lo[i], hi[i])
 }
 
 ln_to_z <- function(x, mean, sd) {

@@ -44,6 +44,7 @@ temp/
 # Static reference data
 !data/latlong.csv
 !data/study_references.csv
+!data/refactors_*.csv
 
 # Markdown rubbish
 doc/*.fff

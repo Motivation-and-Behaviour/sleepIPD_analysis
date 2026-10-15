@@ -76,7 +76,14 @@ make_model_list <- function(
         terms = c(
           predictor_grid(
             data_imp,
-            gsub(" .*", "", instructions[i, "predictors"])
+            gsub(" .*", "", instructions[i, "predictors"]),
+            rows = analysed_rows(
+              data_imp,
+              outcome = instructions[i, "outcome"],
+              predictors = instructions[i, "predictors"],
+              moderator = moderator,
+              min_wear_days = min_wear_days
+            )
           ),
           glue::glue("{moderator} [{moderator_term}]")
         ),
