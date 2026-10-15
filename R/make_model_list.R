@@ -1,6 +1,6 @@
-#' .. content for \description{} (no empty lines) ..
+#' make_model_list
 #'
-#' .. content for \details{} ..
+#' Fit one model family in series. 
 #'
 #' @title
 #' @param data_imp
@@ -26,18 +26,45 @@ make_model_list <- function(
   min_wear_days = min_wear_days_primary,
   age_centre
 ) {
-  control_vars <- control_vars[!control_vars == moderator]
+  specs <- make_model_specs(moderator, sleep_vars, pa_vars, age_centre)
 
+  models <- lapply(seq_len(nrow(specs)), function(i) {
+    fit_model_spec(
+      data_imp,
+      specs[i, ],
+      moderator = moderator,
+      moderator_term = moderator_term,
+      control_vars = control_vars,
+      ranef = ranef,
+      min_wear_days = min_wear_days,
+      age_centre = age_centre
+    )
+  })
+
+  assemble_model_list(
+    models,
+    specs,
+    data_imp,
+    moderator = moderator,
+    control_vars = control_vars,
+    sleep_vars = sleep_vars,
+    pa_vars = pa_vars,
+    min_wear_days = min_wear_days,
+    age_centre = age_centre
+  )
+}
+
+#' make_model_specs
+#'
+#' The 16 models in a family: each sleep outcome on each PA predictor (RQ1),
+#' and each PA outcome on each lagged sleep predictor (RQ3).
+#' @return data frame with `outcome`, `predictors`, `RQ` and `model_name`
+make_model_specs <- function(moderator, sleep_vars, pa_vars, age_centre) {
   sleep_lag_vars <- paste0(sleep_vars, "_lag")
-
-  # Apply display names
-  names(sleep_vars) <- display_names(sleep_vars)
-  names(sleep_lag_vars) <- display_names(sleep_lag_vars)
-  names(pa_vars) <- display_names(pa_vars)
 
   mod_formula <- formula_term(moderator, age_centre)
   quadratic_pattern <- "{x} * {mod_formula} + I({x}^2) * {mod_formula}"
-  make_quadratic <- function(x) glue::glue(quadratic_pattern)
+  make_quadratic <- function(x) as.character(glue::glue(quadratic_pattern))
 
   instructions_rq1 <-
     expand.grid(
@@ -59,48 +86,102 @@ make_model_list <- function(
 
   instructions$model_name <- with(
     instructions,
-    glue::glue("{outcome} by {gsub(' .*', '', predictors)}")
+    as.character(glue::glue("{outcome} by {gsub(' .*', '', predictors)}"))
   )
 
-  out <- lapply(
-    seq_len(length(instructions[, 1])),
-    FUN = function(i) {
-      model <- model_builder(
+  instructions
+}
+
+#' fit_model_spec
+#'
+#' Fit one row of `make_model_specs()` across all imputations.
+#' @param spec a one-row data frame from `make_model_specs()`
+fit_model_spec <- function(
+  data_imp,
+  spec,
+  moderator,
+  moderator_term,
+  control_vars,
+  ranef,
+  min_wear_days,
+  age_centre
+) {
+  stopifnot(nrow(spec) == 1)
+
+  model <- model_builder(
+    data_imp,
+    outcome = spec$outcome,
+    predictors = spec$predictors,
+    moderator = moderator,
+    control_vars = family_controls(control_vars, moderator),
+    table_only = FALSE,
+    ranef = ranef,
+    terms = c(
+      predictor_grid(
         data_imp,
-        outcome = instructions[i, "outcome"],
-        predictors = instructions[i, "predictors"],
-        moderator = moderator,
-        control_vars = control_vars,
-        table_only = FALSE,
-        ranef = ranef,
-        terms = c(
-          predictor_grid(
-            data_imp,
-            gsub(" .*", "", instructions[i, "predictors"]),
-            rows = analysed_rows(
-              data_imp,
-              outcome = instructions[i, "outcome"],
-              predictors = instructions[i, "predictors"],
-              moderator = moderator,
-              min_wear_days = min_wear_days
-            )
-          ),
-          glue::glue("{moderator} [{moderator_term}]")
-        ),
-        RQ = instructions[i, "RQ"],
-        min_wear_days = min_wear_days,
-        age_centre = age_centre
-      )
-
-      attr(model, "RQ") <- instructions[i, "RQ"] # nolint: object_name_linter.
-      attr(model, "moderator") <- moderator
-
-      model
-    }
+        gsub(" .*", "", spec$predictors),
+        rows = analysed_rows(
+          data_imp,
+          outcome = spec$outcome,
+          predictors = spec$predictors,
+          moderator = moderator,
+          min_wear_days = min_wear_days
+        )
+      ),
+      glue::glue("{moderator} [{moderator_term}]")
+    ),
+    RQ = spec$RQ,
+    min_wear_days = min_wear_days,
+    age_centre = age_centre
   )
+
+  attr(model, "RQ") <- spec$RQ # nolint: object_name_linter.
+  attr(model, "moderator") <- moderator
+
+  model
+}
+
+#' assemble_model_list
+#'
+#' Name the fitted models and attach the attributes other targets read.
+#' @param models list of `fit_model_spec()` results, in the order of `specs`
+assemble_model_list <- function(
+  models,
+  specs,
+  data_imp,
+  moderator,
+  control_vars,
+  sleep_vars,
+  pa_vars,
+  min_wear_days,
+  age_centre
+) {
+
+  stopifnot(length(models) == nrow(specs))
+  for (i in seq_along(models)) {
+    effects <- models[[i]]$model_assets$effects
+    if (
+      !identical(unique(effects$outcome), specs$outcome[i]) ||
+        !identical(
+          unique(gsub("\\[.*", "", effects$x_name)),
+          gsub(" .*", "", specs$predictors[i])
+        )
+    ) {
+      stop("Model ", i, " is not '", specs$model_name[i], "'.", call. = FALSE)
+    }
+  }
+
+  control_vars <- family_controls(control_vars, moderator)
+  sleep_lag_vars <- paste0(sleep_vars, "_lag")
+
+  # Apply display names
+  names(sleep_vars) <- display_names(sleep_vars)
+  names(sleep_lag_vars) <- display_names(sleep_lag_vars)
+  names(pa_vars) <- display_names(pa_vars)
 
   # Add some attributes used in other targets
-  names(out) <- instructions[, "model_name"]
+  out <- unname(models)
+  names(out) <- specs$model_name
   attr(out, "vars") <- list(sleep_vars = sleep_vars, pa_vars = pa_vars)
   attr(out, "scale_descriptives") <- get_scale_descriptives(
     data_imp,
@@ -119,4 +200,9 @@ make_model_list <- function(
     )
 
   out
+}
+
+# The moderator is never also a control
+family_controls <- function(control_vars, moderator) {
+  control_vars[!control_vars == moderator]
 }

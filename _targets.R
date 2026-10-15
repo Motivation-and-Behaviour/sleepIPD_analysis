@@ -8,7 +8,7 @@ set.seed(42)
 tar_option_set(
   packages = c("data.table", "magrittr", "readr"),
   controller = crew::crew_controller_local(
-    workers = max(1, min(parallel::detectCores() - 2, 16)),
+    workers = max(1, min(parallel::detectCores() - 4, 32)),
     seconds_idle = 15,
     garbage_collection = TRUE
   ),
@@ -83,16 +83,36 @@ list(
   tar_map(
     values = models_df,
     names = model_name,
+    # One branch per model
     tar_target(
-      model_list,
-      make_model_list(
+      model_specs,
+      make_model_specs(moderator, sleep_vars, pa_vars, age_centre)
+    ),
+    tar_target(
+      model_fits,
+      fit_model_spec(
         data_imp,
+        model_specs,
         moderator = moderator,
         moderator_term = mod_term,
-        pa_vars = pa_vars,
-        sleep_vars = sleep_vars,
         control_vars = cont_vars,
         ranef = ranef,
+        min_wear_days = min_wear_days,
+        age_centre = age_centre
+      ),
+      pattern = map(model_specs),
+      iteration = "list"
+    ),
+    tar_target(
+      model_list,
+      assemble_model_list(
+        model_fits,
+        model_specs,
+        data_imp,
+        moderator = moderator,
+        control_vars = cont_vars,
+        sleep_vars = sleep_vars,
+        pa_vars = pa_vars,
         min_wear_days = min_wear_days,
         age_centre = age_centre
       )

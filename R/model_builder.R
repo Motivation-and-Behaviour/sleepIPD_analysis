@@ -32,6 +32,11 @@ optimizer_ladder <- list(
   )
 )
 
+fit_ladder <- c(
+  list(list(optimizer = "nloptwrap", method = "", max_iter_arg = "maxeval")),
+  optimizer_ladder
+)
+
 check_model_environment <- function() {
   require(lme4)
 
@@ -143,10 +148,16 @@ fit_model <- function(..., data, max_iter = 1e6) {
   conv <- FALSE
   i <- 1
 
-  while (!conv & i <= length(optimizer_ladder)) {
-    step <- optimizer_ladder[[i]]
+  while (!conv & i <= length(fit_ladder)) {
+    step <- fit_ladder[[i]]
 
-    optCtrl <- if (nzchar(step$method)) list(method = step$method) else list()
+    # nloptwrap passes its control to nloptr, which silently ignores `method`
+    method_arg <- if (step$optimizer == "nloptwrap") "algorithm" else "method"
+    optCtrl <- if (nzchar(step$method)) {
+      stats::setNames(list(step$method), method_arg)
+    } else {
+      list()
+    }
 
     for (nm in step$max_iter_arg) {
       optCtrl[[nm]] <- max_iter

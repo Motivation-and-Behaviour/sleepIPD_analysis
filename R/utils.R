@@ -140,22 +140,28 @@ get_scale_descriptives <- function(data, ...) {
   # We want descriptives to convert log back to scale
   # So we need the scale descriptives, not the log descriptives
   vars <- gsub("(log_|scale_)", "", vars)
-  dat <- mice::complete(data, action = "long", include = FALSE) |>
-    data.table()
 
-  # Get all imp data, make long form
-  dt <- dat[, c(vars, ".imp"), with = FALSE] |>
-    tidyr::pivot_longer(-.imp, names_to = "var") |>
-    data.table()
-
-  # Mean and SD of the stacked imputations
-  dt[,
-    .(
-      mean = mean(value, na.rm = TRUE),
-      sd = sd(value, na.rm = TRUE)
-    ),
-    by = "var"
-  ]
+  # Mean and SD of the stacked imputations one variable at a time
+  rbindlist(lapply(vars, function(v) {
+    x <- data$data[[v]]
+    miss <- data$where[, v]
+    stacked <- unlist(
+      lapply(seq_len(data$m), function(i) {
+        if (any(miss)) {
+          x[miss] <- data$imp[[v]][[i]]
+        }
+        x
+      }),
+      use.names = FALSE
+    )
+    data.table(var = v, value = stacked)[,
+      .(
+        mean = mean(value, na.rm = TRUE),
+        sd = sd(value, na.rm = TRUE)
+      ),
+      by = "var"
+    ]
+  }))
 }
 
 #' compute_age_centre

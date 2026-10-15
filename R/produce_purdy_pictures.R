@@ -1,3 +1,16 @@
+moderator_level_order <- list(
+  weekday = c(
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ),
+  season = c("spring", "summer", "autumn", "winter")
+)
+
 #' produce_purdy_pictures
 #' @param model_list model_list
 #' @example  model_list <- model_list_by_age
@@ -31,6 +44,20 @@ produce_purdy_pictures <- function(model_list, ...) {
       paste_facet_labels,
       scale_descriptives = attr(model_list, "scale_descriptives")
     )
+
+  # Calendar order for the facets. The factors stay alphabetical in the data,
+  # because their first level is the models' reference category.
+  if (moderator %in% names(moderator_level_order)) {
+    wanted <- moderator_level_order[[moderator]]
+    if (!setequal(levels(plot_dat$group), wanted)) {
+      stop(
+        "Expected ", moderator, " levels ", paste(wanted, collapse = ", "),
+        " but the predictions have ", paste(levels(plot_dat$group), collapse = ", "),
+        call. = FALSE
+      )
+    }
+    plot_dat$group <- factor(plot_dat$group, levels = wanted)
+  }
 
   # Im the moderator is age, then, retrieve granular age predictions
 
