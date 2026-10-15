@@ -67,8 +67,9 @@ I needed to add maxdeadcycles and more floats to support how many figures are in
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.pos = "!htbp")
 source("R/utils.R")
-options(warn = -1)
+# options(warn = -1) used to sit here — see the note in manuscript.Rmd.
 knitr::opts_chunk$set(out.width = "110%")
+knitr::opts_chunk$set(out.height = "85%", out.extra = "keepaspectratio")
 ```
 
 ```{r load-libraries}
@@ -80,10 +81,31 @@ library(papaja)
 
 ```{r load-targets, include=FALSE}
 tar_load(multiverse_file)
-pretty <- function(x) format(x, big.mark = ",")
+fmt_n <- function(x) format(x, big.mark = ",")
 ```
 
 # Results
+
+## Study characteristics
+
+Table \@ref(tab:study-table) describes each study in the primary analytic sample, and Table \@ref(tab:ses-table) shows how each study's measure of socioeconomic status was harmonised.
+
+```{r study-table}
+papaja::apa_table(
+  tar_read(study_table),
+  caption = "Characteristics of the included studies (primary analytic sample)",
+  landscape = TRUE,
+  longtable = TRUE
+)
+```
+
+```{r ses-table}
+papaja::apa_table(
+  tar_read(ses_table),
+  caption = "Harmonisation of socioeconomic status",
+  longtable = TRUE
+)
+```
 
 ## Model diagnostics
 
@@ -108,10 +130,10 @@ In this document we show the results using another analytic technique.
 Namely treating study ID as a fixed effect.
 This is what we wrote in the protocol originally.
 
-### The effects of physical activity volume on sleep
+### The association between physical activity volume and sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using fixed-effects models.
-We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-volume-fig-fixedef).
+We estimated the associations between physical activity and sleep (RQ1) using fixed-effects models.
+We estimated the association between physical activity volume and sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-volume-fig-fixedef).
 
 ```{r sleep-outcomes-fixedef}
 papaja::apa_table(
@@ -128,19 +150,19 @@ papaja::apa_table(
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_volume), error = FALSE)
 ```
 
-### The effects of physical activity intensity on sleep
+### The association between physical activity intensity and sleep
 
-We estimated how physical activity intensity affects sleep across different age groups.
-We present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-intensity-fig-fixedef).
+We estimated how physical activity intensity is associated with sleep across different age groups.
+We present the results controlling for SES, sex, BMI z-score, and the fixed effects of study ID, in Table \@ref(tab:sleep-outcomes-fixedef) and Figure \@ref(fig:sleep-by-intensity-fig-fixedef).
 
 ```{r sleep-by-intensity-fig-fixedef, fig.cap = "Sleep metrics on Physical activity intensity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_intensity), error = FALSE)
 ```
 
-### The effects of sleep duration on physical activity
+### The association between sleep duration and next-day physical activity
 
-We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-duration-fig-fixedef).
+We estimated the association between sleep duration and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-duration-fig-fixedef).
 
 ```{r pa-outcomes-fixedef}
 papaja::apa_table(
@@ -157,28 +179,28 @@ papaja::apa_table(
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_duration_lag), error = FALSE)
 ```
 
-### The effects of sleep efficiency on physical activity
+### The association between sleep efficiency and next-day physical activity
 
-We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-fixedef).
+We estimated the association between sleep efficiency and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-fixedef).
 
 ```{r PA-by-sleep-efficiency-fig-fixedef, fig.cap = "Physical activity by sleep efficiency"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_efficiency_lag), error = FALSE)
 ```
 
-### The effects of sleep onset on physical activity
+### The association between sleep onset and next-day physical activity
 
-We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-onset-fig-fixedef).
+We estimated the association between sleep onset and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-onset-fig-fixedef).
 
 ```{r PA-by-sleep-onset-fig-fixedef, fig.cap = "Physical activity by sleep onset"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_onset_lag), error = FALSE)
 ```
 
-### The effects of sleep regularity on physical activity
+### The association between sleep regularity and next-day physical activity
 
-We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-regularity-fig-fixedef).
+We estimated the association between sleep regularity and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table \@ref(tab:pa-outcomes-fixedef) and Figure \@ref(fig:PA-by-sleep-regularity-fig-fixedef).
 
 ```{r PA-by-sleep-regularity-fig-fixedef, fig.cap = "Physical activity by sleep regularity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
@@ -193,10 +215,10 @@ tar_load(purdy_pictures_by_age_log)
 
 Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability. The log scale meant that the variable became unintepretable towards the edge of its range. Below, we present the results had we not made this decision. These results are all moderated by age, as this was our primary analysis. The associated figures are back-transformed to the scale range.
 
-### The effects of physical activity volume on sleep
+### The association between physical activity volume and sleep
 
-We estimated the effects of physical activity on sleep (RQ1) using mixed-effects models.
-We estimated the effect of physical activity volume on sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-log) and Figure \@ref(fig:sleep-by-volume-fig-log).
+We estimated the associations between physical activity and sleep (RQ1) using mixed-effects models.
+We estimated the association between physical activity volume and sleep by age, and the results are presented in Table \@ref(tab:sleep-outcomes-log) and Figure \@ref(fig:sleep-by-volume-fig-log).
 
 ```{r sleep-outcomes-log}
 papaja::apa_table(
@@ -213,10 +235,10 @@ papaja::apa_table(
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_pa_volume), error = FALSE)
 ```
 
-### The effects of sleep duration on physical activity
+### The association between sleep duration and next-day physical activity
 
-We estimated the effect of sleep duration on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-duration-fig-log).
+We estimated the association between sleep duration and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-duration-fig-log).
 
 ```{r pa-outcomes-log}
 papaja::apa_table(
@@ -233,31 +255,139 @@ papaja::apa_table(
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_duration_lag), error = FALSE)
 ```
 
-### The effects of sleep efficiency on physical activity
+### The association between sleep efficiency and next-day physical activity
 
-We estimated the effect of sleep efficiency on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-log).
+We estimated the association between sleep efficiency and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-efficiency-fig-log).
 
 ```{r PA-by-sleep-efficiency-fig-log, fig.cap = "Physical activity by sleep efficiency"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_efficiency_lag), error = FALSE)
 ```
 
-### The effects of sleep onset on physical activity
+### The association between sleep onset and next-day physical activity
 
-We estimated the effect of sleep onset on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-onset-fig-log).
+We estimated the association between sleep onset and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-onset-fig-log).
 
 ```{r PA-by-sleep-onset-fig-log, fig.cap = "Physical activity by sleep onset"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_onset_lag), error = FALSE)
 ```
 
-### The effects of sleep regularity on physical activity
+### The association between sleep regularity and next-day physical activity
 
-We estimated the effect of sleep regularity on physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-regularity-fig-log).
+We estimated the association between sleep regularity and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table \@ref(tab:pa-outcomes-log) and Figure \@ref(fig:PA-by-sleep-regularity-fig-log).
 
 ```{r PA-by-sleep-regularity-fig-log, fig.cap = "Physical activity by sleep regularity"}
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## All Eligible Participants Regardless of Valid Wear Days
+
+```{r}
+tar_load(model_tables_by_age_allwear)
+tar_load(purdy_pictures_by_age_allwear)
+```
+
+The primary analysis required at least `r tar_read(ms_info)$min_wear_days` days of valid wear time. Here we refit the primary models to every eligible participant, regardless of how many valid days they contributed. Both analyses share the same imputations and standardisation constants.
+Results, controlling for SES, sex, and BMI z-score, are presented in Tables \@ref(tab:sleep-outcomes-allwear) and \@ref(tab:pa-outcomes-allwear) and Figures \@ref(fig:sleep-by-volume-fig-allwear) to \@ref(fig:PA-by-sleep-regularity-fig-allwear).
+
+```{r sleep-outcomes-allwear}
+papaja::apa_table(
+  model_tables_by_age_allwear$sleep$data,
+  caption = model_tables_by_age_allwear$sleep$caption,
+  note = model_tables_by_age_allwear$sleep$note,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r pa-outcomes-allwear}
+papaja::apa_table(
+  model_tables_by_age_allwear$physical_activity$data,
+  caption = model_tables_by_age_allwear$physical_activity$caption,
+  note = model_tables_by_age_allwear$physical_activity$note,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r sleep-by-volume-fig-allwear, fig.cap = "Sleep metrics on physical activity volume (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_pa_volume), error = FALSE)
+```
+
+```{r sleep-by-intensity-fig-allwear, fig.cap = "Sleep metrics on physical activity intensity (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_pa_intensity), error = FALSE)
+```
+
+```{r PA-by-sleep-duration-fig-allwear, fig.cap = "Physical activity by previous night sleep duration (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_duration_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-efficiency-fig-allwear, fig.cap = "Physical activity by previous night sleep efficiency (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-onset-fig-allwear, fig.cap = "Physical activity by previous night sleep onset (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_onset_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-regularity-fig-allwear, fig.cap = "Physical activity by previous night sleep regularity (all wear days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Participants With at Least Seven Valid Days
+
+```{r}
+tar_load(model_tables_by_age_7days)
+tar_load(purdy_pictures_by_age_7days)
+```
+
+Some recommend at least seven nights to estimate sleep regularity. Here we refit the primary models to the `r tar_read(ms_info)$n_pts_7days` participants with at least seven days of valid wear time.
+Results, controlling for SES, sex, and BMI z-score, are presented in Tables \@ref(tab:sleep-outcomes-7days) and \@ref(tab:pa-outcomes-7days) and Figures \@ref(fig:sleep-by-volume-fig-7days) to \@ref(fig:PA-by-sleep-regularity-fig-7days).
+
+```{r sleep-outcomes-7days}
+papaja::apa_table(
+  model_tables_by_age_7days$sleep$data,
+  caption = model_tables_by_age_7days$sleep$caption,
+  note = model_tables_by_age_7days$sleep$note,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r pa-outcomes-7days}
+papaja::apa_table(
+  model_tables_by_age_7days$physical_activity$data,
+  caption = model_tables_by_age_7days$physical_activity$caption,
+  note = model_tables_by_age_7days$physical_activity$note,
+  escape = FALSE,
+  landscape = TRUE
+)
+```
+
+```{r sleep-by-volume-fig-7days, fig.cap = "Sleep metrics on physical activity volume (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_pa_volume), error = FALSE)
+```
+
+```{r sleep-by-intensity-fig-7days, fig.cap = "Sleep metrics on physical activity intensity (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_pa_intensity), error = FALSE)
+```
+
+```{r PA-by-sleep-duration-fig-7days, fig.cap = "Physical activity by previous night sleep duration (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_duration_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-efficiency-fig-7days, fig.cap = "Physical activity by previous night sleep efficiency (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-onset-fig-7days, fig.cap = "Physical activity by previous night sleep onset (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_onset_lag), error = FALSE)
+```
+
+```{r PA-by-sleep-regularity-fig-7days, fig.cap = "Physical activity by previous night sleep regularity (at least seven valid days)"}
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
 # Moderation

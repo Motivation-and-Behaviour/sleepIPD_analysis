@@ -1,3 +1,16 @@
+moderator_level_order <- list(
+  weekday = c(
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ),
+  season = c("spring", "summer", "autumn", "winter")
+)
+
 #' produce_purdy_pictures
 #' @param model_list model_list
 #' @example  model_list <- model_list_by_age
@@ -32,20 +45,50 @@ produce_purdy_pictures <- function(model_list, ...) {
       scale_descriptives = attr(model_list, "scale_descriptives")
     )
 
+  # Calendar order for the facets. The factors stay alphabetical in the data,
+  # because their first level is the models' reference category.
+  if (moderator %in% names(moderator_level_order)) {
+    wanted <- moderator_level_order[[moderator]]
+    if (!setequal(levels(plot_dat$group), wanted)) {
+      stop(
+        "Expected ", moderator, " levels ", paste(wanted, collapse = ", "),
+        " but the predictions have ", paste(levels(plot_dat$group), collapse = ", "),
+        call. = FALSE
+      )
+    }
+    plot_dat$group <- factor(plot_dat$group, levels = wanted)
+  }
+
   # Im the moderator is age, then, retrieve granular age predictions
 
   if (moderator == "age") {
     tile_dat <- lapply(seq_len(length(model_list)), function(i) {
       model_list[[i]]$model_assets$pred_matrix
-    }) |> rbindlist()
-    tile_dat$group <- as.numeric(tile_dat$group)
+    }) |>
+      rbindlist()
+    # The ages themselves; as.numeric() alone returns the factor's level
+    # positions, which were 1.75 years low while every model shared one grid
+    tile_dat$group <- as.numeric(as.character(tile_dat$group))
     # hide non-sig predictions
 
     tile_dat <- tile_dat |>
-      prepare_plot_data(paste_facet_labels,
+      prepare_plot_data(
+        paste_facet_labels,
         scale_descriptives = attr(model_list, "scale_descriptives"),
         debug = FALSE
       )
+
+    # Each model's grid spans the rows it analyses, so grids differ between
+    # panels and geom_tile()'s default size (the smallest spacing anywhere in
+    # the layer) would leave gaps. Tiles run halfway to each neighbour instead.
+    tile_dat[,
+      c("xmin", "xmax") := tile_edges(x),
+      by = .(outcome, x_name, RQ, group)
+    ]
+    tile_dat[,
+      c("ymin", "ymax") := tile_edges(group),
+      by = .(outcome, x_name, RQ, x)
+    ]
 
     tile_dat$includes_zero <- tile_dat$conf.low <= 0 & tile_dat$conf.high >= 0
     tile_dat$predicted[tile_dat$includes_zero == TRUE] <- 0
@@ -63,9 +106,12 @@ produce_purdy_pictures <- function(model_list, ...) {
     fig <- ggplot(
       pdat,
       aes(
-        x = x, y = predicted,
-        ymin = conf.low, ymax = conf.high,
-        group = group, fill = group
+        x = x,
+        y = predicted,
+        ymin = conf.low,
+        ymax = conf.high,
+        group = group,
+        fill = group
       )
     ) +
       geom_line() +
@@ -77,13 +123,18 @@ produce_purdy_pictures <- function(model_list, ...) {
       ) +
       figure_theme() +
       theme(legend.position = "none") +
-      scale_x_continuous(limits = c(-2, 2)) +
-      scale_y_continuous(limits = c(-2, 2)) +
+      coord_cartesian(xlim = c(-2, 2), ylim = c(-2, 2)) +
       geom_text(
-        data = conv_message_dat, aes(x = 0, y = 0, label = message, ),
-        hjust = .5, vjust = .5, size = 2, color = "black", family = "serif",
+        data = conv_message_dat,
+        aes(x = 0, y = 0, label = message, ),
+        hjust = .5,
+        vjust = .5,
+        size = 2,
+        color = "black",
+        family = "serif",
         fontface = "bold",
-        show.legend = FALSE, inherit.aes = FALSE
+        show.legend = FALSE,
+        inherit.aes = FALSE
       )
 
     # If moderator is equal to age, append a heat map to the main figure
@@ -94,7 +145,10 @@ produce_purdy_pictures <- function(model_list, ...) {
 
       tdat$facet_label <- "Age continuous"
       fig2 <-
-        ggplot(tdat, aes(x = x, y = group, fill = predicted)) +
+        ggplot(
+          tdat,
+          aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = predicted)
+        ) +
         facet_grid(rows = vars(outcome), cols = vars(facet_label)) +
         scale_fill_gradient2(
           low = "#b20000",
@@ -105,9 +159,9 @@ produce_purdy_pictures <- function(model_list, ...) {
           labels = c("-2 <", -1, 0, 1, "2 +")
         ) +
         scale_y_continuous(n.breaks = 5) +
-        scale_x_continuous(limits = c(-2, 2)) +
+        coord_cartesian(xlim = c(-2, 2)) +
         labs(y = "Age", x = x_lab, fill = "predicted") +
-        geom_tile() +
+        geom_rect() +
         figure_theme()
       fig <- cowplot::plot_grid(fig, fig2, rel_widths = c(1, .72))
       width <- 3.25 * length(unique(pdat$group)) + 4.5
@@ -118,7 +172,9 @@ produce_purdy_pictures <- function(model_list, ...) {
     }
 
     outcome <- unique(gsub(" .*", "", pdat$outcome))
-    if (length(outcome) > 1) stop("Outcome length is greater than 1")
+    if (length(outcome) > 1) {
+      stop("Outcome length is greater than 1")
+    }
 
     if (moderator == "age" && add_filename == "_nolog") {
       out_folder <- "main"
@@ -133,7 +189,6 @@ produce_purdy_pictures <- function(model_list, ...) {
       ".jpg"
     )
 
-
     if (outcome == "Sleep") {
       height <- 15
     } else {
@@ -142,7 +197,11 @@ produce_purdy_pictures <- function(model_list, ...) {
 
     ggsave(
       filename,
-      plot = fig, height = height, width = width + 5, units = "cm", dpi = dpi
+      plot = fig,
+      height = height,
+      width = width + 5,
+      units = "cm",
+      dpi = dpi
     )
   }
 
@@ -179,9 +238,15 @@ produce_purdy_pictures <- function(model_list, ...) {
 
 #' prepare_plot_data
 
-prepare_plot_data <- function(plot_dat, paste_facet_labels,
-                              scale_descriptives, debug = FALSE) {
-  if (debug) browser()
+prepare_plot_data <- function(
+  plot_dat,
+  paste_facet_labels,
+  scale_descriptives,
+  debug = FALSE
+) {
+  if (debug) {
+    browser()
+  }
   is_scale <- grepl("scale_", plot_dat$outcome)
   plot_dat$outcome[is_scale] <-
     gsub("scale_", "", plot_dat$outcome[is_scale]) |>
@@ -204,17 +269,11 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
 
       # exponentiate outcome variables
       plot_dat[to_transf, "predicted"] <-
-        ln_to_z(plot_dat[to_transf, "predicted"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "predicted"], mean = dt$mean, sd = dt$sd)
       plot_dat[to_transf, "conf.low"] <-
-        ln_to_z(plot_dat[to_transf, "conf.low"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "conf.low"], mean = dt$mean, sd = dt$sd)
       plot_dat[to_transf, "conf.high"] <-
-        ln_to_z(plot_dat[to_transf, "conf.high"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "conf.high"], mean = dt$mean, sd = dt$sd)
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
@@ -230,15 +289,12 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
         scale_descriptives[var == gsub("log_", "", gsub("\\[.*", "", var_i))]
 
       plot_dat[to_transf, "x"] <-
-        ln_to_z(plot_dat[to_transf, "x"],
-          mean = dt$mean, sd = dt$sd
-        )
+        ln_to_z(plot_dat[to_transf, "x"], mean = dt$mean, sd = dt$sd)
       # reset to_transf
       to_transf <- NULL
       dt <- NULL
     }
   }
-
 
   plot_dat$outcome[is_log_outcome] <-
     gsub("log_", "", plot_dat$outcome[is_log_outcome]) |>
@@ -249,11 +305,15 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
   # Swap the order of volume and intensity
   plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
   plot_dat$outcome <- factor(plot_dat$outcome)
-  volume_level <- grep("Volume", levels(plot_dat$outcome),
+  volume_level <- grep(
+    "Volume",
+    levels(plot_dat$outcome),
     value = TRUE,
     ignore.case = TRUE
   )
-  plot_dat$outcome <- forcats::fct_relevel(plot_dat$outcome, volume_level,
+  plot_dat$outcome <- forcats::fct_relevel(
+    plot_dat$outcome,
+    volume_level,
     after = 0
   )
 
@@ -261,6 +321,20 @@ prepare_plot_data <- function(plot_dat, paste_facet_labels,
   plot_dat$x_name <- gsub("\\[.*", "", plot_dat$x_name)
 
   plot_dat
+}
+
+# Edges halfway between neighbouring grid values; the end tiles extend by half
+# the spacing to their one neighbour
+tile_edges <- function(v) {
+  u <- sort(unique(v))
+  if (length(u) == 1) {
+    return(list(v - 0.5, v + 0.5))
+  }
+  mid <- (u[-1] + u[-length(u)]) / 2
+  lo <- c(2 * u[1] - mid[1], mid)
+  hi <- c(mid, 2 * u[length(u)] - mid[length(mid)])
+  i <- match(v, u)
+  list(lo[i], hi[i])
 }
 
 ln_to_z <- function(x, mean, sd) {

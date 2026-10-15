@@ -1,6 +1,9 @@
 create_distinct <- function(df) {
   variables <- c(
-    "SES", "Ethnicity", "Sleep conditions", "Maturational status",
+    "SES",
+    "Ethnicity",
+    "Sleep conditions",
+    "Maturational status",
     "Sleep medications"
   )
 
@@ -14,10 +17,6 @@ create_distinct <- function(df) {
       dplyr::filter(!is.na(dplyr::across(dplyr::all_of(.x)))) %>%
       readr::write_csv(file.path("temp", paste0(.x, ".csv", collapse = "")))
   )
-}
-
-load_packages <- function() {
-  invisible(source("./packages.R"))
 }
 
 #' figure_theme
@@ -61,6 +60,9 @@ apa_style <- function(x) {
 #'
 
 get_season <- function(date, lat) {
+  if (is.na(lat) || is.na(date)) {
+    return(NA_character_)
+  }
   if (lat > 0) {
     if (lubridate::month(date) %in% c(3:5)) {
       "spring"
@@ -85,7 +87,31 @@ get_season <- function(date, lat) {
 }
 
 find_max <- function(x) {
-  names(which.max(table(x)))
+  counts <- table(x)
+  if (length(counts) == 0L || sum(counts) == 0L) {
+    return(NA_character_)
+  }
+  names(which.max(counts))
+}
+
+#' age_categories
+#'
+#' Bin continuous age into the five reporting bands.
+age_categories <- function(age) {
+  min_age <- floor(min(age, na.rm = TRUE))
+  cut(
+    age,
+    breaks = c(0, 12, 19, 36, 66, Inf),
+    labels = c(
+      glue::glue("{min_age}-11 years"),
+      "12-18 years",
+      "19-35 years",
+      "36-65 years",
+      "66+ years"
+    ),
+    right = FALSE,
+    include.lowest = TRUE
+  )
 }
 
 #' Generates display names for variables
@@ -114,28 +140,127 @@ get_scale_descriptives <- function(data, ...) {
   # We want descriptives to convert log back to scale
   # So we need the scale descriptives, not the log descriptives
   vars <- gsub("(log_|scale_)", "", vars)
-  dat <- mice::complete(data, action = "long", include = FALSE) |>
-    data.table()
 
-  # Get all imp data, make long form
-  dt <- dat[, c(vars, ".imp"), with = FALSE] |>
-    tidyr::pivot_longer(-.imp, names_to = "var") |>
-    data.table()
-  # get mean and sd by variable and imp
-  dt_2 <- dt[, .(
-    mean = mean(value, na.rm = TRUE),
-    sd = sd(value, na.rm = TRUE)
-  ), by = c(".imp", "var")] |>
-    tidyr::pivot_longer(-c(.imp, var)) |>
-    data.table()
+  # Mean and SD of the stacked imputations one variable at a time
+  rbindlist(lapply(vars, function(v) {
+    x <- data$data[[v]]
+    miss <- data$where[, v]
+    stacked <- unlist(
+      lapply(seq_len(data$m), function(i) {
+        if (any(miss)) {
+          x[miss] <- data$imp[[v]][[i]]
+        }
+        x
+      }),
+      use.names = FALSE
+    )
+    data.table(var = v, value = stacked)[,
+      .(
+        mean = mean(value, na.rm = TRUE),
+        sd = sd(value, na.rm = TRUE)
+      ),
+      by = "var"
+    ]
+  }))
+}
 
-  # get mean of each mean and sd across imps
-  descriptives <-
-    dt_2[, .(value = mean(value)), by = c("name", "var")] |>
-    tidyr::pivot_wider(values_from = value, names_from = name) |>
-    data.table()
+#' compute_age_centre
+#'
+#' Mean age across the primary analytic person-days; used by every model family.
+compute_age_centre <- function(
+  data_clean,
+  min_wear_days = min_wear_days_primary
+) {
+  analytic <- data_clean$eligible &
+    data_clean$n_valid_wear_days >= min_wear_days
+  round(mean(data_clean$age[analytic], na.rm = TRUE), 1)
+}
 
-  descriptives
+#' predictor_grid
+#'
+#' Build a `ggeffects` `terms` string spanning a variable's observed range.
+#'
+#' @param data_imp a `mids` object
+#' @param var variable name
+#' @param n approximate number of grid points, when `step` is not given
+#' @param step explicit grid spacing
+#'
+#' @details Replaces a hardcoded `[-5:5]`. For `log_pa_volume`, observed over
+#' 0.33-5.30, that put 53% of the requested grid below any observed value, and
+#' the heat-map's `age[10:80 by = 1]` omitted both ends of a sample spanning
+#' 2.75-94.1. Every point returned here lies inside the data, so no prediction
+#' is an extrapolation.
+#'
+#' The range comes from `data_imp$data`, the unimputed rows. Every method in
+#' `make_data_imp()` is predictive mean matching (`2l.pmm` / `2lonly.pmm`),
+#' which can only donate values that were observed somewhere, so the completed
+#' range equals the observed range — verified against `mice::complete()` for
+#' all five predictors. Reading it from a single unimputed copy also guarantees
+#' the grid is identical across imputations, which
+#' `pool_predictions_rubin()` requires. If a method is ever changed to one
+#' that can generate values outside the observed range, this needs revisiting.
+#'
+#' Pass `rows` from `analysed_rows()` so the grid spans the data the model
+#' fits. Over all rows, the log-volume grid started below the data in the
+#' sleep-regularity models, which analyse only the days regularity was observed.
+#' @param rows logical vector over `data_imp$data`; `NULL` for all rows
+predictor_grid <- function(data_imp, var, n = 200, step = NULL, rows = NULL) {
+  x <- data_imp$data[[var]]
+  if (is.null(x)) {
+    stop(
+      "predictor_grid(): '",
+      var,
+      "' is not a column of the imputed data.",
+      call. = FALSE
+    )
+  }
+  if (!is.null(rows)) {
+    x <- x[rows]
+  }
+  rng <- range(x, na.rm = TRUE)
+  if (is.null(step)) {
+    step <- signif(diff(rng) / n, 3)
+  }
+  # Round the endpoints inward, so rounding cannot put a grid point outside the
+  # observed range and reintroduce the extrapolation this function exists to
+  # remove.
+  scale <- 10^4
+  lower <- ceiling(rng[1] * scale) / scale
+  upper <- floor(rng[2] * scale) / scale
+  as.character(glue::glue("{var}[{lower}:{upper} by = {step}]"))
+}
+
+#' cap_blas_threads
+#'
+#' Limit this process's BLAS/OpenMP thread pool.
+#'
+#' @param n threads to allow
+#'
+#' @details R here links `openblas-pthread`, which spawns one BLAS thread per
+#' core (48) in *every* process. Measured on a live run: 8 imputation workers
+#' carrying 49 threads each, ~346 CPU-hours of BLAS-thread time in 7.6 h wall,
+#' load average 182; and each crew worker carrying 79 threads, which at
+#' `workers = 16` is ~1,264 threads on 48 cores. At this problem size 48-thread
+#' BLAS is not faster than single-threaded (0.16 s vs 0.14 s on a 20,000 x 200
+#' crossprod), so that CPU time is pure loss.
+#'
+#' `OPENBLAS_NUM_THREADS` cannot fix it from inside R: OpenBLAS reads the
+#' variable when the shared library loads, which is before R evaluates
+#' `.Renviron`, so neither a project `.Renviron`, `Sys.setenv()` nor crew's
+#' `rscript_envs` has any effect. The thread pool is per-process, so this has to
+#' be called *inside* each process that does the work — hence the calls in the
+#' `furrr` callback and at the top of `model_builder()` rather than once in
+#' `_targets.R`.
+#'
+#' Guarded rather than hard-required, so a missing package cannot kill a
+#' multi-hour run. Note that changing the thread count can reorder
+#' floating-point summation, so results may differ in the last few bits.
+cap_blas_threads <- function(n = 1L) {
+  if (requireNamespace("RhpcBLASctl", quietly = TRUE)) {
+    RhpcBLASctl::blas_set_num_threads(n)
+    RhpcBLASctl::omp_set_num_threads(n)
+  }
+  invisible(NULL)
 }
 
 plot_percentile <- function(var) {
@@ -143,25 +268,10 @@ plot_percentile <- function(var) {
 
   p <- lapply(seq(0, 1, by = 0.005), function(x) {
     data.frame(p = x * 100, value = quantile(var, x, na.rm = TRUE))
-  }) |> data.table::rbindlist()
+  }) |>
+    data.table::rbindlist()
 
   ggplot(p, aes(x = p, y = value)) +
     geom_point() +
     labs(x = "Percentile")
-}
-
-sheet_read <- function(sheet_name) {
-  sheetid <- "1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s"
-  googlesheets4::gs4_deauth()
-  googlesheets4::read_sheet(
-    sheetid,
-    sheet = sheet_name, col_types = "c", range = "A:C"
-  )
-}
-
-sheet_last_modified <- function() {
-  sheetid <- "1A75Qk8mNXygxcsCxLQ4maspZsQxZXJ5K-12X338CQ2s"
-  googledrive::drive_deauth()
-  info <- googledrive::drive_get(googledrive::as_id(sheetid))
-  info$drive_resource[[1]]$modifiedTime
 }

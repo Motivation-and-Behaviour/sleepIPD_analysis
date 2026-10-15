@@ -1,0 +1,38 @@
+studyid,Sleep conditions,Harmonized
+101,No sleep apnea,No
+101,Sleep apnea,Yes
+103,<numbers>,NA
+107,No sleep apnea,No
+107,Sleep apnea,Yes
+110,No sleep apnea,No
+110,Sleep apnea,Yes
+114,<numbers>,NA
+102,0,No
+102,1,No
+102,2,No
+102,3,No
+102,4,No
+102,5,Yes
+102,6,Yes
+102,7,Yes
+221,0,No
+221,1,No
+221,2,No
+221,3,No
+221,4,No
+221,5,No
+221,6,No
+221,7,No
+221,8,No
+221,9,No
+221,10,No
+221,11,No
+221,12,No
+221,13,No
+221,14,No
+221,15,Yes
+221,16,Yes
+221,17,Yes
+221,18,Yes
+221,19,Yes
+221,20,Yes

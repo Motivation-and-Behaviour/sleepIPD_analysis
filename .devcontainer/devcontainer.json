@@ -3,7 +3,7 @@
 	"image": "ghcr.io/tarensanders/r-base:latest",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "chron, dfoptim, future.apply, ggeffects, lubridate, mice, miceadds, optimx, papaja, purrr, readr, suncalc, TAM, webshot2",
+			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
 			"installSystemRequirements": true
 		}
 	},
@@ -11,6 +11,9 @@
 		"source=claude-code-config-${devcontainerId},target=/home/rstudio/.claude,type=volume",
 		"source=gh-config-${devcontainerId},target=/home/rstudio/.gh,type=volume"
 	],
-	"postCreateCommand": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
+	"postCreateCommand": {
+		"claude": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
+		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add"
+	},
 	"shutdownAction": "none"
 }
