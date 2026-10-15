@@ -128,31 +128,23 @@ sl <- function(key, age, what = "ci") ms_info$slopes[[key]][[paste0("a", age)]][
 
 # Introduction
 
-Sleep is an important determinant of population health across the lifespan [@luysterSleepHealthImperative2012; @ramarSleepEssentialHealth2021].
-The consequences of poor sleep include increased all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
-Beyond duration and quality, the regularity of sleep timing is now recognised as a distinct dimension of sleep health [@slettenImportanceSleepRegularity2023; @st-ongeMultidimensionalSleepHealth2025], and irregular sleep is consistently associated with poorer mental, cardiometabolic, and survival outcomes [@kalkanisSleepRegularityImportant2025].
-Poor sleep - characterised by low sleep quality, duration, or the presence of sleep disorders - is a frequent health problem: 14-68% of children and adolescents [@gariepyHowAreAdolescents2020] and 31% of adults [@ngShortSleepDuration2026] report lower sleep duration than recommended [@hirshkowitzNationalSleepFoundations2015; @dzierzewskiHowMuchSleep2026].
-Improving sleep should be a priority for public health policy [@limNeedPromoteSleep2023], and more safe and accessible strategies that promote sleep are needed [@klinePhysicalActivitySleep2021].
-In adults, including older adults, being physically active appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015; @liangDeterminantsInterrelationsExercise2026; @xiongOptimalExerciseType2025], and exercise is an effective treatment for insomnia [@buEffectsVariousExercise2026].
-The World Health Organization recommends physical activity as a method to improve sleep in adults and older adults [@bullWorldHealthOrganization2020].
-In children and adolescents, associations are less clear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016].
-Recent trials suggest exercise improves sleep quality and efficiency but not total sleep time [@songEffectsPhysicalActivity2026], and guidelines do not currently support a role for physical activity to improve sleep in this age group.
+Sleep is an important determinant of population health across the lifespan [@luysterSleepHealthImperative2012; @ramarSleepEssentialHealth2021]: poor sleep is associated with all-cause mortality [@huangSleepPhysicalActivity2022], cardiovascular disease [@kwokSelfReportedSleep2018], cancers [@maSleepDurationTotal2016], and poor mental health [@wakefieldLongitudinalAssociationsFamily2020].
+Yet 14-68% of children and adolescents [@gariepyHowAreAdolescents2020] and 31% of adults [@ngShortSleepDuration2026] sleep less than recommended [@hirshkowitzNationalSleepFoundations2015; @dzierzewskiHowMuchSleep2026], and safe, accessible strategies to promote sleep are needed [@limNeedPromoteSleep2023; @klinePhysicalActivitySleep2021].
+In adults, physical activity appears to improve both the quantity and quality of sleep [@kredlowEffectsPhysicalActivity2015; @liangDeterminantsInterrelationsExercise2026; @xiongOptimalExerciseType2025], and WHO recommends it for this purpose [@bullWorldHealthOrganization2020].
+In children and adolescents, the evidence is less clear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016].
+Trials suggest exercise improves sleep quality and efficiency but not total sleep time [@songEffectsPhysicalActivity2026], and guidelines do not support a role for physical activity in improving sleep in this age group.
 
-Promoting physical activity may be an effective method to improve sleep across the lifespan, but the published literature has at least two limitations.
-First, most studies have relied on self-report measures of sleep and physical activity [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016], which could confound associations and limit the precision of analyses designed to identify a dose-response relationship between physical activity and sleep.
-Second, no study has collected day-to-day data from a large and geographically diverse sample that included participants across the lifespan.
-Daily associations have been synthesised separately in adults [@atouiDailyAssociationsSleep2021] and in children and youth [@huangRelationshipsPhysicalActivity2021], and recent consumer-wearable studies with millions of person-nights were restricted to adults and did not examine sleep regularity [@fittonBidirectionalAssociationsSleep2025; @leotaSleepDurationTiming2025].
-It is necessary to focus on day-level data as the relationship may run in both directions.
+The existing evidence has three main limitations.
+First, most studies relied on self-reported sleep and physical activity [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016], which could bias associations and limit the precision of dose-response analyses.
+Second, existing reviews and meta-analyses [@klinePhysicalActivitySleep2021] pool study-level effects, which limits how well they can examine the influence of age [@rileyUsingIndividualParticipant2023].
+Third, no study has examined day-to-day data in a large, geographically diverse sample spanning the lifespan.
+Daily associations have been synthesised separately in adults [@atouiDailyAssociationsSleep2021] and in children and youth [@huangRelationshipsPhysicalActivity2021], and consumer-wearable studies with millions of person-nights included only adults and did not examine sleep regularity [@fittonBidirectionalAssociationsSleep2025; @leotaSleepDurationTiming2025].
+Day-level data matter because the relationship may run in both directions.
 Physical activity may promote sleep through circadian and stress-related pathways [@korkutataImpactExerciseSleep2025], while a late or poor night's sleep may reduce activity the next day [@plekhanovaEffectExerciseSleep2021; @atouiDailyAssociationsSleep2021].
-Averaging behaviour over a week can mask these day-to-day patterns.
-Umbrella reviews [@klinePhysicalActivitySleep2021] and meta-analyses [@aielloEffectExerciseTraining2016; @antczakPhysicalActivitySleep2020; @bannoExerciseCanImprove2018; @bartelProtectiveRiskFactors2015; @edwardsAssessingImpactDiet2019; @gaoShorttermEfficacyMinimally2019; @iftikharComparativeEfficacyCPAP2017; @iftikharEffectsExerciseTraining2014; @janssenAssociationsScreenTime2020; @kredlowEffectsPhysicalActivity2015; @kwokSelfReportedSleep2018; @langRelationshipPhysicalActivity2016; @ledermanDoesExerciseImprove2019; @lins-filhoEffectExerciseTraining2020; @maSleepDurationTotal2016; @mendelsonObstructiveSleepApnea2018; @rubio-ariasEffectExerciseSleep2017; @stutzEffectsEveningExercise2019; @yangEffectsExerciseSleep2020; @yangExerciseTrainingImproves2012; @yangSedentaryBehaviorSleep2017] have provided some suggestive evidence about how physical activity may improve sleep across the lifespan.
-However, their reliance on aggregated study-level effects limits the quality and scope of data that can be used to analyse the influence of age [@rileyUsingIndividualParticipant2023].
-Device-measured individual participant data analysis can overcome these limitations [@ioannidisNextgenerationSystematicReviews2017].
+Weekly averages may mask these patterns, and pooling device-measured individual participant data can overcome these limitations [@ioannidisNextgenerationSystematicReviews2017].
 
-In this study we harmonised individual participant data from accelerometer observations obtained from studies around the world.
-The aim of this pooled study was to investigate the relationship between device-measured physical activity and sleep across the lifespan.
-We addressed three research questions (RQs): (RQ1) Do individuals who are more physically active have better sleep duration and sleep quality; (RQ2) is age a moderator of the association between physical activity and sleep and does this vary across the lifespan; and (RQ3) is there a 
-bidirectional association between physical activity and sleep?
+We harmonised individual participant data from accelerometer studies around the world to investigate the relationship between device-measured physical activity and sleep across the lifespan.
+We addressed three research questions (RQs): (RQ1) do individuals who are more physically active have better sleep duration and quality; (RQ2) does age moderate the association between physical activity and sleep; and (RQ3) is the association bidirectional?
 
 # Methods
 
@@ -160,143 +152,81 @@ We pre-registered all methods and analyses on the Open Science Framework (OSF) b
 
 ## Data sources and data acquisition
 
-We included data from studies, with any design, that used research-grade accelerometers and a 24-hour wear time protocol over a minimum of 4 days, including 1 weekend day.
-Studies needed to have used accelerometers from which raw accelerations ($m/s^2$ or $mg$) could be obtained.
-Studies could use any wear location for the accelerometer (hip, wrist, or thigh) or accelerometer brand.
+We included studies of any design that used research-grade accelerometers of any brand, worn at any location (hip, wrist, or thigh), from which raw accelerations ($m/s^2$ or $mg$) could be obtained, with a 24-hour wear protocol over at least four days, including one weekend day.
 
 We identified potentially relevant studies by examining the reference lists of recent systematic reviews that explored the relationship between sleep and physical activity in children, adolescents, and adults [@antczakPhysicalActivitySleep2020; @kredlowEffectsPhysicalActivity2015; @langRelationshipPhysicalActivity2016].
 We then used forward searching on potentially eligible studies [@hindeBidirectionalCitationSearching2015].
 We additionally performed a literature search to identify accelerometry consortiums and individual studies, searched trial registries (the Australian New Zealand Clinical Trials Registry, the World Health Organization International Clinical Trials Registry Platform, and the ISRCTN registry) and the Open Science Framework for unpublished results, and asked collaborators to help identify any additional studies.
 
-We contacted chief investigators or consortium leads by email to request access to deidentified individual data.
-To make the data acquisition manageable, we only invited studies with sample sizes larger than 400 participants.
-If required by the contributing research group, the contributing investigators or their university signed a data transfer agreement.
+To keep data acquisition manageable, we invited only studies with more than 400 participants, emailing chief investigators or consortium leads to request deidentified individual data.
 All studies included in the pooled data meta-analysis had to have been approved by their local or institutional ethical committees, and all participants (or, for children, their parents or guardians) had to have provided written informed consent, with children providing assent where required.
 The lead university's Research Ethics Committee granted permission for each study's data to be obtained, and investigators transferred their deidentified data via a secure file-sharing system.
 
 ## Data harmonisation and outcomes 
 
-All accelerometer-derived data were harmonised by reprocessing raw files with the open-source *GGIR* package (version 2.5-1) in R to produce physical activity and sleep outcomes [@miguelesGGIRResearchCommunity2019; @vanheesEstimatingSleepParameters2018], using the *sleepIPD* R package, which fixed all processing settings across studies [@sandersSleepIPDOpinionatedAccelerometer2023].
+We harmonised all accelerometer data by reprocessing the raw files with the open-source *GGIR* package (version 2.5-1) in R [@miguelesGGIRResearchCommunity2019; @vanheesEstimatingSleepParameters2018], producing outcomes that could be compared across studies, device wear locations, and populations [@rowlandsProvidingBasisHarmonization2019].
+Processing used our *sleepIPD* R package, which fixed all settings across studies and documents the decisions made for specific devices [@sandersSleepIPDOpinionatedAccelerometer2023].
+The core research team or the data contributors ran *sleepIPD* on each study's raw files.
 *GGIR*'s sleep detection has been evaluated against polysomnography in both adults [@vanheesEstimatingSleepParameters2018] and children [@cepniEvaluatingPerformanceOpensource2025; @chenPerformanceAutomatedSleep2026].
-By reprocessing all raw accelerometer data, we were able to generate outcomes that could be compared across studies, device wear locations, and populations [@rowlandsProvidingBasisHarmonization2019].
-Data were reprocessed by the core research team or the data contributors themselves using the *GGIR* package processing script provided by the core research team.
-Reprocessed individual study datasets were then pooled into a single dataset.
-A detailed description of the reprocessing method and decisions for specific accelerometer devices is available from the *sleepIPD* package documentation [@sandersSleepIPDOpinionatedAccelerometer2023].
-Non-wear time and abnormally high acceleration values were detected using the data processing default setting [@vanheesSeparatingMovementGravity2013].
-These data were classified as missing and imputed using the accelerometer data from the same time interval on the remaining days of the week [@miguelesGGIRResearchCommunity2019].
+Non-wear time and abnormally high accelerations were detected with the default settings [@vanheesSeparatingMovementGravity2013], classified as missing, and imputed from the same time interval on the remaining days of the week [@miguelesGGIRResearchCommunity2019].
 
-Each day ran from waking to waking the following day, so each day's physical activity was paired with the sleep period that followed it.
-Physical activity metrics were calculated over the waking hours of each day, and sleep metrics over the sleep period.
+Each day ran from waking to waking the following day, so each day's physical activity, calculated over its waking hours, was paired with the sleep period that followed it.
 For wrist-worn devices, the sleep period was detected with the HDCZA algorithm [@vanheesEstimatingSleepParameters2018] and for hip-worn devices *GGIR* instead detected time in bed from the device's angle.
-For sleep, *GGIR* produced the following metrics: total sleep time (minutes), sleep efficiency (percentage of the sleep period, from sleep onset to final waking, spent asleep), sleep onset (clock time), and sleep regularity (the sleep regularity index: the likelihood of being in the same sleep or wake state at time points 24 hours apart, calculated for each pair of consecutive days, with higher values indicating more regular sleep).
-For physical activity, we used volume and intensity metrics proposed by Rowlands et al @rowlandsMovingForwardAccelerometerAssessed2018.
-These measures are 1) average acceleration (mg; a measure of physical activity volume) and 2) intensity gradient (unitless; a measure of intensity distribution where the natural logs of time and intensity are used to produce a straight-line graph with the slope of the graph being the intensity gradient, so that less negative values indicate relatively more time at higher intensities).
-We used this approach to model the entire continuum of physical activity intensity for our primary analyses [@rowlandsEnhancingValueAccelerometerassessed2019] and avoid collapsing physical activity data into population-specific intensity categories, which occurs when intensity cut-points are applied to accelerometer data [@rowlandsDatadrivenMeaningfulEasy2019].
+For sleep, *GGIR* produced total sleep time (minutes), sleep efficiency (percentage of the sleep period, from sleep onset to final waking, spent asleep), sleep onset (clock time), and sleep regularity (the sleep regularity index: the likelihood of being in the same sleep or wake state at time points 24 hours apart, calculated for each pair of consecutive days, with higher values indicating more regular sleep).
+For physical activity, we used two metrics proposed by Rowlands and colleagues [@rowlandsMovingForwardAccelerometerAssessed2018]: average acceleration (mg)—a measure of volume—and the intensity gradient (unitless), the slope of log time against log intensity, which describes how time is distributed across intensities, with less negative values indicating relatively more time at higher intensities.
+These metrics capture the whole intensity continuum [@rowlandsEnhancingValueAccelerometerassessed2019] without the population-specific cut-points that collapse it into categories [@rowlandsDatadrivenMeaningfulEasy2019].
 
-*GGIR* also produced time in intensity bands, cut-point-based estimates of light and moderate-to-vigorous activity, bout durations [@gabaHowShortSleepers2020], and $MX$ metrics [@rowlandsEnhancingValueAccelerometerassessed2019], which are not analysed here.
-
-## Covariates and moderators 
+## Covariates and moderators
 
 The following individual participant data were obtained when available: age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
 The country, city, time zone, daylight length, and season in which data were collected were also obtained.
-Because studies measured socioeconomic status differently (e.g., education or income), we harmonised each study's measure into low, medium, and high categories (see supplementary materials for method).
+Because studies measured socioeconomic status differently (e.g., education or income), we harmonised each study's measure into low, medium, and high categories (appendix).
 
-Body mass index was converted to an age- and sex-standardised z-score.
+Body mass index (BMI) was converted to an age- and sex-standardised z-score.
 For participants under 18 years we used the CDC 2000 BMI-for-age growth reference, applied with the *childsds* package.
-For adults we standardised body mass index against the adults in this sample.
+For adults we standardised BMI against the adults in this sample.
 
-## Statistical analysis 
+## Statistical analysis
 
-To reduce the risk of bias in secondary data analysis of IPD, we used a blind analysis approach [@westonRecommendationsIncreasingTransparency2019].
-We developed and tested models on a 10% holdout subsample of the dataset.
-When the analysis code was ready, we conducted the final analysis [@maccounBlindAnalysisHide2015].
+To reduce the risk of bias, we used a blind analysis approach [@westonRecommendationsIncreasingTransparency2019; @maccounBlindAnalysisHide2015]: we developed and tested models on a 10% holdout subsample of the dataset and conducted the final analysis once we believed the code was ready.
+Data screening had four stages: values outside fixed physiological limits (for average acceleration, above `r ms_info$pa_volume_limit` mg); all physical activity variables from files whose mean average acceleration exceeded that limit, indicating a likely device failure (`r ms_info$n_accel_flagged` participants); values more than 4 SD from the mean of their own study, so that between-study differences in device, protocol, and population were not mistaken for implausible measurement; and, for participants under 18 years, heights, weights, and BMI values that the CDC 2000 growth reference classifies as biologically implausible.
 
-We screened all data for implausibly low or high measurements, as these likely indicate measurement device failures.
-Screening had four stages.
-First, we excluded values falling outside fixed physiological limits.
-For average acceleration this was `r ms_info$pa_volume_limit` mg, a value above any sustainable 24-hour average.
-Second, because a miscalibrated accelerometer corrupts every variable derived from acceleration magnitude rather than isolated days, we excluded all physical activity variables for files whose mean average acceleration exceeded that limit (`r ms_info$n_accel_flagged` participants).
-Third, we excluded remaining values falling outside ±4 SD of the mean **of their own study**, rather than of the pooled sample, so that the threshold reflected implausible measurement rather than between-study differences in device, protocol and population.
-Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
-Values excluded at any stage were treated as missing data.
+A day was valid if it recorded more than 10 hours of wear time and, where sleep was detected, a sleep period longer than 200 minutes.
+Participants required at least `r ms_info$min_wear_days` valid days.
+A sensitivity analysis restricted the sample to the `r ms_info$n_pts_7days` participants with at least seven valid days.
 
-A day contributed to the analysis if it recorded more than 10 hours of wear time and, where sleep was detected, a sleep period longer than 200 minutes.
-Participants were additionally required to have at least `r ms_info$min_wear_days` days of valid wear time.
-`r ms_info$n_pts_excluded_wear` participants, contributing `r ms_info$n_obs_excluded_wear` person-days, did not meet this criterion, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days for analysis.
-A sensitivity analysis restricted the sample to the `r ms_info$n_pts_7days` participants with at least seven days of valid wear time.
-
-We assumed missing covariate and moderator data to be missing at random or completely at random and imputed these missing values using multiple imputations by chained equations with the *mice* package in R [@buurenMiceMultivariateImputation2011] to provide `r ms_info$n_imps` imputed datasets.
-Specifically, we used multilevel predictive mean matching imputation clustered by participants.
+We assumed missing covariate and moderator data to be missing at random or completely at random and imputed them using multilevel predictive mean matching, clustered by participant, with multiple imputation by chained equations in the *mice* package [@buurenMiceMultivariateImputation2011], creating `r ms_info$n_imps` imputed datasets.
 The imputation model also included the sleep and physical activity variables, but each analysis used only the person-days on which its outcome, its sleep or physical activity predictor, and its moderator were observed, so imputed values are only covariates.
-We used Rubin's rule to pool the results from analyses conducted using each imputed dataset into one single set of results.
-We examined 95% confidence intervals for all analyses and used P<0.05 to assess for statistical significance.
-Both the intervals and the p-values are computed on the pooled Barnard-Rubin degrees of freedom, which account for the additional uncertainty introduced by imputation.
-We fitted 16 models for each moderator and report all of them without adjustment for multiple comparisons, so p-values close to 0.05 should be interpreted with caution.
+We pooled results across imputed datasets with Rubin's rules, computing 95% CIs and p values on the Barnard-Rubin degrees of freedom to account for the additional uncertainty introduced by imputation, and used p<0.05 to assess statistical significance.
+We fitted 16 models for each moderator and report all of them without adjustment for multiple comparisons, so p values close to 0.05 should be interpreted with caution.
 We used R (version `r paste(R.Version()[c("major", "minor")], collapse = ".")`) for all data cleaning and analysis.
-We report mean and 95% confidence intervals.
-For categorical variables, percentages are reported.
-We examined model diagnostics from all models (see supplementary materials).
 
-To examine the relationship between sleep and physical activity we ran mixed-effects models with random intercepts for study ID and for participant, accounting for the nesting of repeated days within participants and of participants within studies [@curranIntegrativeDataAnalysis2009].
-We predicted each sleep indicator by each physical activity indicator controlling for socioeconomic status, sex, and body mass index z-score.
-Quadratic terms were introduced in each model to allow for curvilinear relationships to be modelled.
-We interacted each predictor with age to reveal how the relationship between physical activity and sleep changes over the lifespan (RQ2).
-Age was centred at its mean across person-days (`r ms_info$age_centre` years) and scaled per 10 years, and we report each association at ages 11, 18, 35, and 65, pooled across imputations with Rubin's rules.
-Models predicting physical activity from the preceding night's sleep (RQ3) use each sleep indicator lagged by one day.
-Person-days whose preceding day was absent from the data or did not meet the eligibility criteria therefore have no lagged value and do not contribute to these models, leaving `r ms_info$n_obs_lagged` of `r ms_info$n_obs_eligible` eligible person-days.
-Sleep regularity was missing most often, and was not measured in `r ms_info$n_studies_no_regularity` of the `r ms_info$n_studies` studies, so the models relating it to physical activity volume used `r ms_info$n_obs_model$sleep_regularity_by_pa_volume` person-days (RQ1) and `r ms_info$n_obs_model$pa_volume_by_sleep_regularity` (RQ3).
+To examine the relationship between sleep and physical activity we ran mixed-effects models with random intercepts for study and participant, accounting for the nesting of days within participants and of participants within studies [@curranIntegrativeDataAnalysis2009].
+We predicted each sleep indicator from each physical activity indicator, adjusting for SES, sex, and BMI z-score, with quadratic terms to allow curvilinear associations.
+We interacted each predictor with age to examine how associations change over the lifespan (RQ2).
+Age was centred at its mean across person-days (`r ms_info$age_centre` years) and scaled per 10 years.
+For interpretability, and we report associations at ages 11, 18, 35, and 65 years.
+Models predicting physical activity from the preceding night's sleep (RQ3) used each sleep indicator lagged by one day, so person-days whose preceding day was absent or ineligible did not contribute, leaving `r ms_info$n_obs_lagged` of `r ms_info$n_obs_eligible` eligible person-days.
+Sleep regularity was missing most often, so its models with physical activity volume used `r ms_info$n_obs_model$sleep_regularity_by_pa_volume` person-days (RQ1) and `r ms_info$n_obs_model$pa_volume_by_sleep_regularity` (RQ3).
 
 ## Protocol deviations
 
-This paper addresses Hypotheses 1 and 2 from our registered protocol: 
-1. Volume and intensity of physical activity will be positively associated with optimum sleep duration and sleep quality with an inverted U dose-response.
-2. Age will moderate the association between physical activity and sleep. 
-   Associations will be stronger in adults and adolescents than in children and older adults. 
-Moderation by the other pre-registered moderators is reported in the supplementary materials, and we will address the remaining hypotheses in future research.
-To streamline our analysis and reduce redundancy, we made the following changes to our protocol while working with the holdout data.
-
-### Using Study ID as fixed effect
-
-We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
-But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
-This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
-While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
-The results using Study ID as a fixed effect (i.e., those that align with the protocol) can be found in the supplementary materials and are qualitatively similar to the main results.
-
-### Sleep indicator variable
-
-Our research examines various metrics of sleep: onset, duration, regularity, and efficiency.
-We initially planned to merge these variables into a single indicator to simplify analysis.
-However, no validated indicator existed which could be estimated from our measured variables.
-We decided against creating one as we could not validate it with our data.
-Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep and physical activity.
-
-### Log transformation
-
-We aimed to improve model diagnostics using log transformations of skewed variables.
-Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
-Accordingly, we do not use log transformations in the main paper.
-However, these models can be found in supplementary materials.
-
-## Patient and public involvement
-
-Patients and members of the public were not involved in the design, analysis or interpretation of this IPD study using secondary data.
-The results of this study have broad public health interest, particularly for policymakers.
-Findings from this study will be disseminated through institutional websites, press and media platform releases, and tailored messages to public health Organizations and governing bodies.
+This paper addresses the first two hypotheses in our registered protocol: that physical activity volume and intensity would be positively associated with optimum sleep duration and quality, with an inverted U-shaped dose-response, and that associations would be stronger in adolescents and adults than in children and older adults.
+Moderation by the other pre-registered moderators is reported in the appendix, and the remaining hypotheses will be addressed in future research.
+While working with the holdout data we made three changes to the protocol.
+We modelled study as a random rather than a fixed effect, so that estimates would generalise beyond the included studies.
+Sensitivity analyses of fixed-effect models gave qualitatively similar results.
+We analysed each sleep metric separately, because no validated composite sleep indicator could be estimated from our data.
+We did not log-transform skewed variables, because back-transformed predictions followed extreme exponential patterns near the edges of the data range.
+Log-scale models are reported in the appendix.
+Additionally, after running the full analysis we identified a mistake in the BMI variable and in the imputation model, which we corrected and reran the analysis.
 
 # Results
 
-The aggregated dataset describes `r ms_info$n_obs` observations of daily physical activity and sleep from `r ms_info$n_pts` unique participants.
-Of these, `r ms_info$n_obs_excluded` days were excluded as they had insufficient wear time, which also resulted in the exclusion of `r ms_info$n_pts_excluded` participants.
-A further `r ms_info$n_pts_excluded_wear` participants (`r ms_info$n_obs_excluded_wear` days) were excluded for having fewer than `r ms_info$min_wear_days` days of valid wear time, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days.
-Table \@ref(tab:demo-participants) shows demographic information for the included participants.
-Most participants came from Europe and South America, followed by Oceania, with limited data from other regions.
-Participants were aged `r ms_info$age_range` years.
-There was a near-even split by sex (`r ms_info$p_female` female), but age skewed towards both younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
-
-Valid observations were not uniform across the days of the week (`r ms_info$weekday_res`).
-Weekends and Fridays were over-represented (Saturday: z = `r ms_info$weekday$stdres["Saturday"]`; Sunday: z = `r ms_info$weekday$stdres["Sunday"]`; Friday: z = `r ms_info$weekday$stdres["Friday"]`), while Wednesdays (z = `r ms_info$weekday$stdres["Wednesday"]`) and Tuesdays (z = `r ms_info$weekday$stdres["Tuesday"]`) were under-represented.
-A table of study characteristics can be found in the supplementary materials.
+The pooled dataset contained `r ms_info$n_obs` days of physical activity and sleep data from `r ms_info$n_pts` participants in `r ms_info$n_studies` studies.
+We excluded `r ms_info$n_obs_excluded` days with insufficient wear time, which removed `r ms_info$n_pts_excluded` participants entirely, and a further `r ms_info$n_pts_excluded_wear` participants (`r ms_info$n_obs_excluded_wear` days) with fewer than `r ms_info$min_wear_days` valid days, leaving `r ms_info$n_pts_analytic` participants and `r ms_info$n_obs_analytic` person-days (Table \@ref(tab:demo-participants); study characteristics are in the appendix).
+Participants were aged `r ms_info$age_range` years and `r ms_info$p_female` were female.
+Most came from Europe and South America, followed by Oceania, and the sample skewed towards younger children (2-11 years, `r ms_info$p_young`) and older adults (66+ years, `r ms_info$p_old`).
 
 ```{r demo-participants}
 papaja::apa_table(demog_table,
@@ -314,12 +244,10 @@ papaja::apa_table(demog_table,
 )
 ```
 
-## The association between physical activity volume and sleep
+## Physical activity volume and sleep
 
-We estimated the association between physical activity and sleep (RQ1) using mixed-effects models.
-These associations by age are presented in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-volume-fig).
-Higher physical activity volume was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
-Although we observed statistically significant curvilinear relationships, these did not appear to meaningfully change the associations.
+Higher physical activity volume was associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep (Table \@ref(tab:sleep-outcomes); Figure \@ref(fig:sleep-by-volume-fig)).
+Curvilinear terms were statistically significant but did not meaningfully change these associations.
 The association with sleep regularity was the largest and declined only slightly with age ($\beta$ = `r sl("sleep_regularity_by_pa_volume", 11)` at age 11 and `r sl("sleep_regularity_by_pa_volume", 65)` at age 65).
 The associations with sleep duration and efficiency weakened with age, and by age 65 higher volume was associated with slightly lower sleep efficiency ($\beta$ = `r sl("sleep_efficiency_by_pa_volume", 65)`), whereas the association with earlier sleep onset strengthened with age ($\beta$ = `r sl("sleep_onset_by_pa_volume", 11)` at age 11 and `r sl("sleep_onset_by_pa_volume", 65)` at age 65).
 
@@ -341,11 +269,11 @@ knitr::include_graphics(
 )
 ```
 
-## The association between physical activity intensity and sleep
+## Physical activity intensity and sleep
 
-We estimated how physical activity intensity is associated with sleep across different age groups and present the results controlling for sex, SES, and BMI, in Table \@ref(tab:sleep-outcomes) and Figure \@ref(fig:sleep-by-intensity-fig).
-We observed weak associations between physical activity intensity and sleep duration, sleep efficiency, and sleep onset, with a stronger relationship observed with sleep regularity.
-As with physical activity volume, we observed statistically significant curvilinear relationships for all sleep outcomes except sleep duration, but these were only meaningful for the association between physical activity intensity and sleep regularity, in which lower intensity was associated with poorer sleep regularity and the benefits of increasing intensity diminished past one standard deviation above the mean.
+Physical activity intensity was weakly associated with sleep duration, efficiency, and onset, and more strongly with sleep regularity (Table \@ref(tab:sleep-outcomes); Figure \@ref(fig:sleep-by-intensity-fig)).
+Curvilinear terms were statistically significant for all sleep outcomes except duration but were meaningful only for sleep regularity.
+Lower intensity was associated with poorer regularity, and the benefit of higher intensity diminished beyond 1 SD above the mean.
 This association was steepest in children and young adults, although few of them had very low intensity.
 The associations with sleep duration and efficiency weakened with age, and the association with sleep regularity declined markedly, from $\beta$ = `r sl("sleep_regularity_by_pa_intensity", 11)` at age 11 to `r sl("sleep_regularity_by_pa_intensity", 65)` at age 65.
 
@@ -356,13 +284,15 @@ knitr::include_graphics(
 )
 ```
 
-## The association between of sleep duration and physical activity
+## Sleep and next-day physical activity
 
-We estimated the association between sleep duration and physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-duration-fig).
-At higher ages, both physical activity volume and intensity are lower than for lower ages.
-There was a weak curvilinear association between sleep duration and next-day physical activity volume and intensity, with physical activity highest following nights of slightly longer than average sleep.
+There was a weak curvilinear association between sleep duration and next-day physical activity volume and intensity, with physical activity highest after nights of slightly longer than average sleep (Table \@ref(tab:pa-outcomes); Figure \@ref(fig:PA-by-sleep-duration-fig)).
 The association with volume weakened with age and was slightly negative by age 65 ($\beta$ = `r sl("pa_volume_by_sleep_duration", 11)` at age 11 and `r sl("pa_volume_by_sleep_duration", 65)` at age 65), whereas the association with intensity changed little with age.
+Sleep efficiency had a negligible association with next-day volume at all ages ($\beta$ = `r sl("pa_volume_by_sleep_efficiency", 11)` at age 11 and `r sl("pa_volume_by_sleep_efficiency", 65)` at age 65) and only a weak positive association with intensity (Figure \@ref(fig:PA-by-sleep-efficiency-fig)).
+Earlier sleep onset was weakly associated with higher next-day volume and intensity, and these associations were attenuated at older ages (volume: $\beta$ = `r sl("pa_volume_by_sleep_onset", 11)` at age 11 and `r sl("pa_volume_by_sleep_onset", 65)` at age 65; Figure \@ref(fig:PA-by-sleep-onset-fig)).
+By age 65, earlier onset was associated with marginally lower next-day intensity ($\beta$ = `r sl("pa_intensity_by_sleep_onset", 65)`).
+More regular sleep was linearly associated with higher next-day volume and intensity (Figure \@ref(fig:PA-by-sleep-regularity-fig)).
+These associations weakened with age (volume: $\beta$ = `r sl("pa_volume_by_sleep_regularity", 11)` at age 11 and `r sl("pa_volume_by_sleep_regularity", 65)` at age 65), and the association with intensity was negligible in older adults ($\beta$ = `r sl("pa_intensity_by_sleep_regularity", 65)` at age 65).
 
 ```{r pa-outcomes}
 papaja::apa_table(
@@ -382,13 +312,6 @@ knitr::include_graphics(
 )
 ```
 
-## The association between sleep efficiency and physical activity
-
-We estimated the association between sleep efficiency and physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-efficiency-fig).
-At the mean age there was no linear association between sleep efficiency and physical activity volume; this association shifted slightly with age ($\beta$ = `r sl("pa_volume_by_sleep_efficiency", 11)` at age 11 and `r sl("pa_volume_by_sleep_efficiency", 65)` at age 65) but was negligible throughout.
-There was only a weak positive association between sleep efficiency and more intense physical activity.
-
 ```{r PA-by-sleep-efficiency-fig, fig.cap = "Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_efficiency_lag),
@@ -396,26 +319,12 @@ knitr::include_graphics(
 )
 ```
 
-## The association between sleep onset and physical activity
-
-We estimated the association between sleep onset and physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-onset-fig).
-Earlier sleep onset was weakly associated with higher next-day physical activity volume and intensity, and these associations were attenuated at older ages (volume: $\beta$ = `r sl("pa_volume_by_sleep_onset", 11)` at age 11 and `r sl("pa_volume_by_sleep_onset", 65)` at age 65).
-By age 65, earlier sleep onset was associated with marginally lower next-day intensity ($\beta$ = `r sl("pa_intensity_by_sleep_onset", 65)`).
-
 ```{r PA-by-sleep-onset-fig, fig.cap = "Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_sleep_onset_lag),
   error = FALSE
 )
 ```
-
-## The association between sleep regularity and physical activity
-
-We estimated the association between sleep regularity and physical activity by age.
-Results, controlling for sex, SES, and BMI are presented in Table \@ref(tab:pa-outcomes) and Figure \@ref(fig:PA-by-sleep-regularity-fig).
-There was a positive linear relationship between sleep regularity and both physical activity volume and intensity.
-These relationships weakened with age (volume: $\beta$ = `r sl("pa_volume_by_sleep_regularity", 11)` at age 11 and `r sl("pa_volume_by_sleep_regularity", 65)` at age 65), and the association with intensity was negligible in older adults ($\beta$ = `r sl("pa_intensity_by_sleep_regularity", 65)` at age 65).
 
 ```{r PA-by-sleep-regularity-fig, fig.cap = "Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."}
 knitr::include_graphics(
@@ -426,81 +335,52 @@ knitr::include_graphics(
 
 # Discussion
 
-In this study, we collated and harmonised accelerometer-assessed physical activity and sleep data from `r ms_info$n_studies` studies around the world, covering participants across the lifespan.
-We found that both the volume and intensity of physical activity were associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
+Pooling accelerometer data from `r ms_info$n_studies` studies spanning the lifespan, we found that both the volume and intensity of physical activity were associated with longer sleep duration, higher sleep efficiency, earlier sleep onset, and more regular sleep.
 These relationships were the strongest for sleep regularity, although the relationship with physical activity intensity weakened with age.
 Although robust, these associations were small: a 1 SD (`r ms_info$sd$pa_volume`) higher physical activity volume was associated with `r sl("sleep_regularity_by_pa_volume", 11, "raw")` higher sleep regularity, `r sl("sleep_duration_by_pa_volume", 11, "raw")` longer sleep, and `r sl("sleep_onset_by_pa_volume", 11, "raw")` earlier sleep onset at age 11, and with `r sl("sleep_regularity_by_pa_volume", 65, "raw")`, `r sl("sleep_duration_by_pa_volume", 65, "raw")`, and `r sl("sleep_onset_by_pa_volume", 65, "raw")`, respectively, at age 65.
 
-When examining the reverse direction, we observed that those who slept at a more regular time engaged in more total and more intense physical activity the following day, although this association weakened with age.
-Earlier sleep onset was also associated with more physical activity the following day, but this association was small.
-Longer sleep duration was associated with slightly more physical activity the next day, up to just above average sleep duration, while sleep efficiency was only weakly associated with physical activity intensity and not with volume.
+In the reverse direction, more regular sleep was followed by more total and more intense physical activity the next day, although this association weakened with age, whereas associations of sleep onset, duration, and efficiency with next-day physical activity were small.
 Our sensitivity analyses suggest that these findings were largely robust to the decisions made during analysis.
 
 Our findings broadly align with meta-analyses of experimental research, although the strengths of the relationships we observed were much weaker [@kredlowEffectsPhysicalActivity2015; @liangDeterminantsInterrelationsExercise2026].
 For example, @kredlowEffectsPhysicalActivity2015 found small ($0.22 - 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
-It is difficult to directly compare these effect sizes, however, as the experimental studies directly manipulated physical activity, whereas our study examined the relationship between habitual physical activity and sleep.
+These effect sizes are not directly comparable, however, as the experiments manipulated physical activity, whereas we examined habitual physical activity.
 Accelerometry also distinguishes quiet wakefulness from sleep less well than polysomnography, particularly in children [@cepniEvaluatingPerformanceOpensource2025; @chenPerformanceAutomatedSleep2026], which may attenuate associations.
 Trials also suggest that the benefits of exercise for sleep are concentrated in people whose sleep is poor at baseline [@liangDeterminantsInterrelationsExercise2026; @xiongOptimalExerciseType2025], whereas our analysis did not target people with poor sleep.
-Similarly, most of the previous studies which have examined acute changes to physical activity were conducted in laboratory settings.
-These studies, while useful for understanding the potential mechanisms, are not ecologically valid and may not reflect the relationship between physical activity and sleep in the real world.
-Laboratory studies also tend to use more sensitive measures of sleep and physical activity, which may generate less statistical noise and make relationships easier to detect.
-It is important to note that sleep duration will sometimes be influenced by parameters external to the individual, such as work or school schedules or parenting duties, rather than by individual health behaviours.
-The timing of activity may also matter, as strenuous exercise close to bedtime can delay and disrupt sleep [@leotaDoseresponseRelationshipEvening2025; @souabniEffectsMorningEvening2026].
-In supplementary analyses, however, associations were broadly similar regardless of the time of day of the most active hour, and across seasons.
+The timing of activity may also matter, as strenuous exercise close to bedtime can delay and disrupt sleep [@leotaDoseresponseRelationshipEvening2025; @souabniEffectsMorningEvening2026], although in our data associations were broadly similar regardless of the time of day of the most active hour, and across seasons.
 
-Our findings can also be compared with observational studies of day-to-day sleep and physical activity.
-A meta-analysis of 33 studies in adults did not support a bidirectional daily association: some sleep parameters were weakly associated with next-day physical activity, and more active individuals slept slightly less [@atouiDailyAssociationsSleep2021].
+Among observational studies of day-to-day sleep and physical activity, a meta-analysis of 33 studies in adults did not support a bidirectional daily association[@atouiDailyAssociationsSleep2021].
+Some sleep parameters were weakly associated with next-day physical activity, and more active individuals slept slightly less.
 Two recent studies of consumer wearables found that previous-day activity had little association with sleep [@fittonBidirectionalAssociationsSleep2025], that shorter sleep was followed by more activity the next day [@fittonBidirectionalAssociationsSleep2025; @leotaSleepDurationTiming2025], and that earlier-than-usual sleep onset was followed by more moderate-to-vigorous activity [@leotaSleepDurationTiming2025].
 Our finding that earlier sleep onset preceded more physical activity is consistent with these studies, although the association was small in our data.
 However, we found clearer associations between physical activity and that night's sleep, and physical activity was highest after slightly longer, rather than shorter, than average sleep.
 One explanation is that our models did not separate within-person (day-to-day) from between-person (habitual) associations, which can differ [@phamBidirectionalAssociationPhysical2025], so our estimates partly reflect stable differences between people.
-Neither wearable study examined sleep regularity, the outcome most strongly associated with physical activity in our data.
-However, it was identified as a direction for future research [@leotaSleepDurationTiming2025].
 
-We found the most evidence for relationships between sleep regularity with physical activity volume and intensity.
-This relationship appeared to be bi-directional, with sleep regularity predicting physical activity the following day, and physical activity predicting sleep onset and regularity that night.
+The association between sleep regularity and physical activity appeared bidirectional.
+Physical activity predicted more regular sleep that night, and more regular sleep predicted more physical activity the next day.
 This is consistent with the idea that sleep and physical activity are mutually reinforcing behaviours [@klinePhysicalActivitySleep2021], or that both reflect shared underlying factors, such as daily routines, work or school schedules, and health priorities.
 Consistent physical activity may also help stabilise circadian rhythms [@korkutataImpactExerciseSleep2025].
 Sleep regularity is a stronger predictor of mortality than sleep duration [@windredSleepRegularityStronger2024], and irregular sleepers remain at higher risk of cardiovascular events and depression even when they meet sleep duration recommendations [@chaputSleepRegularityMajor2025; @liRegularSleepPatterns2025], so the finding that physical activity is associated with sleep regularity may be particularly important.
-In pooled data from six cohorts, the combination of irregular sleep and low daily step counts was associated with higher adiposity and a less favourable lipid profile [@bianDeviceMeasuredSleepCharacteristics2025].
 
 The association between physical activity volume and sleep regularity was largely consistent across the lifespan, as a large study of adult wearable users found for other day-level associations [@fittonBidirectionalAssociationsSleep2025].
 Other associations changed more markedly with age: those of physical activity intensity with sleep regularity, and of sleep with next-day physical activity, weakened with age and were small or negligible in older adults, consistent with evidence that the interplay between sleep and activity differs in very old adults [@phamBidirectionalAssociationPhysical2025].
-Meta-analyses in adult populations have generally found associations [@kredlowEffectsPhysicalActivity2015], while those conducted in children and adolescents are less clear [@antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016].
-That our strongest association, with sleep regularity, varied little with age suggests that differences between these meta-analyses may reflect factors beyond the age of their populations, such as study design or the measures of physical activity and sleep, and demonstrates the value of individual participant data for examining these questions.
+That our strongest association varied little with age suggests that the clearer evidence from meta-analyses in adults than in children and adolescents [@kredlowEffectsPhysicalActivity2015; @antczakPhysicalActivitySleep2020; @klinePhysicalActivitySleep2021; @langRelationshipPhysicalActivity2016] may reflect study design or measurement rather than age.
+
+Strengths of our study include device-measured sleep and physical activity, harmonised from raw data collected with 24-hour wear protocols across multiple studies, regions, and age groups, and the avoidance of intensity cut-points.
+It also has limitations.
+Despite our efforts to harmonise data, variability in accelerometer wear locations and slight differences in data collection protocols across studies may have introduced measurement inconsistencies.
+Physical activity estimates from different wear locations are strongly correlated but agree less well in absolute terms, particularly between wrist and hip [@zisouHarmonisedAccelerometerderivedPhysical2026].
+To maximise the data available, we included participants with four or more days of valid wear time, although some recommend at least seven nights to estimate sleep regularity [@lokHowManyDays2024] and reliable estimates of night-to-night variability in sleep may require more than a month of data [@leotaHowManyNights2026]; restricting the sample to participants with at least seven valid days gave a similar association between physical activity volume and sleep regularity ($\beta$ = `r ms_info$slopes_7days$sleep_regularity_by_pa_volume$a11$ci` at age 11 and `r ms_info$slopes_7days$sleep_regularity_by_pa_volume$a65$ci` at age 65).
+As in any observational study, the temporal ordering of our lagged models does not establish causality, and although we controlled for several potential confounders, unmeasured factors may explain the observed associations.
+Finally, adolescents and young adults were under-represented, which limits generalisability to these groups and matters because young adults are the most likely to report difficulty falling asleep [@ngShortSleepDuration2026].
 
 These findings have implications for public health recommendations.
 Our results support promoting physical activity as a strategy for maintaining regular sleep patterns across the lifespan.
 This message fits with Australia's recent 24-hour movement guidelines for adults, which pair physical activity recommendations with consistent bed and wake times [@australiangovernmentdepartmentofhealth24hourMovementGuidelines2026].
 Given the well-established links between sleep and overall health [@huangSleepPhysicalActivity2022; @kwokSelfReportedSleep2018], incorporating physical activity into public health messaging may have downstream benefits for population health.
-However, our findings suggest that physical activity is not a universal solution for improving all aspects of sleep.
-Public health messages should, therefore, emphasise the role of physical activity in promoting consistent sleep schedules rather than framing physical activity as a universal solution for improving sleep.
-Additionally, we did not examine these relationships specifically in individuals with sleep disorders or other health conditions, where the effects of physical activity may differ.
-Future research should explore whether targeting sleep regularity through physical activity interventions can provide meaningful health benefits beyond sleep itself.
-
-Our study has several strengths, including the use of accelerometer-assessed measures, which reduce the bias associated with self-reported sleep and activity data, and the harmonisation of individual data from multiple studies, conducted in geographically diverse regions and among multiple age groups, allowing for robust and generalisable findings.
-We also used modern methods for processing and estimating physical activity, including 24-hour wear protocols, and avoiding the use of intensity cut-points.
-However, the study is not without limitations.
-Despite our efforts to harmonise data, variability in accelerometer wear locations and slight differences in data collection protocols across studies may have introduced measurement inconsistencies.
-Physical activity estimates from different wear locations are strongly correlated but agree less well in absolute terms, particularly between wrist and hip [@zisouHarmonisedAccelerometerderivedPhysical2026].
-We also chose to maximise the data available for analysis, at the expense of some precision in the estimates.
-Specifically, we included participants with four or more days of valid wear time, while some recommend at least seven nights to estimate metrics such as sleep regularity [@lokHowManyDays2024], and reliable estimates of an individual's night-to-night variability in sleep may require more than a month of data [@leotaHowManyNights2026].
-However, the processing method we used specifically allows for comparisons to day-pairs and this methodology has been used by others [e.g., @windredSleepRegularityStronger2024].
-Restricting the sample to participants with at least seven valid days gave a similar association between physical activity volume and sleep regularity ($\beta$ = `r ms_info$slopes_7days$sleep_regularity_by_pa_volume$a11$ci` at age 11 and `r ms_info$slopes_7days$sleep_regularity_by_pa_volume$a65$ci` at age 65).
-Sleep regularity scores also depend on the software used to calculate them, with *GGIR* producing scores around 20 points lower than the *sleepreg* package [@czeislerComparisonSleepRegularity2026], so absolute values from our data should not be compared directly with studies that used other implementations.
-As in any observational study, the temporal ordering of our lagged models does not establish causality, and although we controlled for several potential confounders, unmeasured factors may explain the observed associations.
-Finally, while our study captured data from across the lifespan, the limited representation of certain age groups, especially adolescents and young adults, restricts the generalisability of our conclusions to these populations.
-The limited research on those aged 18-35 is particularly concerning given that young adults are the most likely to report difficulty falling asleep [@ngShortSleepDuration2026].
-
-# Conclusion
-
-Our study provides new insights into the relationship between physical activity and sleep across the lifespan using a large, globally diverse dataset with device-based measurements.
-We found that physical activity was most consistently associated with sleep regularity, with weaker and less consistent associations observed for sleep duration, efficiency, and onset.
-Higher physical activity levels were associated with greater sleep regularity at all ages, and more regular sleep patterns predicted higher physical activity the following day.
-However, the association of sleep with next-day physical activity was attenuated in older adults, suggesting that the interplay between sleep and physical activity may change with age.
-Findings suggest that public health efforts to promote physical activity may be particularly valuable for improving sleep consistency rather than sleep duration or efficiency.
-While physical activity is unlikely to be a universal solution for sleep improvement, encouraging regular movement could support stable sleep patterns, which are increasingly recognized as a key determinant of overall health.
-Future research should explore how targeted interventions—particularly those addressing sleep regularity—may enhance both sleep and physical activity behaviours across different age groups and populations.
+However, physical activity was more weakly and less consistently associated with sleep duration, efficiency, and onset, so public health messages should emphasise its role in promoting consistent sleep schedules rather than framing it as a universal solution for improving sleep.
+We did not examine these relationships specifically in individuals with sleep disorders or other health conditions, where the effects of physical activity may differ.
+Future research should test whether physical activity interventions improve sleep regularity, whether more regular sleep in turn supports physical activity, and whether either brings health benefits beyond sleep itself.
 
 \newpage
 

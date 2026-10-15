@@ -81,8 +81,49 @@ library(papaja)
 
 ```{r load-targets, include=FALSE}
 tar_load(multiverse_file)
+tar_load(ms_info)
 fmt_n <- function(x) format(x, big.mark = ",")
 ```
+
+# Methods
+
+## Data screening
+
+We screened all data for implausibly low or high measurements, as these likely indicate measurement device failures.
+Screening had four stages.
+First, we excluded values falling outside fixed physiological limits.
+For average acceleration this was `r ms_info$pa_volume_limit` mg, a value above any sustainable 24-hour average.
+Second, because a miscalibrated accelerometer corrupts every variable derived from acceleration magnitude rather than isolated days, we excluded all physical activity variables for files whose mean average acceleration exceeded that limit (`r ms_info$n_accel_flagged` participants).
+Third, we excluded remaining values more than 4 SD from the mean of their own study, rather than of the pooled sample, so that the threshold reflected implausible measurement rather than between-study differences in device, protocol, and population.
+Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
+Values excluded at any stage were treated as missing data.
+
+## Protocol deviations
+
+We made the following changes to our protocol while working with the holdout data.
+
+### Using study ID as a fixed effect
+
+We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
+But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
+This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
+While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) are in the Fixed Effect Model section below and are qualitatively similar to the main results.
+
+### Sleep indicator variable
+
+Our research examines various metrics of sleep: onset, duration, regularity, and efficiency.
+We initially planned to merge these variables into a single indicator to simplify analysis.
+However, no validated indicator existed which could be estimated from our measured variables.
+We decided against creating one as we could not validate it with our data.
+Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep and physical activity.
+
+### Log transformation
+
+We aimed to improve model diagnostics using log transformations of skewed variables.
+Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
+Accordingly, we do not use log transformations in the main paper.
+These models are in the Log Transforming PA Volume section below.
 
 # Results
 
