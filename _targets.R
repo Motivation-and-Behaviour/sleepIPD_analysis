@@ -36,16 +36,9 @@ list(
     pattern = map(datasets),
     iteration = "list"
   ),
-  tar_change(
-    refactors,
-    command = sapply(
-      c("Sleep conditions", "Ethnicity", "SES"),
-      sheet_read,
-      simplify = FALSE,
-      USE.NAMES = TRUE
-    ),
-    change = sheet_last_modified()
-  ),
+  # Recode tables, frozen from the Google Sheet. See R/refactors.R.
+  tar_target(refactors_files, unname(refactor_files), format = "file"),
+  tar_target(refactors, read_refactors(refactors_files)),
   # Data targets
   tar_target(data_joined, dplyr::bind_rows(data_raw)),
   tar_target(latlong_file, "data/latlong.csv", format = "file"),
