@@ -241,6 +241,19 @@ model_builder <-
     formula <- gsub("\\+  \\+", "+", formula)
     model_formula <- stats::as.formula(formula, env = globalenv())
 
+    # Analyse observed values of the outcome and the exposure only
+    exposure <- gsub(" .*", "", predictors[1])
+    observed_only <- c(outcome, exposure)
+    not_in_mids <- setdiff(observed_only, colnames(data_imp$where))
+    if (length(not_in_mids) > 0) {
+      stop(
+        "Cannot tell which values were imputed for: ",
+        paste(not_in_mids, collapse = ", "),
+        call. = FALSE
+      )
+    }
+    was_imputed <- rowSums(data_imp$where[, observed_only, drop = FALSE]) > 0
+
     # Granular age grid for the heat-map panel of the main figure
     if (!table_only && moderator == "age") {
       predictor_term <- gsub("\\[.*", "", terms[1])
@@ -260,7 +273,7 @@ model_builder <-
         gsub(".*\\[|\\].*", "", terms[2]),
         ","
       )[[1]])
-      slope_x <- gsub(" .*", "", predictors[1])
+      slope_x <- exposure
       slope_xa <- paste0(slope_x, ":", age_term(age_centre))
       slope_weights <- (slope_ages - age_centre) / 10
       slope_q <- matrix(NA_real_, data_imp$m, length(slope_ages))
@@ -279,7 +292,7 @@ model_builder <-
     singular <- logical(n_imp)
 
     for (i in seq_len(n_imp)) {
-      dat <- mice::complete(data_imp, i)
+      dat <- mice::complete(data_imp, i)[!was_imputed, ]
 
       if (min_wear_days > 0) {
         if (is.null(dat[["n_valid_wear_days"]])) {
@@ -435,6 +448,8 @@ model_builder <-
     # Model_assets
     model_assets <- list(
       age_slopes = age_slopes,
+      # Person-days in each fit
+      n_obs = pool_n,
       effects = pool_effects(
         effect_list,
         moderator = moderator,

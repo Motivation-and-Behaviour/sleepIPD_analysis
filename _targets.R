@@ -109,14 +109,6 @@ list(
       purdy_pictures,
       produce_purdy_pictures(model_list, model_tables)
     ),
-    # purdy_pictures itself cannot be format = "file": it returns a *named*
-    # list, the Rmds index it by name (purdy_pictures_by_bmi$predictor_pa_volume),
-    # and format = "file" strips names off the value it returns — verified. So
-    # the list target stays as the interface and this companion target gives
-    # targets the paths to hash. A deleted or hand-edited figure now shows up as
-    # an outdated target instead of silently vanishing from the render; it is
-    # detection, not self-healing, so fix one with
-    # tar_invalidate(purdy_pictures_<family>).
     tar_target(
       purdy_picture_files,
       unname(unlist(purdy_pictures)),
@@ -129,11 +121,8 @@ list(
   ##################################################################
 
   tar_target(explore_img, make_explore_img_list(data_holdout)),
-  # See the purdy_picture_files note above.
   tar_target(explore_img_files, unname(unlist(explore_img)), format = "file"),
   # Output results section
-  # data_imp is passed only for its `m`, so the manuscript's imputation count
-  # comes from the run rather than a hardcoded number (C26).
   tar_target(
     ms_info,
     make_manuscript_info(
@@ -185,14 +174,6 @@ list(
     format = "file"
   ),
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
-  # ⚠️ Adding a moderator to models_df needs TWO tar_make() runs before its
-  # targets enter the graph. make_multiverse_file() writes doc/multiverse.Rmd,
-  # but tar_render(multiverse, ...) below scans that file for tar_load() calls
-  # at pipeline-construction time — i.e. before this run regenerates it. The
-  # first run writes the new chunks; the second picks up their dependencies.
-  # Note make_multiverse_file() also filters out age-moderated families, so
-  # by_age_fixedef, by_age_log and by_age_allwear are hand-written sections in
-  # multiverse_skeleton.Rmd.
   tar_target(
     multiverse_file,
     make_multiverse_file(

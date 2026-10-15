@@ -113,6 +113,15 @@ make_manuscript_info <- function(
     "to",
     floor(max(data_clean_analytic$age, na.rm = TRUE))
   )
+  studies_no_regularity <- data_clean_analytic |>
+    dplyr::group_by(studyid) |>
+    dplyr::summarise(none = all(is.na(sleep_regularity))) |>
+    dplyr::filter(none) |>
+    dplyr::pull(studyid) |>
+    as.character()
+  ms_info$studies_no_regularity <- paste(studies_no_regularity, collapse = ", ")
+  ms_info$n_studies_no_regularity <- length(studies_no_regularity)
+
   ms_info$n_pts_7days <- data_clean_analytic |>
     dplyr::filter(n_valid_wear_days >= 7) |>
     dplyr::distinct(participant_id) |>
@@ -123,6 +132,7 @@ make_manuscript_info <- function(
     ms_info$age_centre <- attr(model_list_by_age, "age_centre")
     ms_info$slopes <- format_age_slopes(model_list_by_age)
     ms_info$sd <- format_predictor_sds(model_list_by_age)
+    ms_info$n_obs_model <- format_model_n(model_list_by_age)
   }
   if (!is.null(model_list_by_age_7days)) {
     ms_info$slopes_7days <- format_age_slopes(model_list_by_age_7days)
@@ -198,7 +208,26 @@ format_age_slopes <- function(model_list) {
     names(per_age) <- paste0("a", slopes$age)
     per_age
   })
-  names(out) <- vapply(
+  names(out) <- model_keys(model_list)
+  out
+}
+
+#' format_model_n
+#'
+#' @return list keyed like `format_age_slopes()`, holding each model's
+#'   person-days, formatted
+format_model_n <- function(model_list) {
+  out <- lapply(model_list, function(m) {
+    n <- m$model_assets$n_obs
+    if (is.null(n)) NA_character_ else fmt_n(n)
+  })
+  names(out) <- model_keys(model_list)
+  out
+}
+
+# "scale_pa_volume by scale_sleep_regularity_lag" -> "pa_volume_by_sleep_regularity"
+model_keys <- function(model_list) {
+  vapply(
     names(model_list),
     function(nm) {
       parts <- strsplit(nm, " by ")[[1]]
@@ -209,7 +238,7 @@ format_age_slopes <- function(model_list) {
         sep = "_"
       )
     },
-    character(1)
+    character(1),
+    USE.NAMES = FALSE
   )
-  out
 }
