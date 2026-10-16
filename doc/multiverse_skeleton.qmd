@@ -257,7 +257,11 @@ tar_load(model_tables_by_age_log)
 tar_load(purdy_pictures_by_age_log)
 ```
 
-Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability. The log scale meant that the variable became unintepretable towards the edge of its range. Below, we present the results had we not made this decision. These results are all moderated by age, as this was our primary analysis. The associated figures are back-transformed to the scale range.
+Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability.
+The log scale meant that the variable became unintepretable towards the edge of its range.
+Below, we present the results had we not made this decision.
+These results are all moderated by age, as this was our primary analysis.
+The associated figures are back-transformed to the scale range.
 
 ### The association between physical activity volume and sleep
 
@@ -333,7 +337,9 @@ tar_load(model_tables_by_age_allwear)
 tar_load(purdy_pictures_by_age_allwear)
 ```
 
-The primary analysis required at least `r tar_read(ms_info)$min_wear_days` days of valid wear time. Here we refit the primary models to every eligible participant, regardless of how many valid days they contributed. Both analyses share the same imputations and standardisation constants.
+The primary analysis required at least `r tar_read(ms_info)$min_wear_days` days of valid wear time.
+Here we refit the primary models to every eligible participant, regardless of how many valid days they contributed.
+Both analyses share the same imputations and standardisation constants.
 Results, controlling for SES, sex, and BMI z-score, are presented in Tables \@ref(tab:sleep-outcomes-allwear) and \@ref(tab:pa-outcomes-allwear) and Figures \@ref(fig:sleep-by-volume-fig-allwear) to \@ref(fig:PA-by-sleep-regularity-fig-allwear).
 
 ```{r sleep-outcomes-allwear}
@@ -387,7 +393,8 @@ tar_load(model_tables_by_age_7days)
 tar_load(purdy_pictures_by_age_7days)
 ```
 
-Some recommend at least seven nights to estimate sleep regularity. Here we refit the primary models to the `r tar_read(ms_info)$n_pts_7days` participants with at least seven days of valid wear time.
+Some recommend at least seven nights to estimate sleep regularity.
+Here we refit the primary models to the `r tar_read(ms_info)$n_pts_7days` participants with at least seven days of valid wear time.
 Results, controlling for SES, sex, and BMI z-score, are presented in Tables \@ref(tab:sleep-outcomes-7days) and \@ref(tab:pa-outcomes-7days) and Figures \@ref(fig:sleep-by-volume-fig-7days) to \@ref(fig:PA-by-sleep-regularity-fig-7days).
 
 ```{r sleep-outcomes-7days}
