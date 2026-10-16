@@ -36,12 +36,13 @@ check_list <- function(model_list) {
     gsub("pa|Pa", "PA", x = _) |>
     gsub("_", " ", x = _)
 
+  # check_model() runs inside the model fits, so its LaTeX names are fixed here
   info[, .(
     "Model name" = model_name,
     Skewness,
     Kurtosis,
-    `Converged (\\%)`,
-    `Singular (\\%)`
+    "Converged (%)" = `Converged (\\%)`,
+    "Singular (%)" = `Singular (\\%)`
   )]
 }
 

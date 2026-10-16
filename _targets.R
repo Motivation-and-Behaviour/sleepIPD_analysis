@@ -200,11 +200,9 @@ list(
     format = "file"
   ),
   ### Produce supplementary material
-  tar_render(
+  tar_quarto(
     multiverse,
     "doc/multiverse.qmd",
-    output_format = c(
-      "papaja::apa6_pdf"
-    )
+    extra_files = c("_quarto.yml", "doc/typst-tables.typ")
   )
 )
