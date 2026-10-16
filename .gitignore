@@ -47,12 +47,10 @@ temp/
 !data/refactors_*.csv
 
 # Markdown rubbish
-doc/*.fff
-doc/*.log
-doc/*.ttt
-doc/*.tex
 doc/*_files/
 /*_files/
+doc/manuscript.typ
+doc/multiverse.typ
 
 # Others
 .vscode

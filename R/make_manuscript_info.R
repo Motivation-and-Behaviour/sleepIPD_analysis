@@ -96,12 +96,10 @@ make_manuscript_info <- function(
   weekday <- chisq.test(weekday_table)
   weekday_p <- papaja::print_p(weekday$p.value)
   if (!startsWith(weekday_p, "<")) weekday_p <- paste("=", weekday_p)
+  # Plain text, not LaTeX: Quarto prints inline `{r}` output literally
   ms_info$weekday_res <- glue::glue(
-    "$\\chi^2_{(..weekday$parameter..)}$",
-    " = ..papaja::print_num(weekday$statistic).., ",
-    "p ..weekday_p..",
-    .open = "..",
-    .close = ".."
+    "χ²({weekday$parameter}) = {papaja::print_num(weekday$statistic)}, ",
+    "p {weekday_p}"
   )
 
   ms_info$weekday <- weekday

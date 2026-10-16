@@ -21,7 +21,6 @@
 	],
 	"postCreateCommand": {
 		"claude": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
-		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add",
 		"git-diff": "sh .devcontainer/git-diff-drivers.sh"
 	},
 	"shutdownAction": "none"

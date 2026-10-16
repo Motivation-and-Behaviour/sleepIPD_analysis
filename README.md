@@ -3,24 +3,12 @@
 Analysis for the sleep and physical activity pooled study (<https://osf.io/gzj9w/>)
 
 This repository contains the code and analysis for the individual participant meta-analysis on the relationship between sleep and physical activity.
-The project is set up using the `targets` package, and packages are managed using `renv`.
+The project is set up using the `targets` package, and the manuscript and supplementary appendix are written in Quarto.
 
 ## Getting Started
 
-To get started with this project, follow these steps:
-
-1. Install the renv package, if you haven't already:
-
-```r
-install.packages("renv")
-```
-
-1. Clone the repository to your local machine
-2. Install the required packages using `renv`:
-
-```r
-renv::restore()
-```
+The project runs in a dev container (`.devcontainer/`), which installs R, the required packages, and Quarto.
+Clone the repository, open it in VS Code, and choose "Reopen in Container".
 
 ### Getting the Data
 
@@ -39,6 +27,16 @@ There are two ways to run the full pipeline:
 1. In an R session, run the pipeline with `targets::tar_make()`.
 2. In the terminal, run `Rscript make.R`.
 This is slightly faster because it runs some sections of the pipeline in parallel.
+
+### Rendering the Documents
+
+The pipeline renders both documents with `tarchetypes::tar_quarto()`:
+
+- `doc/manuscript.qmd` becomes `doc/manuscript.docx` for submission, with `.pdf` and `.md` copies.
+- `doc/multiverse.qmd` becomes `doc/multiverse.pdf`, the supplementary appendix.
+
+`doc/multiverse.qmd` is generated from `doc/multiverse_skeleton.qmd` and `doc/results_chunk.md`, so edit those instead.
+To rebuild only the manuscript, run `Rscript make.R --manuscript-only`.
 
 ## Contributing
 
