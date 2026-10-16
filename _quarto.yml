@@ -8,7 +8,8 @@ project:
 
 lang: en-GB
 bibliography: doc/references.bib
-csl: doc/vancouver-brackets-no-et-al.csl
+csl: doc/the-lancet.csl
+notes-after-punctuation: true
 
 execute:
   echo: false

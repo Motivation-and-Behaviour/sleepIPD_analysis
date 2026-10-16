@@ -315,7 +315,7 @@ In the reverse direction, more regular sleep was followed by more total and more
 Our sensitivity analyses suggest that these findings were largely robust to the decisions made during analysis.
 
 Our findings broadly align with meta-analyses of experimental research, although the strengths of the relationships we observed were much weaker [@kredlowEffectsPhysicalActivity2015; @liangDeterminantsInterrelationsExercise2026].
-For example, @kredlowEffectsPhysicalActivity2015 found small ($0.22 - 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
+For example, Kredlow and colleagues [@kredlowEffectsPhysicalActivity2015] found small ($0.22 - 0.30$) but significant relationships between physical activity and sleep duration and efficiency in adults using experimental studies for both acute and regular physical activity.
 These effect sizes are not directly comparable, however, as the experiments manipulated physical activity, whereas we examined habitual physical activity.
 Accelerometry also distinguishes quiet wakefulness from sleep less well than polysomnography, particularly in children [@cepniEvaluatingPerformanceOpensource2025; @chenPerformanceAutomatedSleep2026], which may attenuate associations.
 Trials also suggest that the benefits of exercise for sleep are concentrated in people whose sleep is poor at baseline [@liangDeterminantsInterrelationsExercise2026; @xiongOptimalExerciseType2025], whereas our analysis did not target people with poor sleep.

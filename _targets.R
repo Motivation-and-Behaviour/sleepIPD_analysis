@@ -153,7 +153,7 @@ list(
       "_quarto.yml",
       "_extensions",
       "doc/references.bib",
-      "doc/vancouver-brackets-no-et-al.csl",
+      "doc/the-lancet.csl",
       "doc/reference.docx",
       "doc/typst-tables.typ",
       "doc/filters"
