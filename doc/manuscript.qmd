@@ -35,6 +35,14 @@ tar_load(model_tables_by_age)
 tar_load(demog_table)
 tar_load(ms_info)
 sl <- function(key, age, what = "ci") ms_info$slopes[[key]][[paste0("a", age)]][[what]]
+# Typst takes the vector PDFs; Word can't show those, so it gets the JPGs
+fig <- function(name) {
+  if (knitr::pandoc_to("typst")) {
+    here::here(purdy_pictures_by_age[[name]])
+  } else {
+    here::here(attr(purdy_pictures_by_age, "jpg")[[name]])
+  }
+}
 ```
 
 {{< include _titlepage.qmd >}}
@@ -251,7 +259,7 @@ tinytable::tt(
 #| fig-cap: "Standardised sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_pa_volume),
+  fig("predictor_pa_volume"),
   error = FALSE
 )
 ```
@@ -269,7 +277,7 @@ The associations with sleep duration and efficiency weakened with age, and the a
 #| fig-cap: "Sleep metrics predicted by physical activity intensity. The panels on the left show the curvilinear relationship between PA intensity and sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_pa_intensity),
+  fig("predictor_pa_intensity"),
   error = FALSE
 )
 ```
@@ -302,7 +310,7 @@ tinytable::tt(
 #| fig-cap: "Physical activity is predicted by the duration of sleep the previous night. The panels on the left show the curvilinear relationship between sleep duration and the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_sleep_duration_lag),
+  fig("predictor_sleep_duration_lag"),
   error = FALSE
 )
 ```
@@ -312,7 +320,7 @@ knitr::include_graphics(
 #| fig-cap: "Physical activity predicted by previous night sleep efficiency. The panels on the left show the curvilinear relationship between sleep efficiency and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_sleep_efficiency_lag),
+  fig("predictor_sleep_efficiency_lag"),
   error = FALSE
 )
 ```
@@ -322,7 +330,7 @@ knitr::include_graphics(
 #| fig-cap: "Physical activity predicted by previous night sleep onset. The panels on the left show the curvilinear relationship between sleep onset and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_sleep_onset_lag),
+  fig("predictor_sleep_onset_lag"),
   error = FALSE
 )
 ```
@@ -332,7 +340,7 @@ knitr::include_graphics(
 #| fig-cap: "Physical activity predicted by previous night sleep regularity. The panels on the left show the curvilinear relationship between sleep regularity and each of the physical activity outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
-  here::here(purdy_pictures_by_age$predictor_sleep_regularity_lag),
+  fig("predictor_sleep_regularity_lag"),
   error = FALSE
 )
 ```

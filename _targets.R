@@ -124,7 +124,7 @@ list(
     ),
     tar_target(
       purdy_picture_files,
-      unname(unlist(purdy_pictures)),
+      unname(c(unlist(purdy_pictures), attr(purdy_pictures, "jpg"))),
       format = "file"
     )
   ),
