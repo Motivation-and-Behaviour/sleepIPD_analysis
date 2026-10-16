@@ -1729,8 +1729,8 @@ Imperative](https://doi.org/10.5665/sleep.1846). *Sleep* 2012; **35**:
 <span class="csl-left-margin">2
 </span><span class="csl-right-inline">Ramar K, Malhotra RK, Carden KA,
 *et al.* [Sleep is essential to health: An American Academy of Sleep
-Medicine position statement](https://doi.org/10.5664/jcsm.9476).
-*Journal of Clinical Sleep Medicine* 2021; **17**: 2115–9.</span>
+Medicine position statement](https://doi.org/10.5664/jcsm.9476). *J Clin
+Sleep Med* 2021; **17**: 2115–9.</span>
 
 </div>
 
@@ -1740,8 +1740,8 @@ Medicine position statement](https://doi.org/10.5664/jcsm.9476).
 </span><span class="csl-right-inline">Huang B-H, Duncan MJ, Cistulli PA,
 Nassar N, Hamer M, Stamatakis E. [Sleep and physical activity in
 relation to all-cause, cardiovascular disease and cancer mortality
-risk](https://doi.org/10.1136/bjsports-2021-104046). *British Journal of
-Sports Medicine* 2022; **56**: 718–24.</span>
+risk](https://doi.org/10.1136/bjsports-2021-104046). *Br J Sports Med*
+2022; **56**: 718–24.</span>
 
 </div>
 
@@ -1750,8 +1750,8 @@ Sports Medicine* 2022; **56**: 718–24.</span>
 <span class="csl-left-margin">4
 </span><span class="csl-right-inline">Kwok CS, Kontopantelis E,
 Kuligowski G, *et al.* Self-Reported Sleep Duration and Quality and
-Cardiovascular Disease and Mortality: A Dose-Response Meta-Analysis.
-*Journal of the American Heart Association* 2018; **7**.
+Cardiovascular Disease and Mortality: A Dose-Response Meta-Analysis. *J
+Am Heart Assoc* 2018; **7**.
 DOI:[10.1161/jaha.118.008552](https://doi.org/10.1161/jaha.118.008552).</span>
 
 </div>
@@ -1761,8 +1761,8 @@ DOI:[10.1161/jaha.118.008552](https://doi.org/10.1161/jaha.118.008552).</span>
 <span class="csl-left-margin">5 </span><span class="csl-right-inline">Ma
 Q-Q, Yao Q, Lin L, Chen G-C, Yu J-B. [Sleep duration and total cancer
 mortality: A meta-analysis of prospective
-studies](https://doi.org/10.1016/j.sleep.2016.06.036). *Sleep Medicine*
-2016; **27–28**: 39–44.</span>
+studies](https://doi.org/10.1016/j.sleep.2016.06.036). *Sleep Med* 2016;
+**27–28**: 39–44.</span>
 
 </div>
 
@@ -1773,8 +1773,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Wakefield JRH, Bowe M, Kellezi B,
 Butcher A, Groeger JA. [Longitudinal associations between family
 identification, loneliness, depression, and sleep
-quality](https://doi.org/10.1111/bjhp.12391). *British Journal of Health
-Psychology* 2020; **25**: 1–16.</span>
+quality](https://doi.org/10.1111/bjhp.12391). *Br J Health Psychol*
+2020; **25**: 1–16.</span>
 
 </div>
 
@@ -1784,17 +1784,17 @@ Psychology* 2020; **25**: 1–16.</span>
 </span><span class="csl-right-inline">Gariepy G, Danna S, Gobiņa I, *et
 al.* [How Are Adolescents Sleeping? Adolescent Sleep Patterns and
 Sociodemographic Differences in 24 European and North American
-Countries](https://doi.org/10.1016/j.jadohealth.2020.03.013). *Journal
-of Adolescent Health* 2020; **66**: S81–8.</span>
+Countries](https://doi.org/10.1016/j.jadohealth.2020.03.013). *J Adolesc
+Health* 2020; **66**: S81–8.</span>
 
 </div>
 
 <div id="ref-ngShortSleepDuration2026" class="csl-entry">
 
 <span class="csl-left-margin">8 </span><span class="csl-right-inline">Ng
-AE, Black LI, Adjaye-Gbewonyo D. Short sleep duration and sleep
-difficulties among adults: United States, 2024. Hyattsville, MD:
-National Center for Health Statistics, 2026
+AE, Black LI, Adjaye-Gbewonyo D. Short Sleep Duration and Sleep
+Difficulties Among Adults: United States, 2024. National Center for
+Health Statistics (U.S.), 2026
 DOI:[10.15620/cdc/252438](https://doi.org/10.15620/cdc/252438).</span>
 
 </div>
@@ -1827,7 +1827,7 @@ differences](https://doi.org/10.1016/j.sleh.2026.05.011). *Sleep Health*
 <span class="csl-left-margin">11
 </span><span class="csl-right-inline">Lim DC, Najafi A, Afifi L, *et
 al.* [The need to promote sleep health in public health agendas across
-the globe](https://doi.org/10.1016/S2468-2667(23)00182-2). *The Lancet
+the globe](https://doi.org/10.1016/S2468-2667(23)00182-2). *Lancet
 Public Health* 2023; **8**: e820–6.</span>
 
 </div>
@@ -1838,8 +1838,8 @@ Public Health* 2023; **8**: e820–6.</span>
 </span><span class="csl-right-inline">Kline CE, Hillman CH, Bloodgood
 Sheppard B, *et al.* [Physical activity and sleep: An updated umbrella
 review of the 2018 Physical Activity Guidelines Advisory Committee
-report](https://doi.org/10.1016/j.smrv.2021.101489). *Sleep Medicine
-Reviews* 2021; **58**: 101489.</span>
+report](https://doi.org/10.1016/j.smrv.2021.101489). *Sleep Med Rev*
+2021; **58**: 101489.</span>
 
 </div>
 
@@ -1848,8 +1848,8 @@ Reviews* 2021; **58**: 101489.</span>
 <span class="csl-left-margin">13
 </span><span class="csl-right-inline">Kredlow MA, Capozzoli MC, Hearon
 BA, Calkins AW, Otto MW. [The effects of physical activity on sleep: A
-meta-analytic review](https://doi.org/10.1007/s10865-015-9617-6).
-*Journal of Behavioral Medicine* 2015; **38**: 427–49.</span>
+meta-analytic review](https://doi.org/10.1007/s10865-015-9617-6). *J
+Behav Med* 2015; **38**: 427–49.</span>
 
 </div>
 
@@ -1860,7 +1860,7 @@ class="csl-entry">
 </span><span class="csl-right-inline">Liang Z, Zhao S, Tian S, *et al.*
 [Determinants and interrelations of exercise effects on sleep quality: A
 multimethod meta-analysis](https://doi.org/10.1016/j.smrv.2026.102239).
-*Sleep Medicine Reviews* 2026; **86**: 102239.</span>
+*Sleep Med Rev* 2026; **86**: 102239.</span>
 
 </div>
 
@@ -1871,7 +1871,7 @@ multimethod meta-analysis](https://doi.org/10.1016/j.smrv.2026.102239).
 [Optimal exercise type and dose to improve sleep quality in older
 adults: A systematic review and network
 meta-analysis](https://doi.org/10.1186/s12877-025-06607-z). *BMC
-Geriatrics* 2025; **25**: 1031.</span>
+Geriatr* 2025; **25**: 1031.</span>
 
 </div>
 
@@ -1881,7 +1881,7 @@ Geriatrics* 2025; **25**: 1031.</span>
 </span><span class="csl-right-inline">Bull FC, Al-Ansari SS, Biddle S,
 *et al.* [World Health Organization 2020 guidelines on physical activity
 and sedentary behaviour](https://doi.org/10.1136/bjsports-2020-102955).
-*British Journal of Sports Medicine* 2020; **54**: 1451–62.</span>
+*Br J Sports Med* 2020; **54**: 1451–62.</span>
 
 </div>
 
@@ -1891,8 +1891,8 @@ and sedentary behaviour](https://doi.org/10.1136/bjsports-2020-102955).
 </span><span class="csl-right-inline"><span class="nocase">Antczak D,
 Lonsdale C, Lee J, *et al.*</span> [Physical activity and sleep are
 inconsistently related in healthy children: A systematic review and
-meta-analysis](https://doi.org/10.1016/j.smrv.2020.101278). *Sleep
-Medicine Reviews* 2020; **51**: 101278.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2020.101278). *Sleep Med
+Rev* 2020; **51**: 101278.</span>
 
 </div>
 
@@ -1903,8 +1903,8 @@ Medicine Reviews* 2020; **51**: 101278.</span>
 Holsboer-Trachsler E, Pühse U, Gerber M. [The relationship between
 physical activity and sleep from mid adolescence to early adulthood. A
 systematic review of methodological approaches and
-meta-analysis](https://doi.org/10.1016/j.smrv.2015.07.004). *Sleep
-Medicine Reviews* 2016; **28**: 32–45.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2015.07.004). *Sleep Med
+Rev* 2016; **28**: 32–45.</span>
 
 </div>
 
@@ -1914,8 +1914,8 @@ Medicine Reviews* 2016; **28**: 32–45.</span>
 </span><span class="csl-right-inline">Song H, Jiang X, Li Y, *et al.*
 [Effects of physical activity on sleep in children and adolescents: A
 systematic review and meta-analysis of randomised controlled
-trials](https://doi.org/10.1007/s00787-025-02892-6). *European Child &
-Adolescent Psychiatry* 2026; **35**: 397–411.</span>
+trials](https://doi.org/10.1007/s00787-025-02892-6). *Eur Child Adolesc
+Psychiatry* 2026; **35**: 397–411.</span>
 
 </div>
 
@@ -1924,8 +1924,8 @@ Adolescent Psychiatry* 2026; **35**: 397–411.</span>
 <span class="csl-left-margin">20
 </span><span class="csl-right-inline">Riley RD, Dias S, Donegan S, *et
 al.* [Using individual participant data to improve network meta-analysis
-projects](https://doi.org/10.1136/bmjebm-2022-111931). *BMJ
-Evidence-Based Medicine* 2023; **28**: 197–203.</span>
+projects](https://doi.org/10.1136/bmjebm-2022-111931). *BMJ Evid-Based
+Med* 2023; **28**: 197–203.</span>
 
 </div>
 
@@ -1935,19 +1935,19 @@ Evidence-Based Medicine* 2023; **28**: 197–203.</span>
 </span><span class="csl-right-inline">Atoui S, Chevance G, Romain A-J,
 Kingsbury C, Lachance J-P, Bernard P. [Daily associations between sleep
 and physical activity: A systematic review and
-meta-analysis](https://doi.org/10.1016/j.smrv.2021.101426). *Sleep
-Medicine Reviews* 2021; **57**: 101426.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2021.101426). *Sleep Med
+Rev* 2021; **57**: 101426.</span>
 
 </div>
 
 <div id="ref-huangRelationshipsPhysicalActivity2021" class="csl-entry">
 
 <span class="csl-left-margin">22
-</span><span class="csl-right-inline">Huang WY, Ho RS, Tremblay MS, Wong
-SH. [Relationships of physical activity and sedentary behaviour with the
-previous and subsequent nights’ sleep in children and youth: A
+</span><span class="csl-right-inline">Huang WY, Ho RS-T, Tremblay MS,
+Wong SH-S. [Relationships of physical activity and sedentary behaviour
+with the previous and subsequent nights’ sleep in children and youth: A
 systematic review and meta-analysis](https://doi.org/10.1111/jsr.13378).
-*Journal of Sleep Research* 2021; **30**: e13378.</span>
+*J Sleep Res* 2021; **30**: e13378.</span>
 
 </div>
 
@@ -1958,8 +1958,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Fitton J, Nguyen DP, Lechat B, *et
 al.* [Bidirectional associations between sleep and physical activity
 investigated using large-scale objective monitoring
-data](https://doi.org/10.1038/s43856-025-01226-6). *Communications
-Medicine* 2025; **5**: 519.</span>
+data](https://doi.org/10.1038/s43856-025-01226-6). *Commun Med* 2025;
+**5**: 519.</span>
 
 </div>
 
@@ -1969,8 +1969,8 @@ Medicine* 2025; **5**: 519.</span>
 </span><span class="csl-right-inline">Leota J, Czeisler MÉ, Le F, *et
 al.* [Sleep duration and timing are associated with next-day physical
 activity: Insights from two large-scale wearable sensor
-studies](https://doi.org/10.1073/pnas.2420846122). *Proceedings of the
-National Academy of Sciences* 2025; **122**: e2420846122.</span>
+studies](https://doi.org/10.1073/pnas.2420846122). *Proc Natl Acad Sci*
+2025; **122**: e2420846122.</span>
 
 </div>
 
@@ -1979,8 +1979,8 @@ National Academy of Sciences* 2025; **122**: e2420846122.</span>
 <span class="csl-left-margin">25
 </span><span class="csl-right-inline">Korkutata A, Korkutata M, Lazarus
 M. [The impact of exercise on sleep and sleep
-disorders](https://doi.org/10.1038/s44323-024-00018-w). *npj Biological
-Timing and Sleep* 2025; **2**: 5.</span>
+disorders](https://doi.org/10.1038/s44323-024-00018-w). *Npj Biol Timing
+Sleep* 2025; **2**: 5.</span>
 
 </div>
 
@@ -1991,8 +1991,7 @@ Timing and Sleep* 2025; **2**: 5.</span>
 M, Edwardson CL, Hall A, Yates T. [Effect of exercise on sleep and
 bi-directional associations with accelerometer-assessed physical
 activity in men with obesity](https://doi.org/10.1139/apnm-2020-0361).
-*Applied Physiology, Nutrition, and Metabolism* 2021; **46**:
-597–605.</span>
+*Appl Physiol Nutr Metab* 2021; **46**: 597–605.</span>
 
 </div>
 
@@ -2003,8 +2002,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Ioannidis J. [Next-generation
 systematic reviews: Prospective meta-analysis, individual-level data,
 networks and umbrella
-reviews](https://doi.org/10.1136/bjsports-2017-097621). *British Journal
-of Sports Medicine* 2017; **51**: 1456–8.</span>
+reviews](https://doi.org/10.1136/bjsports-2017-097621). *Br J Sports
+Med* 2017; **51**: 1456–8.</span>
 
 </div>
 
@@ -2026,8 +2025,8 @@ Methods](https://doi.org/10.1007/s40273-014-0205-3). *PharmacoEconomics*
 Sabia S, Van Hees VT. [GGIR: A Research Community–Driven Open Source R
 Package for Generating Physical Activity and Sleep Outcomes From
 Multi-Day Raw Accelerometer
-Data](https://doi.org/10.1123/jmpb.2018-0063). *Journal for the
-Measurement of Physical Behaviour* 2019; **2**: 188–96.</span>
+Data](https://doi.org/10.1123/jmpb.2018-0063). *J Meas Phys Behav* 2019;
+**2**: 188–96.</span>
 
 </div>
 
@@ -2036,7 +2035,7 @@ Measurement of Physical Behaviour* 2019; **2**: 188–96.</span>
 <span class="csl-left-margin">30
 </span><span class="csl-right-inline">Van Hees VT, Sabia S, Jones SE,
 *et al.* Estimating sleep parameters using an accelerometer without
-sleep diary. *Scientific Reports* 2018; **8**.
+sleep diary. *Sci Rep* 2018; **8**.
 DOI:[10.1038/s41598-018-31266-z](https://doi.org/10.1038/s41598-018-31266-z).</span>
 
 </div>
@@ -2047,8 +2046,8 @@ DOI:[10.1038/s41598-018-31266-z](https://doi.org/10.1038/s41598-018-31266-z).</s
 </span><span class="csl-right-inline">Rowlands AV, Plekhanova T, Yates
 T, *et al.* [Providing a Basis for Harmonization of
 Accelerometer-Assessed Physical Activity Outcomes Across Epidemiological
-Datasets](https://doi.org/10.1123/jmpb.2018-0073). *Journal for the
-Measurement of Physical Behaviour* 2019; **2**: 131–42.</span>
+Datasets](https://doi.org/10.1123/jmpb.2018-0073). *J Meas Phys Behav*
+2019; **2**: 131–42.</span>
 
 </div>
 
@@ -2082,7 +2081,7 @@ polysomnography](https://doi.org/10.1093/sleep/zsae267). *SLEEP* 2025;
 </span><span class="csl-right-inline">Chen P-W, Jansen EC, Cielo CM, *et
 al.* [Performance of an automated sleep scoring approach for actigraphy
 data in children and
-adolescents](https://doi.org/10.1093/sleep/zsaf282). *SLEEP* 2026;
+adolescents](https://doi.org/10.1093/sleep/zsaf282). *Sleep* 2026;
 **49**: zsaf282.</span>
 
 </div>
@@ -2105,8 +2104,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Rowlands AV. [Moving Forward With
 Accelerometer-Assessed Physical Activity: Two Strategies to Ensure
 Meaningful, Interpretable, and Comparable
-Measures](https://doi.org/10.1123/pes.2018-0201). *Pediatric Exercise
-Science* 2018; **30**: 450–6.</span>
+Measures](https://doi.org/10.1123/pes.2018-0201). *Pediatr Exerc Sci*
+2018; **30**: 450–6.</span>
 
 </div>
 
@@ -2117,7 +2116,7 @@ class="csl-entry">
 </span><span class="csl-right-inline">Rowlands AV, Dawkins NP, Maylor B,
 *et al.* Enhancing the value of accelerometer-assessed physical
 activity: Meaningful visual comparisons of data-driven translational
-accelerometer metrics. *Sports Medicine - Open* 2019; **5**.
+accelerometer metrics. *Sports Med - Open* 2019; **5**.
 DOI:[10.1186/s40798-019-0225-9](https://doi.org/10.1186/s40798-019-0225-9).</span>
 
 </div>
@@ -2128,8 +2127,8 @@ DOI:[10.1186/s40798-019-0225-9](https://doi.org/10.1186/s40798-019-0225-9).</spa
 </span><span class="csl-right-inline">Rowlands AV, Sherar LB, Fairclough
 SJ, *et al.* [A data-driven, meaningful, easy to interpret, standardised
 accelerometer outcome variable for global
-surveillance](https://doi.org/10.1016/j.jsams.2019.06.016). *Journal of
-Science and Medicine in Sport* 2019; **22**: 1132–8.</span>
+surveillance](https://doi.org/10.1016/j.jsams.2019.06.016). *J Sci Med
+Sport* 2019; **22**: 1132–8.</span>
 
 </div>
 
@@ -2140,8 +2139,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Weston SJ, Ritchie SJ, Rohrer JM,
 Przybylski AK. [Recommendations for Increasing the Transparency of
 Analysis of Preexisting Data
-Sets](https://doi.org/10.1177/2515245919848684). *Advances in Methods
-and Practices in Psychological Science* 2019; **2**: 214–27.</span>
+Sets](https://doi.org/10.1177/2515245919848684). *Adv Methods Pract
+Psychol Sci* 2019; **2**: 214–27.</span>
 
 </div>
 
@@ -2159,8 +2158,8 @@ truth](https://doi.org/10.1038/526187a). *Nature* 2015; **526**:
 
 <span class="csl-left-margin">41
 </span><span class="csl-right-inline">Buuren SV, Groothuis-Oudshoorn K.
-**Mice** : Multivariate Imputation by Chained Equations in *R*. *Journal
-of Statistical Software* 2011; **45**.
+**Mice** : Multivariate Imputation by Chained Equations in *R*. *J Stat
+Softw* 2011; **45**.
 DOI:[10.18637/jss.v045.i03](https://doi.org/10.18637/jss.v045.i03).</span>
 
 </div>
@@ -2170,8 +2169,8 @@ DOI:[10.18637/jss.v045.i03](https://doi.org/10.18637/jss.v045.i03).</span>
 <span class="csl-left-margin">42
 </span><span class="csl-right-inline">Curran PJ, Hussong AM.
 [Integrative data analysis: The simultaneous analysis of multiple data
-sets.](https://doi.org/10.1037/a0015914) *Psychological Methods* 2009;
-**14**: 81–100.</span>
+sets.](https://doi.org/10.1037/a0015914) *Psychol Methods* 2009; **14**:
+81–100.</span>
 
 </div>
 
@@ -2181,8 +2180,8 @@ class="csl-entry">
 <span class="csl-left-margin">43
 </span><span class="csl-right-inline">Leota J, Presby DM, Le F, *et al.*
 [Dose-response relationship between evening exercise and
-sleep](https://doi.org/10.1038/s41467-025-58271-x). *Nature
-Communications* 2025; **16**: 3297.</span>
+sleep](https://doi.org/10.1038/s41467-025-58271-x). *Nat Commun* 2025;
+**16**: 3297.</span>
 
 </div>
 
@@ -2193,8 +2192,8 @@ Communications* 2025; **16**: 3297.</span>
 *et al.* [Effects of morning versus evening exercise on sleep: A
 systematic review of comparative studies with a meta-analysis of
 randomized controlled
-trials](https://doi.org/10.1016/j.smrv.2026.102358). *Sleep Medicine
-Reviews* 2026; **90**: 102358.</span>
+trials](https://doi.org/10.1016/j.smrv.2026.102358). *Sleep Med Rev*
+2026; **90**: 102358.</span>
 
 </div>
 
@@ -2227,8 +2226,8 @@ zsad253.</span>
 </span><span class="csl-right-inline">Chaput J-P, Biswas RK, Ahmadi M,
 *et al.* [Sleep regularity and major adverse cardiovascular events: A
 device-based prospective study in 72 269 UK
-adults](https://doi.org/10.1136/jech-2024-222795). *Journal of
-Epidemiology and Community Health* 2025; **79**: 257–64.</span>
+adults](https://doi.org/10.1136/jech-2024-222795). *J Epidemiol
+Community Health* 2025; **79**: 257–64.</span>
 
 </div>
 
@@ -2239,7 +2238,7 @@ Epidemiology and Community Health* 2025; **79**: 257–64.</span>
 [Regular sleep patterns, not just duration, critical for mental health:
 Association of accelerometer-derived sleep regularity with incident
 depression and anxiety](https://doi.org/10.1017/S0033291725101281).
-*Psychological Medicine* 2025; **55**: e239.</span>
+*Psychol Med* 2025; **55**: e239.</span>
 
 </div>
 
@@ -2249,9 +2248,8 @@ class="csl-entry">
 <span class="csl-left-margin">49
 </span><span class="csl-right-inline">Zisou C, Maylor BD, Acquah A, *et
 al.* Towards harmonised accelerometer-derived physical activity: A
-comparability study across wrist, thigh, and hip wear locations.
-*International Journal of Behavioral Nutrition and Physical Activity*
-2026; published online Sept.
+comparability study across wrist, thigh, and hip wear locations. *Int J
+Behav Nutr Phys Act* 2026; published online Sept.
 DOI:[10.1186/s12966-026-01975-0](https://doi.org/10.1186/s12966-026-01975-0).</span>
 
 </div>
@@ -2262,8 +2260,8 @@ DOI:[10.1186/s12966-026-01975-0](https://doi.org/10.1186/s12966-026-01975-0).</s
 </span><span class="csl-right-inline">Lok R, Suh S, Rue S, Weed L,
 Zeitzer JM. [How many days are enough? Sleep–wake timing regularity and
 fragmentation scores change with the number of days
-included](https://doi.org/10.1111/jsr.14332). *Journal of Sleep
-Research* 2024; : e14332.</span>
+included](https://doi.org/10.1111/jsr.14332). *J Sleep Res* 2024; :
+e14332.</span>
 
 </div>
 
