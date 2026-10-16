@@ -5,5 +5,4 @@
 
 # Collapse third-party and generated files in GitHub pull request diffs.
 _extensions/** linguist-generated=true
-doc/filters/unwrap-float.lua linguist-generated=true
 doc/multiverse.qmd linguist-generated=true

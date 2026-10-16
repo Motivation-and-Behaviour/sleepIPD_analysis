@@ -19,7 +19,7 @@ if ("--watch" %in% args) {
 
 if ("--manuscript-only" %in% args) {
   # Only update manuscript and direct dependencies
-  targets::tar_make(c(references, manuscript), shortcut = TRUE)
+  targets::tar_make(manuscript, shortcut = TRUE)
   quit(status = 0)
 }
 

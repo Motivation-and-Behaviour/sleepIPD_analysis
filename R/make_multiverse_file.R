@@ -47,8 +47,8 @@ make_multiverse_file <- function(
     glue::glue(pattern, .open = "_::", .close = "::_")
   })
 
-  write(multiverse_skeleton_lines, "doc/multiverse.Rmd")
-  write(unlist(results_chunks), "doc/multiverse.Rmd", append = TRUE)
+  write(multiverse_skeleton_lines, "doc/multiverse.qmd")
+  write(unlist(results_chunks), "doc/multiverse.qmd", append = TRUE)
 
-  return("doc/multiverse.Rmd")
+  return("doc/multiverse.qmd")
 }

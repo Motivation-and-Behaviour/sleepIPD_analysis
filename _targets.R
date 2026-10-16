@@ -146,14 +146,17 @@ list(
       model_list_by_age_7days = model_list_by_age_7days
     )
   ),
-  tar_target(references, "doc/references.bib", format = "file"),
-  tar_render(
+  tar_quarto(
     manuscript,
-    "doc/manuscript.Rmd",
-    output_format = c(
-      "papaja::apa6_docx",
-      "papaja::apa6_pdf",
-      "md_document"
+    "doc/manuscript.qmd",
+    extra_files = c(
+      "_quarto.yml",
+      "_extensions",
+      "doc/references.bib",
+      "doc/vancouver-brackets-no-et-al.csl",
+      "doc/reference.docx",
+      "doc/typst-tables.typ",
+      "doc/filters"
     )
   ),
 
@@ -183,7 +186,7 @@ list(
   ),
   tar_target(
     multiverse_skeleton,
-    "doc/multiverse_skeleton.Rmd",
+    "doc/multiverse_skeleton.qmd",
     format = "file"
   ),
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
@@ -199,7 +202,7 @@ list(
   ### Produce supplementary material
   tar_render(
     multiverse,
-    "doc/multiverse.Rmd",
+    "doc/multiverse.qmd",
     output_format = c(
       "papaja::apa6_pdf"
     )

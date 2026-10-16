@@ -1,0 +1,20 @@
+::: {.no-count}
+Taren Sanders^1^, Timothy Hartwig^2^, James Conigrave^3^, Borja del Pozo Cruz^4^, Philip Parker^5^, Michael Noetel^6^, Devan Antczak^7^, Stuart J. Fairclough^8^, Shona Halson^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale^10^
+
+^1^Institute for Positive Psychology and Education, Australian Catholic University, North Sydney, Australia\
+^2^School of Behavioural and Health Science, Australian Catholic University, North Sydney, Australia\
+^3^Centre for Alcohol Policy Research, La Trobe University, Bundoora, Australia\
+^4^Department of Sport Sciences, Faculty of Medicine, Health, and Sports, Universidad Europea de Madrid\
+^5^Office of the Deputy Vice-Chancellor (Research and Enterprise), Australian Catholic University, North Sydney, Australia\
+^6^School of Psychology, University of Queensland, Brisbane, Australia\
+^7^School of Education, University of Wollongong, Wollongong, Australia\
+^8^Department of Sport and Physical Activity, Edge Hill University, Ormskirk, United Kingdom\
+^9^***TBD***\
+^10^Office of the Provost, Australian Catholic University, North Sydney, Australia
+
+Correspondence to: Taren Sanders, 33 Berry St, North Sydney, NSW, Australia; Taren.Sanders@acu.edu.au
+
+::: {.content-hidden when-format="typst"}
+Main text: {{< words-body >}} words
+:::
+:::

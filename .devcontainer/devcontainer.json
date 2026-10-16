@@ -6,7 +6,7 @@
 			"version": "1.10.19"
 		},
 		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, flextable, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, quarto, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
+			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, quarto, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr, tinytable",
 			"installSystemRequirements": true
 		}
 	},
