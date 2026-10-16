@@ -44,30 +44,23 @@ sl <- function(key, age, what = "ci") ms_info$slopes[[key]][[paste0("a", age)]][
 ::: {.no-count}
 # Summary
 
-**Objectives**: To examine the association between device-measured physical activity and sleep across the lifespan using individual participant data (IPD) meta-analysis.
-We furthed aimed to examine how the association differed by age.
+**Background** Physical activity is recommended to improve sleep in adults, but evidence in children and adolescents is unclear and largely self-reported.
+We examined day-to-day associations between device-measured physical activity and sleep, in both directions, across the lifespan.
 
-**Design**: Pooled IPD analysis of accelerometer-based physical activity and sleep data from multiple observational studies.
+**Methods** We pooled individual participant data from studies that used research-grade accelerometers worn 24 hours a day for at least four days.
+We derived daily physical activity volume and intensity, and sleep duration, efficiency, onset, and regularity, from harmonised raw data.
+Mixed-effects models with age interactions estimated associations of physical activity with that night's sleep and of sleep with next-day activity, adjusting for sex, BMI, and socioeconomic status.
+The protocol was pre-registered (https://osf.io/ahd96).
 
-**Setting**: We sourced data from `{r} ms_info$n_studies` observational studies conducted multiple geographical regions and across the lifespan.
+**Findings** We included `{r} ms_info$n_pts_analytic` participants aged `{r} ms_info$age_range` years from `{r} ms_info$n_studies` studies.
+Higher physical activity volume was associated with longer, more efficient, earlier, and more regular sleep.
+The association with sleep regularity was strongest and varied little between ages 11 and 65 years (standardised β [95% CI] `{r} sl("sleep_regularity_by_pa_volume", 11)` and `{r} sl("sleep_regularity_by_pa_volume", 65)`), whereas that of intensity declined from `{r} sl("sleep_regularity_by_pa_intensity", 11)` to `{r} sl("sleep_regularity_by_pa_intensity", 65)`.
+More regular sleep was followed by more physical activity the next day (`{r} sl("pa_volume_by_sleep_regularity", 11)` and `{r} sl("pa_volume_by_sleep_regularity", 65)`, respectively); associations with other sleep measures were small.
 
-**Participants**: The dataset included `{r} ms_info$n_obs` observations from `{r} ms_info$n_pts` participants aged 2 to 94 years.
-Participants were selected from studies that used research-grade accelerometers with at least four valid days of wear time.
-Exclusion criteria included insufficient wear time and missing key covariate data.
+**Interpretation** Physical activity was associated most consistently with more regular sleep, at all ages and in both directions.
+Public health messages could promote physical activity for regular sleep, rather than as a universal sleep remedy.
 
-**Main Outcome Measures**: Sleep outcomes included total sleep time, sleep efficiency, sleep onset timing, and sleep regularity.
-Physical activity was assessed in terms of volume (average acceleration) and intensity (intensity gradient).
-Mixed-effects models were used to examine associations, adjusting for age, sex, body mass index, and socioeconomic status.
-
-**Results**: Higher physical activity volume was associated with longer sleep duration, greater sleep efficiency, earlier sleep onset, and more regular sleep.
-The association between physical activity volume and sleep regularity was the strongest and declined only slightly with age (standardised $\beta$ = `{r} ms_info$slopes$sleep_regularity_by_pa_volume$a11$ci` at age 11 and `{r} ms_info$slopes$sleep_regularity_by_pa_volume$a65$ci` at age 65), whereas associations with physical activity intensity weakened with age.
-Conversely, more regular sleep was associated with more physical activity the following day, although this association was modest and weakened with age, and associations of sleep onset, duration, and efficiency with next-day physical activity were small.
-
-**Conclusions**: Physical activity is positively associated with sleep regularity across the lifespan, suggesting it may be a useful target for interventions that aim to support consistent sleep patterns.
-Public health recommendations should emphasize the importance of regular physical activity for sleep health.
-Future research should investigate mechanisms underlying these associations and assess targeted intervention strategies.
-
-**Trial Registration**: The study protocol was pre-registered on the Open Science Framework (https://osf.io/ahd96).
+**Funding** This research was unfunded. Refer to the included studies for their funding sources.
 :::
 
 {{< pagebreak >}}
