@@ -1,0 +1,8 @@
+# Show rendered Word and PDF files as text in `git diff` and `git log -p`.
+# The drivers are set by .devcontainer/git-diff-drivers.sh
+*.docx diff=docx
+*.pdf diff=pdf
+
+# Collapse third-party and generated files in GitHub pull request diffs.
+_extensions/** linguist-generated=true
+doc/multiverse.qmd linguist-generated=true

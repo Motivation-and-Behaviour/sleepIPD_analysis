@@ -1,0 +1,453 @@
+---
+title: "Supplementary appendix"
+subtitle: "Examining the bidirectional relationship between sleep and physical activity using pooled individual data"
+format:
+  typst:
+    citeproc: true
+    toc: true
+    toc-depth: 2
+    fontsize: 10pt
+    mainfont: "TeX Gyre Termes"
+    papersize: a4
+    include-in-header:
+      - file: typst-tables.typ
+knitr:
+  opts_chunk:
+    out.width: "100%"
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(targets)
+options(tinytable_tt_width = 1)
+tar_load(multiverse_file)
+tar_load(ms_info)
+```
+
+# Methods
+
+## Data screening
+
+We screened all data for implausibly low or high measurements, as these likely indicate measurement device failures.
+Screening had four stages.
+First, we excluded values falling outside fixed physiological limits.
+For average acceleration this was `{r} ms_info$pa_volume_limit` mg, a value above any sustainable 24-hour average.
+Second, because a miscalibrated accelerometer corrupts every variable derived from acceleration magnitude rather than isolated days, we excluded all physical activity variables for files whose mean average acceleration exceeded that limit (`{r} ms_info$n_accel_flagged` participants).
+Third, we excluded remaining values more than 4 SD from the mean of their own study, rather than of the pooled sample, so that the threshold reflected implausible measurement rather than between-study differences in device, protocol, and population.
+Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
+Values excluded at any stage were treated as missing data.
+
+## Protocol deviations
+
+We made the following changes to our protocol while working with the holdout data.
+
+### Using study ID as a fixed effect
+
+We initially planned to use Study ID as a fixed effect, given that our study selection was not random.
+But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
+This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
+While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) are in the Fixed Effect Model section below and are qualitatively similar to the main results.
+
+### Sleep indicator variable
+
+Our research examines various metrics of sleep: onset, duration, regularity, and efficiency.
+We initially planned to merge these variables into a single indicator to simplify analysis.
+However, no validated indicator existed which could be estimated from our measured variables.
+We decided against creating one as we could not validate it with our data.
+Consequently, our models illustrate the relationship between each aspect of sleep and physical activity, instead of describing a straightforward link between overall sleep and physical activity.
+
+### Log transformation
+
+We aimed to improve model diagnostics using log transformations of skewed variables.
+Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
+Accordingly, we do not use log transformations in the main paper.
+These models are in the Log Transforming PA Volume section below.
+
+# Results
+
+## Study characteristics
+
+Table [-@tbl-study-table] describes each study in the primary analytic sample, and Table [-@tbl-ses-table] shows how each study's measure of socioeconomic status was harmonised.
+
+Valid observations were not uniform across the days of the week (`{r} ms_info$weekday_res`).
+Weekends and Fridays were over-represented (Saturday: z = `{r} ms_info$weekday$stdres["Saturday"]`; Sunday: z = `{r} ms_info$weekday$stdres["Sunday"]`; Friday: z = `{r} ms_info$weekday$stdres["Friday"]`), while Wednesdays (z = `{r} ms_info$weekday$stdres["Wednesday"]`) and Tuesdays (z = `{r} ms_info$weekday$stdres["Tuesday"]`) were under-represented.
+
+::: {.landscape}
+```{r}
+#| label: tbl-study-table
+#| tbl-cap: "Characteristics of the included studies (primary analytic sample)"
+tinytable::tt(tar_read(study_table))
+```
+:::
+
+```{r}
+#| label: tbl-ses-table
+#| tbl-cap: "Harmonisation of socioeconomic status"
+tinytable::tt(tar_read(ses_table))
+```
+
+## Model diagnostics
+
+The model diagnostics for the main analysis, and for all models presented in this document are in Table [-@tbl-model-diagnostics]
+
+```{r}
+#| label: tbl-model-diagnostics
+#| tbl-cap: "Model diagnostics"
+d <- dplyr::bind_rows(tar_read(model_diagnostics), .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  width = c(0.4, 0.15, 0.15, 0.15, 0.15)
+) |>
+  tinytable::format_tt(digits = 2, num_fmt = "decimal", num_zero = TRUE) |>
+  tinytable::group_tt(i = d$group)
+```
+
+## Fixed Effect Model
+
+```{r}
+tar_load(model_tables_by_age_fixedef)
+tar_load(purdy_pictures_by_age_fixedef)
+```
+
+In this document we show the results using another analytic technique.
+Namely treating study ID as a fixed effect.
+This is what we wrote in the protocol originally.
+
+### The association between physical activity volume and sleep
+
+We estimated the associations between physical activity and sleep (RQ1) using fixed-effects models.
+We estimated the association between physical activity volume and sleep by age, and the results are presented in Table [-@tbl-sleep-outcomes-fixedef] and Figure [-@fig-sleep-by-volume-fixedef].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-fixedef
+#| tbl-cap: !expr model_tables_by_age_fixedef$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_fixedef$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_fixedef$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-sleep-by-volume-fixedef
+#| fig-cap: "Sleep metrics on Physical activity volume"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_volume), error = FALSE)
+```
+
+### The association between physical activity intensity and sleep
+
+We estimated how physical activity intensity is associated with sleep across different age groups.
+We present the results controlling for SES, sex, BMI z-score, and the fixed effects of study ID, in Table [-@tbl-sleep-outcomes-fixedef] and Figure [-@fig-sleep-by-intensity-fixedef].
+
+```{r}
+#| label: fig-sleep-by-intensity-fixedef
+#| fig-cap: "Sleep metrics on Physical activity intensity"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_pa_intensity), error = FALSE)
+```
+
+### The association between sleep duration and next-day physical activity
+
+We estimated the association between sleep duration and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table [-@tbl-pa-outcomes-fixedef] and Figure [-@fig-pa-by-sleep-duration-fixedef].
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-fixedef
+#| tbl-cap: !expr model_tables_by_age_fixedef$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_fixedef$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_fixedef$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-pa-by-sleep-duration-fixedef
+#| fig-cap: "Physical activity by sleep duration"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_duration_lag), error = FALSE)
+```
+
+### The association between sleep efficiency and next-day physical activity
+
+We estimated the association between sleep efficiency and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table [-@tbl-pa-outcomes-fixedef] and Figure [-@fig-pa-by-sleep-efficiency-fixedef].
+
+```{r}
+#| label: fig-pa-by-sleep-efficiency-fixedef
+#| fig-cap: "Physical activity by sleep efficiency"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+### The association between sleep onset and next-day physical activity
+
+We estimated the association between sleep onset and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table [-@tbl-pa-outcomes-fixedef] and Figure [-@fig-pa-by-sleep-onset-fixedef].
+
+```{r}
+#| label: fig-pa-by-sleep-onset-fixedef
+#| fig-cap: "Physical activity by sleep onset"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_onset_lag), error = FALSE)
+```
+
+### The association between sleep regularity and next-day physical activity
+
+We estimated the association between sleep regularity and next-day physical activity by age.
+Results, controlling for SES, sex, BMI z-score, and the fixed effects of study ID are presented in Table [-@tbl-pa-outcomes-fixedef] and Figure [-@fig-pa-by-sleep-regularity-fixedef].
+
+```{r}
+#| label: fig-pa-by-sleep-regularity-fixedef
+#| fig-cap: "Physical activity by sleep regularity"
+knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Log Transforming PA Volume
+
+```{r}
+tar_load(model_tables_by_age_log)
+tar_load(purdy_pictures_by_age_log)
+```
+
+Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability.
+The log scale meant that the variable became uninterpretable towards the edge of its range.
+Below, we present the results had we not made this decision.
+These results are all moderated by age, as this was our primary analysis.
+The associated figures are back-transformed to the scale range.
+
+### The association between physical activity volume and sleep
+
+We estimated the associations between physical activity and sleep (RQ1) using mixed-effects models.
+We estimated the association between physical activity volume and sleep by age, and the results are presented in Table [-@tbl-sleep-outcomes-log] and Figure [-@fig-sleep-by-volume-log].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-log
+#| tbl-cap: !expr model_tables_by_age_log$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_log$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_log$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-sleep-by-volume-log
+#| fig-cap: "Sleep metrics on Physical activity volume"
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_pa_volume), error = FALSE)
+```
+
+### The association between sleep duration and next-day physical activity
+
+We estimated the association between sleep duration and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table [-@tbl-pa-outcomes-log] and Figure [-@fig-pa-by-sleep-duration-log].
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-log
+#| tbl-cap: !expr model_tables_by_age_log$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_log$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_log$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-pa-by-sleep-duration-log
+#| fig-cap: "Physical activity by sleep duration"
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_duration_lag), error = FALSE)
+```
+
+### The association between sleep efficiency and next-day physical activity
+
+We estimated the association between sleep efficiency and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table [-@tbl-pa-outcomes-log] and Figure [-@fig-pa-by-sleep-efficiency-log].
+
+```{r}
+#| label: fig-pa-by-sleep-efficiency-log
+#| fig-cap: "Physical activity by sleep efficiency"
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+### The association between sleep onset and next-day physical activity
+
+We estimated the association between sleep onset and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table [-@tbl-pa-outcomes-log] and Figure [-@fig-pa-by-sleep-onset-log].
+
+```{r}
+#| label: fig-pa-by-sleep-onset-log
+#| fig-cap: "Physical activity by sleep onset"
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_onset_lag), error = FALSE)
+```
+
+### The association between sleep regularity and next-day physical activity
+
+We estimated the association between sleep regularity and next-day physical activity by age.
+Results, controlling for SES, sex, and BMI z-score are presented in Table [-@tbl-pa-outcomes-log] and Figure [-@fig-pa-by-sleep-regularity-log].
+
+```{r}
+#| label: fig-pa-by-sleep-regularity-log
+#| fig-cap: "Physical activity by sleep regularity"
+knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## All Eligible Participants Regardless of Valid Wear Days
+
+```{r}
+tar_load(model_tables_by_age_allwear)
+tar_load(purdy_pictures_by_age_allwear)
+```
+
+The primary analysis required at least `{r} ms_info$min_wear_days` days of valid wear time.
+Here we refit the primary models to every eligible participant, regardless of how many valid days they contributed.
+Both analyses share the same imputations and standardisation constants.
+Results, controlling for SES, sex, and BMI z-score, are presented in Tables [-@tbl-sleep-outcomes-allwear] and [-@tbl-pa-outcomes-allwear] and Figures [-@fig-sleep-by-volume-allwear] to [-@fig-pa-by-sleep-regularity-allwear].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-allwear
+#| tbl-cap: !expr model_tables_by_age_allwear$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_allwear$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_allwear$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-allwear
+#| tbl-cap: !expr model_tables_by_age_allwear$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_allwear$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_allwear$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-sleep-by-volume-allwear
+#| fig-cap: "Sleep metrics on physical activity volume (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_pa_volume), error = FALSE)
+```
+
+```{r}
+#| label: fig-sleep-by-intensity-allwear
+#| fig-cap: "Sleep metrics on physical activity intensity (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_pa_intensity), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-duration-allwear
+#| fig-cap: "Physical activity by previous night sleep duration (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_duration_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-efficiency-allwear
+#| fig-cap: "Physical activity by previous night sleep efficiency (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-onset-allwear
+#| fig-cap: "Physical activity by previous night sleep onset (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_onset_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-regularity-allwear
+#| fig-cap: "Physical activity by previous night sleep regularity (all wear days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Participants With at Least Seven Valid Days
+
+```{r}
+tar_load(model_tables_by_age_7days)
+tar_load(purdy_pictures_by_age_7days)
+```
+
+Some recommend at least seven nights to estimate sleep regularity.
+Here we refit the primary models to the `{r} ms_info$n_pts_7days` participants with at least seven days of valid wear time.
+Results, controlling for SES, sex, and BMI z-score, are presented in Tables [-@tbl-sleep-outcomes-7days] and [-@tbl-pa-outcomes-7days] and Figures [-@fig-sleep-by-volume-7days] to [-@fig-pa-by-sleep-regularity-7days].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-7days
+#| tbl-cap: !expr model_tables_by_age_7days$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_7days$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_7days$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-7days
+#| tbl-cap: !expr model_tables_by_age_7days$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_7days$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_7days$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-sleep-by-volume-7days
+#| fig-cap: "Sleep metrics on physical activity volume (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_pa_volume), error = FALSE)
+```
+
+```{r}
+#| label: fig-sleep-by-intensity-7days
+#| fig-cap: "Sleep metrics on physical activity intensity (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_pa_intensity), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-duration-7days
+#| fig-cap: "Physical activity by previous night sleep duration (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_duration_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-efficiency-7days
+#| fig-cap: "Physical activity by previous night sleep efficiency (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-onset-7days
+#| fig-cap: "Physical activity by previous night sleep onset (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_onset_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-pa-by-sleep-regularity-7days
+#| fig-cap: "Physical activity by previous night sleep regularity (at least seven valid days)"
+knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+# Moderation
+
+In the following section we present models for a range of moderators which were pre-defined in our protocol.

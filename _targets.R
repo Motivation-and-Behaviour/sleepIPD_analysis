@@ -124,7 +124,7 @@ list(
     ),
     tar_target(
       purdy_picture_files,
-      unname(unlist(purdy_pictures)),
+      unname(c(unlist(purdy_pictures), attr(purdy_pictures, "jpg"))),
       format = "file"
     )
   ),
@@ -146,14 +146,17 @@ list(
       model_list_by_age_7days = model_list_by_age_7days
     )
   ),
-  tar_target(references, "doc/references.bib", format = "file"),
-  tar_render(
+  tar_quarto(
     manuscript,
-    "doc/manuscript.Rmd",
-    output_format = c(
-      "papaja::apa6_docx",
-      "papaja::apa6_pdf",
-      "md_document"
+    "doc/manuscript.qmd",
+    extra_files = c(
+      "_quarto.yml",
+      "_extensions",
+      "doc/references.bib",
+      "doc/the-lancet.csl",
+      "doc/reference.docx",
+      "doc/typst-tables.typ",
+      "doc/filters"
     )
   ),
 
@@ -183,7 +186,7 @@ list(
   ),
   tar_target(
     multiverse_skeleton,
-    "doc/multiverse_skeleton.Rmd",
+    "doc/multiverse_skeleton.qmd",
     format = "file"
   ),
   tar_target(multiverse_chunk, "doc/results_chunk.md", format = "file"),
@@ -197,11 +200,9 @@ list(
     format = "file"
   ),
   ### Produce supplementary material
-  tar_render(
+  tar_quarto(
     multiverse,
-    "doc/multiverse.Rmd",
-    output_format = c(
-      "papaja::apa6_pdf"
-    )
+    "doc/multiverse.qmd",
+    extra_files = c("_quarto.yml", "doc/typst-tables.typ")
   )
 )

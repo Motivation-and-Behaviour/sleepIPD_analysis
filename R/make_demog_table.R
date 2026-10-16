@@ -2,7 +2,7 @@
 #'
 #' Create a demographic table based on Mike's data
 #' @description I've added in this next segment in order to have a data.frame version of the participant table
-#' Which we can use with papaja. The gtsummary version does not allow for rowspans and was probably
+#' which the manuscript renders with tinytable. The gtsummary version does not allow for rowspans and was probably
 #' too long to include in the paper.
 
 make_demog_table <- function(participant_summary) {

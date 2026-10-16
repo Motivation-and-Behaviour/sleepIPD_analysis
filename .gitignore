@@ -47,11 +47,10 @@ temp/
 !data/refactors_*.csv
 
 # Markdown rubbish
-doc/*.fff
-doc/*.log
-doc/*.ttt
-doc/*.tex
-doc/manuscript_files/*
+doc/*_files/
+/*_files/
+doc/manuscript.typ
+doc/multiverse.typ
 
 # Others
 .vscode
@@ -60,6 +59,7 @@ googlecloudstorager-auth-key.json
 
 /.quarto/
 **/*.quarto_ipynb
+doc/.vdoc*
 literature/*
 other_docs/*
 datasets/*

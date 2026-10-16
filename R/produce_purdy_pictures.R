@@ -17,6 +17,7 @@ moderator_level_order <- list(
 #' @details I check the proporiton of models that converged. If less then 75% of
 #' models converged then I overlay the message "DID NOT CONVERGE" providing the
 #' percent of models which did not converge
+#' @return PDF paths by predictor; the JPG copies are in attr "jpg"
 
 produce_purdy_pictures <- function(model_list, ...) {
   dat_list <- lapply(seq_len(length(model_list)), function(i) {
@@ -156,7 +157,9 @@ produce_purdy_pictures <- function(model_list, ...) {
           high = "#0000b2",
           midpoint = 0,
           limits = c(-2, 2),
-          labels = c("-2 <", -1, 0, 1, "2 +")
+          labels = c("-2 <", -1, 0, 1, "2 +"),
+          # Draw the colour bar as shapes, so the PDF has no bitmap in it
+          guide = guide_colourbar(raster = FALSE)
         ) +
         scale_y_continuous(n.breaks = 5) +
         coord_cartesian(xlim = c(-2, 2)) +
@@ -185,8 +188,7 @@ produce_purdy_pictures <- function(model_list, ...) {
 
     filename <- glue::glue(
       "Figures/{out_folder}/{outcome} on {x_var} by ",
-      "{stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}",
-      ".jpg"
+      "{stringr::str_to_sentence(unique(plot_dat$moderator))}{add_filename}"
     )
 
     if (outcome == "Sleep") {
@@ -195,14 +197,29 @@ produce_purdy_pictures <- function(model_list, ...) {
       height <- 9
     }
 
+    # Vector PDF with editable text: the Lancet upload format and the appendix's
+    pdf_file <- paste0(filename, ".pdf")
     ggsave(
-      filename,
+      pdf_file,
+      plot = fig,
+      height = height,
+      width = width + 5,
+      units = "cm",
+      device = cairo_pdf
+    )
+
+    # A JPG copy as well, because Word can't show PDF figures
+    jpg_file <- paste0(filename, ".jpg")
+    ggsave(
+      jpg_file,
       plot = fig,
       height = height,
       width = width + 5,
       units = "cm",
       dpi = dpi
     )
+
+    list(pdf = pdf_file, jpg = jpg_file)
   }
 
   vars <- attr(model_list, "vars")
@@ -233,7 +250,10 @@ produce_purdy_pictures <- function(model_list, ...) {
   })
 
   names(out) <- paste0("predictor_", gsub("(scale_|log_)", "", df$x))
-  out
+
+  figs <- lapply(out, `[[`, "pdf")
+  attr(figs, "jpg") <- unlist(lapply(out, `[[`, "jpg"))
+  figs
 }
 
 #' prepare_plot_data

@@ -39,14 +39,14 @@ make_model_tables <- function(model_list) {
   sleep_vars <- vars$sleep_vars
   pa_vars <- vars$pa_vars
 
-  # Word drops apa_table() column spanners, so columns name their variable
+  # Columns name their variable rather than sitting under spanners
   pa_short <- gsub("^Physical activity", "PA", names(pa_vars))
   table_columns <- c(
     "Term",
-    paste(pa_short[1], "$\\beta$ [95\\% CI]"),
-    paste(pa_short[1], "$p$"),
-    paste(pa_short[2], "$\\beta$ [95\\% CI]"),
-    paste(pa_short[2], "$p$")
+    paste(pa_short[1], "β [95% CI]"),
+    paste(pa_short[1], "p"),
+    paste(pa_short[2], "β [95% CI]"),
+    paste(pa_short[2], "p")
   )
   pair_tables <- function(model1_name, model2_name) {
     tab <- cbind(
@@ -60,7 +60,7 @@ make_model_tables <- function(model_list) {
   note_terms <- paste0(
     "Variables marked (z) are standardised",
     if (any(grepl("^log_", pa_vars))) " and (ln) natural-log transformed",
-    "; $^2$ denotes a quadratic term and $\\times$ an interaction."
+    "; ² denotes a quadratic term and × an interaction."
   )
   if (moderator == "age") {
     age_centre <- attr(model_list, "age_centre")
@@ -75,12 +75,16 @@ make_model_tables <- function(model_list) {
     )
   }
   conv_note <- paste0(
-    " $^\\dagger$ value came from a pooled model where fewer than ",
+    " † value came from a pooled model where fewer than ",
     papaja::print_num(convergence_threshold * 100),
-    "\\% of models converged."
+    "% of models converged."
   )
   has_dagger <- function(tabs) {
-    any(vapply(tabs, function(x) any(grepl("\\\\dagger", unlist(x))), TRUE))
+    any(vapply(
+      tabs,
+      function(x) any(grepl("†", unlist(x), fixed = TRUE)),
+      TRUE
+    ))
   }
 
   sleep_table <- list()
@@ -190,7 +194,7 @@ format_table <- function(
 
   tab$term <- gsub("I\\(", "", term) |>
     gsub("_", " ", x = _) |>
-    gsub("\\^2\\)", "$^2$", x = _) |>
+    gsub("\\^2\\)", "²", x = _) |>
     gsub("accelerometer wear location", "", x = _)
   # Capitalise the first letter of each side of an interaction, and nothing
   # else. str_to_sentence() lower-cased everything after the first character,
@@ -207,7 +211,9 @@ format_table <- function(
     tab$term
   )
   tab$term <- gsub("\\slag", "", tab$term)
-  tab$term <- gsub(":", " $\\\\times$ ", tab$term)
-  names(tab) <- c("Term", "$\\beta$ [95\\% CI]", "SE", "t", "p")
+  tab$term <- gsub(":", " × ", tab$term)
+  # model_builder() marks low-convergence estimates with a LaTeX dagger
+  tab[[2]] <- gsub("$^\\dagger$", "†", tab[[2]], fixed = TRUE)
+  names(tab) <- c("Term", "β [95% CI]", "SE", "t", "p")
   tab
 }
