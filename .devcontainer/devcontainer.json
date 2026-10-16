@@ -2,9 +2,17 @@
 	"name": "SleepIPD Analysis",
 	"image": "ghcr.io/tarensanders/r-base:latest",
 	"features": {
+		"ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
+			"version": "1.10.19"
+		},
 		"ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
+			"packages": "broom.mixed, butcher, childsds, chron, cowplot, crew, data.table, dfoptim, dplyr, flextable, forcats, furrr, future, ggeffects, ggmap, ggplot2, glue, googledrive, googlesheets4, gt, here, janitor, knitr, labelled, lme4, lubridate, mice, miceadds, moments, optimx, papaja, performance, purrr, qs2, quarto, readr, RhpcBLASctl, scales, stringr, suncalc, tarchetypes, targets, tidyr",
 			"installSystemRequirements": true
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": ["quarto.quarto"]
 		}
 	},
 	"mounts": [
@@ -13,7 +21,8 @@
 	],
 	"postCreateCommand": {
 		"claude": "sudo chown -R $(id -un):$(id -gn) $HOME/.claude",
-		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add"
+		"tex": "Rscript -e 'if (!tinytex::is_tinytex()) tinytex::install_tinytex(bundle = \"TinyTeX\", add_path = FALSE)' && sudo $HOME/.TinyTeX/bin/*/tlmgr path add",
+		"git-diff": "sh .devcontainer/git-diff-drivers.sh"
 	},
 	"shutdownAction": "none"
 }

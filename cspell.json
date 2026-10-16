@@ -1,7 +1,8 @@
 {
   "language": "en-GB",
   "files": [
-    "**/*.Rmd"
+    "doc/*.qmd",
+    "doc/results_chunk.md"
   ],
   "patterns": [
     {
@@ -14,7 +15,11 @@
     },
     {
       "name": "inline_r_code",
-      "pattern": "`r [^`]+`"
+      "pattern": "`(\\{r\\}|r) [^`]+`"
+    },
+    {
+      "name": "shortcode",
+      "pattern": "\\{\\{<[^>]*>\\}\\}"
     },
     {
       "name": "yaml_header",
@@ -25,6 +30,7 @@
     "references",
     "code_fence",
     "inline_r_code",
+    "shortcode",
     "yaml_header"
   ],
   "words": [

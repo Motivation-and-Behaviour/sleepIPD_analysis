@@ -51,7 +51,8 @@ doc/*.fff
 doc/*.log
 doc/*.ttt
 doc/*.tex
-doc/manuscript_files/*
+doc/*_files/
+/*_files/
 
 # Others
 .vscode

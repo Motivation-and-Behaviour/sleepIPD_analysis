@@ -1,0 +1,19 @@
+# Quarto project for the manuscript and the supplementary appendix.
+project:
+  type: default
+  render:
+    - doc/manuscript.qmd
+    - doc/multiverse.qmd
+  execute-dir: project
+
+lang: en-GB
+bibliography: doc/references.bib
+csl: doc/vancouver-brackets-no-et-al.csl
+
+execute:
+  echo: false
+  message: false
+
+knitr:
+  opts_chunk:
+    classes: no-count
