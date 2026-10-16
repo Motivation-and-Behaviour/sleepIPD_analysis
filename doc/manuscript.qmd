@@ -45,22 +45,56 @@ sl <- function(key, age, what = "ci") ms_info$slopes[[key]][[paste0("a", age)]][
 # Summary
 
 **Background** Physical activity is recommended to improve sleep in adults, but evidence in children and adolescents is unclear and largely self-reported.
-We examined day-to-day associations between device-measured physical activity and sleep, in both directions, across the lifespan.
+We examined day-to-day, bidirectional associations between device-measured physical activity and sleep across the lifespan.
 
-**Methods** We pooled individual participant data from studies that used research-grade accelerometers worn 24 hours a day for at least four days.
+**Methods** We pooled individual participant data from studies using research-grade accelerometers worn 24 hours a day for at least four days.
 We derived daily physical activity volume and intensity, and sleep duration, efficiency, onset, and regularity, from harmonised raw data.
 Mixed-effects models with age interactions estimated associations of physical activity with that night's sleep and of sleep with next-day activity, adjusting for sex, BMI, and socioeconomic status.
 The protocol was pre-registered (https://osf.io/ahd96).
 
 **Findings** We included `{r} ms_info$n_pts_analytic` participants aged `{r} ms_info$age_range` years from `{r} ms_info$n_studies` studies.
 Higher physical activity volume was associated with longer, more efficient, earlier, and more regular sleep.
-The association with sleep regularity was strongest and varied little between ages 11 and 65 years (standardised β [95% CI] `{r} sl("sleep_regularity_by_pa_volume", 11)` and `{r} sl("sleep_regularity_by_pa_volume", 65)`), whereas that of intensity declined from `{r} sl("sleep_regularity_by_pa_intensity", 11)` to `{r} sl("sleep_regularity_by_pa_intensity", 65)`.
-More regular sleep was followed by more physical activity the next day (`{r} sl("pa_volume_by_sleep_regularity", 11)` and `{r} sl("pa_volume_by_sleep_regularity", 65)`, respectively); associations with other sleep measures were small.
+The association with sleep regularity was strongest and similar at ages 11 and 65 years (standardised β [95% CI] `{r} sl("sleep_regularity_by_pa_volume", 11)` and `{r} sl("sleep_regularity_by_pa_volume", 65)`), whereas that of intensity declined from `{r} sl("sleep_regularity_by_pa_intensity", 11)` to `{r} sl("sleep_regularity_by_pa_intensity", 65)`.
+More regular sleep was followed by more next-day physical activity (`{r} sl("pa_volume_by_sleep_regularity", 11)` and `{r} sl("pa_volume_by_sleep_regularity", 65)`, respectively); associations with other sleep measures were small.
 
 **Interpretation** Physical activity was associated most consistently with more regular sleep, at all ages and in both directions.
 Public health messages could promote physical activity for regular sleep, rather than as a universal sleep remedy.
 
 **Funding** This research was unfunded. Refer to the included studies for their funding sources.
+:::
+
+{{< pagebreak >}}
+
+::: {.no-count}
+# Research in context
+
+## Evidence before this study
+
+Meta-analyses of trials in adults show that physical activity improves sleep, with small effects on sleep duration and efficiency and the largest benefits in people who sleep poorly, and the WHO recommends physical activity for this purpose.
+In children and adolescents the evidence is less clear.
+Meta-analyses of observational studies find inconsistent associations.
+Trials suggest that exercise improves sleep quality and efficiency but not total sleep time, and guidelines do not recommend physical activity to improve sleep in these age groups.
+Most studies relied on self-reported sleep or physical activity, and meta-analyses that pool study-level effects cannot show how associations change with age.
+To understand if the relationship runs in both directions needs device-measured, day-level data.
+These have been synthesised separately in adults, where a meta-analysis of 33 studies did not support a bidirectional daily association, and in children and youth.
+Recent studies of consumer wearables with millions of person-nights included only adults and did not examine sleep regularity.
+
+## Added value of this study
+
+To our knowledge, this is the first study to examine day-to-day associations between device-measured physical activity and sleep in a large, geographically diverse sample spanning the lifespan.
+We reprocessed raw accelerometer data from `{r} ms_info$n_studies` studies with a common method, giving daily data for `{r} ms_info$n_pts_analytic` participants aged `{r} ms_info$age_range` years.
+Higher physical activity volume was associated with longer, more efficient, earlier, and more regular sleep that night.
+The association with sleep regularity was the strongest and changed little with age, whereas the association of physical activity intensity with sleep regularity, and those of sleep with next-day physical activity, weakened with age.
+More regular sleep was followed by more physical activity the next day, so the link between physical activity and sleep regularity appeared to run in both directions.
+All associations were small: at age 11 years, a 1 SD higher physical activity volume was associated with `{r} sl("sleep_regularity_by_pa_volume", 11, "raw")` higher sleep regularity and `{r} sl("sleep_duration_by_pa_volume", 11, "raw")` longer sleep.
+
+## Implications of all the available evidence
+
+Trials show that physical activity improves sleep in adults, and our findings show that its most consistent association, at every age, is with more regular sleep.
+Irregular sleep predicts mortality, cardiovascular events, and depression independently of sleep duration, so this association may matter for population health.
+Public health messages should present physical activity as a way to support consistent sleep schedules, as Australia's 24-hour movement guidelines do, rather than as a universal remedy for poor sleep.
+That our strongest association varied little with age suggests that the weaker evidence in children and adolescents may reflect study design or measurement rather than age.
+Trials should test whether increasing physical activity improves sleep regularity, whether more regular sleep in turn supports physical activity, and whether either benefits health beyond sleep, particularly in adolescents and young adults, who were under-represented in our data.
 :::
 
 {{< pagebreak >}}
