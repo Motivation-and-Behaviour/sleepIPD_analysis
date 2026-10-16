@@ -1,5 +1,5 @@
 ::: {.no-count}
-Taren Sanders^1^, Timothy Hartwig^2^, James Conigrave^3^, Borja del Pozo Cruz^4^, Philip Parker^5^, Michael Noetel^6^, Devan Antczak^7^, Stuart J. Fairclough^8^, Shona Halson^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale^10^
+Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James Conigrave PhD^3^, Borja del Pozo Cruz PhD^4^, Philip Parker PhD^5^, Michael Noetel PhD^6^, Devan Antczak PhD^7^, Stuart J. Fairclough PhD^8^, Shona Halson PhD^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale PhD^10^
 
 ^1^Institute for Positive Psychology and Education, Australian Catholic University, North Sydney, Australia\
 ^2^School of Behavioural and Health Science, Australian Catholic University, North Sydney, Australia\

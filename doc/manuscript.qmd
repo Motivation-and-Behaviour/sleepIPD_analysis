@@ -133,7 +133,7 @@ We additionally performed a literature search to identify accelerometry consorti
 
 To keep data acquisition manageable, we invited only studies with more than 400 participants, emailing chief investigators or consortium leads to request deidentified individual data.
 All studies included in the pooled data meta-analysis had to have been approved by their local or institutional ethical committees, and all participants (or, for children, their parents or guardians) had to have provided written informed consent, with children providing assent where required.
-The lead university's Research Ethics Committee granted permission for each study's data to be obtained, and investigators transferred their deidentified data via a secure file-sharing system.
+The Australian Catholic University's Research Ethics Committee granted permission for each study's data to be obtained (approval: 2020-143N), and investigators transferred their deidentified data via a secure file-sharing system.
 
 ## Data harmonisation and outcomes 
 
@@ -152,6 +152,7 @@ These metrics capture the whole intensity continuum without the population-speci
 ## Covariates and moderators
 
 The following individual participant data were obtained when available: age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
+Sex was ascertained from the original studies, which primarily used self- or parent-report for sex assigned at birth.
 The country, city, time zone, daylight length, and season in which data were collected were also obtained.
 Because studies measured socioeconomic status differently (e.g., education or income), we harmonised each study's measure into low, medium, and high categories (appendix).
 
@@ -178,7 +179,7 @@ To examine the relationship between sleep and physical activity we ran mixed-eff
 We predicted each sleep indicator from each physical activity indicator, adjusting for SES, sex, and BMI z-score, with quadratic terms to allow curvilinear associations.
 We interacted each predictor with age to examine how associations change over the lifespan (RQ2).
 Age was centred at its mean across person-days (`{r} ms_info$age_centre` years) and scaled per 10 years.
-For interpretability, and we report associations at ages 11, 18, 35, and 65 years.
+For interpretability, we report associations at ages 11, 18, 35, and 65 years.
 Models predicting physical activity from the preceding night's sleep (RQ3) used each sleep indicator lagged by one day, so person-days whose preceding day was absent or ineligible did not contribute, leaving `{r} ms_info$n_obs_lagged` of `{r} ms_info$n_obs_eligible` eligible person-days.
 Sleep regularity was missing most often, so its models with physical activity volume used `{r} ms_info$n_obs_model$sleep_regularity_by_pa_volume` person-days (RQ1) and `{r} ms_info$n_obs_model$pa_volume_by_sleep_regularity` (RQ3).
 
@@ -193,6 +194,10 @@ We analysed each sleep metric separately, because no validated composite sleep i
 We did not log-transform skewed variables, because back-transformed predictions followed extreme exponential patterns near the edges of the data range.
 Log-scale models are reported in the appendix.
 Additionally, after running the full analysis we identified a mistake in the BMI variable and in the imputation model, which we corrected and reran the analysis.
+
+## Role of the funding source
+
+There was no funding source for this study.
 
 # Results
 
@@ -243,7 +248,7 @@ tinytable::tt(
 
 ```{r}
 #| label: fig-sleep-by-volume
-#| fig-cap: "Standardized sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
+#| fig-cap: "Standardised sleep metrics predicted by physical activity volume. The panels on the left show the curvilinear relationship between PA volume and each of the sleep outcomes at the ages indicated in each column. The panels on the right show the same relationships but by age continuously. The white band indicates predictions which were not significantly different from zero."
 #| out-width: "100%"
 knitr::include_graphics(
   here::here(purdy_pictures_by_age$predictor_pa_volume),
@@ -380,6 +385,31 @@ Given the well-established links between sleep and overall health [@huangSleepPh
 However, physical activity was more weakly and less consistently associated with sleep duration, efficiency, and onset, so public health messages should emphasise its role in promoting consistent sleep schedules rather than framing it as a universal solution for improving sleep.
 We did not examine these relationships specifically in individuals with sleep disorders or other health conditions, where the effects of physical activity may differ.
 Future research should test whether physical activity interventions improve sleep regularity, whether more regular sleep in turn supports physical activity, and whether either brings health benefits beyond sleep itself.
+
+::: {.no-count}
+# Contributors
+
+CL, TH, TS, BdPC, PP, and MN conceived and designed the study. TH managed the data acquisition. TS managed the data harmonisation and developed the accelerometer processing pipeline. JC, TS, and MN conducted the statistical analyses. TH, TS, JC, and MN had direct access to and verified the underlying data. TH, TS, BdPC, MN, PP, JC, and CL drafted the manuscript. All authors contributed to the interpretation of results and critically revised the manuscript for important intellectual content. All authors approved the final version of the manuscript and agree to be accountable for all aspects of the work.
+
+# Declaration of interests
+
+We declare no competing interests
+
+# Data sharing
+
+Individual participant data remains the property of the original study investigators, and we cannot share it without their permission.
+Reasonable requests for access to the pooled dataset will be considered by the corresponding author, and we will seek permission from the original investigators.
+Related documents, including the study protocol and analysis plan, are publicly available (https://osf.io/ahd96, https://github.com/Motivation-and-Behaviour/sleepIPD_analysis).
+
+# Acknowledgments
+
+The authors acknowledge the funders of the original studies, and the participants who contributed their data.
+
+# AI declaration
+
+We used AI tools, primarily Claude Opus 5.5, to assist with code review and editing of the analysis code.
+The authors had full oversight of the analysis and code, and all decisions were made by the authors.
+:::
 
 {{< pagebreak >}}
 
