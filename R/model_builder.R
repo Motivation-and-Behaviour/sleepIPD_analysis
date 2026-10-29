@@ -317,11 +317,12 @@ model_builder <-
         gsub(".*\\[|\\].*", "", terms[2]),
         ","
       )[[1]])
-      slope_x <- exposure
-      slope_xa <- paste0(slope_x, ":", age_term(age_centre))
+      # Within-between models also get slopes for the person-mean term
+      slope_x <- unique(c(exposure, sub("_wp(_lag)?$", "_pm", exposure)))
       slope_weights <- (slope_ages - age_centre) / 10
-      slope_q <- matrix(NA_real_, data_imp$m, length(slope_ages))
-      slope_u <- matrix(NA_real_, data_imp$m, length(slope_ages))
+      slope_dim <- c(data_imp$m, length(slope_ages), length(slope_x))
+      slope_q <- array(NA_real_, slope_dim)
+      slope_u <- array(NA_real_, slope_dim)
     } else {
       slope_ages <- NULL
     }
@@ -357,21 +358,27 @@ model_builder <-
       if (!is.null(slope_ages)) {
         b <- lme4::fixef(mod)
         v <- as.matrix(stats::vcov(mod))
-        if (!all(c(slope_x, slope_xa) %in% names(b))) {
-          stop(
-            "Age-specific slopes need coefficients '",
-            slope_x,
-            "' and '",
-            slope_xa,
-            "', but the model has: ",
-            paste(names(b), collapse = ", "),
-            call. = FALSE
+        for (s in seq_along(slope_x)) {
+          sx <- slope_x[s]
+          # lme4 orders an interaction's parts by first appearance in the formula
+          sxa <- intersect(
+            paste0(c(sx, age_term(age_centre)), ":", c(age_term(age_centre), sx)),
+            names(b)
           )
+          if (!sx %in% names(b) || length(sxa) != 1) {
+            stop(
+              "Age-specific slopes need coefficient '",
+              sx,
+              "' and its interaction with age, but the model has: ",
+              paste(names(b), collapse = ", "),
+              call. = FALSE
+            )
+          }
+          slope_q[i, , s] <- b[[sx]] + slope_weights * b[[sxa]]
+          slope_u[i, , s] <- v[sx, sx] +
+            slope_weights^2 * v[sxa, sxa] +
+            2 * slope_weights * v[sx, sxa]
         }
-        slope_q[i, ] <- b[[slope_x]] + slope_weights * b[[slope_xa]]
-        slope_u[i, ] <- v[slope_x, slope_x] +
-          slope_weights^2 * v[slope_xa, slope_xa] +
-          2 * slope_weights * v[slope_x, slope_xa]
       }
 
       if (!table_only) {
@@ -454,16 +461,20 @@ model_builder <-
     }
 
     if (!is.null(slope_ages)) {
-      age_slopes <- rbindlist(lapply(seq_along(slope_ages), function(j) {
+      cells <- expand.grid(j = seq_along(slope_ages), s = seq_along(slope_x))
+      age_slopes <- rbindlist(lapply(seq_len(nrow(cells)), function(r) {
+        j <- cells$j[r]
+        s <- cells$s[r]
         pooled <- mice::pool.scalar(
-          slope_q[, j],
-          slope_u[, j],
+          slope_q[, j, s],
+          slope_u[, j, s],
           n = pool_n,
           k = pool_k
         )
         se <- sqrt(pooled$t)
         crit <- stats::qt(0.975, pooled$df)
         data.table(
+          term = slope_x[s],
           age = slope_ages[j],
           estimate = pooled$qbar,
           std.error = se,

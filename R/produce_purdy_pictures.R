@@ -240,9 +240,13 @@ produce_purdy_pictures <- function(model_list, ...) {
   df$y[is_log] <- paste(df$y[is_log], "(z*)")
 
   df$y <- stringr::str_to_sentence(df$y) |>
-    gsub("Pa|pa\\b", "PA", x = _)
+    gsub("Pa|pa\\b", "PA", x = _) |>
+    gsub("PA mvPA", "MVPA", x = _)
 
   df$RQ <- ifelse(grepl("Lag", df$y), 3, 1)
+  if (!identical(attr(model_list, "spec"), "blended")) {
+    df$y <- paste0(df$y, ", within-person")
+  }
 
   # produce the plots
   out <- lapply(seq_len(nrow(df)), function(row) {
@@ -323,7 +327,8 @@ prepare_plot_data <- function(
     paste("(z*)")
 
   # Swap the order of volume and intensity
-  plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome)
+  plot_dat$outcome <- gsub("Pa", "PA", plot_dat$outcome) |>
+    gsub("PA Mvpa", "MVPA", x = _)
   plot_dat$outcome <- factor(plot_dat$outcome)
   volume_level <- grep(
     "Volume",
@@ -338,7 +343,7 @@ prepare_plot_data <- function(
   )
 
   levels(plot_dat$group) <- paste0(levels(plot_dat$group), paste_facet_labels)
-  plot_dat$x_name <- gsub("\\[.*", "", plot_dat$x_name)
+  plot_dat$x_name <- sub("_wp", "", gsub("\\[.*", "", plot_dat$x_name))
 
   plot_dat
 }
