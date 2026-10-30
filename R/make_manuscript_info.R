@@ -135,6 +135,12 @@ make_manuscript_info <- function(
     ms_info$slopes <- format_age_slopes(model_list_by_age)
     ms_info$slopes_between <- format_age_slopes(model_list_by_age, between = TRUE)
     ms_info$sd <- format_predictor_sds(model_list_by_age)
+    # Day-to-day SD of volume within participants
+    sd_volume <- attr(model_list_by_age, "scale_descriptives")[var == "pa_volume", sd]
+    ms_info$sd_within_pa_volume <- paste(papaja::print_num(
+      sd(data_imp$data$scale_pa_volume_wp, na.rm = TRUE) * sd_volume,
+      digits = 1
+    ), "mg")
     ms_info$n_obs_model <- format_model_n(model_list_by_age)
   }
   families <- list(

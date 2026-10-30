@@ -38,6 +38,23 @@ Third, we excluded remaining values more than 4 SD from the mean of their own st
 Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
 Values excluded at any stage were treated as missing data.
 
+## MVPA cut-points
+
+Minutes of moderate-to-vigorous physical activity (MVPA) were the waking minutes above the moderate cut-point.
+*sleepIPD* assigned cut-points by each study's age group, device, and wear location (@tbl-mvpa-cutpoints), from Hildebrand and colleagues (2014) for moderate and vigorous activity and from Hurter and colleagues (2018) or Hildebrand and colleagues (2016) for light activity.
+The moderate cut-point differed more than two-fold across groups.
+Because cut-points were assigned by study, one ActiGraph study and one Axivity study were processed with GENEActiv cut-points, and one study applied child cut-points to participants up to 19 years old.
+
+| Age group | Device    | Wear location | Light (mg) | Moderate (mg) | Vigorous (mg) |
+|-----------|-----------|---------------|-----------:|--------------:|--------------:|
+| Children  | ActiGraph | Hip           | 32.6       | 142.6         | 464.6         |
+| Children  | ActiGraph | Wrist         | 48.1       | 201.4         | 707.0         |
+| Children  | GENEActiv | Wrist         | 51.6       | 191.6         | 695.8         |
+| Adults    | ActiGraph | Wrist         | 44.8       | 100.6         | 428.8         |
+| Adults    | GENEActiv | Wrist         | 45.8       | 93.2          | 418.3         |
+
+: Physical activity cut-points applied by *GGIR*, by age group, device, and wear location {#tbl-mvpa-cutpoints}
+
 ## Protocol deviations
 
 We made the following changes to our protocol while working with the holdout data.
@@ -64,6 +81,13 @@ We aimed to improve model diagnostics using log transformations of skewed variab
 Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
 Accordingly, we do not use log transformations in the main paper.
 These models are in the Log Transforming PA Volume section below.
+
+### Changes after co-author review
+
+The protocol did not specify how to treat day-level predictors.
+After the full analysis, we split each predictor into the participant's mean and that day's deviation from it, so that day-to-day (within-person) associations are not confounded by stable differences between people.
+The pre-registered models, which combine the two, are in the Pre-registered Model Without the Within–Between Split section below.
+We also added minutes of MVPA as a secondary exposure, and, because *GGIR*'s sleep regularity index for a day spans that day and the next, we used the index for the two preceding days in models of next-day activity.
 
 # Results
 
@@ -217,7 +241,7 @@ tar_load(purdy_pictures_by_age_log)
 Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability.
 The log scale meant that the variable became uninterpretable towards the edge of its range.
 Below, we present the results had we not made this decision.
-These results are all moderated by age, as this was our primary analysis.
+These results are all moderated by age, as this was our primary analysis, and use the pre-registered specification without the within–between split.
 The associated figures are back-transformed to the scale range.
 
 ### The association between physical activity volume and sleep
