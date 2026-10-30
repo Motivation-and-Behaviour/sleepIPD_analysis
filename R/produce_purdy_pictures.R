@@ -243,8 +243,14 @@ produce_purdy_pictures <- function(model_list, ...) {
     gsub("Pa|pa\\b", "PA", x = _) |>
     gsub("PA mvPA", "MVPA", x = _)
 
-  df$RQ <- ifelse(grepl("Lag", df$y), 3, 1)
-  if (!identical(attr(model_list, "spec"), "blended")) {
+  df$RQ <- ifelse(grepl("_lag$", df$x), 3, 1)
+  wb <- !identical(attr(model_list, "spec"), "blended")
+  # Within-between families use the regularity index for the two preceding days
+  if (wb) {
+    df$y <- sub("^Lag (sleep regularity)", "Previous two days' \\1", df$y)
+  }
+  df$y <- sub("^Lag ", "Previous night's ", df$y)
+  if (wb) {
     df$y <- paste0(df$y, ", within-person")
   }
 
