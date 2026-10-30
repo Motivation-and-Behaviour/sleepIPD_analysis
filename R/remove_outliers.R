@@ -16,7 +16,8 @@ bad_accel_vars <- c(
   "pa_volume",
   "pa_intensity",
   "pa_intensity_m16",
-  "pa_mostactivehr"
+  "pa_mostactivehr",
+  "pa_mvpa"
 )
 
 # The variables the +/-4SD screen applies to.
@@ -24,6 +25,7 @@ outlier_screen_vars <- c(
   "pa_volume",
   "pa_intensity",
   "pa_intensity_m16",
+  "pa_mvpa",
   "sleep_duration",
   "sleep_efficiency",
   "sleep_onset",

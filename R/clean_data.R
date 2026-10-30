@@ -37,6 +37,8 @@ clean_data <- function(
       sleep_regularity = sleep_regularity_index,
       acc_wear_loc = accelerometer_wear_location
     ) %>%
+    # Minutes of MVPA
+    mutate(pa_mvpa = as.numeric(dur_day_total_mod_min) + as.numeric(dur_day_total_vig_min)) %>%
     # Keep only the columns we actually use.
     select(all_of(c(
       "studyid",
@@ -65,6 +67,7 @@ clean_data <- function(
       "pa_intensity",
       "pa_intensity_m16",
       "pa_mostactivehr",
+      "pa_mvpa",
       "sleep_duration",
       "sleep_efficiency",
       "sleep_onset",

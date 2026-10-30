@@ -1,9 +1,9 @@
 ::: {.no-count}
-Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James Conigrave PhD^3^, Borja del Pozo Cruz PhD^4^, Philip Parker PhD^5^, Michael Noetel PhD^6^, Devan Antczak PhD^7^, Stuart J. Fairclough PhD^8^, Shona L. Halson PhD^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale PhD^10^
+Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James H. Conigrave PhD^3^, Borja del Pozo Cruz PhD^4^, Philip Parker PhD^5^, Michael Noetel PhD^6^, Devan Antczak PhD^7^, Stuart J. Fairclough PhD^8^, Shona L. Halson PhD^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale PhD^10^
 
 ^1^Institute for Positive Psychology and Education, Australian Catholic University, North Sydney, Australia\
 ^2^School of Behavioural and Health Science, Australian Catholic University, Strathfield, Australia\
-^3^Centre for Alcohol Policy Research, La Trobe University, Bundoora, Australia\
+^3^Centre for Alcohol Policy Research, School of Psychology and Public Health, La Trobe University, Bundoora, Australia\
 ^4^Department of Sport Sciences, Faculty of Medicine, Health, and Sports, Universidad Europea de Madrid\
 ^5^Office of the Deputy Vice-Chancellor (Research and Enterprise), Australian Catholic University, North Sydney, Australia\
 ^6^School of Psychology, The University of Queensland, Brisbane, Australia\

@@ -15,6 +15,10 @@ make_manuscript_info <- function(
   data_imp = NULL,
   model_list_by_age = NULL,
   model_list_by_age_7days = NULL,
+  model_list_by_age_blended = NULL,
+  model_list_by_age_clpm = NULL,
+  model_list_by_age_mvpa = NULL,
+  negative_control = NULL,
   min_wear_days = min_wear_days_primary
 ) {
   data_clean_eligible <- data_clean |>
@@ -129,11 +133,35 @@ make_manuscript_info <- function(
   if (!is.null(model_list_by_age)) {
     ms_info$age_centre <- attr(model_list_by_age, "age_centre")
     ms_info$slopes <- format_age_slopes(model_list_by_age)
+    ms_info$slopes_between <- format_age_slopes(model_list_by_age, between = TRUE)
     ms_info$sd <- format_predictor_sds(model_list_by_age)
+    # Day-to-day SD of volume within participants
+    sd_volume <- attr(model_list_by_age, "scale_descriptives")[var == "pa_volume", sd]
+    ms_info$sd_within_pa_volume <- paste(papaja::print_num(
+      sd(data_imp$data$scale_pa_volume_wp, na.rm = TRUE) * sd_volume,
+      digits = 1
+    ), "mg")
     ms_info$n_obs_model <- format_model_n(model_list_by_age)
   }
-  if (!is.null(model_list_by_age_7days)) {
-    ms_info$slopes_7days <- format_age_slopes(model_list_by_age_7days)
+  families <- list(
+    slopes_7days = model_list_by_age_7days,
+    slopes_blended = model_list_by_age_blended,
+    slopes_clpm = model_list_by_age_clpm,
+    slopes_mvpa = model_list_by_age_mvpa
+  )
+  for (nm in names(families)) {
+    if (!is.null(families[[nm]])) {
+      ms_info[[nm]] <- format_age_slopes(families[[nm]])
+    }
+  }
+  if (!is.null(model_list_by_age_mvpa)) {
+    ms_info$sd$pa_mvpa <- format_predictor_sds(model_list_by_age_mvpa)$pa_mvpa
+  }
+  # b [95% CI] by term, for each outcome
+  if (!is.null(negative_control)) {
+    ms_info$negative_control <- lapply(negative_control, function(tab) {
+      as.list(stats::setNames(as.character(tab[[2]]), tab$term))
+    })
   }
 
   ms_info
@@ -149,11 +177,12 @@ raw_units <- data.table::data.table(
     "sleep_onset",
     "sleep_regularity",
     "pa_volume",
-    "pa_intensity"
+    "pa_intensity",
+    "pa_mvpa"
   ),
-  mult = c(1, 100, 60, 1, 1, 1),
-  unit = c("min", "percentage points", "min", "points", "mg", ""),
-  digits = c(1, 1, 0, 1, 1, 2)
+  mult = c(1, 100, 60, 1, 1, 1, 1),
+  unit = c("min", "percentage points", "min", "points", "mg", "", "min"),
+  digits = c(1, 1, 0, 1, 1, 2, 1)
 )
 
 format_predictor_sds <- function(model_list) {
@@ -172,12 +201,21 @@ format_predictor_sds <- function(model_list) {
 
 #' format_age_slopes
 #'
+#' @param between person-mean slopes instead of within-person (or blended) ones
 #' @return list keyed "<outcome>_by_<predictor>", then "a<age>", holding `b`,
-#'   `ci`, `p`, and `raw` (outcome units per 1 SD of the predictor)
-format_age_slopes <- function(model_list) {
+#'   `ci`, `p`, and `raw` (outcome units per 1 SD of the predictor). MVPA
+#'   predictors are per 30 min instead of per SD.
+format_age_slopes <- function(model_list, between = FALSE) {
   sds <- attr(model_list, "scale_descriptives")
   out <- lapply(names(model_list), function(nm) {
     slopes <- model_list[[nm]]$model_assets$age_slopes
+    slopes <- slopes[grepl("_pm$", term) == between]
+    predictor <- gsub("^(scale|log)_|_lag$", "", sub(".* by ", "", nm))
+    per <- if (predictor == "pa_mvpa") 30 / sds[var == "pa_mvpa", sd] else 1
+    slopes[,
+      c("estimate", "conf.low", "conf.high") := lapply(.SD, `*`, per),
+      .SDcols = c("estimate", "conf.low", "conf.high")
+    ]
     outcome <- gsub("^(scale|log)_", "", sub(" by .*", "", nm))
     u <- raw_units[var == outcome]
     sd_outcome <- sds[var == outcome, sd]
