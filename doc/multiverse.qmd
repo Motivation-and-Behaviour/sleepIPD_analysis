@@ -38,6 +38,23 @@ Third, we excluded remaining values more than 4 SD from the mean of their own st
 Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
 Values excluded at any stage were treated as missing data.
 
+## MVPA cut-points
+
+Minutes of moderate-to-vigorous physical activity (MVPA) were the waking minutes above the moderate cut-point.
+*sleepIPD* assigned cut-points by each study's age group, device, and wear location (@tbl-mvpa-cutpoints), from Hildebrand and colleagues (2014) for moderate and vigorous activity and from Hurter and colleagues (2018) or Hildebrand and colleagues (2016) for light activity.
+The moderate cut-point differed more than two-fold across groups.
+Because cut-points were assigned by study, one ActiGraph study and one Axivity study were processed with GENEActiv cut-points, and one study applied child cut-points to participants up to 19 years old.
+
+| Age group | Device    | Wear location | Light (mg) | Moderate (mg) | Vigorous (mg) |
+|-----------|-----------|---------------|-----------:|--------------:|--------------:|
+| Children  | ActiGraph | Hip           | 32.6       | 142.6         | 464.6         |
+| Children  | ActiGraph | Wrist         | 48.1       | 201.4         | 707.0         |
+| Children  | GENEActiv | Wrist         | 51.6       | 191.6         | 695.8         |
+| Adults    | ActiGraph | Wrist         | 44.8       | 100.6         | 428.8         |
+| Adults    | GENEActiv | Wrist         | 45.8       | 93.2          | 418.3         |
+
+: Physical activity cut-points applied by *GGIR*, by age group, device, and wear location {#tbl-mvpa-cutpoints}
+
 ## Protocol deviations
 
 We made the following changes to our protocol while working with the holdout data.
@@ -64,6 +81,13 @@ We aimed to improve model diagnostics using log transformations of skewed variab
 Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
 Accordingly, we do not use log transformations in the main paper.
 These models are in the Log Transforming PA Volume section below.
+
+### Changes after co-author review
+
+The protocol did not specify how to treat day-level predictors.
+After the full analysis, we split each predictor into the participant's mean and that day's deviation from it, so that day-to-day (within-person) associations are not confounded by stable differences between people.
+The pre-registered models, which combine the two, are in the Pre-registered Model Without the Within–Between Split section below.
+We also added minutes of MVPA as a secondary exposure, and, because *GGIR*'s sleep regularity index for a day spans that day and the next, we used the index for the two preceding days in models of next-day activity.
 
 # Results
 
@@ -217,7 +241,7 @@ tar_load(purdy_pictures_by_age_log)
 Based on preliminary modelling on a subset of the data, we chose to leave physical activity volume in its natural form to enhance interpretability.
 The log scale meant that the variable became uninterpretable towards the edge of its range.
 Below, we present the results had we not made this decision.
-These results are all moderated by age, as this was our primary analysis.
+These results are all moderated by age, as this was our primary analysis, and use the pre-registered specification without the within–between split.
 The associated figures are back-transformed to the scale range.
 
 ### The association between physical activity volume and sleep
@@ -446,6 +470,165 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_o
 #| label: fig-pa-by-sleep-regularity-7days
 #| fig-cap: "Physical activity by previous night sleep regularity (at least seven valid days)"
 knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Pre-registered Model Without the Within–Between Split
+
+```{r}
+tar_load(model_tables_by_age_blended)
+```
+
+The pre-registered models entered each predictor as a single standardised term, so their estimates combine within- and between-person associations.
+Results are presented in Tables [-@tbl-sleep-outcomes-blended] and [-@tbl-pa-outcomes-blended].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-blended
+#| tbl-cap: !expr model_tables_by_age_blended$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_blended$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_blended$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-blended
+#| tbl-cap: !expr model_tables_by_age_blended$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_blended$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_blended$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+## Cross-lagged Model
+
+```{r}
+tar_load(model_tables_by_age_clpm)
+```
+
+These models add the outcome's own within-person value on the previous day (for sleep regularity, the index for the two preceding days) to the primary models.
+Results are presented in Tables [-@tbl-sleep-outcomes-clpm] and [-@tbl-pa-outcomes-clpm].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-clpm
+#| tbl-cap: !expr model_tables_by_age_clpm$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_clpm$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_clpm$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-clpm
+#| tbl-cap: !expr model_tables_by_age_clpm$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_clpm$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_clpm$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+## Minutes of Moderate-to-Vigorous Physical Activity
+
+```{r}
+tar_load(model_tables_by_age_mvpa)
+tar_load(purdy_pictures_by_age_mvpa)
+```
+
+These models replace physical activity volume and intensity with daily minutes of moderate-to-vigorous physical activity (MVPA), from *GGIR*'s cut-points for each age group, device, and wear location.
+Results are presented in Tables [-@tbl-sleep-outcomes-mvpa] and [-@tbl-pa-outcomes-mvpa] and Figures [-@fig-sleep-by-mvpa] to [-@fig-mvpa-by-sleep-regularity].
+
+::: {.landscape}
+```{r}
+#| label: tbl-sleep-outcomes-mvpa
+#| tbl-cap: !expr model_tables_by_age_mvpa$sleep$caption
+d <- dplyr::bind_rows(model_tables_by_age_mvpa$sleep$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_mvpa$sleep$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+::: {.landscape}
+```{r}
+#| label: tbl-pa-outcomes-mvpa
+#| tbl-cap: !expr model_tables_by_age_mvpa$physical_activity$caption
+d <- dplyr::bind_rows(model_tables_by_age_mvpa$physical_activity$data, .id = "group")
+tinytable::tt(
+  subset(d, select = -group),
+  notes = model_tables_by_age_mvpa$physical_activity$note
+) |>
+  tinytable::group_tt(i = d$group)
+```
+:::
+
+```{r}
+#| label: fig-sleep-by-mvpa
+#| fig-cap: "Sleep metrics on MVPA"
+knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_pa_mvpa), error = FALSE)
+```
+
+```{r}
+#| label: fig-mvpa-by-sleep-duration
+#| fig-cap: "MVPA by previous night sleep duration"
+knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_duration_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-mvpa-by-sleep-efficiency
+#| fig-cap: "MVPA by previous night sleep efficiency"
+knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_efficiency_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-mvpa-by-sleep-onset
+#| fig-cap: "MVPA by previous night sleep onset"
+knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_onset_lag), error = FALSE)
+```
+
+```{r}
+#| label: fig-mvpa-by-sleep-regularity
+#| fig-cap: "MVPA by sleep regularity over the two preceding days"
+knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_regularity_lag), error = FALSE)
+```
+
+## Negative Control for Sleep Regularity
+
+*GGIR*'s sleep regularity index for a day compares that calendar day with the next, and counts daytime as well as night-time rest.
+To check whether this couples it to physical activity, we predicted each sleep outcome from within-person physical activity volume on the previous day, the same day, and the next day, adjusting for the person mean, SES, age, sex, and BMI z-score (@tbl-negative-control).
+Next-day activity cannot affect the night's sleep, so an association with it indicates overlap in measurement.
+
+```{r}
+#| label: tbl-negative-control
+#| tbl-cap: "Sleep outcomes predicted by within-person physical activity volume on the previous, same, and next day"
+nc <- dplyr::bind_rows(tar_read(negative_control), .id = "Outcome")
+nc <- nc[grepl("scale_pa_volume_wp", nc$term), ]
+nc$Activity <- c(
+  scale_pa_volume_wp_lag = "Previous day",
+  scale_pa_volume_wp = "Same day",
+  scale_pa_volume_wp_lead = "Next day"
+)[as.character(nc$term)]
+nc$Outcome <- stringr::str_to_sentence(nc$Outcome)
+days <- c("Previous day", "Same day", "Next day")
+nc <- nc[order(match(nc$Outcome, unique(nc$Outcome)), match(nc$Activity, days)), ]
+names(nc)[names(nc) == "b [95\\% CI]"] <- "β [95% CI]"
+tinytable::tt(nc[, c("Outcome", "Activity", "β [95% CI]", "p")])
 ```
 
 # Moderation

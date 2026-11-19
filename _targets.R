@@ -8,7 +8,7 @@ set.seed(42)
 tar_option_set(
   packages = c("data.table", "magrittr", "readr"),
   controller = crew::crew_controller_local(
-    workers = max(1, min(parallel::detectCores() - 4, 32)),
+    workers = max(1, min(parallel::detectCores() - 4, 24)),
     seconds_idle = 15,
     garbage_collection = TRUE
   ),
@@ -86,7 +86,7 @@ list(
     # One branch per model
     tar_target(
       model_specs,
-      make_model_specs(moderator, sleep_vars, pa_vars, age_centre)
+      make_model_specs(moderator, sleep_vars, pa_vars, age_centre, spec)
     ),
     tar_target(
       model_fits,
@@ -114,7 +114,8 @@ list(
         sleep_vars = sleep_vars,
         pa_vars = pa_vars,
         min_wear_days = min_wear_days,
-        age_centre = age_centre
+        age_centre = age_centre,
+        spec = spec
       )
     ),
     tar_target(model_tables, make_model_tables(model_list)),
@@ -126,6 +127,32 @@ list(
       purdy_picture_files,
       unname(c(unlist(purdy_pictures), attr(purdy_pictures, "jpg"))),
       format = "file"
+    )
+  ),
+  # SRI row t spans days t and t+1, so check whether next-day PA predicts it
+  tar_target(
+    negative_control,
+    lapply(
+      c(
+        regularity = "scale_sleep_regularity",
+        duration = "scale_sleep_duration",
+        onset = "scale_sleep_onset"
+      ),
+      function(outcome) {
+        model_builder(
+          data_imp,
+          outcome = outcome,
+          predictors = paste0(
+            "scale_pa_volume_",
+            c("wp", "wp_lag", "wp_lead", "pm")
+          ),
+          moderator = "age",
+          control_vars = dflt_con,
+          ranef = dflt_ranef,
+          min_wear_days = min_wear_days_primary,
+          age_centre = age_centre
+        )
+      }
     )
   ),
 
@@ -143,7 +170,11 @@ list(
       participant_summary,
       data_imp,
       model_list_by_age = model_list_by_age,
-      model_list_by_age_7days = model_list_by_age_7days
+      model_list_by_age_7days = model_list_by_age_7days,
+      model_list_by_age_blended = model_list_by_age_blended,
+      model_list_by_age_clpm = model_list_by_age_clpm,
+      model_list_by_age_mvpa = model_list_by_age_mvpa,
+      negative_control = negative_control
     )
   ),
   tar_quarto(
@@ -180,7 +211,10 @@ list(
       model_list_by_wear_location,
       model_list_by_pa_mostactivehr,
       model_list_by_sex,
-      model_list_by_ethnicity
+      model_list_by_ethnicity,
+      model_list_by_age_blended,
+      model_list_by_age_clpm,
+      model_list_by_age_mvpa
     ),
     deployment = "main"
   ),

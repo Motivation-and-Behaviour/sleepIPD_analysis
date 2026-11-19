@@ -43,16 +43,13 @@ make_model_tables <- function(model_list) {
   pa_short <- gsub("^Physical activity", "PA", names(pa_vars))
   table_columns <- c(
     "Term",
-    paste(pa_short[1], "β [95% CI]"),
-    paste(pa_short[1], "p"),
-    paste(pa_short[2], "β [95% CI]"),
-    paste(pa_short[2], "p")
+    as.vector(rbind(paste(pa_short, "β [95% CI]"), paste(pa_short, "p")))
   )
-  pair_tables <- function(model1_name, model2_name) {
-    tab <- cbind(
-      format_table(model_list[[model1_name]]$table, adjusted_for, moderator),
-      format_table(model_list[[model2_name]]$table, adjusted_for, moderator)
-    )[, c(1, 2, 5, 7, 10)]
+  pair_tables <- function(model_names) {
+    tabs <- lapply(model_names, function(nm) {
+      format_table(model_list[[nm]]$table, adjusted_for, moderator)
+    })
+    tab <- do.call(cbind, c(list(tabs[[1]][, 1]), lapply(tabs, function(t) t[, c(2, 5)])))
     names(tab) <- table_columns
     tab
   }
@@ -62,6 +59,14 @@ make_model_tables <- function(model_list) {
     if (any(grepl("^log_", pa_vars))) " and (ln) natural-log transformed",
     "; ² denotes a quadratic term and × an interaction."
   )
+  if (!identical(attr(model_list, "spec"), "blended")) {
+    note_terms <- paste0(
+      note_terms,
+      " (within) is the day's deviation from the participant's mean, ",
+      "(between) is that mean, and (within, prior) is the previous day's ",
+      "deviation (for sleep regularity, the index for the two preceding days)."
+    )
+  }
   if (moderator == "age") {
     age_centre <- attr(model_list, "age_centre")
     note_terms <- paste0(
@@ -90,10 +95,7 @@ make_model_tables <- function(model_list) {
   sleep_table <- list()
 
   sleep_table$data <- lapply(sleep_vars, function(sleep) {
-    pair_tables(
-      paste(sleep, "by", pa_vars[[1]]),
-      paste(sleep, "by", pa_vars[[2]])
-    )
+    pair_tables(paste(sleep, "by", pa_vars))
   })
 
   sleep_table$caption <-
@@ -112,10 +114,7 @@ make_model_tables <- function(model_list) {
 
   pa_table <- list()
   pa_table$data <- lapply(sleep_vars, function(sleep) {
-    pair_tables(
-      paste(pa_vars[[1]], "by", paste0(sleep, "_lag")),
-      paste(pa_vars[[2]], "by", paste0(sleep, "_lag"))
-    )
+    pair_tables(paste(pa_vars, "by", paste0(sleep, "_lag")))
   })
 
   pa_table$caption <-
@@ -201,7 +200,7 @@ format_table <- function(
   # which mangled factor levels into "Regionnorth america".
   tab$term <- gsub("(^|:)([a-z])", "\\1\\U\\2", tab$term, perl = TRUE)
   tab$term <- gsub(
-    "(S|s)cale pa (intensity|volume)",
+    "(S|s)cale pa (intensity|volume|mvpa)",
     "Physical activity",
     tab$term
   )
@@ -210,7 +209,10 @@ format_table <- function(
     "Sleep",
     tab$term
   )
+  tab$term <- gsub(" wp lag\\b", " (within, prior)", tab$term)
   tab$term <- gsub("\\slag", "", tab$term)
+  tab$term <- gsub(" wp\\b", " (within)", tab$term) |>
+    gsub(" pm\\b", " (between)", x = _)
   tab$term <- gsub(":", " × ", tab$term)
   # model_builder() marks low-convergence estimates with a LaTeX dagger
   tab[[2]] <- gsub("$^\\dagger$", "†", tab[[2]], fixed = TRUE)
