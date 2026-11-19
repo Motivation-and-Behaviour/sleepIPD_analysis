@@ -33,7 +33,7 @@ North Sydney, Australia
 Correspondence to: Taren Sanders, 33 Berry St, North Sydney, NSW,
 Australia; Taren.Sanders@acu.edu.au, +61 2 9701 4704
 
-Main text: 3446 words
+Main text: 3460 words
 
 </div>
 
@@ -127,12 +127,12 @@ findings show that people of all ages, including children and
 adolescents, sleep slightly longer and earlier after more active days.
 Public health messages could present physical activity as a small,
 consistent support for sleep at every age, rather than as a remedy for
-poor sleep. That the day-level associations varied little with age
-suggests that the weaker evidence in children and adolescents may
-reflect study design or measurement rather than age. Trials should test
-whether increasing physical activity lengthens sleep in children and
-adolescents, and studies of sleep regularity should use measures that
-separate sleep from daytime rest.
+poor sleep or proomoter of good sleep. That the day-level associations
+varied little with age suggests that the weaker evidence in children and
+adolescents may reflect study design or measurement rather than age.
+Trials should test whether increasing physical activity lengthens sleep
+in children and adolescents, and studies of sleep regularity should use
+measures that separate sleep from daytime rest.
 
 </div>
 
@@ -344,29 +344,30 @@ outcome (i.e., negative control; see appendix).
 
 ## Protocol deviations
 
-This paper addresses the first two hypotheses in our registered
-protocol: that physical activity volume and intensity would be
+This paper addresses the first three hypotheses in our registered
+protocol: i) that physical activity volume and intensity would be
 positively associated with optimum sleep duration and quality, with an
-inverted U-shaped dose-response, and that associations would be stronger
-in adolescents and adults than in children and older adults. Moderation
-by the other pre-registered moderators is reported in the appendix, and
-the remaining hypotheses will be addressed in future research. While
-testing with the development subsample we made three changes to the
-protocol. We modelled study as a random rather than a fixed effect, so
-that estimates would generalise beyond the included studies. Sensitivity
-analyses of fixed-effect models gave qualitatively similar results. We
-analysed each sleep metric separately, because no validated composite
-sleep indicator could be estimated from our data. We did not
-log-transform skewed variables, because back-transformed predictions
-followed extreme and implausibleexponential patterns near the edges of
-the data range. Log-scale models are reported in the appendix.
-Additionally, after running the full analysis we identified a mistake in
-the BMI variable and in the imputation model, which we corrected and
-reran the analysis. After data contributor review of the initial
-results, we separated within- and between-person associations, which the
-protocol did not specify, and realigned the sleep regularity index in
-RQ3 models. The pre-registered models, which combine within- and
-between-person associations, are reported in the appendix.
+inverted U-shaped dose-response, ii) that associations would be stronger
+in adolescents and adults than in children and older adults, and iii)
+that the relationship between sleep and physical activity would be
+bidirectional. Moderation by the other pre-registered moderators is
+reported in the appendix, and the remaining hypotheses will be addressed
+in future research. While testing with the development subsample we made
+three changes to the protocol. We modelled study as a random rather than
+a fixed effect, so that estimates would generalise beyond the included
+studies. Sensitivity analyses of fixed-effect models gave qualitatively
+similar results. We analysed each sleep metric separately, because no
+validated composite sleep indicator could be estimated from our data. We
+did not log-transform skewed variables, because back-transformed
+predictions followed extreme and implausibleexponential patterns near
+the edges of the data range. Log-scale models are reported in the
+appendix. Additionally, after running the full analysis we identified a
+mistake in the BMI variable and in the imputation model, which we
+corrected and reran the analysis. After data contributor review of the
+initial results, we separated within- and between-person associations,
+which the protocol did not specify, and realigned the sleep regularity
+index in RQ3 models. The pre-registered models, which combine within-
+and between-person associations, are reported in the appendix.
 
 ## Role of the funding source
 
