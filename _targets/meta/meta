@@ -34,8 +34,8 @@ get_effects|function|b4e5674557744cfe|||||||||||||||
 is_conv|function|9af82d322be16966|||||||||||||||
 check_resids|function|60f0ed452ef05782|||||||||||||||
 check_lme4_version|function|2074fa5cfba07ec2|||||||||||||||
-pretty|function|7cd5a10ad3840eff
-load_packages|function|2c04dd3741c6e790
+pretty|function|7cd5a10ad3840eff|||||||||||||||
+load_packages|function|2c04dd3741c6e790|||||||||||||||
 ses_table|stem|d1bd10ce2d137831|4919b0d891e11e63|8abc6c9036ce67a1|-1017872494||t20737.2700945437s|s1385b|1385|qs|local|vector|||0.001||
 datasets_c22eba307428d40a|branch|27c0c92e05cdcbfe|b5c87e1f5fa0865c|2c530c1562a7fbd1|-1844999054|data/100_ISCOLE.csv|t20739.1344398616s|s150048780b|150048780|file|local|vector|datasets||0||
 datasets_e5c48be3e2f55b40|branch|40af5a67dd0d1b19|b5c87e1f5fa0865c|2c530c1562a7fbd1|77344752|data/101_Pedro.csv|t20739.1336164918s|s53461430b|53461430|file|local|vector|datasets||0||
@@ -72,7 +72,7 @@ data_raw_94411f611542d88d|branch|61f0f73f288158ad|8e9cdb2ef8377237|88dd8a979ae51
 data_raw|pattern|46a74cb1d09eb6fc|8e9cdb2ef8377237||-644868125||||119563841|qs|local|list||data_raw_94411f611542d88d*data_raw_42f339ebf9ad9aa4*data_raw_473d88d0ff608a2d*data_raw_e4aa2987930b0bed*data_raw_1e1b5f221f8c3ea6*data_raw_637074e0a29301dc*data_raw_6bd8ff88c15794e7*data_raw_81638d78e54b6296*data_raw_140227b6ce612cb6*data_raw_96d5bef52cf5d2f5*data_raw_0a4a885f68bed85c*data_raw_4c03aaada39ab34b*data_raw_3f2881898db9d6ef*data_raw_c40a4722abbbda9c*data_raw_3913bb6e882a287d*data_raw_8abf52a007f34f9e*data_raw_00bb49dcdc993d56*data_raw_552a8636cd742d11*data_raw_761e8a50b6aa11ec*data_raw_0a14c05d2a7ad9b3|21.488||
 data_joined|stem|1f76907bce3847ac|baf3f6b2b993dcd8|31eaace2a7a94d4c|-2037994385||t20739.1693585182s|s134637110b|134637110|qs|local|vector|||4.503||
 refactors_change|stem|bb68740f68c11722|9550ff07a5219179|7c3165bcd5f74565|1983829026||t20740.9987850865s|s77b|77|rds|local|vector|||0.717||
-sheet_last_modified|function|ae8f1ff08feccce7
+sheet_last_modified|function|ae8f1ff08feccce7|||||||||||||||
 refactors|stem|1fa540e7d3ad96a0|7adcd849e4d33bc7|8f267ab5a393306b|1680487579||t20741.1237974291s|s3085b|3085|qs|local|vector|||0.094||
 model_fits_by_age_7days_cca0a9cea5e76515|branch|8dbb77aaf5a308ac|6e444ae69c27e2e6|30b31d97d5a73fba|1733039405||t20741.2312488824s|s344590b|344590|qs|local|list|model_fits_by_age_7days||174.037||
 model_fits_by_age_7days_9e5eecbe074a6453|branch|021ddb1d947f5bae|6e444ae69c27e2e6|30b31d97d5a73fba|-687949519||t20741.2312837181s|s336831b|336831|qs|local|list|model_fits_by_age_7days||153.247||
@@ -301,9 +301,9 @@ model_fits_by_pa_mostactivehr_f869965a0eae30dc|branch|c3e567642375bb40|cb6e3a83b
 latlong_file|stem|a4870cd07c273eb8|81b1bdae4f352326|2c530c1562a7fbd1|349425624|data/latlong.csv|t20741.3903114959s|s3292b|3292|file|local|vector|||0.044||
 references|stem|635be17e4a55ad06|ce882e26725b88f4|2c530c1562a7fbd1|-1733728145|doc/references.bib|t20741.3903151474s|s64715b|64715|file|local|vector|||0.044||
 refactors_files|stem|8ae739e557516fa4|db941bbd78558dd0|79ac79f837ce6e9b|349480272|data/refactors_sleep_conditions.csv*data/refactors_ethnicity.csv*data/refactors_ses.csv|t20741.3903114982s|s7429b|7429|file|local|vector|||0.046||
-add_spanners|function|6f32564f852a6ad6
-report_kable|function|03108230a8a4360a
-report_table|function|a74841419e92a500
+add_spanners|function|6f32564f852a6ad6|||||||||||||||
+report_kable|function|03108230a8a4360a|||||||||||||||
+report_table|function|a74841419e92a500|||||||||||||||
 data_clean|stem|cb9eeae5fda104ab|ae5962f892e2c1cb|d184221259c2b435|-1454182835||t20754.8845477618s|s13504513b|13504513|qs|local|vector|||52.11||
 age_centre|stem|a819ae94b1853951|74ec433ff8fc0425|c7369a91cc35f0da|1472501821||t20754.8845607344s|s76b|76|qs|local|vector|||0.002||
 bmi_z_ref|stem|f1aa8640ec707b25|b89c51d4fbbfedd4|a59a1ec808ad06c2|626706155||t20754.8845649137s|s137b|137|qs|local|vector|||0.004||
@@ -707,7 +707,11 @@ purdy_picture_files_by_pa_mostactivehr|stem|2e5a9081c700bb72|3cd5d98be72cd522|b1
 purdy_picture_files_by_age_allwear|stem|0a64862b7ba68c77|431e38d8793800f4|eb76598365c25e99|-109475391|Figures/supplementary/Sleep on scale_pa_volume by Age_allwear.pdf*Figures/supplementary/Sleep on scale_pa_intensity by Age_allwear.pdf*Figures/supplementary/PA on scale_sleep_duration_lag by Age_allwear.pdf*Figures/supplementary/PA on scale_sleep_efficiency_lag by Age_allwear.pdf*Figures/supplementary/PA on scale_sleep_onset_lag by Age_allwear.pdf*Figures/supplementary/PA on scale_sleep_regularity_lag by Age_allwear.pdf*Figures/supplementary/Sleep on scale_pa_volume by Age_allwear.jpg*Figures/supplementary/Sleep on scale_pa_intensity by Age_allwear.jpg*Figures/supplementary/PA on scale_sleep_duration_lag by Age_allwear.jpg*Figures/supplementary/PA on scale_sleep_efficiency_lag by Age_allwear.jpg*Figures/supplementary/PA on scale_sleep_onset_lag by Age_allwear.jpg*Figures/supplementary/PA on scale_sleep_regularity_lag by Age_allwear.jpg|t20776.9882625033s|s11865351b|11865351|file|local|vector|||0||
 purdy_picture_files_by_age_log|stem|661fc0db7cb7ac09|c20097ca1516ffa9|18c744fdc1891c6b|70719535|Figures/supplementary/Sleep on log_pa_volume by Age.pdf*Figures/supplementary/Sleep on scale_pa_intensity by Age.pdf*Figures/supplementary/PA on scale_sleep_duration_lag by Age.pdf*Figures/supplementary/PA on scale_sleep_efficiency_lag by Age.pdf*Figures/supplementary/PA on scale_sleep_onset_lag by Age.pdf*Figures/supplementary/PA on scale_sleep_regularity_lag by Age.pdf*Figures/supplementary/Sleep on log_pa_volume by Age.jpg*Figures/supplementary/Sleep on scale_pa_intensity by Age.jpg*Figures/supplementary/PA on scale_sleep_duration_lag by Age.jpg*Figures/supplementary/PA on scale_sleep_efficiency_lag by Age.jpg*Figures/supplementary/PA on scale_sleep_onset_lag by Age.jpg*Figures/supplementary/PA on scale_sleep_regularity_lag by Age.jpg|t20776.988261313s|s11635082b|11635082|file|local|vector|||0.001||
 study_references_file|stem|b32ef097b4a31049|fe38a918893877b4|2c530c1562a7fbd1|1596867898|data/study_references.csv|t20777.1745159144s|s1061b|1061|file|local|vector|||0.044||
-study_table|stem|39f74f5d703195a4|131567a76a917c5d|3f6838657c4c480e|409041799||t20777.1746675095s|s1728b|1728|qs|local|vector|||0.439||
+multiverse_skeleton|stem|6c8744405dbd367a|e7d6a2fd75623edb|2c530c1562a7fbd1|2006999931|doc/multiverse_skeleton.qmd|t20777.1868502076s|s27028b|27028|file|local|vector|||0.045||
+multiverse_chunk|stem|b2fff524b124aad2|998df74de37e2826|2c530c1562a7fbd1|373604427|doc/results_chunk.md|t20777.1868503069s|s4686b|4686|file|local|vector|||0.044||
+multiverse_file|stem|d83538b3f823faf4|9ab7dcf77c84e8c5|492955d5e71af90e|-491881983|doc/multiverse.qmd|t20777.1872317111s|s69092b|69092|file|local|vector|||0.081||
+multiverse|stem|8abc776e8beb41de|6b850f91a24a46cc|6b8ecb35ed1e24ec|1861161009|doc/multiverse.pdf*doc/multiverse.qmd*_quarto.yml*doc/filters*doc/references.bib*doc/the-lancet.csl*doc/typst-tables.typ|t20777.1873933956s|s8598656b|8598656|file|local|vector|||12.19||
+study_table|stem|39f74f5d703195a4|131567a76a917c5d|c2683007a9b54310|409041799||t20777.1924908675s|s1728b|1728|qs|local|vector|||0.406||
 age_term|function|52738ae71afb4689
 analysed_rows|function|97025d0b8401024f
 cap_blas_threads|function|a89f16692db781b2
@@ -770,7 +774,7 @@ null_bad_accel_files|function|9e9bd5a3bcceb5b9
 remove_implausible_growth|function|e8f1cfdb6cf889a2
 make_data_holdout|function|9a8494268f7a5f9b
 compute_age_centre|function|5ad4cee0cc84e61f
-make_study_table|function|22b4152086711bd4
+make_study_table|function|ee196ad9098d0d45
 read_refactors|function|5ab198c189081cca
 remove_outliers|function|3317f7e5447c8efe
 apply_plausibility_bounds|function|4c65cb42433a503b
@@ -800,8 +804,4 @@ make_model_tables|function|5e922400bdeae2cc
 model_builder|function|f808eb94b2443659
 fit_model_spec|function|21b63798149fbedf
 make_model_list|function|7613780402f8ac5b
-multiverse_skeleton|stem|6c8744405dbd367a|e7d6a2fd75623edb|2c530c1562a7fbd1|2006999931|doc/multiverse_skeleton.qmd|t20777.1868502076s|s27028b|27028|file|local|vector|||0.045||
-multiverse_chunk|stem|b2fff524b124aad2|998df74de37e2826|2c530c1562a7fbd1|373604427|doc/results_chunk.md|t20777.1868503069s|s4686b|4686|file|local|vector|||0.044||
-multiverse_file|stem|d83538b3f823faf4|9ab7dcf77c84e8c5|492955d5e71af90e|-491881983|doc/multiverse.qmd|t20777.1872317111s|s69092b|69092|file|local|vector|||0.081||
-multiverse|stem|8abc776e8beb41de|6b850f91a24a46cc|6b8ecb35ed1e24ec|1861161009|doc/multiverse.pdf*doc/multiverse.qmd*_quarto.yml*doc/filters*doc/references.bib*doc/the-lancet.csl*doc/typst-tables.typ|t20777.1873933956s|s8598656b|8598656|file|local|vector|||12.19||
-manuscript|stem|020673255c13380b|664aba0f621eca64|3cc7e12af8852ee7|-1793997187|doc/manuscript.docx*doc/manuscript.md*doc/manuscript.pdf*doc/_titlepage.qmd*doc/manuscript.qmd*_extensions*_quarto.yml*doc/filters*doc/reference.docx*doc/references.bib*doc/the-lancet.csl*doc/typst-tables.typ|t20777.1874108008s|s6172870b|6172870|file|local|vector|||13.996||
+manuscript|stem|ceea438c80ec4ccc|664aba0f621eca64|3cc7e12af8852ee7|-1793997187|doc/manuscript.docx*doc/manuscript.md*doc/manuscript.pdf*doc/_titlepage.qmd*doc/manuscript.qmd*_extensions*_quarto.yml*doc/filters*doc/reference.docx*doc/references.bib*doc/the-lancet.csl*doc/typst-tables.typ|t20777.2215226647s|s6172671b|6172671|file|local|vector|||14.598||

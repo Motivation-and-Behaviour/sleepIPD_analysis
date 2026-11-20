@@ -65,8 +65,8 @@ The protocol was pre-registered (https://osf.io/ahd96).
 
 **Findings** In `{r} ms_info$n_pts_analytic` participants aged `{r} ms_info$age_range` years from `{r} ms_info$n_studies` studies, participants slept longer and fell asleep earlier on days when they were more active than usual.
 A 1 SD higher volume than usual was associated with `{r} sl("sleep_duration_by_pa_volume", 11, "raw")` longer sleep (standardised β [95% CI] `{r} sl("sleep_duration_by_pa_volume", 11)`) and `{r} sl("sleep_onset_by_pa_volume", 11, "raw")` earlier sleep onset at age 11 years, and with `{r} sl("sleep_duration_by_pa_volume", 65, "raw")` and `{r} sl("sleep_onset_by_pa_volume", 65, "raw")`, respectively, at age 65 years.
-A night's sleep was barely associated with next-day activity (all |β| < 0.03).
-Habitually more active participants had more regular sleep, but the day-level association with sleep regularity reflected how the regularity index was measured.
+Sleep was not meaningfully associated with next-day activity (all |β| < 0.03).
+Habitually more active participants had more regular sleep.
 
 **Interpretation** At every age, people slept slightly longer and earlier after more active days.
 Physical activity could be promoted to support sleep in children and adolescents as well as adults, as a small, consistent benefit rather than a remedy for poor sleep.
@@ -101,7 +101,7 @@ Habitually more active people had more regular sleep.
 ## Implications of all the available evidence
 
 Trials show that physical activity improves sleep in adults, and our findings show that people of all ages, including children and adolescents, sleep slightly longer and earlier after more active days.
-Public health messages could present physical activity as a small, consistent support for sleep at every age, rather than as a remedy for poor sleep or proomoter of good sleep.
+Public health messages could present physical activity as a small, consistent support for sleep at every age, rather than as a remedy for poor sleep or promoter of good sleep.
 That the day-level associations varied little with age suggests that the weaker evidence in children and adolescents may reflect study design or measurement rather than age.
 Trials should test whether increasing physical activity lengthens sleep in children and adolescents, and studies of sleep regularity should use measures that separate sleep from daytime rest.
 :::
@@ -142,7 +142,7 @@ We then used forward searching on potentially eligible studies.
 We also searched for accelerometry consortiums, searched trial registries (ANZCTR, WHO ICTRP, and ISRCTN) and the Open Science Framework for unpublished results, and asked collaborators to identify additional studies.
 
 To keep data acquisition manageable, we invited only studies with more than 400 participants, emailing chief investigators or consortium leads to request deidentified individual data.
-All studies included in the pooled data meta-analysis had to have been approved by their local or institutional ethical committees, and all participants (or, for children, their parents or guardians) had to have provided written informed consent, with children providing assent where required.
+All studies included in the pooled analysis had to have been approved by their local or institutional ethical committees, and all participants (or, for children, their parents or guardians) had to have provided written informed consent, with children providing assent where required.
 The Australian Catholic University's Research Ethics Committee granted permission for each study's data to be obtained (approval: 2020-143N), and investigators transferred their deidentified data via a secure file-sharing system subject to original institutional ethics approvals or new data transfer agreements.
 
 ## Data harmonisation and outcomes 
@@ -207,7 +207,7 @@ While testing with the development subsample we made three changes to the protoc
 We modelled study as a random rather than a fixed effect, so that estimates would generalise beyond the included studies.
 Sensitivity analyses of fixed-effect models gave qualitatively similar results (Appendix C1).
 We analysed each sleep metric separately, because no validated composite sleep indicator could be estimated from our data.
-We did not log-transform skewed variables, because back-transformed predictions followed extreme and implausibleexponential patterns near the edges of the data range.
+We did not log-transform skewed variables, because back-transformed predictions followed extreme and implausible exponential patterns near the edges of the data range.
 Log-scale models are reported in Appendix C2.
 Additionally, after running the full analysis we identified a mistake in the BMI variable and in the imputation model, which we corrected and reran the analysis.
 After data contributor review of the initial results, we separated within- and between-person associations, which the protocol did not specify, and realigned the sleep regularity index in RQ3 models.
@@ -215,7 +215,7 @@ The pre-registered models, which combine within- and between-person associations
 
 ## Role of the funding source
 
-None.
+There was no funding source for this study.
 
 # Results
 

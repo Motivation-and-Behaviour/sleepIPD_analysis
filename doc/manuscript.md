@@ -118,7 +118,7 @@ North Sydney, Australia
 Correspondence to: Taren Sanders, 33 Berry St, North Sydney, NSW,
 Australia; Taren.Sanders@acu.edu.au, +61 2 9701 4704
 
-Main text: 3472 words
+Main text: 3479 words
 
 </div>
 
@@ -148,11 +148,9 @@ participants slept longer and fell asleep earlier on days when they were
 more active than usual. A 1 SD higher volume than usual was associated
 with 9.6 min longer sleep (standardised β \[95% CI\] 0.11 \[0.10,
 0.12\]) and 12 min earlier sleep onset at age 11 years, and with 8.6 min
-and 20 min, respectively, at age 65 years. A night’s sleep was barely
+and 20 min, respectively, at age 65 years. Sleep was not meaningfully
 associated with next-day activity (all \|β\| \< 0.03). Habitually more
-active participants had more regular sleep, but the day-level
-association with sleep regularity reflected how the regularity index was
-measured.
+active participants had more regular sleep.
 
 **Interpretation** At every age, people slept slightly longer and
 earlier after more active days. Physical activity could be promoted to
@@ -212,7 +210,7 @@ findings show that people of all ages, including children and
 adolescents, sleep slightly longer and earlier after more active days.
 Public health messages could present physical activity as a small,
 consistent support for sleep at every age, rather than as a remedy for
-poor sleep or proomoter of good sleep. That the day-level associations
+poor sleep or promoter of good sleep. That the day-level associations
 varied little with age suggests that the weaker evidence in children and
 adolescents may reflect study design or measurement rather than age.
 Trials should test whether increasing physical activity lengthens sleep
@@ -294,7 +292,7 @@ identify additional studies.
 To keep data acquisition manageable, we invited only studies with more
 than 400 participants, emailing chief investigators or consortium leads
 to request deidentified individual data. All studies included in the
-pooled data meta-analysis had to have been approved by their local or
+pooled analysis had to have been approved by their local or
 institutional ethical committees, and all participants (or, for
 children, their parents or guardians) had to have provided written
 informed consent, with children providing assent where required. The
@@ -444,20 +442,20 @@ studies. Sensitivity analyses of fixed-effect models gave qualitatively
 similar results (Appendix C1). We analysed each sleep metric separately,
 because no validated composite sleep indicator could be estimated from
 our data. We did not log-transform skewed variables, because
-back-transformed predictions followed extreme and implausibleexponential
-patterns near the edges of the data range. Log-scale models are reported
-in Appendix C2. Additionally, after running the full analysis we
-identified a mistake in the BMI variable and in the imputation model,
-which we corrected and reran the analysis. After data contributor review
-of the initial results, we separated within- and between-person
-associations, which the protocol did not specify, and realigned the
-sleep regularity index in RQ3 models. The pre-registered models, which
-combine within- and between-person associations, are reported in
-Appendix C5.
+back-transformed predictions followed extreme and implausible
+exponential patterns near the edges of the data range. Log-scale models
+are reported in Appendix C2. Additionally, after running the full
+analysis we identified a mistake in the BMI variable and in the
+imputation model, which we corrected and reran the analysis. After data
+contributor review of the initial results, we separated within- and
+between-person associations, which the protocol did not specify, and
+realigned the sleep regularity index in RQ3 models. The pre-registered
+models, which combine within- and between-person associations, are
+reported in Appendix C5.
 
 ## Role of the funding source
 
-None.
+There was no funding source for this study.
 
 # Results
 
