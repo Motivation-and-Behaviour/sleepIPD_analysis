@@ -237,6 +237,12 @@ list(
   tar_quarto(
     multiverse,
     "doc/multiverse.qmd",
-    extra_files = c("_quarto.yml", "doc/typst-tables.typ")
+    extra_files = c(
+      "_quarto.yml",
+      "doc/references.bib",
+      "doc/the-lancet.csl",
+      "doc/typst-tables.typ",
+      "doc/filters"
+    )
   )
 )

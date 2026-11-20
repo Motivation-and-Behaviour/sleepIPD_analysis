@@ -158,7 +158,7 @@ For wrist-worn devices, the sleep period was detected with the HDCZA algorithm [
 For sleep, *GGIR* produced total sleep time (minutes), sleep efficiency (percentage of the sleep period, from sleep onset to final waking, spent asleep), sleep onset (clock time), and sleep regularity (the sleep regularity index: the likelihood of being in the same sleep or wake state at time points 24 hours apart, with higher values indicating more regular sleep).
 *GGIR* calculates the index by comparing each calendar day with the next and, in the version we used, counts any sustained inactivity as sleep, including daytime rest [@czeislerComparisonSleepRegularity2026].
 For physical activity, we used two metrics proposed by Rowlands and colleagues [@rowlandsMovingForwardAccelerometerAssessed2018]: average acceleration (mg)—a measure of volume—and the intensity gradient (unitless), the slope of log time against log intensity, which describes how time is distributed across intensities, with less negative values indicating relatively more time at higher intensities.
-We chose these metrics because cut-points for moderate-to-vigorous physical activity (MVPA) depend on age, device, and wear location; those applied to our data differed more than two-fold across groups (appendix), so minutes of MVPA are not directly comparable across studies.
+We chose these metrics because cut-points for moderate-to-vigorous physical activity (MVPA) depend on age, device, and wear location; those applied to our data differed more than two-fold across groups (Appendix A2), so minutes of MVPA are not directly comparable across studies.
 Average acceleration and the intensity gradient need no cut-points, capture light as well as vigorous activity, and separate how much activity was done from how it was distributed across intensities.
 To aid interpretation, we also analysed daily minutes of MVPA, from *GGIR*'s age-, device-, and location-specific cut-points [@sandersSleepIPDOpinionatedAccelerometer2023], as a secondary exposure.
 
@@ -167,7 +167,7 @@ To aid interpretation, we also analysed daily minutes of MVPA, from *GGIR*'s age
 The following individual participant data were obtained when available: age, sex, height, weight, waist circumference, maturational status, socioeconomic status (SES), ethnicity, screen time, sleep medications, and medically diagnosed conditions known to affect sleep.
 Sex was ascertained from the original studies, which primarily used self- or parent-report for sex assigned at birth.
 The country, city, time zone, daylight length, and season in which data were collected were also obtained from the original studies.
-Because studies measured socioeconomic status differently (e.g., education or income), we harmonised each study's measure into low, medium, and high categories (see appendix).
+Because studies measured socioeconomic status differently (e.g., education or income), we harmonised each study's measure into low, medium, and high categories (Appendix B1).
 
 Body mass index (BMI) was converted to an age- and sex-standardised z-score.
 For participants under 18 years we used the CDC 2000 BMI-for-age growth reference, applied with the *childsds* package.
@@ -176,11 +176,11 @@ For adults we standardised BMI against the adults in this sample.
 ## Statistical analysis
 
 To reduce the risk of bias, we used a blind analysis approach: we developed and tested models on a 10% development subsample of the participants; we conducted the final analysis once we determined the code was ready.
-Data screening removed values outside fixed physiological limits (for average acceleration, above `{r} ms_info$pa_volume_limit` mg), all physical activity data from files indicating device failure (`{r} ms_info$n_accel_flagged` participants), values more than 4 SD from their own study's mean, and biologically implausible growth values in participants under 18 years (see appendix).
+Data screening removed values outside fixed physiological limits (for average acceleration, above `{r} ms_info$pa_volume_limit` mg), all physical activity data from files indicating device failure (`{r} ms_info$n_accel_flagged` participants), values more than 4 SD from their own study's mean, and biologically implausible growth values in participants under 18 years (Appendix A1).
 
 A day was valid if it recorded more than 10 hours of wear time and, where sleep was detected, a sleep period longer than 200 minutes.
 Participants required at least `{r} ms_info$min_wear_days` valid days.
-A sensitivity analysis restricted the sample to the `{r} ms_info$n_pts_7days` participants with at least seven valid days.
+A sensitivity analysis restricted the sample to the `{r} ms_info$n_pts_7days` participants with at least seven valid days (Appendix C4).
 
 We assumed missing covariate and moderator data to be missing at random or completely at random and imputed them using multilevel predictive mean matching, clustered by participant, with multiple imputation by chained equations in the *mice* package, creating `{r} ms_info$n_imps` imputed datasets.
 The imputation model also included the sleep and physical activity variables, but each analysis used only the person-days on which its outcome, its sleep or physical activity predictor, and its moderator were observed, so imputed values are only covariates.
@@ -197,21 +197,21 @@ For interpretability, we report associations at ages 11, 18, 35, and 65 years.
 Models predicting physical activity from the preceding night's sleep (RQ3) used each sleep indicator from the previous day, so person-days whose preceding day was absent or ineligible did not contribute, leaving `{r} ms_info$n_obs_lagged` of `{r} ms_info$n_obs_eligible` eligible person-days.
 Because the previous day's sleep regularity index also spans the day being predicted, we instead used the index for the two preceding calendar days.
 Sleep regularity was missing most often, so its models with physical activity volume used `{r} ms_info$n_obs_model$sleep_regularity_by_pa_volume` person-days (RQ1) and `{r} ms_info$n_obs_model$pa_volume_by_sleep_regularity` (RQ3).
-We also ran a cross-lagged sensitivity analysis, adjusting each model for the outcome's previous-day value, and tested whether next-day activity, which cannot affect the night's sleep, predicted each sleep outcome (i.e., negative control; see appendix).
+We also ran a cross-lagged sensitivity analysis (Appendix C6), adjusting each model for the outcome's previous-day value, and tested whether next-day activity, which cannot affect the night's sleep, predicted each sleep outcome (i.e., negative control; Appendix C8).
 
 ## Protocol deviations
 
 This paper addresses the first three hypotheses in our registered protocol: i) that physical activity volume and intensity would be positively associated with optimum sleep duration and quality, with an inverted U-shaped dose-response, ii) that associations would be stronger in adolescents and adults than in children and older adults, and iii) that the relationship between sleep and physical activity would be bidirectional.
-Moderation by the other pre-registered moderators is reported in the appendix, and the remaining hypotheses will be addressed in future research.
+Moderation by the other pre-registered moderators is reported in Appendix D, and the remaining hypotheses will be addressed in future research.
 While testing with the development subsample we made three changes to the protocol.
 We modelled study as a random rather than a fixed effect, so that estimates would generalise beyond the included studies.
-Sensitivity analyses of fixed-effect models gave qualitatively similar results.
+Sensitivity analyses of fixed-effect models gave qualitatively similar results (Appendix C1).
 We analysed each sleep metric separately, because no validated composite sleep indicator could be estimated from our data.
 We did not log-transform skewed variables, because back-transformed predictions followed extreme and implausibleexponential patterns near the edges of the data range.
-Log-scale models are reported in the appendix.
+Log-scale models are reported in Appendix C2.
 Additionally, after running the full analysis we identified a mistake in the BMI variable and in the imputation model, which we corrected and reran the analysis.
 After data contributor review of the initial results, we separated within- and between-person associations, which the protocol did not specify, and realigned the sleep regularity index in RQ3 models.
-The pre-registered models, which combine within- and between-person associations, are reported in the appendix.
+The pre-registered models, which combine within- and between-person associations, are reported in Appendix C5.
 
 ## Role of the funding source
 
@@ -220,7 +220,7 @@ None.
 # Results
 
 The pooled dataset contained `{r} ms_info$n_obs` days of physical activity and sleep data from `{r} ms_info$n_pts` participants in `{r} ms_info$n_studies` studies.
-We excluded `{r} ms_info$n_obs_excluded` days with insufficient wear time, which removed `{r} ms_info$n_pts_excluded` participants entirely, and a further `{r} ms_info$n_pts_excluded_wear` participants (`{r} ms_info$n_obs_excluded_wear` days) with fewer than `{r} ms_info$min_wear_days` valid days, leaving `{r} ms_info$n_pts_analytic` participants and `{r} ms_info$n_obs_analytic` person-days (@tbl-demo-participants; study characteristics are in the appendix).
+We excluded `{r} ms_info$n_obs_excluded` days with insufficient wear time, which removed `{r} ms_info$n_pts_excluded` participants entirely, and a further `{r} ms_info$n_pts_excluded_wear` participants (`{r} ms_info$n_obs_excluded_wear` days) with fewer than `{r} ms_info$min_wear_days` valid days, leaving `{r} ms_info$n_pts_analytic` participants and `{r} ms_info$n_obs_analytic` person-days (@tbl-demo-participants; study characteristics are in Appendix B1).
 Participants were aged `{r} ms_info$age_range` years and `{r} ms_info$p_female` were female.
 Most came from Europe and South America, followed by Oceania, and the sample skewed towards younger children (2-11 years, `{r} ms_info$p_young`) and older adults (66+ years, `{r} ms_info$p_old`).
 
@@ -249,11 +249,11 @@ tinytable::tt(
 On days when participants were more active than usual, they slept longer and fell asleep earlier that night (@tbl-sleep-outcomes; @fig-sleep-by-volume).
 These within-person associations changed little with age for sleep duration ($\beta$ = `{r} sl("sleep_duration_by_pa_volume", 11)` at age 11 and `{r} sl("sleep_duration_by_pa_volume", 65)` at age 65) and strengthened with age for sleep onset ($\beta$ = `{r} sl("sleep_onset_by_pa_volume", 11)` and `{r} sl("sleep_onset_by_pa_volume", 65)`).
 Within-person associations with sleep efficiency were small, positive at age 11 ($\beta$ = `{r} sl("sleep_efficiency_by_pa_volume", 11)`) and negative at age 65 ($\beta$ = `{r} sl("sleep_efficiency_by_pa_volume", 65)`).
-Between people, habitually more active participants slept longer at age 11 ($\beta$ = `{r} slb("sleep_duration_by_pa_volume", 11)`) but slightly less at age 65 ($\beta$ = `{r} slb("sleep_duration_by_pa_volume", 65)`), so the weakening with age of the association with sleep duration in the pre-registered models (appendix) reflected differences between people.
+Between people, habitually more active participants slept longer at age 11 ($\beta$ = `{r} slb("sleep_duration_by_pa_volume", 11)`) but slightly less at age 65 ($\beta$ = `{r} slb("sleep_duration_by_pa_volume", 65)`), so the weakening with age of the association with sleep duration in the pre-registered models (Appendix C5) reflected differences between people.
 Curvilinear terms were statistically significant but did not meaningfully change these associations.
 
 Activity volume was also associated with sleep regularity, within ($\beta$ = `{r} sl("sleep_regularity_by_pa_volume", 11)` at age 11 and `{r} sl("sleep_regularity_by_pa_volume", 65)` at age 65) and between people ($\beta$ = `{r} slb("sleep_regularity_by_pa_volume", 11)` and `{r} slb("sleep_regularity_by_pa_volume", 65)`).
-However, in the negative control, next-day activity was associated with the night's sleep regularity index at least as strongly as same-day activity ($\beta$ = `{r} nc("regularity", "wp_lead")` *vs* `{r} nc("regularity", "wp")`), whereas next-day associations with sleep duration (`{r} nc("duration", "wp_lead")` *vs* `{r} nc("duration", "wp")`) and onset (`{r} nc("onset", "wp_lead")` *vs* `{r} nc("onset", "wp")`) were much smaller (appendix).
+However, in the negative control, next-day activity was associated with the night's sleep regularity index at least as strongly as same-day activity ($\beta$ = `{r} nc("regularity", "wp_lead")` *vs* `{r} nc("regularity", "wp")`), whereas next-day associations with sleep duration (`{r} nc("duration", "wp_lead")` *vs* `{r} nc("duration", "wp")`) and onset (`{r} nc("onset", "wp_lead")` *vs* `{r} nc("onset", "wp")`) were much smaller (Appendix C8).
 Days of unusually low and unusually high activity were both associated with lower regularity (@fig-sleep-by-volume), so the within-person association with the index cannot be attributed to sleep.
 
 ::: {.landscape}
@@ -281,9 +281,9 @@ knitr::include_graphics(
 
 Within-person associations of physical activity intensity followed the same pattern, with longer sleep ($\beta$ = `{r} sl("sleep_duration_by_pa_intensity", 11)` at age 11 and `{r} sl("sleep_duration_by_pa_intensity", 65)` at age 65) and earlier sleep onset ($\beta$ = `{r} sl("sleep_onset_by_pa_intensity", 11)` and `{r} sl("sleep_onset_by_pa_intensity", 65)`; @fig-sleep-by-intensity).
 
-Minutes of MVPA showed a different pattern for sleep timing (appendix).
+Minutes of MVPA showed a different pattern for sleep timing (Appendix C7).
 Thirty minutes more MVPA than usual was associated with sleep onset `{r} slm("sleep_onset_by_pa_mvpa", 11, "raw")` later at age 11 ($\beta$ = `{r} slm("sleep_onset_by_pa_mvpa", 11)`) and `{r} slm("sleep_onset_by_pa_mvpa", 65, "raw")` later at age 65 ($\beta$ = `{r} slm("sleep_onset_by_pa_mvpa", 65)`), and with sleep `{r} slm("sleep_duration_by_pa_mvpa", 11, "raw")` longer at age 11 but `{r} slm("sleep_duration_by_pa_mvpa", 65, "raw")` shorter at age 65.
-Adjusting for the previous day's outcome in cross-lagged models changed the within-person estimates little (appendix).
+Adjusting for the previous day's outcome in cross-lagged models changed the within-person estimates little (Appendix C6).
 
 ```{r}
 #| label: fig-sleep-by-intensity
@@ -301,7 +301,7 @@ Within-person associations of a night's sleep with next-day physical activity vo
 The largest was for sleep duration and next-day volume at age 11 ($\beta$ = `{r} sl("pa_volume_by_sleep_duration", 11)`).
 Sleep regularity over the two preceding days was not associated with next-day volume ($\beta$ = `{r} sl("pa_volume_by_sleep_regularity", 11)` at age 11 and `{r} sl("pa_volume_by_sleep_regularity", 65)` at age 65).
 Between people, those with habitually more regular sleep were more active ($\beta$ = `{r} slb("pa_volume_by_sleep_regularity", 11)` at age 11 and `{r} slb("pa_volume_by_sleep_regularity", 65)` at age 65).
-For MVPA, a 1 SD earlier sleep onset than usual was followed by `{r} slm("pa_mvpa_by_sleep_onset", 11, "raw")` more MVPA the next day at age 11 and `{r} slm("pa_mvpa_by_sleep_onset", 65, "raw")` more at age 65, and 1 SD longer sleep by `{r} slm("pa_mvpa_by_sleep_duration", 11, "raw")` and `{r} slm("pa_mvpa_by_sleep_duration", 65, "raw")` less, respectively (appendix).
+For MVPA, a 1 SD earlier sleep onset than usual was followed by `{r} slm("pa_mvpa_by_sleep_onset", 11, "raw")` more MVPA the next day at age 11 and `{r} slm("pa_mvpa_by_sleep_onset", 65, "raw")` more at age 65, and 1 SD longer sleep by `{r} slm("pa_mvpa_by_sleep_duration", 11, "raw")` and `{r} slm("pa_mvpa_by_sleep_duration", 65, "raw")` less, respectively (Appendix C7).
 
 ::: {.landscape}
 ```{r}

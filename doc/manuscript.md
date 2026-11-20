@@ -7,8 +7,25 @@ Taren Sanders PhD<sup>1</sup>, Timothy Hartwig PhD<sup>2</sup>, James H.
 Conigrave PhD<sup>3</sup>, Borja del Pozo Cruz PhD<sup>4</sup>, Philip
 Parker PhD<sup>5</sup>, Michael Noetel PhD<sup>6</sup>, Devan Antczak
 PhD<sup>7</sup>, Stuart J. Fairclough PhD<sup>8</sup>, Shona L. Halson
-PhD<sup>2</sup>, ***DATASET PROVIDERS TBD***<sup>9</sup>, Chris Lonsdale
-PhD<sup>10</sup>
+PhD<sup>2</sup>, Rosa M. Alfonso-Rosa PhD<sup>9</sup>, Manuel
+Ávila-García PhD<sup>10</sup>, Verónica Cabanas-Sánchez
+PhD<sup>11,12,13</sup>, Iván Cavero-Redondo PhD<sup>14,15</sup>, Sophie
+Christensen PhD<sup>16</sup>, Philip J. Cooper PhD<sup>17,18</sup>,
+Rachel Curtis PhD<sup>19</sup>, Bruno da Costa PhD<sup>20</sup>, Camilla
+T. Damsgaard PhD<sup>21</sup>, Jesus del Pozo-Cruz PhD<sup>22</sup>, Jan
+Dygrýn PhD<sup>23</sup>, Charlotte L. Edwardson PhD<sup>24,25,26</sup>,
+Aleš Gába PhD<sup>23</sup>, Peter Katzmarzyk PhD<sup>27</sup>, Angus
+Leahy PhD<sup>28,29</sup>, David R. Lubans PhD<sup>28,29</sup>, Carol
+Maher PhD<sup>19</sup>, Pedro Marques-Vidal PhD<sup>30</sup>, David
+Martinez-Gomez PhD<sup>11,12,13</sup>, Kim Meredith-Jones
+PhD<sup>31</sup>, Emily F. Mire PhD<sup>27</sup>, Manasa Shanta Näsholm
+PhD<sup>32</sup>, Angélica Ochoa-Avilés PhD<sup>33</sup>, Deborah
+Parra-Medina PhD<sup>34</sup>, Alex Rowlands PhD<sup>19,24,25,26</sup>,
+Séverine Sabia PhD<sup>35</sup>, Kelly Samara Silva PhD<sup>36</sup>,
+Sari Stenholm PhD<sup>37,38,39</sup>, Kristin Suorsa
+PhD<sup>37,38</sup>, Emilio Villa-González PhD<sup>40</sup>, Andrea
+Wendt PhD<sup>41</sup>, Zenong Yin PhD<sup>42</sup>, Chris Lonsdale
+PhD<sup>43</sup>
 
 <sup>1</sup>Institute for Positive Psychology and Education, Australian
 Catholic University, North Sydney, Australia\
@@ -26,14 +43,82 @@ Brisbane, Australia\
 Australia\
 <sup>8</sup>Department of Sport and Physical Activity, Edge Hill
 University, Ormskirk, United Kingdom\
-<sup>9</sup>***TBD***\
-<sup>10</sup>Office of the Provost, Australian Catholic University,
+<sup>9</sup>Departamento de Motricidad Humana y Rendimiento Deportivo,
+Universidad de Sevilla, Seville, Spain\
+<sup>10</sup>Inmaculada Teacher Training Centre, University of Granada,
+Granada, Spain\
+<sup>11</sup>Department of Preventive Medicine and Public Health, School
+of Medicine, Universidad Autónoma de Madrid, Madrid, Spain\
+<sup>12</sup>CIBER of Epidemiology and Public Health, Madrid, Spain\
+<sup>13</sup>IMDEA-Nutrition Institute, CEI UAM+CSIC, Madrid, Spain\
+<sup>14</sup>CarVasCare Research Group, Instituto de Biomedicina y
+Facultad de Enfermería de Cuenca, Universidad de Castilla-La Mancha,
+Cuenca, Spain\
+<sup>15</sup>Instituto de Investigación Sanitaria de Castilla-La Mancha
+(IDISCAM), Toledo, Spain\
+<sup>16</sup>Department of Infectious Diseases, Copenhagen University
+Hospital – Rigshospitalet, Copenhagen, Denmark\
+<sup>17</sup>School of Health and Medical Sciences, City St George’s,
+University of London, London, UK\
+<sup>18</sup>Escuela de Medicina, Universidad Internacional del Ecuador,
+Quito, Ecuador\
+<sup>19</sup>Alliance for Research in Exercise, Nutrition and Activity,
+School of Allied Health and Human Performance, Adelaide University,
+Adelaide, SA, Australia\
+<sup>20</sup>Department of Kinesiology and Physical Education, McGill
+University, Montreal, Canada\
+<sup>21</sup>Department of Nutrition, Exercise and Sports, Faculty of
+Science, University of Copenhagen, Frederiksberg, Denmark\
+<sup>22</sup>Departamento de Educación Física y Deporte, Universidad de
+Sevilla, Seville, Spain\
+<sup>23</sup>Palacký University Olomouc, Olomouc, Czechia\
+<sup>24</sup>Diabetes Research Centre, University of Leicester,
+Leicester, UK\
+<sup>25</sup>Leicester Diabetes Centre, University Hospitals of
+Leicester NHS Trust, Leicester, UK\
+<sup>26</sup>National Institute for Health and Care Research (NIHR)
+Leicester Biomedical Research Centre, University Hospitals of Leicester
+NHS Trust and the University of Leicester, Leicester, UK\
+<sup>27</sup>Pennington Biomedical Research Center, Louisiana State
+University, Baton Rouge, LA, USA\
+<sup>28</sup>Global Sport and Movement Collaborative, College of Human
+and Social Futures, University of Newcastle, Callaghan, New South Wales,
+Australia\
+<sup>29</sup>Hunter Medical Research Institute, New Lambton Heights, New
+South Wales, Australia\
+<sup>30</sup>Department of Medicine, Internal Medicine, Lausanne
+University Hospital (CHUV) and University of Lausanne, Lausanne,
+Switzerland\
+<sup>31</sup>Department of Medicine, University of Otago, Dunedin, New
+Zealand\
+<sup>32</sup>Karolinska Institutet, Stockholm, Sweden\
+<sup>33</sup>Departamento de Biociencias, Universidad de Cuenca, Cuenca,
+Ecuador\
+<sup>34</sup>Center to Advance Community Health, University of Colorado
+Anschutz Medical Campus, Aurora, Colorado, USA\
+<sup>35</sup>Université Paris Cité, Inserm U1153, Epidemiology of Ageing
+and Neurodegenerative diseases (EpiAgeing), Paris, France\
+<sup>36</sup>Federal University of Santa Catarina, Florianopolis,
+Brazil\
+<sup>37</sup>Department of Public Health, University of Turku and Turku
+University Hospital, Turku, Finland\
+<sup>38</sup>Centre for Population Health Research, University of Turku
+and Turku University Hospital, Turku, Finland\
+<sup>39</sup>Research Services, Turku University Hospital and University
+of Turku, Turku, Finland\
+<sup>40</sup>Sport and Health University Research Institute (iMUDS),
+University of Granada, Granada, Spain\
+<sup>41</sup>Pontifícia Universidade Católica do Paraná, Curitiba,
+Brazil\
+<sup>42</sup>University of Texas at San Antonio, San Antonio, Texas,
+USA\
+<sup>43</sup>Office of the Provost, Australian Catholic University,
 North Sydney, Australia
 
 Correspondence to: Taren Sanders, 33 Berry St, North Sydney, NSW,
 Australia; Taren.Sanders@acu.edu.au, +61 2 9701 4704
 
-Main text: 3460 words
+Main text: 3472 words
 
 </div>
 
@@ -255,13 +340,13 @@ intensities, with less negative values indicating relatively more time
 at higher intensities. We chose these metrics because cut-points for
 moderate-to-vigorous physical activity (MVPA) depend on age, device, and
 wear location; those applied to our data differed more than two-fold
-across groups (appendix), so minutes of MVPA are not directly comparable
-across studies. Average acceleration and the intensity gradient need no
-cut-points, capture light as well as vigorous activity, and separate how
-much activity was done from how it was distributed across intensities.
-To aid interpretation, we also analysed daily minutes of MVPA, from
-*GGIR*’s age-, device-, and location-specific cut-points,<sup>21</sup>
-as a secondary exposure.
+across groups (Appendix A2), so minutes of MVPA are not directly
+comparable across studies. Average acceleration and the intensity
+gradient need no cut-points, capture light as well as vigorous activity,
+and separate how much activity was done from how it was distributed
+across intensities. To aid interpretation, we also analysed daily
+minutes of MVPA, from *GGIR*’s age-, device-, and location-specific
+cut-points,<sup>21</sup> as a secondary exposure.
 
 ## Covariates and moderators
 
@@ -275,7 +360,7 @@ daylight length, and season in which data were collected were also
 obtained from the original studies. Because studies measured
 socioeconomic status differently (e.g., education or income), we
 harmonised each study’s measure into low, medium, and high categories
-(see appendix).
+(Appendix B1).
 
 Body mass index (BMI) was converted to an age- and sex-standardised
 z-score. For participants under 18 years we used the CDC 2000
@@ -292,13 +377,13 @@ physiological limits (for average acceleration, above 200 mg), all
 physical activity data from files indicating device failure (76
 participants), values more than 4 SD from their own study’s mean, and
 biologically implausible growth values in participants under 18 years
-(see appendix).
+(Appendix A1).
 
 A day was valid if it recorded more than 10 hours of wear time and,
 where sleep was detected, a sleep period longer than 200 minutes.
 Participants required at least 4 valid days. A sensitivity analysis
 restricted the sample to the 14,981 participants with at least seven
-valid days.
+valid days (Appendix C4).
 
 We assumed missing covariate and moderator data to be missing at random
 or completely at random and imputed them using multilevel predictive
@@ -313,7 +398,7 @@ values on the Barnard-Rubin degrees of freedom, and used p\<0.05 to
 assess statistical significance. We fitted 16 models for each moderator
 and report all of them without adjustment for multiple comparisons, so p
 values close to 0.05 should be interpreted with caution. We used R
-(version 4.6.1) for all data cleaning and analysis.
+(version 4.6.2) for all data cleaning and analysis.
 
 To examine the relationship between sleep and physical activity we ran
 mixed-effects models with random intercepts for study and participant,
@@ -337,10 +422,10 @@ previous day’s sleep regularity index also spans the day being
 predicted, we instead used the index for the two preceding calendar
 days. Sleep regularity was missing most often, so its models with
 physical activity volume used 125,155 person-days (RQ1) and 86,677
-(RQ3). We also ran a cross-lagged sensitivity analysis, adjusting each
-model for the outcome’s previous-day value, and tested whether next-day
-activity, which cannot affect the night’s sleep, predicted each sleep
-outcome (i.e., negative control; see appendix).
+(RQ3). We also ran a cross-lagged sensitivity analysis (Appendix C6),
+adjusting each model for the outcome’s previous-day value, and tested
+whether next-day activity, which cannot affect the night’s sleep,
+predicted each sleep outcome (i.e., negative control; Appendix C8).
 
 ## Protocol deviations
 
@@ -351,23 +436,24 @@ inverted U-shaped dose-response, ii) that associations would be stronger
 in adolescents and adults than in children and older adults, and iii)
 that the relationship between sleep and physical activity would be
 bidirectional. Moderation by the other pre-registered moderators is
-reported in the appendix, and the remaining hypotheses will be addressed
+reported in Appendix D, and the remaining hypotheses will be addressed
 in future research. While testing with the development subsample we made
 three changes to the protocol. We modelled study as a random rather than
 a fixed effect, so that estimates would generalise beyond the included
 studies. Sensitivity analyses of fixed-effect models gave qualitatively
-similar results. We analysed each sleep metric separately, because no
-validated composite sleep indicator could be estimated from our data. We
-did not log-transform skewed variables, because back-transformed
-predictions followed extreme and implausibleexponential patterns near
-the edges of the data range. Log-scale models are reported in the
-appendix. Additionally, after running the full analysis we identified a
-mistake in the BMI variable and in the imputation model, which we
-corrected and reran the analysis. After data contributor review of the
-initial results, we separated within- and between-person associations,
-which the protocol did not specify, and realigned the sleep regularity
-index in RQ3 models. The pre-registered models, which combine within-
-and between-person associations, are reported in the appendix.
+similar results (Appendix C1). We analysed each sleep metric separately,
+because no validated composite sleep indicator could be estimated from
+our data. We did not log-transform skewed variables, because
+back-transformed predictions followed extreme and implausibleexponential
+patterns near the edges of the data range. Log-scale models are reported
+in Appendix C2. Additionally, after running the full analysis we
+identified a mistake in the BMI variable and in the imputation model,
+which we corrected and reran the analysis. After data contributor review
+of the initial results, we separated within- and between-person
+associations, which the protocol did not specify, and realigned the
+sleep regularity index in RQ3 models. The pre-registered models, which
+combine within- and between-person associations, are reported in
+Appendix C5.
 
 ## Role of the funding source
 
@@ -381,7 +467,7 @@ with insufficient wear time, which removed 1,175 participants entirely,
 and a further 413 participants (619 days) with fewer than 4 valid days,
 leaving 27,236 participants and 167,994 person-days
 (<a href="#tbl-demo-participants" class="quarto-xref">Table 1</a>; study
-characteristics are in the appendix). Participants were aged 2 to 94
+characteristics are in Appendix B1). Participants were aged 2 to 94
 years and 50.3% were female. Most came from Europe and South America,
 followed by Oceania, and the sample skewed towards younger children
 (2-11 years, 50.9%) and older adults (66+ years, 22.3%).
@@ -1069,7 +1155,7 @@ sleep efficiency were small, positive at age 11 ($\beta$ = 0.03 \[0.03,
 Between people, habitually more active participants slept longer at age
 11 ($\beta$ = 0.17 \[0.14, 0.19\]) but slightly less at age 65 ($\beta$
 = -0.05 \[-0.08, -0.02\]), so the weakening with age of the association
-with sleep duration in the pre-registered models (appendix) reflected
+with sleep duration in the pre-registered models (Appendix C5) reflected
 differences between people. Curvilinear terms were statistically
 significant but did not meaningfully change these associations.
 
@@ -1081,9 +1167,9 @@ associated with the night’s sleep regularity index at least as strongly
 as same-day activity ($\beta$ = 0.23 \[0.22, 0.25\] *vs* 0.19 \[0.18,
 0.20\]), whereas next-day associations with sleep duration (0.03 \[0.03,
 0.04\] *vs* 0.10 \[0.09, 0.11\]) and onset (-0.02 \[-0.03, -0.02\] *vs*
--0.10 \[-0.11, -0.09\]) were much smaller (appendix). Days of unusually
-low and unusually high activity were both associated with lower
-regularity
+-0.10 \[-0.11, -0.09\]) were much smaller (Appendix C8). Days of
+unusually low and unusually high activity were both associated with
+lower regularity
 (<a href="#fig-sleep-by-volume" class="quarto-xref">Figure 1</a>), so
 the within-person association with the index cannot be attributed to
 sleep.
@@ -1450,13 +1536,13 @@ and 0.04 \[0.03, 0.05\] at age 65) and earlier sleep onset ($\beta$ =
 -0.09 \[-0.10, -0.08\] and -0.08 \[-0.09, -0.08\];
 <a href="#fig-sleep-by-intensity" class="quarto-xref">Figure 2</a>).
 
-Minutes of MVPA showed a different pattern for sleep timing (appendix).
-Thirty minutes more MVPA than usual was associated with sleep onset 5
-min later at age 11 ($\beta$ = 0.04 \[0.04, 0.05\]) and 4 min later at
+Minutes of MVPA showed a different pattern for sleep timing (Appendix
+C7). Thirty minutes more MVPA than usual was associated with sleep onset
+5 min later at age 11 ($\beta$ = 0.04 \[0.04, 0.05\]) and 4 min later at
 age 65 ($\beta$ = 0.04 \[0.03, 0.04\]), and with sleep 1.8 min longer at
 age 11 but 3.0 min shorter at age 65. Adjusting for the previous day’s
 outcome in cross-lagged models changed the within-person estimates
-little (appendix).
+little (Appendix C6).
 
 <div id="fig-sleep-by-intensity">
 
@@ -1489,7 +1575,7 @@ those with habitually more regular sleep were more active ($\beta$ =
 0.16 \[0.15, 0.18\] at age 11 and 0.18 \[0.16, 0.20\] at age 65). For
 MVPA, a 1 SD earlier sleep onset than usual was followed by 3.2 min more
 MVPA the next day at age 11 and 6.0 min more at age 65, and 1 SD longer
-sleep by 1.0 min and 3.6 min less, respectively (appendix).
+sleep by 1.0 min and 3.6 min less, respectively (Appendix C7).
 
 <div class="landscape">
 
@@ -2055,8 +2141,8 @@ analysis and code, and all decisions were made by the authors.
 </span><span class="csl-right-inline">Huang B-H, Duncan MJ, Cistulli PA,
 Nassar N, Hamer M, Stamatakis E. [Sleep and physical activity in
 relation to all-cause, cardiovascular disease and cancer mortality
-risk](https://doi.org/10.1136/bjsports-2021-104046). *Br J Sports Med*
-2022; **56**: 718–24.</span>
+risk](https://doi.org/10.1136/bjsports-2021-104046). *British Journal of
+Sports Medicine* 2022; **56**: 718–24.</span>
 
 </div>
 
@@ -2066,8 +2152,8 @@ risk](https://doi.org/10.1136/bjsports-2021-104046). *Br J Sports Med*
 D-R, Li Z-X, Li M-H, *et al.* [Regular sleep patterns, not just
 duration, critical for mental health: Association of
 accelerometer-derived sleep regularity with incident depression and
-anxiety](https://doi.org/10.1017/S0033291725101281). *Psychol Med* 2025;
-**55**: e239.</span>
+anxiety](https://doi.org/10.1017/S0033291725101281). *Psychological
+Medicine* 2025; **55**: e239.</span>
 
 </div>
 
@@ -2077,8 +2163,8 @@ anxiety](https://doi.org/10.1017/S0033291725101281). *Psychol Med* 2025;
 </span><span class="csl-right-inline">Gariepy G, Danna S, Gobiņa I, *et
 al.* [How Are Adolescents Sleeping? Adolescent Sleep Patterns and
 Sociodemographic Differences in 24 European and North American
-Countries](https://doi.org/10.1016/j.jadohealth.2020.03.013). *J Adolesc
-Health* 2020; **66**: S81–8.</span>
+Countries](https://doi.org/10.1016/j.jadohealth.2020.03.013). *Journal
+of Adolescent Health* 2020; **66**: S81–8.</span>
 
 </div>
 
@@ -2097,7 +2183,7 @@ DOI:[10.15620/cdc/252438](https://doi.org/10.15620/cdc/252438).</span>
 <span class="csl-left-margin">5
 </span><span class="csl-right-inline">Lim DC, Najafi A, Afifi L, *et
 al.* [The need to promote sleep health in public health agendas across
-the globe](https://doi.org/10.1016/S2468-2667(23)00182-2). *Lancet
+the globe](https://doi.org/10.1016/S2468-2667(23)00182-2). *The Lancet
 Public Health* 2023; **8**: e820–6.</span>
 
 </div>
@@ -2108,8 +2194,8 @@ Public Health* 2023; **8**: e820–6.</span>
 </span><span class="csl-right-inline">Kline CE, Hillman CH, Bloodgood
 Sheppard B, *et al.* [Physical activity and sleep: An updated umbrella
 review of the 2018 Physical Activity Guidelines Advisory Committee
-report](https://doi.org/10.1016/j.smrv.2021.101489). *Sleep Med Rev*
-2021; **58**: 101489.</span>
+report](https://doi.org/10.1016/j.smrv.2021.101489). *Sleep Medicine
+Reviews* 2021; **58**: 101489.</span>
 
 </div>
 
@@ -2118,8 +2204,8 @@ report](https://doi.org/10.1016/j.smrv.2021.101489). *Sleep Med Rev*
 <span class="csl-left-margin">7
 </span><span class="csl-right-inline">Kredlow MA, Capozzoli MC, Hearon
 BA, Calkins AW, Otto MW. [The effects of physical activity on sleep: A
-meta-analytic review](https://doi.org/10.1007/s10865-015-9617-6). *J
-Behav Med* 2015; **38**: 427–49.</span>
+meta-analytic review](https://doi.org/10.1007/s10865-015-9617-6).
+*Journal of Behavioral Medicine* 2015; **38**: 427–49.</span>
 
 </div>
 
@@ -2130,7 +2216,7 @@ class="csl-entry">
 </span><span class="csl-right-inline">Liang Z, Zhao S, Tian S, *et al.*
 [Determinants and interrelations of exercise effects on sleep quality: A
 multimethod meta-analysis](https://doi.org/10.1016/j.smrv.2026.102239).
-*Sleep Med Rev* 2026; **86**: 102239.</span>
+*Sleep Medicine Reviews* 2026; **86**: 102239.</span>
 
 </div>
 
@@ -2140,7 +2226,7 @@ multimethod meta-analysis](https://doi.org/10.1016/j.smrv.2026.102239).
 </span><span class="csl-right-inline">Bull FC, Al-Ansari SS, Biddle S,
 *et al.* [World Health Organization 2020 guidelines on physical activity
 and sedentary behaviour](https://doi.org/10.1136/bjsports-2020-102955).
-*Br J Sports Med* 2020; **54**: 1451–62.</span>
+*British Journal of Sports Medicine* 2020; **54**: 1451–62.</span>
 
 </div>
 
@@ -2150,8 +2236,8 @@ and sedentary behaviour](https://doi.org/10.1136/bjsports-2020-102955).
 </span><span class="csl-right-inline"><span class="nocase">Antczak D,
 Lonsdale C, Lee J, *et al.*</span> [Physical activity and sleep are
 inconsistently related in healthy children: A systematic review and
-meta-analysis](https://doi.org/10.1016/j.smrv.2020.101278). *Sleep Med
-Rev* 2020; **51**: 101278.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2020.101278). *Sleep
+Medicine Reviews* 2020; **51**: 101278.</span>
 
 </div>
 
@@ -2162,8 +2248,8 @@ Rev* 2020; **51**: 101278.</span>
 Holsboer-Trachsler E, Pühse U, Gerber M. [The relationship between
 physical activity and sleep from mid adolescence to early adulthood. A
 systematic review of methodological approaches and
-meta-analysis](https://doi.org/10.1016/j.smrv.2015.07.004). *Sleep Med
-Rev* 2016; **28**: 32–45.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2015.07.004). *Sleep
+Medicine Reviews* 2016; **28**: 32–45.</span>
 
 </div>
 
@@ -2173,8 +2259,8 @@ Rev* 2016; **28**: 32–45.</span>
 </span><span class="csl-right-inline">Song H, Jiang X, Li Y, *et al.*
 [Effects of physical activity on sleep in children and adolescents: A
 systematic review and meta-analysis of randomised controlled
-trials](https://doi.org/10.1007/s00787-025-02892-6). *Eur Child Adolesc
-Psychiatry* 2026; **35**: 397–411.</span>
+trials](https://doi.org/10.1007/s00787-025-02892-6). *European Child &
+Adolescent Psychiatry* 2026; **35**: 397–411.</span>
 
 </div>
 
@@ -2183,8 +2269,8 @@ Psychiatry* 2026; **35**: 397–411.</span>
 <span class="csl-left-margin">13
 </span><span class="csl-right-inline">Riley RD, Dias S, Donegan S, *et
 al.* [Using individual participant data to improve network meta-analysis
-projects](https://doi.org/10.1136/bmjebm-2022-111931). *BMJ Evid-Based
-Med* 2023; **28**: 197–203.</span>
+projects](https://doi.org/10.1136/bmjebm-2022-111931). *BMJ
+Evidence-Based Medicine* 2023; **28**: 197–203.</span>
 
 </div>
 
@@ -2194,8 +2280,8 @@ Med* 2023; **28**: 197–203.</span>
 </span><span class="csl-right-inline">Atoui S, Chevance G, Romain A-J,
 Kingsbury C, Lachance J-P, Bernard P. [Daily associations between sleep
 and physical activity: A systematic review and
-meta-analysis](https://doi.org/10.1016/j.smrv.2021.101426). *Sleep Med
-Rev* 2021; **57**: 101426.</span>
+meta-analysis](https://doi.org/10.1016/j.smrv.2021.101426). *Sleep
+Medicine Reviews* 2021; **57**: 101426.</span>
 
 </div>
 
@@ -2206,7 +2292,7 @@ Rev* 2021; **57**: 101426.</span>
 Wong SH-S. [Relationships of physical activity and sedentary behaviour
 with the previous and subsequent nights’ sleep in children and youth: A
 systematic review and meta-analysis](https://doi.org/10.1111/jsr.13378).
-*J Sleep Res* 2021; **30**: e13378.</span>
+*Journal of Sleep Research* 2021; **30**: e13378.</span>
 
 </div>
 
@@ -2217,8 +2303,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Fitton J, Nguyen DP, Lechat B, *et
 al.* [Bidirectional associations between sleep and physical activity
 investigated using large-scale objective monitoring
-data](https://doi.org/10.1038/s43856-025-01226-6). *Commun Med* 2025;
-**5**: 519.</span>
+data](https://doi.org/10.1038/s43856-025-01226-6). *Communications
+Medicine* 2025; **5**: 519.</span>
 
 </div>
 
@@ -2228,8 +2314,8 @@ data](https://doi.org/10.1038/s43856-025-01226-6). *Commun Med* 2025;
 </span><span class="csl-right-inline">Leota J, Czeisler MÉ, Le F, *et
 al.* [Sleep duration and timing are associated with next-day physical
 activity: Insights from two large-scale wearable sensor
-studies](https://doi.org/10.1073/pnas.2420846122). *Proc Natl Acad Sci*
-2025; **122**: e2420846122.</span>
+studies](https://doi.org/10.1073/pnas.2420846122). *Proceedings of the
+National Academy of Sciences* 2025; **122**: e2420846122.</span>
 
 </div>
 
@@ -2238,8 +2324,8 @@ studies](https://doi.org/10.1073/pnas.2420846122). *Proc Natl Acad Sci*
 <span class="csl-left-margin">18
 </span><span class="csl-right-inline">Korkutata A, Korkutata M, Lazarus
 M. [The impact of exercise on sleep and sleep
-disorders](https://doi.org/10.1038/s44323-024-00018-w). *Npj Biol Timing
-Sleep* 2025; **2**: 5.</span>
+disorders](https://doi.org/10.1038/s44323-024-00018-w). *npj Biological
+Timing and Sleep* 2025; **2**: 5.</span>
 
 </div>
 
@@ -2250,8 +2336,8 @@ Sleep* 2025; **2**: 5.</span>
 Sabia S, Van Hees VT. [GGIR: A Research Community–Driven Open Source R
 Package for Generating Physical Activity and Sleep Outcomes From
 Multi-Day Raw Accelerometer
-Data](https://doi.org/10.1123/jmpb.2018-0063). *J Meas Phys Behav* 2019;
-**2**: 188–96.</span>
+Data](https://doi.org/10.1123/jmpb.2018-0063). *Journal for the
+Measurement of Physical Behaviour* 2019; **2**: 188–96.</span>
 
 </div>
 
@@ -2260,7 +2346,7 @@ Data](https://doi.org/10.1123/jmpb.2018-0063). *J Meas Phys Behav* 2019;
 <span class="csl-left-margin">20
 </span><span class="csl-right-inline">Van Hees VT, Sabia S, Jones SE,
 *et al.* Estimating sleep parameters using an accelerometer without
-sleep diary. *Sci Rep* 2018; **8**.
+sleep diary. *Scientific Reports* 2018; **8**.
 DOI:[10.1038/s41598-018-31266-z](https://doi.org/10.1038/s41598-018-31266-z).</span>
 
 </div>
@@ -2271,8 +2357,7 @@ class="csl-entry">
 <span class="csl-left-margin">21
 </span><span class="csl-right-inline">Sanders T.
 <span class="nocase">sleepIPD</span>: Opinionated accelerometer
-reprocessing for the SleepIPD study. 2023.
-<https://motivation-and-behaviour.github.io/sleepIPD>.</span>
+reprocessing for the SleepIPD study. 2023.</span>
 
 </div>
 
@@ -2306,8 +2391,8 @@ class="csl-entry">
 </span><span class="csl-right-inline">Rowlands AV. [Moving Forward With
 Accelerometer-Assessed Physical Activity: Two Strategies to Ensure
 Meaningful, Interpretable, and Comparable
-Measures](https://doi.org/10.1123/pes.2018-0201). *Pediatr Exerc Sci*
-2018; **30**: 450–6.</span>
+Measures](https://doi.org/10.1123/pes.2018-0201). *Pediatric Exercise
+Science* 2018; **30**: 450–6.</span>
 
 </div>
 
@@ -2317,8 +2402,8 @@ class="csl-entry">
 <span class="csl-left-margin">25
 </span><span class="csl-right-inline">Leota J, Presby DM, Le F, *et al.*
 [Dose-response relationship between evening exercise and
-sleep](https://doi.org/10.1038/s41467-025-58271-x). *Nat Commun* 2025;
-**16**: 3297.</span>
+sleep](https://doi.org/10.1038/s41467-025-58271-x). *Nature
+Communications* 2025; **16**: 3297.</span>
 
 </div>
 
@@ -2351,8 +2436,8 @@ zsad253.</span>
 </span><span class="csl-right-inline">Chaput J-P, Biswas RK, Ahmadi M,
 *et al.* [Sleep regularity and major adverse cardiovascular events: A
 device-based prospective study in 72 269 UK
-adults](https://doi.org/10.1136/jech-2024-222795). *J Epidemiol
-Community Health* 2025; **79**: 257–64.</span>
+adults](https://doi.org/10.1136/jech-2024-222795). *Journal of
+Epidemiology and Community Health* 2025; **79**: 257–64.</span>
 
 </div>
 
@@ -2362,8 +2447,9 @@ class="csl-entry">
 <span class="csl-left-margin">29
 </span><span class="csl-right-inline">Zisou C, Maylor BD, Acquah A, *et
 al.* Towards harmonised accelerometer-derived physical activity: A
-comparability study across wrist, thigh, and hip wear locations. *Int J
-Behav Nutr Phys Act* 2026; published online Sept.
+comparability study across wrist, thigh, and hip wear locations.
+*International Journal of Behavioral Nutrition and Physical Activity*
+2026; published online Sept.
 DOI:[10.1186/s12966-026-01975-0](https://doi.org/10.1186/s12966-026-01975-0).</span>
 
 </div>

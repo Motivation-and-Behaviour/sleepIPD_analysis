@@ -1,5 +1,5 @@
 ::: {.no-count}
-Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James H. Conigrave PhD^3^, Borja del Pozo Cruz PhD^4^, Philip Parker PhD^5^, Michael Noetel PhD^6^, Devan Antczak PhD^7^, Stuart J. Fairclough PhD^8^, Shona L. Halson PhD^2^, ***DATASET PROVIDERS TBD***^9^, Chris Lonsdale PhD^10^
+Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James H. Conigrave PhD^3^, Borja del Pozo Cruz PhD^4^, Philip Parker PhD^5^, Michael Noetel PhD^6^, Devan Antczak PhD^7^, Stuart J. Fairclough PhD^8^, Shona L. Halson PhD^2^, Rosa M. Alfonso-Rosa PhD^9^, Manuel Ávila-García PhD^10^, Verónica Cabanas-Sánchez PhD^11,12,13^, Iván Cavero-Redondo PhD^14,15^, Sophie Christensen PhD^16^, Philip J. Cooper PhD^17,18^, Rachel Curtis PhD^19^, Bruno da Costa PhD^20^, Camilla T. Damsgaard PhD^21^, Jesus del Pozo-Cruz PhD^22^, Jan Dygrýn PhD^23^, Charlotte L. Edwardson PhD^24,25,26^, Aleš Gába PhD^23^, Peter Katzmarzyk PhD^27^, Angus Leahy PhD^28,29^, David R. Lubans PhD^28,29^, Carol Maher PhD^19^, Pedro Marques-Vidal PhD^30^, David Martinez-Gomez PhD^11,12,13^, Kim Meredith-Jones PhD^31^, Emily F. Mire PhD^27^, Manasa Shanta Näsholm PhD^32^, Angélica Ochoa-Avilés PhD^33^, Deborah Parra-Medina PhD^34^, Alex Rowlands PhD^19,24,25,26^, Séverine Sabia PhD^35^, Kelly Samara Silva PhD^36^, Sari Stenholm PhD^37,38,39^, Kristin Suorsa PhD^37,38^, Emilio Villa-González PhD^40^, Andrea Wendt PhD^41^, Zenong Yin PhD^42^, Chris Lonsdale PhD^43^
 
 ^1^Institute for Positive Psychology and Education, Australian Catholic University, North Sydney, Australia\
 ^2^School of Behavioural and Health Science, Australian Catholic University, Strathfield, Australia\
@@ -9,8 +9,41 @@ Taren Sanders PhD^1^, Timothy Hartwig PhD^2^, James H. Conigrave PhD^3^, Borja d
 ^6^School of Psychology, The University of Queensland, Brisbane, Australia\
 ^7^School of Education, University of Wollongong, Wollongong, Australia\
 ^8^Department of Sport and Physical Activity, Edge Hill University, Ormskirk, United Kingdom\
-^9^***TBD***\
-^10^Office of the Provost, Australian Catholic University, North Sydney, Australia
+^9^Departamento de Motricidad Humana y Rendimiento Deportivo, Universidad de Sevilla, Seville, Spain\
+^10^Inmaculada Teacher Training Centre, University of Granada, Granada, Spain\
+^11^Department of Preventive Medicine and Public Health, School of Medicine, Universidad Autónoma de Madrid, Madrid, Spain\
+^12^CIBER of Epidemiology and Public Health, Madrid, Spain\
+^13^IMDEA-Nutrition Institute, CEI UAM+CSIC, Madrid, Spain\
+^14^CarVasCare Research Group, Instituto de Biomedicina y Facultad de Enfermería de Cuenca, Universidad de Castilla-La Mancha, Cuenca, Spain\
+^15^Instituto de Investigación Sanitaria de Castilla-La Mancha (IDISCAM), Toledo, Spain\
+^16^Department of Infectious Diseases, Copenhagen University Hospital – Rigshospitalet, Copenhagen, Denmark\
+^17^School of Health and Medical Sciences, City St George's, University of London, London, UK\
+^18^Escuela de Medicina, Universidad Internacional del Ecuador, Quito, Ecuador\
+^19^Alliance for Research in Exercise, Nutrition and Activity, School of Allied Health and Human Performance, Adelaide University, Adelaide, SA, Australia\
+^20^Department of Kinesiology and Physical Education, McGill University, Montreal, Canada\
+^21^Department of Nutrition, Exercise and Sports, Faculty of Science, University of Copenhagen, Frederiksberg, Denmark\
+^22^Departamento de Educación Física y Deporte, Universidad de Sevilla, Seville, Spain\
+^23^Palacký University Olomouc, Olomouc, Czechia\
+^24^Diabetes Research Centre, University of Leicester, Leicester, UK\
+^25^Leicester Diabetes Centre, University Hospitals of Leicester NHS Trust, Leicester, UK\
+^26^National Institute for Health and Care Research (NIHR) Leicester Biomedical Research Centre, University Hospitals of Leicester NHS Trust and the University of Leicester, Leicester, UK\
+^27^Pennington Biomedical Research Center, Louisiana State University, Baton Rouge, LA, USA\
+^28^Global Sport and Movement Collaborative, College of Human and Social Futures, University of Newcastle, Callaghan, New South Wales, Australia\
+^29^Hunter Medical Research Institute, New Lambton Heights, New South Wales, Australia\
+^30^Department of Medicine, Internal Medicine, Lausanne University Hospital (CHUV) and University of Lausanne, Lausanne, Switzerland\
+^31^Department of Medicine, University of Otago, Dunedin, New Zealand\
+^32^Karolinska Institutet, Stockholm, Sweden\
+^33^Departamento de Biociencias, Universidad de Cuenca, Cuenca, Ecuador\
+^34^Center to Advance Community Health, University of Colorado Anschutz Medical Campus, Aurora, Colorado, USA\
+^35^Université Paris Cité, Inserm U1153, Epidemiology of Ageing and Neurodegenerative diseases (EpiAgeing), Paris, France\
+^36^Federal University of Santa Catarina, Florianopolis, Brazil\
+^37^Department of Public Health, University of Turku and Turku University Hospital, Turku, Finland\
+^38^Centre for Population Health Research, University of Turku and Turku University Hospital, Turku, Finland\
+^39^Research Services, Turku University Hospital and University of Turku, Turku, Finland\
+^40^Sport and Health University Research Institute (iMUDS), University of Granada, Granada, Spain\
+^41^Pontifícia Universidade Católica do Paraná, Curitiba, Brazil\
+^42^University of Texas at San Antonio, San Antonio, Texas, USA\
+^43^Office of the Provost, Australian Catholic University, North Sydney, Australia
 
 Correspondence to: Taren Sanders, 33 Berry St, North Sydney, NSW, Australia; Taren.Sanders@acu.edu.au, +61 2 9701 4704
 

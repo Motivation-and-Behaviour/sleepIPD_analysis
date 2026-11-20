@@ -11,6 +11,8 @@ format:
     papersize: a4
     include-in-header:
       - file: typst-tables.typ
+    filters:
+      - filters/typst-citations.lua
 knitr:
   opts_chunk:
     out.width: "100%"
@@ -25,9 +27,9 @@ tar_load(multiverse_file)
 tar_load(ms_info)
 ```
 
-# Methods
+# Appendix A: Additional methods
 
-## Data screening
+## A1 Data screening
 
 We screened all data for implausibly low or high measurements, as these likely indicate measurement device failures.
 Screening had four stages.
@@ -38,7 +40,7 @@ Third, we excluded remaining values more than 4 SD from the mean of their own st
 Fourth, for participants under 18 years, we excluded heights, weights, and body mass index values that the CDC classifies as biologically implausible for the child's age and sex against its 2000 growth reference (height-for-age z < -5 or > 4, weight-for-age z < -5 or > 8, and BMI-for-age z < -4 or > 8).
 Values excluded at any stage were treated as missing data.
 
-## MVPA cut-points
+## A2 MVPA cut-points
 
 Minutes of moderate-to-vigorous physical activity (MVPA) were the waking minutes above the moderate cut-point.
 *sleepIPD* assigned cut-points by each study's age group, device, and wear location (@tbl-mvpa-cutpoints), from Hildebrand and colleagues (2014) for moderate and vigorous activity and from Hurter and colleagues (2018) or Hildebrand and colleagues (2016) for light activity.
@@ -55,7 +57,7 @@ Because cut-points were assigned by study, one ActiGraph study and one Axivity s
 
 : Physical activity cut-points applied by *GGIR*, by age group, device, and wear location {#tbl-mvpa-cutpoints}
 
-## Protocol deviations
+## A3 Protocol deviations
 
 We made the following changes to our protocol while working with the holdout data.
 
@@ -65,7 +67,7 @@ We initially planned to use Study ID as a fixed effect, given that our study sel
 But, as we aimed for our findings to generalise to other studies and populations, we instead opted to include random intercepts for Study ID which can better model generalisable patterns.
 This approach allows us to account for variability between studies without fully partialling out study effects, thereby better modelling common phenomena.
 While this change lessened the strength of model intercepts, it did not significantly alter model slopes.
-The results using Study ID as a fixed effect (i.e., those that align with the protocol) are in the Fixed Effect Model section below and are qualitatively similar to the main results.
+The results using Study ID as a fixed effect (i.e., those that align with the protocol) are in Appendix C1 and are qualitatively similar to the main results.
 
 ### Sleep indicator variable
 
@@ -80,18 +82,18 @@ Consequently, our models illustrate the relationship between each aspect of slee
 We aimed to improve model diagnostics using log transformations of skewed variables.
 Pilot analysis using holdout data revealed that while diagnostics improved on the log scale, model predictions followed extreme exponential patterns near the edge of the data range when back-transformed.
 Accordingly, we do not use log transformations in the main paper.
-These models are in the Log Transforming PA Volume section below.
+These models are in Appendix C2.
 
 ### Changes after co-author review
 
 The protocol did not specify how to treat day-level predictors.
 After the full analysis, we split each predictor into the participant's mean and that day's deviation from it, so that day-to-day (within-person) associations are not confounded by stable differences between people.
-The pre-registered models, which combine the two, are in the Pre-registered Model Without the Within–Between Split section below.
+The pre-registered models, which combine the two, are in Appendix C5.
 We also added minutes of MVPA as a secondary exposure, and, because *GGIR*'s sleep regularity index for a day spans that day and the next, we used the index for the two preceding days in models of next-day activity.
 
-# Results
+# Appendix B: Study characteristics and model diagnostics
 
-## Study characteristics
+## B1 Study characteristics
 
 Table [-@tbl-study-table] describes each study in the primary analytic sample, and Table [-@tbl-ses-table] shows how each study's measure of socioeconomic status was harmonised.
 
@@ -102,7 +104,8 @@ Weekends and Fridays were over-represented (Saturday: z = `{r} ms_info$weekday$s
 ```{r}
 #| label: tbl-study-table
 #| tbl-cap: "Characteristics of the included studies (primary analytic sample)"
-tinytable::tt(tar_read(study_table))
+study_table <- tar_read(study_table)
+tinytable::tt(study_table, width = ifelse(names(study_table) == "Reference", 4, 1))
 ```
 :::
 
@@ -112,7 +115,7 @@ tinytable::tt(tar_read(study_table))
 tinytable::tt(tar_read(ses_table))
 ```
 
-## Model diagnostics
+## B2 Model diagnostics
 
 The model diagnostics for the main analysis, and for all models presented in this document are in Table [-@tbl-model-diagnostics]
 
@@ -128,7 +131,9 @@ tinytable::tt(
   tinytable::group_tt(i = d$group)
 ```
 
-## Fixed Effect Model
+# Appendix C: Sensitivity and secondary analyses
+
+## C1 Fixed Effect Model
 
 ```{r}
 tar_load(model_tables_by_age_fixedef)
@@ -231,7 +236,7 @@ Results, controlling for SES, sex, BMI z-score, and the fixed effects of study I
 knitr::include_graphics(here::here(purdy_pictures_by_age_fixedef$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## Log Transforming PA Volume
+## C2 Log Transforming PA Volume
 
 ```{r}
 tar_load(model_tables_by_age_log)
@@ -325,7 +330,7 @@ Results, controlling for SES, sex, and BMI z-score are presented in Table [-@tbl
 knitr::include_graphics(here::here(purdy_pictures_by_age_log$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## All Eligible Participants Regardless of Valid Wear Days
+## C3 All Eligible Participants Regardless of Valid Wear Days
 
 ```{r}
 tar_load(model_tables_by_age_allwear)
@@ -399,7 +404,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep
 knitr::include_graphics(here::here(purdy_pictures_by_age_allwear$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## Participants With at Least Seven Valid Days
+## C4 Participants With at Least Seven Valid Days
 
 ```{r}
 tar_load(model_tables_by_age_7days)
@@ -472,7 +477,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_o
 knitr::include_graphics(here::here(purdy_pictures_by_age_7days$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## Pre-registered Model Without the Within–Between Split
+## C5 Pre-registered Model Without the Within–Between Split
 
 ```{r}
 tar_load(model_tables_by_age_blended)
@@ -507,7 +512,7 @@ tinytable::tt(
 ```
 :::
 
-## Cross-lagged Model
+## C6 Cross-lagged Model
 
 ```{r}
 tar_load(model_tables_by_age_clpm)
@@ -542,7 +547,7 @@ tinytable::tt(
 ```
 :::
 
-## Minutes of Moderate-to-Vigorous Physical Activity
+## C7 Minutes of Moderate-to-Vigorous Physical Activity
 
 ```{r}
 tar_load(model_tables_by_age_mvpa)
@@ -608,7 +613,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_on
 knitr::include_graphics(here::here(purdy_pictures_by_age_mvpa$predictor_sleep_regularity_lag), error = FALSE)
 ```
 
-## Negative Control for Sleep Regularity
+## C8 Negative Control for Sleep Regularity
 
 *GGIR*'s sleep regularity index for a day compares that calendar day with the next, and counts daytime as well as night-time rest.
 To check whether this couples it to physical activity, we predicted each sleep outcome from within-person physical activity volume on the previous day, the same day, and the next day, adjusting for the person mean, SES, age, sex, and BMI z-score (@tbl-negative-control).
@@ -631,12 +636,12 @@ names(nc)[names(nc) == "b [95\\% CI]"] <- "β [95% CI]"
 tinytable::tt(nc[, c("Outcome", "Activity", "β [95% CI]", "p")])
 ```
 
-# Moderation
+# Appendix D: Moderation analyses
 
 In the following section we present models for a range of moderators which were pre-defined in our protocol.
 {{< pagebreak >}}
 
-## BMI z-score
+## D1 BMI z-score
 
 ```{r}
 tar_load(model_tables_by_bmi)
@@ -740,7 +745,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_bmi$predictor_sleep_regular
 ```
 {{< pagebreak >}}
 
-## SES
+## D2 SES
 
 ```{r}
 tar_load(model_tables_by_ses)
@@ -844,7 +849,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_ses$predictor_sleep_regular
 ```
 {{< pagebreak >}}
 
-## sex
+## D3 sex
 
 ```{r}
 tar_load(model_tables_by_sex)
@@ -948,7 +953,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_sex$predictor_sleep_regular
 ```
 {{< pagebreak >}}
 
-## weekday
+## D4 weekday
 
 ```{r}
 tar_load(model_tables_by_weekday)
@@ -1052,7 +1057,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_weekday$predictor_sleep_reg
 ```
 {{< pagebreak >}}
 
-## season
+## D5 season
 
 ```{r}
 tar_load(model_tables_by_season)
@@ -1156,7 +1161,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_season$predictor_sleep_regu
 ```
 {{< pagebreak >}}
 
-## region
+## D6 region
 
 ```{r}
 tar_load(model_tables_by_region)
@@ -1260,7 +1265,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_region$predictor_sleep_regu
 ```
 {{< pagebreak >}}
 
-## daylight hours
+## D7 daylight hours
 
 ```{r}
 tar_load(model_tables_by_daylight)
@@ -1364,7 +1369,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_daylight$predictor_sleep_re
 ```
 {{< pagebreak >}}
 
-## wear location
+## D8 wear location
 
 ```{r}
 tar_load(model_tables_by_wear_location)
@@ -1468,7 +1473,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_wear_location$predictor_sle
 ```
 {{< pagebreak >}}
 
-## most active hour
+## D9 most active hour
 
 ```{r}
 tar_load(model_tables_by_pa_mostactivehr)
@@ -1572,7 +1577,7 @@ knitr::include_graphics(here::here(purdy_pictures_by_pa_mostactivehr$predictor_s
 ```
 {{< pagebreak >}}
 
-## ethnicity
+## D10 ethnicity
 
 ```{r}
 tar_load(model_tables_by_ethnicity)

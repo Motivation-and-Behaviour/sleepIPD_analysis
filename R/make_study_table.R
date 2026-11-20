@@ -1,7 +1,8 @@
 #' make_study_table
 #'
 #' Table S1: one row per study in the pooled data, summarising the analytic
-#' sample. Study names and citations come from `study_references_file`.
+#' sample. Study names and citations come from `study_references_file`, whose
+#' `reference` column has bibtex keys from doc/references.bib
 make_study_table <- function(
   data_clean,
   study_references_file,
@@ -27,8 +28,11 @@ make_study_table <- function(
   }
   list_or_count <- function(x, max_listed = 3) {
     x <- sort(unique(stats::na.omit(x)))
-    if (length(x) > max_listed) paste(length(x), "countries") else
+    if (length(x) > max_listed) {
+      paste(length(x), "countries")
+    } else {
       paste(x, collapse = ", ")
+    }
   }
 
   per_participant <- analytic[,
@@ -43,7 +47,10 @@ make_study_table <- function(
   study_rows <- analytic[,
     .(
       Country = list_or_count(country),
-      Device = paste(sort(unique(device_name(accelerometer_model))), collapse = ", "),
+      Device = paste(
+        sort(unique(device_name(accelerometer_model))),
+        collapse = ", "
+      ),
       `Wear location` = paste(sort(unique(acc_wear_loc)), collapse = ", ")
     ),
     by = studyid
@@ -86,11 +93,17 @@ make_study_table <- function(
       if (j %in% c("study", "reference")) "" else "-"
     )
   }
+  # doc/filters/typst-citations.lua swaps each [@key] for its full reference
+  out[
+    reference != "",
+    reference := sprintf("[@%s]", gsub("\\s*;\\s*", "; @", reference))
+  ]
   data.table::setnames(
     out,
     c("studyid", "study", "reference"),
     c("Study ID", "Study", "Reference")
   )
+  data.table::setcolorder(out, setdiff(names(out), "Reference"))
   out[]
 }
 
