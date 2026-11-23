@@ -123,8 +123,9 @@ display_names <- function(x) {
 
   out <- gsub("(scale_|log_)", "", x) |>
     gsub("_", " ", x = _) |>
-    gsub("pa", "physical activity", x = _) |>
-    stringr::str_to_sentence()
+    gsub("\\bpa\\b", "physical activity", x = _) |>
+    stringr::str_to_sentence() |>
+    gsub("Physical activity mvpa", "MVPA", x = _)
 
   out[is_scale] <- paste(out[is_scale], "(z)")
   out[is_log] <- paste(out[is_log], "(ln)")

@@ -35,6 +35,9 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
       -dplyr::ends_with("_lag")
     )
 
+  mvpa <- imp_data$pa_mvpa
+  imp_data$pa_mvpa <- NULL
+
   # Empty imputation to change defaults:
   m0 <- mice(imp_data, maxit = 0)
 
@@ -238,12 +241,14 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
       "pa_volume",
       "pa_intensity",
       "pa_intensity_m16",
+      "pa_mvpa",
       paste0(sleep_vars, "_lag")
     )
 
   scale_names <- paste0("scale_", variables_to_scale)
 
   imp_long <- complete(imp, action = "long", include = TRUE)
+  imp_long$pa_mvpa <- rep(mvpa, imp$m + 1)
 
   # Derive the lags from the completed data, one imputation at a time, so that
   # sleep_x_lag on day t is sleep_x on day t-1 in the same imputation.
@@ -291,6 +296,21 @@ make_data_imp <- function(data, n_imps = 3, adult_ref = NULL) {
         stats::sd(x[imputed_rows], na.rm = TRUE)
     )
   }
+
+  # Person mean of observed days
+  # Taken from .imp 0 so they don't vary across imputations.
+  by_day <- c(".imp", "participant_id")
+  for (v in paste0("scale_", c("pa_volume", "pa_intensity", "pa_mvpa", sleep_vars))) {
+    pm <- imp_list[.imp == 0 & !is.na(get(v)), list(pm = mean(get(v))), by = participant_id]
+    imp_list[pm, (paste0(v, "_pm")) := i.pm, on = "participant_id"]
+    wp <- paste0(v, "_wp")
+    imp_list[, (wp) := get(v) - get(paste0(v, "_pm"))]
+    # SRI row t compares calendar days t and t+1, so row t-2 is the last before day t
+    k <- if (v == "scale_sleep_regularity") 2 else 1
+    imp_list[, (paste0(wp, "_lag")) := get(wp)[match(calendar_date - k, calendar_date)], by = by_day]
+  }
+  # Next-day activity, for the negative control on sleep regularity
+  imp_list[, scale_pa_volume_wp_lead := scale_pa_volume_wp[match(calendar_date + 1, calendar_date)], by = by_day]
 
   imp_list$log_pa_volume <- log(imp_list$pa_volume)
 
